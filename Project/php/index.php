@@ -10,7 +10,7 @@ use controleur\Controleur;
 //twig
 $loader = new \Twig\Loader\FilesystemLoader('templates');
 $twig   = new \Twig\Environment($loader, [
-    'cache' => '/tmp/anrichard7/cache',
+    'cache' => false,
 ]);
 
 $cont = new Controleur();
