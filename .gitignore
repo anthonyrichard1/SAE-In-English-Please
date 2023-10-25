@@ -166,3 +166,7 @@ fabric.properties
 
 # Fichier cache
 cache/
+
+#Fichiers composer
+vendor/
+*.lock
