@@ -7,22 +7,19 @@ class Vocabulary
     protected $map = array(
         "fr" => "eng"
     );
-    protected String $nom;
+    protected String $name;
     protected String $image;
-    protected String $theme;
 
     /**
      * @param string[] $map
-     * @param String $nom
+     * @param String $name
      * @param String $image
-     * @param String $theme
      */
-    public function __construct(array $map, $nom, $image, $theme)
+    public function __construct(array $map, $name, $image)
     {
         $this->map = $map;
-        $this->nom = $nom;
+        $this->name = $name;
         $this->image = $image;
-        $this->theme = $theme;
     }
 
 
@@ -53,9 +50,9 @@ class Vocabulary
     /**
      * @return String
      */
-    public function getNom()
+    public function getName()
     {
-        return $this->nom;
+        return $this->name;
     }
 
     /**
@@ -64,14 +61,6 @@ class Vocabulary
     public function getImage()
     {
         return $this->image;
-    }
-
-    /**
-     * @return String
-     */
-    public function getTheme()
-    {
-        return $this->theme;
     }
 
     /**
@@ -85,9 +74,9 @@ class Vocabulary
     /**
      * @param String $nom
      */
-    public function setNom($nom)
+    public function setName($name)
     {
-        $this->nom = $nom;
+        $this->name = $name;
     }
 
     /**
@@ -98,16 +87,21 @@ class Vocabulary
         $this->image = $image;
     }
 
-    /**
-     * @param String $theme
-     */
-    public function setTheme($theme)
-    {
-        $this->theme = $theme;
-    }
-
-
-
 
 }
+/*
+$v = new Vocabulary(array("bonjour" =>"hello"),"test_A1","pas d'image");
 
+$res1 = $v->getMap();
+print_r($res1);
+echo "\n";
+$trad = $v->translateToEnglish("bonjour");
+echo "$trad";
+$v->addTranslation("chaise","chair");
+echo "\n";
+$res1 = $v->getMap();
+print_r($res1);
+
+$trad = $v->translateToFrench("chair");
+echo "$trad";
+*/

@@ -4,34 +4,129 @@ namespace model;
 
 class User
 {
-    protected String $id;
+    protected int $id;
     protected String $mail;
-    protected String $nom;
-    protected String $prenom;
+    protected String $name;
+    protected String $surname;
 
     /**
-     * @param String $id
-     * @param String $mail
-     * @param String $nom
-     * @param String $prenom
+     * @param int $id
+     * @param string $mail
+     * @param string $name
+     * @param string $surname
      */
-    public function __construct(string $id, string $mail, string $nom, string $prenom)
+    public function __construct(int $id, string $mail, string $name, string $surname)
     {
         $this->id = $id;
         $this->mail = $mail;
-        $this->nom = $nom;
-        $this->prenom = $prenom;
+        $this->name = $name;
+        $this->surname = $surname;
     }
 
-    protected function changeMail(String $newMail){
+    public function changeMail(String $newMail){
         $this->mail = $newMail;
     }
 
-    protected function changeNom(String $newNom){
-        $this->nom = $newNom;
+    public function changeName(String $newName){
+        $this->name = $newName;
     }
 
-    protected function changePrenom(String $newPrenom){
-        $this->prenom = $newPrenom;
+    public function changeSurname(String $newSurname){
+        $this->surname = $newSurname;
     }
+
+    /**
+     * @return int|int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string|string
+     */
+    public function getMail()
+    {
+        return $this->mail;
+    }
+
+    /**
+     * @return string|string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string|string
+     */
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    /**
+     * @param int|int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param string|string $mail
+     */
+    public function setMail($mail)
+    {
+        $this->mail = $mail;
+    }
+
+    /**
+     * @param string|string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param string|string $surname
+     */
+    public function setSurname($surname)
+    {
+        $this->surname = $surname;
+    }
+
+
+
+
+
 }
+/*
+$u = new User(1,"mail","name","surname");
+$res = $u->getMail();
+echo "$res";
+$u->changeMail("new_mail");
+$res = $u->getMail();
+echo "<br>";
+echo "$res";
+
+$res = $u->getName();
+echo "<br>";
+echo "$res";
+$u->changeName("new_name");
+$res = $u->getName();
+echo "<br>";
+echo "$res";
+
+$res = $u->getSurname();
+echo "<br>";
+echo "$res";
+$u->changeSurname("new_name");
+$res = $u->getSurname();
+echo "<br>";
+echo "$res";
+*/
+
