@@ -99,6 +99,11 @@ class User
         $this->surname = $surname;
     }
 
+    public function __toString(): string
+    {
+        return $this->id." ".$this->mail." ".$this->name." ".$this->surname;
+    }
+
 
 
 
