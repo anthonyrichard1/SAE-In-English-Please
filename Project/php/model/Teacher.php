@@ -1,5 +1,7 @@
 <?php
-namespace modeles;
+
+namespace model;
+require_once("User.php");
 
 class Teacher extends User
 {
@@ -10,15 +12,34 @@ class Teacher extends User
         $this->vocab = $vocab;
     }
 
-    public function createVocabulary($array = [], String $name_test, String $url_image):{
+    /**
+     * @return array
+     */
+    public function getVocab(): array
+    {
+        return $this->vocab;
+    }
+
+    /**
+     * @param array $vocab
+     */
+    public function setVocab(array $vocab): void
+    {
+        $this->vocab = $vocab;
+    }
+
+    /*
+    public function createVocabulary($array = [], String $name_test, String $url_image){
         $a = new Vocabulary($array,$name_test,$url_image);
-        $vocab[] = $a;
+        $this->vocab[] = $a;
         return $a;
     }
 
-    protected function modifyVocabulary(){
-
+    protected function deleteVocabulary(Vocabulary $a){
+        foreach($this->vocab as $r){
+            if($r == $a) unset($this->vocab[$r]);
+        }
     }
-
+    */
 
 }

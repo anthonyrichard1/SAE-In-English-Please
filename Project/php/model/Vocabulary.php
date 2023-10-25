@@ -22,7 +22,7 @@ class Vocabulary
         $this->image = $image;
     }
 
-
+/*
     public function translateToEnglish($fr) {
         return isset($this->map[$fr]) ? $this->map[$fr] : $fr;
     }
@@ -38,6 +38,7 @@ class Vocabulary
     public function addTranslation($fr, $eng) {
         $this->map[$fr] = $eng;
     }
+*/
 
     /**
      * @return string[]

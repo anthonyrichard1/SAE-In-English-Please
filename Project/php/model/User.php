@@ -22,7 +22,7 @@ class User
         $this->name = $name;
         $this->surname = $surname;
     }
-
+/*
     public function changeMail(String $newMail){
         $this->mail = $newMail;
     }
@@ -34,7 +34,7 @@ class User
     public function changeSurname(String $newSurname){
         $this->surname = $newSurname;
     }
-
+*/
     /**
      * @return int|int
      */
