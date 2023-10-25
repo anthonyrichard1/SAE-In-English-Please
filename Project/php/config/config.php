@@ -9,6 +9,6 @@ $rep = __DIR__ . '/../';
 
 //BD
 
-$base  = 'sasa';
-$login = '';
-$mdp   = '';
+$dsn = 'mysql:host=localhost;dbname=dbanrichard7';
+$login = 'anrichard7';
+$password  = 'achanger';
