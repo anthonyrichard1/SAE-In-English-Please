@@ -6,32 +6,32 @@ class User
 {
     protected String $id;
     protected String $mail;
-    protected String $nom;
-    protected String $prenom;
+    protected String $name;
+    protected String $surname;
 
     /**
      * @param String $id
      * @param String $mail
-     * @param String $nom
-     * @param String $prenom
+     * @param String $name
+     * @param String $surname
      */
-    public function __construct(string $id, string $mail, string $nom, string $prenom)
+    public function __construct(string $id, string $mail, string $name, string $surname)
     {
         $this->id = $id;
         $this->mail = $mail;
-        $this->nom = $nom;
-        $this->prenom = $prenom;
+        $this->name = $name;
+        $this->surname = $surname;
     }
 
     protected function changeMail(String $newMail){
         $this->mail = $newMail;
     }
 
-    protected function changeNom(String $newNom){
-        $this->nom = $newNom;
+    protected function changeName(String $newName){
+        $this->name = $newName;
     }
 
-    protected function changePrenom(String $newPrenom){
-        $this->prenom = $newPrenom;
+    protected function changeSurname(String $newSurname){
+        $this->surname = $newSurname;
     }
 }
