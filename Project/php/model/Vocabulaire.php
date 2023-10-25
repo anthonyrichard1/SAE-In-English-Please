@@ -1,15 +1,15 @@
 <?php
 
-namespace Vocabulary;
+namespace model;
 
 class Vocabulary
 {
-    protected frozen String $id;
+    frozen protected String $id;
     protected String $nom;
     protected Picture $picture;
-    protected frozen User $creator;
+    frozen protected User $creator;
 
-    public function __construct(string $id, string $nom, picture $picture, user $creator)
+    public function __construct(string $id, string $nom, Picture $picture, user $creator)
     {
         $this->id = $id;
         $this->nom = $nom;

@@ -6,7 +6,7 @@
     "psr-4": {
       "controleur\\": "controleur/",
       "config\\": "config/",
-      "modeles\\": "modeles/"
+      "model\\": "model/"
     }
   }
 }
