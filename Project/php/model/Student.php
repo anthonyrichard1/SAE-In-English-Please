@@ -2,8 +2,6 @@
 
 namespace model;
 
-use JetBrains\PhpStorm\Pure;
-
 class Student extends User
 {
     public string $nickname;
@@ -13,9 +11,9 @@ class Student extends User
      * @param String $nickname
      * @param bool $extraTime
      */
-    #[Pure] public function __construct(string $id, string $mail, string $nom, string $prenom, string $nickname, bool $extraTime)
+    public function __construct(string $id, string $mail, string $name, string $surname, string $nickname, bool $extraTime)
     {
-        parent::__construct($id,$mail, $nom, $prenom);
+        parent::__construct($id, $mail, $name, $surname);
         $this->nickname = $nickname;
         $this->extraTime = $extraTime;
     }
@@ -44,9 +42,9 @@ class Student extends User
         $this->nickname = $nickname;
     }
 
-
-
-
-
+    public function __toString(): string
+    {
+        return "Student : ".parent::__toString()." ".$this->nickname." ".$this->extraTime;
+    }
 
 }
