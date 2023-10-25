@@ -9,8 +9,6 @@ class Group
     private int $num;
     private int $year;
     private string $sector;
-    private array $students;
-    private array $vocabs;
 
     /**
      * @param int $id
@@ -18,7 +16,7 @@ class Group
      * @param int $year
      * @param string $sector
      */
-    public function __construct(int $id, int $num, int $year, string $sector, array $students, array $vocab)
+    public function __construct(int $id, int $num, int $year, string $sector)
     {
         $this->id = $id;
         $this->num = $num;
@@ -56,13 +54,5 @@ class Group
     public function getSector(): string
     {
         return $this->sector;
-    }
-
-    public function addUser(Users $user){
-        $this->students.add($user);
-    }
-
-    public function removeUser(Users $user){
-        $this->students . remove($user);
     }
 }
