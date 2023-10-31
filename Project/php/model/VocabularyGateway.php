@@ -80,6 +80,7 @@ class VocabularyGateway
 
 
 }
+/*
 $con = new Connection('mysql:host=localhost;dbname=project','root','');
 $g = new VocabularyGateway($con);
 print_r($g->findByName('gogo'));
@@ -101,3 +102,4 @@ $g->ModifVocabById(4,"changer","new_img",4);
 
 print_r($g->findByName('gogo'));
 print_r($g->findByName('changer'));
+*/
