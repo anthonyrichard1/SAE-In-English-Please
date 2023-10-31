@@ -6,20 +6,27 @@ class Vocabulary
 {
     protected String $name;
     protected String $image;
+    protected  int $id;
+    protected int $aut;
 
     /**
      * @param String $name
      * @param String $image
+     * @param int $id
+     * @param int $aut
      */
-    public function __construct( $name, $image)
+    public function __construct( int $id,string $name, string $image, int $aut)
     {
         $this->name = $name;
         $this->image = $image;
+        $this->id = $id;
+        $this->aut = $aut;
     }
+
 
     public function __toString(): string
     {
-        return "Vocabulaire :" . $this->name . $this->image;
+        return "Vocabulaire :" . $this->id . $this->name . $this->image . $this->aut;
     }
 
     /*
@@ -58,6 +65,18 @@ class Vocabulary
         return $this->image;
     }
 
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getAut(): int
+    {
+        return $this->aut;
+    }
+
+
+
 
     /**
      * @param String $nom
@@ -74,6 +93,17 @@ class Vocabulary
     {
         $this->image = $image;
     }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function setAut(int $aut): void
+    {
+        $this->aut = $aut;
+    }
+
 
 
 }
