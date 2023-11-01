@@ -4,134 +4,187 @@ namespace model;
 
 class User
 {
-    protected int $id;
-    protected String $mail;
-    protected String $name;
-    protected String $surname;
+    private int $id;
+    private string $password;
+    private string $email;
+    private string $name;
+    private string $surname;
+    private string $nickname;
+    private string $image;
+    private bool $extraTime;
+    private int $group;
 
     /**
      * @param int $id
-     * @param string $mail
+     * @param string $password
+     * @param string $email
      * @param string $name
      * @param string $surname
+     * @param string $nickname
+     * @param string $image
+     * @param bool $extraTime
+     * @param int $group
      */
-    public function __construct(int $id, string $mail, string $name, string $surname)
+    public function __construct(int $id, string $password, string $email, string $name, string $surname, string $nickname, string $image, bool $extraTime, int $group)
     {
         $this->id = $id;
-        $this->mail = $mail;
+        $this->password = $password;
+        $this->email = $email;
         $this->name = $name;
         $this->surname = $surname;
-    }
-/*
-    public function changeMail(String $newMail){
-        $this->mail = $newMail;
-    }
-
-    public function changeName(String $newName){
-        $this->name = $newName;
+        $this->nickname = $nickname;
+        $this->image = $image;
+        $this->extraTime = $extraTime;
+        $this->group = $group;
     }
 
-    public function changeSurname(String $newSurname){
-        $this->surname = $newSurname;
-    }
-*/
     /**
-     * @return int|int
+     * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @return string|string
+     * @param int $id
      */
-    public function getMail()
-    {
-        return $this->mail;
-    }
-
-    /**
-     * @return string|string
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return string|string
-     */
-    public function getSurname()
-    {
-        return $this->surname;
-    }
-
-    /**
-     * @param int|int $id
-     */
-    public function setId($id)
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
 
     /**
-     * @param string|string $mail
+     * @return string
      */
-    public function setMail($mail)
+    public function getPassword(): string
     {
-        $this->mail = $mail;
+        return $this->password;
     }
 
     /**
-     * @param string|string $name
+     * @param string $password
      */
-    public function setName($name)
+    public function setPassword(string $password): void
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param string $email
+     */
+    public function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
     /**
-     * @param string|string $surname
+     * @return string
      */
-    public function setSurname($surname)
+    public function getSurname(): string
+    {
+        return $this->surname;
+    }
+
+    /**
+     * @param string $surname
+     */
+    public function setSurname(string $surname): void
     {
         $this->surname = $surname;
     }
 
-    public function __toString(): string
+    /**
+     * @return string
+     */
+    public function getNickname(): string
     {
-        return $this->id." ".$this->mail." ".$this->name." ".$this->surname;
+        return $this->nickname;
     }
 
+    /**
+     * @param string $nickname
+     */
+    public function setNickname(string $nickname): void
+    {
+        $this->nickname = $nickname;
+    }
 
+    /**
+     * @return string
+     */
+    public function getImage(): string
+    {
+        return $this->image;
+    }
 
+    /**
+     * @param string $image
+     */
+    public function setImage(string $image): void
+    {
+        $this->image = $image;
+    }
 
+    /**
+     * @return bool
+     */
+    public function getExtraTime(): bool
+    {
+        return $this->extraTime;
+    }
 
+    /**
+     * @param bool $extraTime
+     */
+    public function setExtraTime(bool $extraTime): void
+    {
+        $this->extraTime = $extraTime;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGroup(): int
+    {
+        return $this->group;
+    }
+
+    /**
+     * @param int $group
+     */
+    public function setGroup(int $group): void
+    {
+        $this->group = $group;
+    }
+
+    public function __toString(): string
+    {
+        return "User : ".$this->name." ".$this->surname." ".$this->nickname;
+    }
 }
-/*
-$u = new User(1,"mail","name","surname");
-$res = $u->getMail();
-echo "$res";
-$u->changeMail("new_mail");
-$res = $u->getMail();
-echo "<br>";
-echo "$res";
-
-$res = $u->getName();
-echo "<br>";
-echo "$res";
-$u->changeName("new_name");
-$res = $u->getName();
-echo "<br>";
-echo "$res";
-
-$res = $u->getSurname();
-echo "<br>";
-echo "$res";
-$u->changeSurname("new_name");
-$res = $u->getSurname();
-echo "<br>";
-echo "$res";
-*/
 
