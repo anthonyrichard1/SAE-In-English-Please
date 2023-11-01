@@ -7,21 +7,23 @@ class Vocabulary
     protected String $name;
     protected String $image;
     protected  int $id;
-    protected int $aut;
+    protected int|null $aut;
 
     /**
      * @param String $name
      * @param String $image
      * @param int $id
-     * @param int $aut
+     * @param int|null $aut
      */
-    public function __construct( int $id,string $name, string $image, int $aut)
+    public function __construct(int $id,string $name, string $image, ?int $aut= null)
     {
         $this->name = $name;
         $this->image = $image;
         $this->id = $id;
         $this->aut = $aut;
     }
+
+
 
 
     public function __toString(): string
