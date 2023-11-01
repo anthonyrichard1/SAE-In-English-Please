@@ -5,10 +5,10 @@ use function Sodium\add;
 
 class Group
 {
-    private int $id;
-    private int $num;
-    private int $year;
-    private string $sector;
+    protected int $id;
+    protected int $num;
+    protected int $year;
+    protected string $sector;
 
     /**
      * @param int $id
@@ -55,4 +55,25 @@ class Group
     {
         return $this->sector;
     }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function setNum(int $num): void
+    {
+        $this->num = $num;
+    }
+
+    public function setYear(int $year): void
+    {
+        $this->year = $year;
+    }
+
+    public function setSector(string $sector): void
+    {
+        $this->sector = $sector;
+    }
+
 }
