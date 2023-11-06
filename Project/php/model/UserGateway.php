@@ -31,16 +31,26 @@ class UserGateway
         }
     }
 
-    public function findUserById(int $id) : array{
+    public function findUserById(int $id) : User{
         try {
             $query = "SELECT * FROM User_ WHERE id=:id";
             $args = array(':id' => array($id, PDO::PARAM_INT));
             $this->con->executeQuery($query, $args);
             $results = $this->con->getResults();
-            $tab = array();
-            foreach ($results as $row)
-                $tab[] = new User($row['id'], $row['password'], $row['email'], $row['name'], $row['surname'], $row['nickname'], $row['image'], $row['extraTime'], $row['groupID']);
-            return $tab;
+            return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID']);
+        }
+        catch(PDOException $e ){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function findUserByEmail(string $email) : User{
+        try {
+            $query = "SELECT * FROM User_ WHERE email=:email";
+            $args = array(':email' => array($email, PDO::PARAM_STR));
+            $this->con->executeQuery($query, $args);
+            $results = $this->con->getResults();
+            return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID']);
         }
         catch(PDOException $e ){
             throw new Exception($e->getMessage());
@@ -69,10 +79,20 @@ class UserGateway
             $args = array(':surname' => array($surname, PDO::PARAM_STR));
             $this->con->executeQuery($query, $args);
             $results = $this->con->getResults();
-            $tab = array();
-            foreach ($results as $row)
-                $tab[] = new User($row['id'], $row['password'], $row['email'], $row['name'], $row['surname'], $row['nickname'], $row['image'], $row['extraTime'], $row['groupID']);
-            return $tab;
+            return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID']);
+        }
+        catch(PDOException $e ){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function findUserByLoginPassword(string $login, string $password) : User{
+        try {
+            $query = "SELECT * FROM User_ WHERE email=:email AND password=:password";
+            $args = array(':email' => array($login, PDO::PARAM_STR), ':password' => array($password, PDO::PARAM_STR));
+            $this->con->executeQuery($query, $args);
+            $results = $this->con->getResults();
+            return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID']);;
         }
         catch(PDOException $e ){
             throw new Exception($e->getMessage());
