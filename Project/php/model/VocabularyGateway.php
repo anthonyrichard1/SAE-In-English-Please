@@ -3,6 +3,8 @@ namespace model;
 use config\Connection;
 require_once('../config/Connection.php');
 require_once('Vocabulary.php');
+
+use mysql_xdevapi\Exception;
 use PDO;
 class  VocabularyGateway
 {
@@ -26,7 +28,7 @@ class  VocabularyGateway
         }
 
         catch(PDOException $e ){
-            error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
+            throw new Exception('problème pour affichage de tous les vocabulaires');
         }
 
     }
@@ -48,7 +50,7 @@ class  VocabularyGateway
         }
 
         catch(PDOException $e ){
-            error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
+            throw new Exception('problème pour affichage d\'vocabulaire en fonction de son nom');
         }
 
     }
@@ -63,7 +65,7 @@ class  VocabularyGateway
             $this->con->ExecuteQuery($query,$args);
         }
         catch (\PDOException $e){
-            error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
+            throw new Exception('problème pour ajouter une liste de vocabulaire');
 
         }
 
@@ -76,7 +78,7 @@ class  VocabularyGateway
             $this->con->ExecuteQuery($query,$args);
         }
         catch (\PDOException $e){
-            error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
+            throw new Exception('problème pour supprimer les vocabulaires avec leur Id');
 
         }
 
@@ -92,7 +94,7 @@ class  VocabularyGateway
             $this->con->ExecuteQuery($query,$args);
         }
         catch (\PDOException $e){
-            error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
+            throw new Exception('problème pour modifier les vocabulaires');
 
         }
 
@@ -101,7 +103,7 @@ class  VocabularyGateway
 
 }
 /*
-$con = new Connection('mysql:host=localhost;dbname=project','root','');
+$con = new Connection('mysql:host=localhost;dbname=dbanrichard7','anrichard7','achanger');
 $g = new VocabularyGateway($con);
 var_dump($g->findByName('gogo'));
 echo "<br> avant <br>";
