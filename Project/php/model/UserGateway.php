@@ -27,8 +27,7 @@ class UserGateway
             return $tab;
         }
         catch(PDOException $e ){
-            error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
-            return array();
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -44,8 +43,7 @@ class UserGateway
             return $tab;
         }
         catch(PDOException $e ){
-            error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
-            return array();
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -61,8 +59,7 @@ class UserGateway
             return $tab;
         }
         catch(PDOException $e ){
-            error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
-            return array();
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -78,8 +75,7 @@ class UserGateway
             return $tab;
         }
         catch(PDOException $e ){
-            error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
-            return array();
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -95,8 +91,7 @@ class UserGateway
             return $tab;
         }
         catch(PDOException $e ){
-            error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
-            return array();
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -108,8 +103,7 @@ class UserGateway
             return !empty($this->con->getResults());
         }
         catch(PDOException $e ){
-            error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
-            return false;
+            throw new Exception($e->getMessage());
         }
     }
 
@@ -137,12 +131,55 @@ class UserGateway
             return $userID;
         }
         catch(PDOException $e ){
-            error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
-            return 0;
+            throw new Exception($e->getMessage());
         }
     }
 
-    public function RemoveUser(int $id) {
+    public function modifyPassword(int $id, string $newPassword) {
+        try {
+            $query="UPDATE User_ SET password=:password WHERE id=:id";
+            $args = array(':id' => array($id, PDO::PARAM_INT), ':password' => array($newPassword, PDO::PARAM_STR));
+            $this->con->executeQuery($query, $args);
+        }
+        catch(PDOException $e ){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function modifyNickname(int $id, string $newNickname) {
+        try {
+            $query="UPDATE User_ SET nickname=:nickname WHERE id=:id";
+            $args = array(':id' => array($id, PDO::PARAM_INT), ':nickname' => array($newNickname, PDO::PARAM_STR));
+            $this->con->executeQuery($query, $args);
+        }
+        catch(PDOException $e ){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function modifyImage(int $id, string $newImage) {
+        try {
+            $query="UPDATE User_ SET image=:image WHERE id=:id";
+            $args = array(':id' => array($id, PDO::PARAM_INT), ':image' => array($newImage, PDO::PARAM_STR));
+            $this->con->executeQuery($query, $args);
+        }
+        catch(PDOException $e ){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function modifyGroup(int $id, int $newGroup) {
+        try {
+            $query="UPDATE User_ SET groupID=:group WHERE id=:id";
+            $args = array(':id' => array($id, PDO::PARAM_INT), ':group' => array($newGroup, PDO::PARAM_STR));
+            $this->con->executeQuery($query, $args);
+        }
+        catch(PDOException $e ){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function removeUser(int $id) {
         try {
             $query="DELETE FROM Vocabulary WHERE creator=:id";
             $args = array(':id' => array($id, PDO::PARAM_INT));
@@ -155,7 +192,7 @@ class UserGateway
             $this->con->executeQuery($query, $args);
         }
         catch(PDOException $e ){
-                error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
+                throw new Exception($e->getMessage());
         }
     }
 }
