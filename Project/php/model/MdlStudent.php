@@ -2,24 +2,24 @@
 
 namespace model;
 use config\Connection;
-require_once('../config/Connection.php');
-require_once('Student.php');
+use http\Exception;
+use model\UserGateway;
 
 class MdlStudent
 {
+    protected UserGateway $gtw;
+
+    public function __construct($gtw){
+        $this->gtw = $gtw;
+
+    }
     public function connection($login, $mdp){
         // 1. Nettoyage des données (vous pouvez utiliser des méthodes de nettoyage spécifiques)
         $cleanedLogin = strip_tags($login);
         $cleanedPassword = strip_tags($mdp);
 
         // 2. Appel Gateway pour vérifier les identifiants dans la base de données
-        $db = new Connection('mysql:host=localhost;dbname=ma_base', 'utilisateur', 'mot_de_passe');
-        $query = $db->prepare('SELECT * FROM Student_ WHERE login = :login AND password = :password');
-        $query->bindParam(':login', $cleanedLogin, PDO::PARAM_STR);
-        $query->bindParam(':password', $cleanedPassword, PDO::PARAM_STR);
-        $query->execute();
-
-        $student = $query->fetch(PDO::FETCH_ASSOC);
+        $student = $this->gtw->findUserByLoginPassword($cleanedLogin,$cleanedPassword);
 
         if ($student) {
             // L'authentification a réussi, ajouter le rôle et le login à la session
@@ -28,7 +28,7 @@ class MdlStudent
             $_SESSION['login'] = $cleanedLogin;
             return true;
         } else {
-            // L'authentification a échoué
+            throw Exception('problème d\'authentification');
             return false;
         }
     }
@@ -45,9 +45,11 @@ class MdlStudent
             //Créer une classe nettoyer
             $login=Nettoyer::nettoyer_string($_SESSION['login']);
             $role=Nettoyer::nettoyer_string($_SESSION['role']);
-            return	new	Student($login,$role);
+            return self::$gtw->findUserByEmail($login);
         }
         else return null;
     }
 */
+
 }
+
