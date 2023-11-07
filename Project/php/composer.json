@@ -4,8 +4,9 @@
   },
   "autoload": {
     "psr-4": {
-      "controleur\\": "controleur/",
       "config\\": "config/",
+      "controller\\": "controller/",
+      "gateway\\": "gateway/",
       "model\\": "model/"
     }
   }

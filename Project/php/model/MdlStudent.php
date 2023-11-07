@@ -1,9 +1,6 @@
 <?php
 
 namespace model;
-use config\Connection;
-use http\Exception;
-use model\UserGateway;
 
 class MdlStudent
 {

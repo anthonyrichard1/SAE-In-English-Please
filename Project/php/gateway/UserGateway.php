@@ -1,8 +1,5 @@
 <?php
-namespace model;
-
-use config\Connection;
-use PDO;
+namespace gateway;
 
 class UserGateway
 {

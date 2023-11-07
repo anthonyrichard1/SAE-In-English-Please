@@ -1,7 +1,7 @@
 <?php
 namespace controleur;
 
-class Controleur
+class ControleurTmp
 {
     public function __construct()
     {

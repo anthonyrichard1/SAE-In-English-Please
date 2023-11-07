@@ -1,10 +1,7 @@
 <?php
 
-namespace model;
-use config\Connection;
-require_once('../config/Connection.php');
-require_once('Group.php');
-use PDO;
+namespace gateway;
+
 class GroupGateway
 {
     private Connection $con;

@@ -1,11 +1,6 @@
 <?php
-namespace model;
-use config\Connection;
-require_once('../config/Connection.php');
-require_once('Vocabulary.php');
+namespace gateway;
 
-use mysql_xdevapi\Exception;
-use PDO;
 class  VocabularyGateway
 {
     private Connection $con;

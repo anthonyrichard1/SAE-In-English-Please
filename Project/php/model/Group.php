@@ -1,8 +1,6 @@
 <?php
 namespace model;
 
-use function Sodium\add;
-
 class Group
 {
     protected int $id;
