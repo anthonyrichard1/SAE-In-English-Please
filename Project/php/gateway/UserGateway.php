@@ -1,6 +1,11 @@
 <?php
 namespace gateway;
 
+use config\Connection;
+use PDO;
+use PDOException;
+use model\User;
+
 class UserGateway
 {
     private Connection $con;
@@ -13,14 +18,28 @@ class UserGateway
         $this->con = $con;
     }
 
+    private function getRoles(int $id): array {
+        try {
+            $query = "SELECT r.name FROM Be b, Role_ r WHERE b.userID=:id AND b.roleID=r.id";
+            $args = array(':id' => array($id, PDO::PARAM_INT));
+            $this->con->executeQuery($query, $args);
+            $results = $this->con->getResults();
+            $tab = array();
+            foreach ($results as $row) $tab[] = $row['name'];
+            return $tab;
+        }
+        catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
     public function findAllUsers() : array{
         try {
-            $query = "SELECT * FROM User_";
-            $this->con->executeQuery($query, array());
+            $this->con->executeQuery("SELECT * FROM User_");
             $results = $this->con->getResults();
             $tab = array();
             foreach ($results as $row)
-                $tab[] = new User($row['id'], $row['password'], $row['email'], $row['name'], $row['surname'], $row['nickname'], $row['image'], $row['extraTime'], $row['groupID']);
+                $tab[] = new User($row['id'], $row['password'], $row['email'], $row['name'], $row['surname'], $row['nickname'], $row['image'], $row['extraTime'], $row['groupID'], $this->getRoles($row['id']));
             return $tab;
         }
         catch(PDOException $e ){
@@ -34,7 +53,7 @@ class UserGateway
             $args = array(':id' => array($id, PDO::PARAM_INT));
             $this->con->executeQuery($query, $args);
             $results = $this->con->getResults();
-            return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID']);
+            return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID'], $this->getRoles($results[0]['id']));
         }
         catch(PDOException $e ){
             throw new Exception($e->getMessage());
@@ -47,7 +66,7 @@ class UserGateway
             $args = array(':email' => array($email, PDO::PARAM_STR));
             $this->con->executeQuery($query, $args);
             $results = $this->con->getResults();
-            return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID']);
+            return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID'], $this->getRoles($results[0]['id']));
         }
         catch(PDOException $e ){
             throw new Exception($e->getMessage());
@@ -62,7 +81,7 @@ class UserGateway
             $results = $this->con->getResults();
             $tab = array();
             foreach ($results as $row)
-                $tab[] = new User($row['id'], $row['password'], $row['email'], $row['name'], $row['surname'], $row['nickname'], $row['image'], $row['extraTime'], $row['groupID']);
+                $tab[] = new User($row['id'], $row['password'], $row['email'], $row['name'], $row['surname'], $row['nickname'], $row['image'], $row['extraTime'], $row['groupID'], $this->getRoles($row['id']));
             return $tab;
         }
         catch(PDOException $e ){
@@ -76,7 +95,7 @@ class UserGateway
             $args = array(':surname' => array($surname, PDO::PARAM_STR));
             $this->con->executeQuery($query, $args);
             $results = $this->con->getResults();
-            return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID']);
+            return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID'], $this->getRoles($results[0]['id']));
         }
         catch(PDOException $e ){
             throw new Exception($e->getMessage());
@@ -89,7 +108,7 @@ class UserGateway
             $args = array(':email' => array($login, PDO::PARAM_STR), ':password' => array($password, PDO::PARAM_STR));
             $this->con->executeQuery($query, $args);
             $results = $this->con->getResults();
-            return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID']);;
+            return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID'], $this->getRoles($results[0]['id']));
         }
         catch(PDOException $e ){
             throw new Exception($e->getMessage());
@@ -104,7 +123,7 @@ class UserGateway
             $results = $this->con->getResults();
             $tab = array();
             foreach ($results as $row)
-                $tab[] = new User($row['id'], $row['password'], $row['email'], $row['name'], $row['surname'], $row['nickname'], $row['image'], $row['extraTime'], $row['groupID']);
+                $tab[] = new User($row['id'], $row['password'], $row['email'], $row['name'], $row['surname'], $row['nickname'], $row['image'], $row['extraTime'], $row['groupID'], $this->getRoles($row['id']));
             return $tab;
         }
         catch(PDOException $e ){
