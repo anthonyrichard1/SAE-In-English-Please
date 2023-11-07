@@ -2,20 +2,91 @@
 namespace gateway;
 
 use config\Connection;
+use model\User;
 use PDO;
 use PDOException;
-use model\User;
 
-class UserGateway
+class UserGateway extends AbsGateway
 {
-    private Connection $con;
-
-    /**
-     * @param Connection $con
-     */
     public function __construct(Connection $con)
     {
-        $this->con = $con;
+        parent::__construct($con);
+    }
+
+    public function add(array $parameters): int //require 9 elements
+    {
+        try {
+            $query = "INSERT INTO User_ VALUES (NULL, :password, :email, :name, :surname, :nickname, :image, :extraTime, :group)";
+            $args = array(':password' => array($parameters[0], PDO::PARAM_STR),
+                ':email' => array($parameters[1], PDO::PARAM_STR),
+                ':name' => array($parameters[2], PDO::PARAM_STR),
+                ':surname' => array($parameters[3], PDO::PARAM_STR),
+                ':nickname' => array($parameters[4], PDO::PARAM_STR),
+                ':image' => array($parameters[5], PDO::PARAM_STR),
+                ':extraTime' => array($parameters[6], PDO::PARAM_BOOL),
+                ':group' => array($parameters[7], PDO::PARAM_INT));
+            $this->con->executeQuery($query, $args);
+            $userID = $this->con->lastInsertId();
+
+            foreach ($parameters[8] as $role) {
+                $query = "INSERT INTO Be VALUES (:userID, :roleID)";
+                $args = array(':userID' => array($userID, PDO::PARAM_INT),
+                    ':roleID' => array($role, PDO::PARAM_INT));
+                $this->con->executeQuery($query, $args);
+            }
+
+            return $userID;
+        }
+        catch (PDOException $e){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function remove(array $id): void
+    {
+        try {
+            $query="DELETE FROM Vocabulary WHERE creator=:id";
+            $args = array(':id' => array($id, PDO::PARAM_INT));
+            $this->con->executeQuery($query, $args);
+
+            $query="DELETE FROM Be WHERE userID=:id";
+            $this->con->executeQuery($query, $args);
+
+            $query="DELETE FROM User_ WHERE id=:id";
+            $this->con->executeQuery($query, $args);
+        }
+        catch(PDOException $e ){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function findAll(): array
+    {
+        try {
+            $this->con->executeQuery("SELECT * FROM User_");
+            $results = $this->con->getResults();
+            $tab = array();
+            foreach ($results as $row)
+                $tab[] = new User($row['id'], $row['password'], $row['email'], $row['name'], $row['surname'], $row['nickname'], $row['image'], $row['extraTime'], $row['groupID'], $this->getRoles($row['id']));
+            return $tab;
+        }
+        catch(PDOException $e ){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function findById(int $id)
+    {
+        try {
+            $query = "SELECT * FROM User_ WHERE id=:id";
+            $args = array(':id' => array($id, PDO::PARAM_INT));
+            $this->con->executeQuery($query, $args);
+            $results = $this->con->getResults();
+            return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID'], $this->getRoles($results[0]['id']));
+        }
+        catch(PDOException $e ){
+            throw new Exception($e->getMessage());
+        }
     }
 
     private function getRoles(int $id): array {
@@ -33,24 +104,10 @@ class UserGateway
         }
     }
 
-    public function findAllUsers() : array{
+    public function findUserByLoginPassword(string $login, string $password) : User{
         try {
-            $this->con->executeQuery("SELECT * FROM User_");
-            $results = $this->con->getResults();
-            $tab = array();
-            foreach ($results as $row)
-                $tab[] = new User($row['id'], $row['password'], $row['email'], $row['name'], $row['surname'], $row['nickname'], $row['image'], $row['extraTime'], $row['groupID'], $this->getRoles($row['id']));
-            return $tab;
-        }
-        catch(PDOException $e ){
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public function findUserById(int $id) : User{
-        try {
-            $query = "SELECT * FROM User_ WHERE id=:id";
-            $args = array(':id' => array($id, PDO::PARAM_INT));
+            $query = "SELECT * FROM User_ WHERE email=:email AND password=:password";
+            $args = array(':email' => array($login, PDO::PARAM_STR), ':password' => array($password, PDO::PARAM_STR));
             $this->con->executeQuery($query, $args);
             $results = $this->con->getResults();
             return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID'], $this->getRoles($results[0]['id']));
@@ -102,19 +159,6 @@ class UserGateway
         }
     }
 
-    public function findUserByLoginPassword(string $login, string $password) : User{
-        try {
-            $query = "SELECT * FROM User_ WHERE email=:email AND password=:password";
-            $args = array(':email' => array($login, PDO::PARAM_STR), ':password' => array($password, PDO::PARAM_STR));
-            $this->con->executeQuery($query, $args);
-            $results = $this->con->getResults();
-            return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID'], $this->getRoles($results[0]['id']));
-        }
-        catch(PDOException $e ){
-            throw new Exception($e->getMessage());
-        }
-    }
-
     public function findUserByNickname(string $nickname) : array{
         try {
             $query = "SELECT * FROM User_ WHERE nickname=:nickname";
@@ -125,46 +169,6 @@ class UserGateway
             foreach ($results as $row)
                 $tab[] = new User($row['id'], $row['password'], $row['email'], $row['name'], $row['surname'], $row['nickname'], $row['image'], $row['extraTime'], $row['groupID'], $this->getRoles($row['id']));
             return $tab;
-        }
-        catch(PDOException $e ){
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public function isAdmin(int $id) : bool {
-        try {
-            $query = "SELECT * FROM Be WHERE userID=:id AND roleID=1";
-            $args = array(':id' => array($id, PDO::PARAM_INT));
-            $this->con->executeQuery($query, $args);
-            return !empty($this->con->getResults());
-        }
-        catch(PDOException $e ){
-            throw new Exception($e->getMessage());
-        }
-    }
-
-    public function addUser(string $password, string $email, string $name, string $surname, string $nickname, string $image, bool $extraTime, int $group, array $roles): int {
-        try {
-            $query = "INSERT INTO User_ VALUES (NULL, :password, :email, :name, :surname, :nickname, :image, :extraTime, :group)";
-            $args = array(':password' => array($password, PDO::PARAM_STR),
-                ':email' => array($email, PDO::PARAM_STR),
-                ':name' => array($name, PDO::PARAM_STR),
-                ':surname' => array($surname, PDO::PARAM_STR),
-                ':nickname' => array($nickname, PDO::PARAM_STR),
-                ':image' => array($image, PDO::PARAM_STR),
-                ':extraTime' => array($extraTime, PDO::PARAM_BOOL),
-                ':group' => array($group, PDO::PARAM_INT));
-            $this->con->executeQuery($query, $args);
-            $userID = $this->con->lastInsertId();
-
-            foreach ($roles as $role) {
-                $query = "INSERT INTO Be VALUES (:userID, :roleID)";
-                $args = array(':userID' => array($userID, PDO::PARAM_INT),
-                    ':roleID' => array($role, PDO::PARAM_INT));
-                $this->con->executeQuery($query, $args);
-            }
-
-            return $userID;
         }
         catch(PDOException $e ){
             throw new Exception($e->getMessage());
@@ -212,23 +216,6 @@ class UserGateway
         }
         catch(PDOException $e ){
             throw new Exception($e->getMessage());
-        }
-    }
-
-    public function removeUser(int $id) {
-        try {
-            $query="DELETE FROM Vocabulary WHERE creator=:id";
-            $args = array(':id' => array($id, PDO::PARAM_INT));
-            $this->con->executeQuery($query, $args);
-
-            $query="DELETE FROM Be WHERE userID=:id";
-            $this->con->executeQuery($query, $args);
-
-            $query="DELETE FROM User_ WHERE id=:id";
-            $this->con->executeQuery($query, $args);
-        }
-        catch(PDOException $e ){
-                throw new Exception($e->getMessage());
         }
     }
 }

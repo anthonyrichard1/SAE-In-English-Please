@@ -2,16 +2,46 @@
 
 namespace gateway;
 
-class GroupGateway
+use PDO;
+use PDOException;
+
+class GroupGateway extends AbsGateway
 {
-    private Connection $con;
     public function __construct(Connection $con){
-        $this->con = $con;
+        parent::__construct($con);
     }
 
-    public function findAllGroup(){
+    public function add(array $parameters): int //require 4 elements
+    {
         try{
+            $query = "INSERT INTO Group_ values(:id,:num,:year,:sec)";
+            $args = array(':id'=>array($parameters[0],PDO::PARAM_INT),
+                ':num'=>array($parameters[1],PDO::PARAM_INT),
+                ':year'=>array($parameters[2],PDO::PARAM_INT),
+                ':sec'=>array($parameters[3],PDO::PARAM_STR));
+            $this->con->ExecuteQuery($query,$args);
+            return $this->con->lastInsertId();
+        }
+        catch (PDOException $e){
+            throw new Exception($e->getMessage());
+        }
+    }
 
+    public function remove(array $id): void
+    {
+        try{
+            $query = "DELETE FROM Group_ g WHERE g.id=:id ";
+            $args = array(':id'=>array($id,PDO::PARAM_INT));
+            $this->con->ExecuteQuery($query,$args);
+        }
+        catch (PDOException $e){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function findAll(): array
+    {
+        try{
             $query = "SELECT * FROM Group_";
             $this->con->ExecuteQuery($query);
 
@@ -22,13 +52,17 @@ class GroupGateway
             }
             Return $tab_group;
         }
-
         catch(PDOException $e ){
-            error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
+            throw new Exception($e->getMessage());
         }
-
     }
-    public function findByNum(String $num){
+
+    public function findById(int $id)
+    {
+        // TODO: Implement findById() method.
+    }
+
+    public function findByNum(String $num): array{
         try{
 
             $query = "SELECT * FROM Group_ g WHERE g.num = :num";
@@ -44,38 +78,8 @@ class GroupGateway
         }
 
         catch(PDOException $e ){
-            error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
+            throw new Exception($e->getMessage());
         }
-
-    }
-
-    public function addGroup(int $id, int $num, int $year,string $sector):void{
-        try{
-            $query = "INSERT INTO Group_ values(:id,:num,:year,:sec)";
-            $args = array(':id'=>array($id,PDO::PARAM_INT),
-                ':num'=>array($num,PDO::PARAM_INT),
-                ':year'=>array($year,PDO::PARAM_INT),
-                ':sec'=>array($sector,PDO::PARAM_STR));
-            $this->con->ExecuteQuery($query,$args);
-        }
-        catch (\PDOException $e){
-            error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
-
-        }
-
-    }
-
-    public function delGroupById(int $id):void{
-        try{
-            $query = "DELETE FROM Group_ g WHERE g.id=:id ";
-            $args = array(':id'=>array($id,PDO::PARAM_INT));
-            $this->con->ExecuteQuery($query,$args);
-        }
-        catch (\PDOException $e){
-            error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
-
-        }
-
     }
 
     public function ModifGroupbById(int $id, int $num, int $year ,String $sector):void{
@@ -87,23 +91,8 @@ class GroupGateway
                 ':sector'=>array($sector,PDO::PARAM_STR));
             $this->con->ExecuteQuery($query,$args);
         }
-        catch (\PDOException $e){
-            error_log('PDOException: ' . $e->getMessage(), 3, 'error.log');
-
+        catch (PDOException $e){
+            throw new Exception($e->getMessage());
         }
-
     }
-
 }
-/*
-$con = new Connection('mysql:host=localhost;dbname=project','root','');
-$g = new GroupGateway($con);
-var_dump($g->findAllGroup());
-var_dump($g->findByNum(1));
-var_dump($g->addGroup(2,2,2,"b"));
-var_dump($g->addGroup(1,1,1,"a"));
-var_dump($g->findAllGroup());
-var_dump($g->delGroupById(1));
-var_dump($g->findAllGroup());
-var_dump($g->ModifGroupbById(2,3,3,"c"));
-*/
