@@ -2,36 +2,16 @@
 
 namespace model;
 
-class MdlAdmin
+use gateway\UserGateway;
+
+class MdlAdmin extends AbsModel
 {
     /**
-     * @param UserGateway userGtw
+     * @param UserGateway $userGtw
      */
     public function __construct(UserGateway $userGtw)
     {
-        $this->gtw = $gtw;
-    }
-
-    public function connection($login, $password){
-        $cleanedLogin = strip_tags($login);
-        $cleanedPassword = strip_tags($password);
-
-        $student = $this->gtw->findUserByLoginPassword($cleanedLogin, $cleanedPassword);
-
-        if ($student) {
-            session_start();
-            $_SESSION['role'] = 'admin';
-            $_SESSION['login'] = $cleanedLogin;
-            return true;
-        }
-        else return false;
-    }
-
-    public function deconnexion(){
-        session_unset();
-        session_destroy();
-        $_SESSION = array();
-
+        parent::__construct($userGtw, "admin");
     }
 
     public function isAdmin(){
