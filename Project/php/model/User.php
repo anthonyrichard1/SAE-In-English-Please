@@ -13,6 +13,7 @@ class User
     private string $image;
     private bool $extraTime;
     private int $group;
+    private array $roles;
 
     /**
      * @param int $id
@@ -24,8 +25,9 @@ class User
      * @param string $image
      * @param bool $extraTime
      * @param int $group
+     * @param array $roles
      */
-    public function __construct(int $id, string $password, string $email, string $name, string $surname, string $nickname, string $image, bool $extraTime, int $group)
+    public function __construct(int $id, string $password, string $email, string $name, string $surname, string $nickname, string $image, bool $extraTime, int $group, array $roles)
     {
         $this->id = $id;
         $this->password = $password;
@@ -36,6 +38,7 @@ class User
         $this->image = $image;
         $this->extraTime = $extraTime;
         $this->group = $group;
+        $this->roles = $roles;
     }
 
     /**
@@ -153,7 +156,7 @@ class User
     /**
      * @return bool
      */
-    public function getExtraTime(): bool
+    public function isExtraTime(): bool
     {
         return $this->extraTime;
     }
@@ -182,9 +185,27 @@ class User
         $this->group = $group;
     }
 
+    /**
+     * @return array
+     */
+    public function getRoles(): array
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param array $roles
+     */
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
+
     public function __toString(): string
     {
-        return "User : ".$this->name." ".$this->surname." ".$this->nickname;
+        $s = "User : ".$this->id." ".$this->name." ".$this->surname." ".$this->nickname." ".$this->email;
+        foreach ($this->roles as $role) $s = $s." ".$role;
+        return $s;
     }
 }
 
