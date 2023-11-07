@@ -4,15 +4,13 @@ namespace model;
 
 class MdlAdmin
 {
-
     /**
-     * @param UserGateway $gtw
+     * @param UserGateway userGtw
      */
-    public function __construct(UserGateway $gtw)
+    public function __construct(UserGateway $userGtw)
     {
         $this->gtw = $gtw;
     }
-
 
     public function connection($login, $password){
         $cleanedLogin = strip_tags($login);
@@ -38,13 +36,15 @@ class MdlAdmin
 
     public function isAdmin(){
         if( isset ($_SESSION['login'])){
-            $login=strip_tags($_SESSION['login']);
+            $login = strip_tags($_SESSION['login']);
             $user = $this->gtw->findUserByEmail($login);
-            var_dump($user->getId());
-            echo "coucou";
             if ($user && $this->gtw->isAdmin($user->getId())) return $user;
             else return null;
         }
         else return null;
+    }
+
+    public function addUser(string $password, string $email, string $name, string $surname, string $nickname, string $image, bool $extraTime, int $group, array $roles){
+
     }
 }
