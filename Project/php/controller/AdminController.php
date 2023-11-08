@@ -12,7 +12,6 @@ class AdminController
         global $twig;
         session_start();
 
-        $actionList = ['showUsers', 'removeUser', 'addGroup', 'removeGroup', 'showGroups'];
         $dVueEreur = [];
 
         try {
@@ -36,6 +35,19 @@ class AdminController
                     $this->showAllStudents();
                     break;
 
+                case 'removeUser':
+                    $this->removeUser();
+                    break;
+                case 'showAllGroups':
+                    $this->showAllGroups();
+                    break;
+                case 'showGroupDetails':
+                    $this->showGroupDetails();
+                    break;
+                case 'removeUserFromGroup':
+                    $this->;
+                    break;
+
                 default:
                     $dVueEreur[] = "Erreur d'appel php";
                     echo $twig->render('vuephp1.html', ['dVueEreur' => $dVueEreur]);
@@ -45,7 +57,7 @@ class AdminController
 
             $dVueEreur[] = 'Erreur inattendue!!! ';
         } catch (\Exception $e2) {
-            $dVueEreur[] = 'Erreur inattendue!!! ';
+            $dVueEreur[] = $e2->getMessage().'Erreur inattendue!!! ';
             echo $twig->render('erreur.html', ['dVueEreur' => $dVueEreur]);
         }
         exit(0);
@@ -90,5 +102,37 @@ class AdminController
         $model = new MdlAdmin();
         $users = $model->showAllStudents();
         echo $twig->render('usersView.html', ['users' => $users]);
+    }
+
+    public function removeUser(): void {
+        $id = filter_var()['id'];
+        $model = new MdlAdmin();
+        $model->removeUser($id);
+        $this->showAllUsers();
+    }
+
+    public function showAllGroups(): void {
+        global $twig;
+        $model = new MdlAdmin();
+        $groups = $model->showAllGroups();
+        var_dump($groups);
+        echo $twig->render('groupView.html', ['groups' => $groups]);
+    }
+
+    public function showGroupDetails(): void {
+        global $twig;
+        $model = new MdlAdmin();
+        $id = $_GET['selectedGroup'];
+        $groups = $model->showAllGroups();
+        $users = $model->getUsersOfGroup($id);
+        echo $twig->render('groupView.html', ['groups' => $groups, 'selectedGroup' => $id, 'users' => $users]);
+    }
+
+    public function removeUserFromGroup(): void {
+        global $twig;
+        $model = new MdlAdmin();
+        $id = $_GET['id'];
+        $model->removeUserFromGroup($id);
+        $this->showGroupDetails();
     }
 }
