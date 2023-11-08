@@ -5,6 +5,7 @@ use config\Connection;
 use model\User;
 use PDO;
 use PDOException;
+use Exception;
 
 class UserGateway extends AbsGateway
 {
@@ -64,6 +65,48 @@ class UserGateway extends AbsGateway
     {
         try {
             $this->con->executeQuery("SELECT * FROM User_");
+            $results = $this->con->getResults();
+            $tab = array();
+            foreach ($results as $row)
+                $tab[] = new User($row['id'], $row['password'], $row['email'], $row['name'], $row['surname'], $row['nickname'], $row['image'], $row['extraTime'], $row['groupID'], $this->getRoles($row['id']));
+            return $tab;
+        }
+        catch(PDOException $e ){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function findAllAdmins(): array {
+        try {
+            $this->con->executeQuery("SELECT u.* FROM User_ u, Be b WHERE u.id=b.userID AND b.roleID=1 ");
+            $results = $this->con->getResults();
+            $tab = array();
+            foreach ($results as $row)
+                $tab[] = new User($row['id'], $row['password'], $row['email'], $row['name'], $row['surname'], $row['nickname'], $row['image'], $row['extraTime'], $row['groupID'], $this->getRoles($row['id']));
+            return $tab;
+        }
+        catch(PDOException $e ){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function findAllTeachers(): array {
+        try {
+            $this->con->executeQuery("SELECT u.* FROM User_ u, Be b WHERE u.id=b.userID AND b.roleID=2");
+            $results = $this->con->getResults();
+            $tab = array();
+            foreach ($results as $row)
+                $tab[] = new User($row['id'], $row['password'], $row['email'], $row['name'], $row['surname'], $row['nickname'], $row['image'], $row['extraTime'], $row['groupID'], $this->getRoles($row['id']));
+            return $tab;
+        }
+        catch(PDOException $e ){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function findAllStudents(): array {
+        try {
+            $this->con->executeQuery("SELECT u.* FROM User_ u, Be b WHERE u.id=b.userID AND b.roleID=3");
             $results = $this->con->getResults();
             $tab = array();
             foreach ($results as $row)
