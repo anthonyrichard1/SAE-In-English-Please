@@ -27,7 +27,9 @@
                                 <td>{{row.group}}</td>
                                 <td>{{row.role}}</td>
                                 <td>{{row.extraTime}}</td>
-                                <td><input class="btn-black" type="button" value="Delete" /></td>
+                                <td><a href="index.php?action=removeUser&id={{row.id}}">
+                                    <input class="btn-black" type="button" value="Delete"/>
+                                </a></td>
                             </tr>
                         {% endfor %}
                     {% endif %}
