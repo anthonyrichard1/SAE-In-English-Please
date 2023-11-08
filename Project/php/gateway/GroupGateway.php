@@ -4,6 +4,8 @@ namespace gateway;
 
 use PDO;
 use PDOException;
+use config\Connection;
+use model\Group;
 
 class GroupGateway extends AbsGateway
 {
@@ -27,7 +29,7 @@ class GroupGateway extends AbsGateway
         }
     }
 
-    public function remove(array $id): void
+    public function remove(int $id): void
     {
         try{
             $query = "DELETE FROM Group_ g WHERE g.id=:id ";

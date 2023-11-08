@@ -261,4 +261,20 @@ class UserGateway extends AbsGateway
             throw new Exception($e->getMessage());
         }
     }
+
+    public function findUsersByGroup(int $id): array {
+        try {
+            $query = "SELECT * FROM User_ WHERE groupID=:group";
+            $args = array(':group' => array($id, PDO::PARAM_INT));
+            $this->con->executeQuery($query, $args);
+            $results = $this->con->getResults();
+            $tab = array();
+            foreach ($results as $row)
+                $tab[] = new User($row['id'], $row['password'], $row['email'], $row['name'], $row['surname'], $row['nickname'], $row['image'], $row['extraTime'], $row['groupID'], $this->getRoles($row['id']));
+            return $tab;
+        }
+        catch(PDOException $e ){
+            throw new Exception($e->getMessage());
+        }
+    }
 }
