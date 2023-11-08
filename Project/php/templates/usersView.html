@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Users</title>
+    </head>
+    <body>
+        <section>
+            <table>
+                <tr>
+                    <td>Nickname</td>
+                    <td>Name</td>
+                    <td>Surname</td>
+                    <td>Mail</td>
+                    <td>Group</td>
+                    <td>Role</td>
+                    <td>Extra Time</td>
+                </tr>
+                    {% if users is defined %}
+                        {% for row in users %}
+                            <tr>
+                                <td>{{row.nickname}}</td>
+                                <td>{{row.name}}</td>
+                                <td>{{row.surname}}</td>
+                                <td>{{row.email}}</td>
+                                <td>{{row.group}}</td>
+                                <td>{{row.role}}</td>
+                                <td>{{row.extraTime}}</td>
+
+
+
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+            </table>
+        </section>
+    </body>
+</html>
