@@ -43,7 +43,7 @@ class UserGateway extends AbsGateway
         }
     }
 
-    public function remove(array $id): void
+    public function remove(int $id): void
     {
         try {
             $query="DELETE FROM Vocabulary WHERE creator=:id";
