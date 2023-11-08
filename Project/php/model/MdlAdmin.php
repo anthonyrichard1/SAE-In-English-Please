@@ -3,6 +3,7 @@
 namespace model;
 
 use config\Connection;
+use gateway\GroupGateway;
 use gateway\UserGateway;
 
 class MdlAdmin extends AbsModel
@@ -40,5 +41,24 @@ class MdlAdmin extends AbsModel
     public function showAllStudents(): array {
         $gtw = new UserGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7', 'anrichard7', 'achanger'));
         return $gtw->findAllStudents();
+    }
+
+    public function removeUser(int $id): void {
+        $gtw = new UserGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7', 'anrichard7', 'achanger'));
+        $gtw->remove($id);
+    }
+
+    public function showAllGroups(): array {
+        $gtw = new GroupGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7', 'anrichard7', 'achanger'));
+        return $gtw->findAll();
+    }
+
+    public function getUsersOfGroup(int $id): array {
+        $gtw = new UserGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7', 'anrichard7', 'achanger'));
+        return $gtw->findUsersByGroup($id);
+    }
+
+    public function removeUserFromGroup(int $id): void {
+
     }
 }
