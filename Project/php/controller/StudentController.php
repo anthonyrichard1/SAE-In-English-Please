@@ -20,10 +20,11 @@ class StudentController
         try{
             $action = $_REQUEST['action']?? null;
             switch($action) {
-                case NULL:
+                case "AllVocab":
+                    affAllVocab();
                     break;
-                case "ajouter":
-                    ajouter($_REQUEST['']);
+                case "getByName":
+                    getByName();
                     break;
 
                 default:
@@ -43,13 +44,22 @@ class StudentController
             require($dataVueEreur['erreur']);
         }
     }
-    function AffAllStudent():void{
+    public function affAllVocab():void{
         global $twig;
         $mdl = new MdlStudent();
         $student = $mdl->getAll();
         echo $twig->render('usersView.html', ['users'=> $student]);
 
     }
+
+    public function getByName($name):void{
+        global $twig;
+        $mdl = new MdlStudent();
+        $vocab = $mdl->getVocabByName($name);
+        echo $twig->render('usersView.html', ['users'=> $vocab]);
+
+    }
+
 
         }
 

@@ -28,7 +28,7 @@ class VocabularyGateway extends AbsGateway
         }
     }
 
-    public function remove(array $id): void
+    public function remove(int $id): void
     {
         try{
             $query = "DELETE FROM Vocabulary v WHERE v.id=:id ";

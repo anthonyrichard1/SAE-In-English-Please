@@ -26,7 +26,7 @@ class MdlStudent extends AbsModel
         else return null;
     }
 */
-    public function getAll(){
+    public function getAll():array{
         global $twig;
         $gtw = new VocabularyGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7','anrichard7','achanger'));
         return  $gtw->findAll();
@@ -38,11 +38,13 @@ class MdlStudent extends AbsModel
         */
 }
 
-    public function getById($id){
-        $gtw = new VocabularyGateway(new Connection());
-        $res = $gtw->getById($id);
+    public function getVocabByName($name):array{
+        $gtw = new VocabularyGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7','anrichard7','achanger'));
+        $res = $gtw->findByName($name);
         return $res;
     }
+
+
 
 
 
