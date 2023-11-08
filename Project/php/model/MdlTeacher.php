@@ -2,32 +2,20 @@
 
 namespace model;
 
-use gateway\VocabularyGateway;
 //use http\Client\Curl\User;
 use model\AbsModel;
 use config\Connection;
-use model\User;
-class MdlStudent extends AbsModel
+use gateway\UserGateway;
+use gateway\VocabularyGateway;
+class MdlTeacher extends AbsModel
 {
 
     public function __construct()
     {
-        parent::__construct("student");
+        parent::__construct("teacher");
     }
 
-/*
-    public function isStudent(){
-        if( isset ($_SESSION['login']) && isset ($_SESSION['role'])){
-            //Créer une classe nettoyer
-            $login=Nettoyer::nettoyer_string($_SESSION['login']);
-            $role=Nettoyer::nettoyer_string($_SESSION['role']);
-            return self::$gtw->findUserByEmail($login);
-        }
-        else return null;
-    }
-*/
     public function getAll():array{
-        global $twig;
         $gtw = new VocabularyGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7','anrichard7','achanger'));
         return  $gtw->findAll();
         /*
@@ -36,7 +24,12 @@ class MdlStudent extends AbsModel
         }
         return  $AllStudent;
         */
-}
+    }
+
+    public function getAllStudent():array {
+        $gtw = new UserGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7','anrichard7','achanger'));
+        return $gtw->findAll();
+    }
 
     public function getVocabByName($name):array{
         $gtw = new VocabularyGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7','anrichard7','achanger'));
@@ -44,10 +37,12 @@ class MdlStudent extends AbsModel
         return $res;
     }
 
-
+    public function RemoveVocById($id):void{
+        $gtw = new VocabularyGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7','anrichard7','achanger'));
+        $res = $gtw->remove($id);
+    }
 
 
 
 
 }
-
