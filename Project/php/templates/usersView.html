@@ -4,11 +4,12 @@
         <meta charset="UTF-8">
         <title>Users</title>
     </head>
-    
+
     <body>
         <section>
             <table>
                 <tr>
+                    <td>Id</td>
                     <td>Nickname</td>
                     <td>Name</td>
                     <td>Surname</td>
@@ -20,13 +21,14 @@
                     {% if users is defined %}
                         {% for row in users %}
                             <tr>
+                                <td>{{row.id}}</td>
                                 <td>{{row.nickname}}</td>
                                 <td>{{row.name}}</td>
                                 <td>{{row.surname}}</td>
                                 <td>{{row.email}}</td>
                                 <td>{{row.group}}</td>
-                                <td>{{row.role}}</td>
-                                <td>{{row.extraTime}}</td>
+                                <td>{{row.roles|join(', ')}}</td>
+                                <td>{{row.extraTime? 'yes' : 'no' }}</td>
                                 <td><input class="btn-black" type="button" value="Delete" /></td>
                             </tr>
                         {% endfor %}
