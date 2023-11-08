@@ -2,19 +2,17 @@
 
 namespace model;
 
+use config\Connection;
 use gateway\UserGateway;
 
 class MdlAdmin extends AbsModel
 {
-    /**
-     * @param UserGateway $userGtw
-     */
-    public function __construct(UserGateway $userGtw)
+    public function __construct()
     {
-        parent::__construct($userGtw, "admin");
+        parent::__construct("admin");
     }
 
-    public function isAdmin(){
+    /*public function isAdmin(){
         if( isset ($_SESSION['login'])){
             $login = strip_tags($_SESSION['login']);
             $user = $this->gtw->findUserByEmail($login);
@@ -22,9 +20,25 @@ class MdlAdmin extends AbsModel
             else return null;
         }
         else return null;
+    }*/
+
+    public function showAllUsers(): array {
+        $gtw = new UserGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7', 'anrichard7', 'achanger'));
+        return $gtw->findAll();
     }
 
-    public function addUser(string $password, string $email, string $name, string $surname, string $nickname, string $image, bool $extraTime, int $group, array $roles){
+    public function showAllAdmins(): array {
+        $gtw = new UserGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7', 'anrichard7', 'achanger'));
+        return $gtw->findAllAdmins();
+    }
 
+    public function showAllTeachers(): array {
+        $gtw = new UserGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7', 'anrichard7', 'achanger'));
+        return $gtw->findAllTeachers();
+    }
+
+    public function showAllStudents(): array {
+        $gtw = new UserGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7', 'anrichard7', 'achanger'));
+        return $gtw->findAllStudents();
     }
 }

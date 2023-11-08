@@ -1,8 +1,7 @@
 <?php
 
-namespace controleur;
+namespace controller;
 
-use config\Connection;
 use model\MdlAdmin;
 use model\UserGateway;
 
@@ -11,22 +10,30 @@ class AdminController
     public function __construct()
     {
         global $twig;
-        $mdl = new MdlAdmin(new UserGateway(new Connection($dsn, $login, $password)));
         session_start();
 
-        $actionList = ['addUser', 'removeUser', 'addGroup', 'removeGroup', 'showGroups', 'findUser'];
+        $actionList = ['showUsers', 'removeUser', 'addGroup', 'removeGroup', 'showGroups'];
         $dVueEreur = [];
 
         try {
             $action = $_REQUEST['action'] ?? null;
 
             switch($action) {
+                case 'showAllUsers':
                 case null:
-                    $this->Reinit();
+                    $this->showAllUsers();
                     break;
 
-                case 'addUser':
-                    $mdl->addUser();
+                case 'showAllAdmins':
+                    $this->showAllAdmins();
+                    break;
+
+                case 'showAllTeachers':
+                    $this->showAllTeachers();
+                    break;
+
+                case 'showAllStudents':
+                    $this->showAllStudents();
                     break;
 
                 default:
@@ -44,7 +51,7 @@ class AdminController
         exit(0);
     }
 
-    public function Reinit()
+    /*public function Reinit()
     {
         global $twig;
 
@@ -55,5 +62,33 @@ class AdminController
         echo $twig->render('vuephp1.html', [
             'dVue' => $dVue
         ]);
+    }*/
+
+    public function showAllUsers(): void {
+        global $twig;
+        $model = new MdlAdmin();
+        $users = $model->showAllUsers();
+        echo $twig->render('usersView.html', ['users' => $users]);
+    }
+
+    public function showAllAdmins(): void {
+        global $twig;
+        $model = new MdlAdmin();
+        $users = $model->showAllAdmins();
+        echo $twig->render('usersView.html', ['users' => $users]);
+    }
+
+    public function showAllTeachers(): void {
+        global $twig;
+        $model = new MdlAdmin();
+        $users = $model->showAllTeachers();
+        echo $twig->render('usersView.html', ['users' => $users]);
+    }
+
+    public function showAllStudents(): void {
+        global $twig;
+        $model = new MdlAdmin();
+        $users = $model->showAllStudents();
+        echo $twig->render('usersView.html', ['users' => $users]);
     }
 }
