@@ -5,11 +5,11 @@ class Controleur
 {
     public function __construct()
     {
-        global $twig; // nécessaire pour utiliser variables globales
-        // on démarre ou reprend la session pas utilisée ici
+        global $twig; // nécessaire pour utiliser les variables globales
+        // on démarre/reprend la session non utilisée ici
         session_start();
 
-        //debut
+        //début
 
         //on initialise un tableau d'erreur
         $dVueEreur = [];
@@ -47,7 +47,7 @@ class Controleur
 
     public function Reinit()
     {
-        global $twig; // nécessaire pour utiliser variables globales
+        global $twig; // nécessaire pour utiliser les variables globales
 
         $dVue = [
             'nom' => '',
@@ -60,9 +60,9 @@ class Controleur
 
     public function ValidationFormulaire(array $dVueEreur)
     {
-        global $twig; // nécessaire pour utiliser variables globales
+        global $twig; // nécessaire pour utiliser les variables globales
 
-        //si exception, ca remonte !!!
+        //s'il y a une exception, elle remonte !
         $nom = $_POST['txtNom']; // txtNom = nom du champ texte dans le formulaire
         $age = $_POST['txtAge'];
         \config\Validation::val_form($nom, $age, $dVueEreur);
