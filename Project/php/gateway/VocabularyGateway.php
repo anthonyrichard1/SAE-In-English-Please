@@ -3,6 +3,8 @@ namespace gateway;
 
 use PDO;
 use PDOException;
+use config\Connection;
+use model\Vocabulary;
 
 class VocabularyGateway extends AbsGateway
 {

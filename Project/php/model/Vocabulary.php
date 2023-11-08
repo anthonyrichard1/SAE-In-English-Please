@@ -7,7 +7,7 @@ class Vocabulary
     protected String $name;
     protected String $image;
     protected  int $id;
-    protected int|null $aut;
+    protected ?int $aut;
 
     /**
      * @param String $name

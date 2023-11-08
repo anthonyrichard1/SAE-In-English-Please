@@ -2,16 +2,17 @@
 
 namespace model;
 
-use gateway\UserGateway;
-
+use gateway\VocabularyGateway;
+//use http\Client\Curl\User;
+use model\AbsModel;
+use config\Connection;
+use model\User;
 class MdlStudent extends AbsModel
 {
-    /**
-     * @param UserGateway $gtw
-     */
-    public function __construct(UserGateway $gtw)
+
+    public function __construct()
     {
-        parent::__construct($gtw, "student");
+        parent::__construct("student");
     }
 
 /*
@@ -25,6 +26,26 @@ class MdlStudent extends AbsModel
         else return null;
     }
 */
+    public function getAll(){
+        global $twig;
+        $gtw = new VocabularyGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7','anrichard7','achanger'));
+        return  $gtw->findAll();
+        /*
+        foreach ($data as $row){
+            $AllStudent[] = User($row['id'],$row['password'],$row['email'],$row['name'],$row['surname'],$row['nickname'],$row['image'],$row['extraTime'],$row['group'],$row['roles']);
+        }
+        return  $AllStudent;
+        */
+}
+
+    public function getById($id){
+        $gtw = new VocabularyGateway(new Connection());
+        $res = $gtw->getById($id);
+        return $res;
+    }
+
+
+
 
 }
 

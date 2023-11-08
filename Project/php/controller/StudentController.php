@@ -1,9 +1,9 @@
 <?php
 
 namespace controller;
-use model\Student;
 use model\MdlStudent;
-use model\UserGateway;
+use gateway\UserGateway;
+use config\Connection;
 
 class StudentController
 {
@@ -14,6 +14,8 @@ class StudentController
          global $con;
          $con = new Connection('mysql:host=localhost;dbname=dbanrichard7','anrichard7','achanger');
          $gtw = new UserGateway($con);
+        $actionList = ['showUsers'];
+        $dVueEreur= [];
         session_start();
         try{
             $action = $_REQUEST['action']?? null;
@@ -22,6 +24,11 @@ class StudentController
                     break;
                 case "ajouter":
                     ajouter($_REQUEST['']);
+                    break;
+
+                default:
+                    $dVueEreur[] = "Erreur d'appel php";
+                    echo $twig->render('vuephp1.html', ['dVueEreur' => $dVueEreur]);
                     break;
             }
         }
@@ -36,8 +43,12 @@ class StudentController
             require($dataVueEreur['erreur']);
         }
     }
-    function ajouter(){
+    function AffAllStudent():void{
+        global $twig;
         $mdl = new MdlStudent();
+        $student = $mdl->getAll();
+        echo $twig->render('usersView.html', ['users'=> $student]);
+
     }
 
         }
