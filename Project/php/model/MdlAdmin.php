@@ -59,6 +59,17 @@ class MdlAdmin extends AbsModel
     }
 
     public function removeUserFromGroup(int $id): void {
+        $gtw = new UserGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7', 'anrichard7', 'achanger'));
+        $gtw->modifyGroup($id, 0);
+    }
 
+    public function removeGroup(int $id): void {
+        $gtw = new GroupGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7', 'anrichard7', 'achanger'));
+        $gtw->remove($id);
+    }
+
+    public function addGroup(int $num, int $year, string $sector): void {
+        $gtw = new GroupGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7', 'anrichard7', 'achanger'));
+        $gtw->add(array($num, $year, $sector));
     }
 }

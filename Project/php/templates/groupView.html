@@ -5,7 +5,16 @@
     <title>Groups</title>
 </head>
 <body>
-<section>
+<style>
+    body{
+        display: flex;
+        justify-content: space-around;
+    }
+    section{
+        border: 1px solid black;
+    }
+</style>
+<section class="groupList">
     <table>
         {% if groups is defined %}
         {% for row in groups %}
@@ -27,13 +36,16 @@
                 <td><a href="index.php?action=showGroupDetails&selectedGroup={{row.id}}">
                     <input class="btn-black" type="button" value="Show"/>
                 </a></td>
+                <td><a href="index.php?action=removeGroup&selectedGroup={{row.id}}">
+                    <input class="btn-black" type="button" value="Remove"/>
+                </a></td>
             </tr>
         {% endfor %}
         {% endif %}
     </table>
 </section>
 {% if selectedGroup is defined %}
-<section>
+<section class="users">
     <table>
         <tr>
             <td>ID</td>
@@ -56,7 +68,7 @@
             <td>{{row.group}}</td>
             <td>{{row.role}}</td>
             <td>{{row.extraTime}}</td>
-            <td><a href="index.php?action=removeUserFromGroup&id={{row.id}}">
+            <td><a href="index.php?action=removeUserFromGroup&id={{row.id}}&selectedGroup={{selectedGroup}}">
                 <input class="btn-black" type="button" value="Delete from group"/>
             </a></td>
         </tr>
@@ -65,5 +77,15 @@
     </table>
 </section>
 {% endif %}
+<section class="addGroupForm">
+    <h2>Add group</h2>
+    <form action="index.php" method="GET">
+        <input type="hidden" name="action" value="addGroup">
+        <input name="num" type="text" placeholder="number" required>
+        <input name="year" type="text" placeholder="year" required>
+        <input name="sector" type="text" placeholder="sector" required>
+        <input type="submit" value="Add">
+    </form>
+</section>
 </body>
 </html>

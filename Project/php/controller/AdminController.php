@@ -2,6 +2,7 @@
 
 namespace controller;
 
+use gateway\GroupGateway;
 use model\MdlAdmin;
 use model\UserGateway;
 
@@ -45,7 +46,14 @@ class AdminController
                     $this->showGroupDetails();
                     break;
                 case 'removeUserFromGroup':
-                    $this->;
+                    $this->removeUserFromGroup();
+                    break;
+                case 'removeGroup':
+                    $this->removeGroup();
+                    break;
+
+                case 'addGroup':
+                    $this->addGroup();
                     break;
 
                 default:
@@ -105,7 +113,7 @@ class AdminController
     }
 
     public function removeUser(): void {
-        $id = filter_var()['id'];
+        $id = $_GET['id'];
         $model = new MdlAdmin();
         $model->removeUser($id);
         $this->showAllUsers();
@@ -115,7 +123,6 @@ class AdminController
         global $twig;
         $model = new MdlAdmin();
         $groups = $model->showAllGroups();
-        var_dump($groups);
         echo $twig->render('groupView.html', ['groups' => $groups]);
     }
 
@@ -129,10 +136,25 @@ class AdminController
     }
 
     public function removeUserFromGroup(): void {
-        global $twig;
         $model = new MdlAdmin();
         $id = $_GET['id'];
         $model->removeUserFromGroup($id);
         $this->showGroupDetails();
+    }
+
+    public function removeGroup(): void {
+        $model = new MdlAdmin();
+        $id = $_GET['selectedGroup'];
+        $model->removeGroup($id);
+        $this->showAllGroups();
+    }
+
+    public function addGroup(): void {
+        $model = new MdlAdmin();
+        $num = $_GET['num'];
+        $year = $_GET['year'];
+        $sector = $_GET['sector'];
+        $model->addGroup($num, $year, $sector);
+        $this->showAllGroups();
     }
 }

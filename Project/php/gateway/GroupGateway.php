@@ -4,6 +4,7 @@ namespace gateway;
 
 use PDO;
 use PDOException;
+use Exception;
 use config\Connection;
 use model\Group;
 
@@ -16,11 +17,10 @@ class GroupGateway extends AbsGateway
     public function add(array $parameters): int //require 4 elements
     {
         try{
-            $query = "INSERT INTO Group_ values(:id,:num,:year,:sec)";
-            $args = array(':id'=>array($parameters[0],PDO::PARAM_INT),
-                ':num'=>array($parameters[1],PDO::PARAM_INT),
-                ':year'=>array($parameters[2],PDO::PARAM_INT),
-                ':sec'=>array($parameters[3],PDO::PARAM_STR));
+            $query = "INSERT INTO Group_ values(null, :num,:year,:sec)";
+            $args = array(':num'=>array($parameters[0],PDO::PARAM_INT),
+                ':year'=>array($parameters[1],PDO::PARAM_INT),
+                ':sec'=>array($parameters[2],PDO::PARAM_STR));
             $this->con->ExecuteQuery($query,$args);
             return $this->con->lastInsertId();
         }
@@ -35,6 +35,12 @@ class GroupGateway extends AbsGateway
             $query = "DELETE FROM Group_ g WHERE g.id=:id ";
             $args = array(':id'=>array($id,PDO::PARAM_INT));
             $this->con->ExecuteQuery($query,$args);
+            $query = "DELETE FROM Practice WHERE groupID=:id ";
+            $args = array(':id' => array($id, PDO::PARAM_INT));
+            $this->con->executeQuery($query, $args);
+            $query="UPDATE User_ SET groupID=0 WHERE groupID=:id";
+            $args = array(':id' => array($id, PDO::PARAM_INT));
+            $this->con->executeQuery($query, $args);
         }
         catch (PDOException $e){
             throw new Exception($e->getMessage());
