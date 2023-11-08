@@ -8,23 +8,21 @@ use config\Connection;
 class StudentController
 {
 
-    public function __construct(){
+    public function __construct()
+    {
         global $twig;
-         global $gtw;
-         global $con;
-         $con = new Connection('mysql:host=localhost;dbname=dbanrichard7','anrichard7','achanger');
-         $gtw = new UserGateway($con);
-        $actionList = ['showUsers'];
-        $dVueEreur= [];
         session_start();
-        try{
-            $action = $_REQUEST['action']?? null;
-            switch($action) {
-                case "AllVocab":
-                    affAllVocab();
+        $actionList = ['showVocab', 'getByName'];
+        $dVueEreur = [];
+        try {
+            $action = $_REQUEST['action'] ?? null;
+            switch ($action) {
+                case 'allVocab':
+                case null:
+                    $this->affAllVocab();
                     break;
-                case "getByName":
-                    getByName();
+                case 'getByName':
+                    $this->getByName($_REQUEST['nom']);
                     break;
 
                 default:
@@ -32,33 +30,41 @@ class StudentController
                     echo $twig->render('vuephp1.html', ['dVueEreur' => $dVueEreur]);
                     break;
             }
-        }
-        catch(\PDOException $e){
-            $dataVueEreur[]= "Erreur inattendue";
-            $twig->render("vuephp1.html",['dVueErreur' =>$dataVueEreur]);
+        } catch (\PDOException $e) {
+            $dataVueEreur[] = "Erreur inattendue";
+            $twig->render("vuephp1.html", ['dVueErreur' => $dataVueEreur]);
 
-        }
-        catch (Exception $e2)
-        {
+        } catch (Exception $e2) {
             $dataVueEreur[] = "Erreur inattendue!!! ";
             require($dataVueEreur['erreur']);
         }
     }
-    public function affAllVocab():void{
+        public function affAllVocab(): void
+        {
+            global $twig;
+            $mdl = new MdlStudent();
+            $student = $mdl->getAll();
+            echo $twig->render('usersView.html', ['users' => $student]);
+
+        }
+
+    public function affAllStudent(): void
+    {
         global $twig;
         $mdl = new MdlStudent();
         $student = $mdl->getAll();
-        echo $twig->render('usersView.html', ['users'=> $student]);
+        echo $twig->render('usersView.html', ['users' => $student]);
 
     }
 
-    public function getByName($name):void{
-        global $twig;
-        $mdl = new MdlStudent();
-        $vocab = $mdl->getVocabByName($name);
-        echo $twig->render('usersView.html', ['users'=> $vocab]);
+        public function getByName($name): void
+        {
+            global $twig;
+            $mdl = new MdlStudent();
+            $vocab = $mdl->getVocabByName($name);
+            echo $twig->render('usersView.html', ['users' => $vocab]);
+        }
 
-    }
 
 
         }
