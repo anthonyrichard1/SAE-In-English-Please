@@ -160,8 +160,9 @@ class AdminController
         $num = $_GET['num'];
         $year = $_GET['year'];
         $sector = $_GET['sector'];
-        $model->addGroup($num, $year, $sector);
-        $this->showAllGroups();
+        $groupID = $model->addGroup($num, $year, $sector);
+        $_GET['selectedGroup'] = $groupID;
+        $this->showGroupDetails();
     }
 
     public function addUserToGroup(): void {

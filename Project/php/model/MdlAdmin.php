@@ -68,9 +68,9 @@ class MdlAdmin extends AbsModel
         $gtw->remove($id);
     }
 
-    public function addGroup(int $num, int $year, string $sector): void {
+    public function addGroup(int $num, int $year, string $sector): int {
         $gtw = new GroupGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7', 'anrichard7', 'achanger'));
-        $gtw->add(array($num, $year, $sector));
+        return $gtw->add(array($num, $year, $sector));
     }
 
     public function addUserToGroup($user, $group): void {
