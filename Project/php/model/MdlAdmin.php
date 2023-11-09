@@ -72,4 +72,14 @@ class MdlAdmin extends AbsModel
         $gtw = new GroupGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7', 'anrichard7', 'achanger'));
         $gtw->add(array($num, $year, $sector));
     }
+
+    public function addUserToGroup($user, $group): void {
+        $gtw = new UserGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7', 'anrichard7', 'achanger'));
+        $gtw->modifyGroup($user, $group);
+    }
+
+    public function getUnassignedUsers(): array {
+        $gtw = new UserGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7', 'anrichard7', 'achanger'));
+        return $gtw->findUnassignedUsers();
+    }
 }

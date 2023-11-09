@@ -277,4 +277,20 @@ class UserGateway extends AbsGateway
             throw new Exception($e->getMessage());
         }
     }
+
+    public function findUnassignedUsers()
+    {
+        try {
+            $query = "SELECT * FROM User_ WHERE groupID=0";
+            $this->con->executeQuery($query);
+            $results = $this->con->getResults();
+            $tab = array();
+            foreach ($results as $row)
+                $tab[] = new User($row['id'], $row['password'], $row['email'], $row['name'], $row['surname'], $row['nickname'], $row['image'], $row['extraTime'], $row['groupID'], $this->getRoles($row['id']));
+            return $tab;
+        }
+        catch(PDOException $e ){
+            throw new Exception($e->getMessage());
+        }
+    }
 }

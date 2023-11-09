@@ -9,6 +9,7 @@
     body{
         display: flex;
         justify-content: space-around;
+        flex-wrap: wrap;
     }
     section{
         border: 1px solid black;
@@ -86,6 +87,38 @@
         <input name="sector" type="text" placeholder="sector" required>
         <input type="submit" value="Add">
     </form>
+</section>
+<section class="unassignedUsers">
+    <h1>Unassigned users</h1>
+    <table>
+        <tr>
+            <td>ID</td>
+            <td>Nickname</td>
+            <td>Name</td>
+            <td>Surname</td>
+            <td>Mail</td>
+            <td>Group</td>
+            <td>Role</td>
+            <td>Extra Time</td>
+        </tr>
+        {% if unassignedUsers is defined %}
+        {% for row in unassignedUsers %}
+        <tr>
+            <td>{{row.id}}</td>
+            <td>{{row.nickname}}</td>
+            <td>{{row.name}}</td>
+            <td>{{row.surname}}</td>
+            <td>{{row.email}}</td>
+            <td>{{row.group}}</td>
+            <td>{{row.role}}</td>
+            <td>{{row.extraTime}}</td>
+            <td><a href="index.php?action=addUserToGroup&userID={{row.id}}&groupID={{selectedGroup}}">
+                <input class="btn-black" type="button" value="Add to group"/>
+            </a></td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </table>
 </section>
 </body>
 </html>

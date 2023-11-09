@@ -56,6 +56,10 @@ class AdminController
                     $this->addGroup();
                     break;
 
+                case 'addUserToGroup':
+                    $this->addUserToGroup();
+                    break;
+
                 default:
                     $dVueEreur[] = "Erreur d'appel php";
                     echo $twig->render('vuephp1.html', ['dVueEreur' => $dVueEreur]);
@@ -123,7 +127,8 @@ class AdminController
         global $twig;
         $model = new MdlAdmin();
         $groups = $model->showAllGroups();
-        echo $twig->render('groupView.html', ['groups' => $groups]);
+        $unassignedUsers = $model->getUnassignedUsers();
+        echo $twig->render('groupView.html', ['groups' => $groups, 'unassignedUsers' => $unassignedUsers]);
     }
 
     public function showGroupDetails(): void {
@@ -132,7 +137,8 @@ class AdminController
         $id = $_GET['selectedGroup'];
         $groups = $model->showAllGroups();
         $users = $model->getUsersOfGroup($id);
-        echo $twig->render('groupView.html', ['groups' => $groups, 'selectedGroup' => $id, 'users' => $users]);
+        $unassignedUsers = $model->getUnassignedUsers();
+        echo $twig->render('groupView.html', ['groups' => $groups, 'selectedGroup' => $id, 'users' => $users, 'unassignedUsers' => $unassignedUsers]);
     }
 
     public function removeUserFromGroup(): void {
@@ -156,5 +162,14 @@ class AdminController
         $sector = $_GET['sector'];
         $model->addGroup($num, $year, $sector);
         $this->showAllGroups();
+    }
+
+    public function addUserToGroup(): void {
+        $model = new MdlAdmin();
+        $user = $_GET['userID'];
+        $group = $_GET['groupID'];
+        $model->addUserToGroup($user, $group);
+        $_GET['selectedGroup'] = $group;
+        $this->showGroupDetails();
     }
 }
