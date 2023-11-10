@@ -24,10 +24,10 @@ class User
      * @param string $nickname
      * @param string $image
      * @param bool $extraTime
-     * @param int $group
+     * @param int|null $group
      * @param array $roles
      */
-    public function __construct(int $id, string $password, string $email, string $name, string $surname, string $nickname, string $image, bool $extraTime, int $group, array $roles)
+    public function __construct(int $id, string $password, string $email, string $name, string $surname, string $nickname, string $image, ?bool $extraTime, ?int $group, array $roles)
     {
         $this->id = $id;
         $this->password = $password;
@@ -36,8 +36,8 @@ class User
         $this->surname = $surname;
         $this->nickname = $nickname;
         $this->image = $image;
-        $this->extraTime = $extraTime;
-        $this->group = $group;
+        $this->extraTime = ($extraTime !== null) ? $extraTime : false;
+        $this->group = ($group !== null) ? $group : -1;
         $this->roles = $roles;
     }
 
