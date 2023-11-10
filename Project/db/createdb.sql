@@ -1,8 +1,12 @@
-DROP TABLE IF EXISTS Be;
+DROP TABLE IF EXISTS Translate;
+DROP TABLE IF EXISTS Register;
 DROP TABLE IF EXISTS Practice;
-DROP TABLE IF EXISTS Role_;
+DROP TABLE IF EXISTS Be;
+DROP TABLE IF EXISTS VocabularyList;
 DROP TABLE IF EXISTS Vocabulary;
+DROP TABLE IF EXISTS Language;
 DROP TABLE IF EXISTS User_;
+DROP TABLE IF EXISTS Role_;
 DROP TABLE IF EXISTS Group_;
 
 CREATE TABLE Group_(
@@ -38,22 +42,51 @@ CREATE TABLE Be(
     PRIMARY KEY (userID, roleID)
 );
 
-CREATE TABLE Vocabulary(
+CREATE TABLE VocabularyList(
     id int(10) PRIMARY KEY AUTO_INCREMENT,
     name varchar(30) NOT NULL,
     image text NOT NULL,
-    creator int(10),
-    FOREIGN KEY (creator) REFERENCES User_(id)
+    userID int(10),
+    FOREIGN KEY (userID) REFERENCES User_(id)
 );
 
 CREATE TABLE Practice(
     vocabID int(10),
     groupID int(10),
-    FOREIGN KEY (vocabID) REFERENCES Vocabulary(id),
+    FOREIGN KEY (vocabID) REFERENCES VocabularyList(id),
     FOREIGN KEY (groupID) REFERENCES Group_(id),
     PRIMARY KEY (vocabID, groupID)
+);
+
+CREATE TABLE Language(
+    name varchar(30) PRIMARY KEY
+);
+
+CREATE TABLE Vocabulary(
+    word varchar(30) PRIMARY KEY
+);
+
+CREATE TABLE Translate(
+    firstWord varchar(30),
+    secondWord varchar(30),
+    listVoc int(10),
+    FOREIGN KEY (firstWord) REFERENCES Vocabulary(word),
+    FOREIGN KEY (secondWord) REFERENCES Vocabulary(word),
+    FOREIGN KEY (listVoc) REFERENCES VocabularyList(id),
+    PRIMARY KEY (firstWord, secondWord, listVoc)
+);
+
+CREATE TABLE Register(
+    language varchar(30),
+    word varchar(30),
+    FOREIGN KEY (language) REFERENCES Language(name),
+    FOREIGN KEY (word) REFERENCES Vocabulary(word),
+    PRIMARY KEY (language, word)
 );
 
 INSERT INTO Role_ VALUES (1, 'admin');
 INSERT INTO Role_ VALUES (2, 'teacher');
 INSERT INTO Role_ VALUES (3, 'student');
+
+INSERT INTO Language VALUES ('English');
+INSERT INTO Language VALUES ('French');
