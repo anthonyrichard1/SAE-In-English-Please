@@ -281,7 +281,7 @@ class UserGateway extends AbsGateway
     public function findUnassignedUsers(): array
     {
         try {
-            $query = "SELECT * FROM User_, Be WHERE groupID=NULL AND id = userID AND roleID = 3 ";
+            $query = "SELECT * FROM User_, Be WHERE groupID IS NULL AND id = userID AND roleID = 3 ";
             $this->con->executeQuery($query);
             $results = $this->con->getResults();
             $tab = array();
