@@ -1,8 +1,7 @@
 <?php
 
 namespace controller;
-
-use mysql_xdevapi\Exception;
+use Exception;
 
 class FrontController
 {
@@ -48,10 +47,8 @@ class FrontController
                     break;
             }
         }
-        catch (\PDOException $e) {
-            $dVueEreur[] = 'Erreur inattendue!!! ';
-        } catch (\Exception $e2) {
-            $dVueEreur[] = $e2->getMessage()." ".$e2->getFile()." ".$e2->getLine().'Erreur inattendue!!! ';
+        catch (Exception $e) {
+            $dVueEreur[] = $e->getMessage()." ".$e->getFile()." ".$e->getLine().'Erreur inattendue!!! ';
             echo $twig->render('erreur.html', ['dVueEreur' => $dVueEreur]);
         }
     }

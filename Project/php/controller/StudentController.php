@@ -2,27 +2,28 @@
 
 namespace controller;
 use model\MdlStudent;
-use gateway\UserGateway;
-use config\Connection;
+use Exception;
 
 class StudentController
 {
-
     public function __construct()
     {
         global $twig;
-        session_start();
-        $actionList = ['showVocab', 'getByName'];
-        $dVueEreur = [];
+
         try {
             $action = $_REQUEST['action'] ?? null;
             switch ($action) {
                 case 'allVocab':
-                case null:
                     $this->affAllVocab();
                     break;
+
                 case 'getByName':
                     $this->getByName($_REQUEST['nom']);
+                    break;
+
+
+                case null:
+                    echo $twig->render('home.html');
                     break;
 
                 default:
@@ -30,15 +31,13 @@ class StudentController
                     echo $twig->render('vuephp1.html', ['dVueEreur' => $dVueEreur]);
                     break;
             }
-        } catch (\PDOException $e) {
-            $dataVueEreur[] = "Erreur inattendue";
-            $twig->render("vuephp1.html", ['dVueErreur' => $dataVueEreur]);
-
-        } catch (Exception $e2) {
-            $dataVueEreur[] = "Erreur inattendue!!! ";
-            require($dataVueEreur['erreur']);
+        }
+        catch (Exception $e) {
+            $dVueEreur[] = $e->getMessage()." ".$e->getFile()." ".$e->getLine().'Erreur inattendue!!! ';
+            echo $twig->render('erreur.html', ['dVueEreur' => $dVueEreur]);
         }
     }
+
         public function affAllVocab(): void
         {
             global $twig;

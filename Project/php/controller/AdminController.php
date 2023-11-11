@@ -2,9 +2,8 @@
 
 namespace controller;
 
-use gateway\GroupGateway;
 use model\MdlAdmin;
-use model\UserGateway;
+use Exception;
 
 class AdminController
 {
@@ -17,7 +16,6 @@ class AdminController
 
             switch($action) {
                 case 'showAllUsers':
-                case null:
                     $this->showAllUsers();
                     break;
 
@@ -61,16 +59,18 @@ class AdminController
                     $this->addUserToGroup();
                     break;
 
+                case null:
+                    echo $twig->render('home.html');
+                    break;
+
                 default:
                     $dVueEreur[] = "Erreur d'appel php";
                     echo $twig->render('vuephp1.html', ['dVueEreur' => $dVueEreur]);
                     break;
             }
-        } catch (\PDOException $e) {
-
-            $dVueEreur[] = 'Erreur inattendue!!! ';
-        } catch (\Exception $e2) {
-            $dVueEreur[] = $e2->getMessage()." ".$e2->getFile()." ".$e2->getLine().'Erreur inattendue!!! ';
+        }
+        catch (Exception $e) {
+            $dVueEreur[] = $e->getMessage()." ".$e->getFile()." ".$e->getLine().'Erreur inattendue!!! ';
             echo $twig->render('erreur.html', ['dVueEreur' => $dVueEreur]);
         }
         exit(0);
