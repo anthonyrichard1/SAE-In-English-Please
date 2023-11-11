@@ -3,13 +3,13 @@ namespace gateway;
 
 use PDO;
 use PDOException;
-use config\Connection;
+use Exception;
 use model\Vocabulary;
 
 class VocabularyGateway extends AbsGateway
 {
-    public function __construct(Connection $con){
-        parent::__construct($con);
+    public function __construct(){
+        parent::__construct();
     }
 
     public function add(array $parameters): int // require 4 elements

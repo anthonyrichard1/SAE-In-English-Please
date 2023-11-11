@@ -10,8 +10,8 @@ use model\Group;
 
 class GroupGateway extends AbsGateway
 {
-    public function __construct(Connection $con){
-        parent::__construct($con);
+    public function __construct(){
+        parent::__construct();
     }
 
     public function add(array $parameters): int //require 4 elements

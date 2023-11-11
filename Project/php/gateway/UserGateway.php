@@ -9,9 +9,9 @@ use Exception;
 
 class UserGateway extends AbsGateway
 {
-    public function __construct(Connection $con)
+    public function __construct()
     {
-        parent::__construct($con);
+        parent::__construct();
     }
 
     public function add(array $parameters): int //require 9 elements
