@@ -2,7 +2,7 @@
 
 namespace model;
 
-class Vocabulary
+class VocabularyList
 {
     protected String $name;
     protected String $image;
