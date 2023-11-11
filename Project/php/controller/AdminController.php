@@ -11,7 +11,6 @@ class AdminController
     public function __construct()
     {
         global $twig;
-        session_start();
 
         try {
             $action = $_REQUEST['action'] ?? null;
@@ -71,7 +70,7 @@ class AdminController
 
             $dVueEreur[] = 'Erreur inattendue!!! ';
         } catch (\Exception $e2) {
-            $dVueEreur[] = $e2->getMessage().'Erreur inattendue!!! ';
+            $dVueEreur[] = $e2->getMessage()." ".$e2->getFile()." ".$e2->getLine().'Erreur inattendue!!! ';
             echo $twig->render('erreur.html', ['dVueEreur' => $dVueEreur]);
         }
         exit(0);
@@ -130,7 +129,7 @@ class AdminController
         $model = new MdlAdmin();
         $groups = $model->showAllGroups();
         $unassignedUsers = $model->getUnassignedUsers();
-        echo $twig->render('groupView.html', ['groups' => $groups, 'unassignedUsers' => $unassignedUsers]);
+        echo $twig->render('manageGroupView.html', ['groups' => $groups, 'unassignedUsers' => $unassignedUsers]);
     }
 
     public function showGroupDetails(): void {
@@ -140,7 +139,7 @@ class AdminController
         $groups = $model->showAllGroups();
         $users = $model->getUsersOfGroup($id);
         $unassignedUsers = $model->getUnassignedUsers();
-        echo $twig->render('groupView.html', ['groups' => $groups, 'selectedGroup' => $id, 'users' => $users, 'unassignedUsers' => $unassignedUsers]);
+        echo $twig->render('manageGroupView.html', ['groups' => $groups, 'selectedGroup' => $id, 'users' => $users, 'unassignedUsers' => $unassignedUsers]);
     }
 
     public function removeUserFromGroup(): void {

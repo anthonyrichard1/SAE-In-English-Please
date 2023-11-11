@@ -41,9 +41,9 @@ class FrontController
                     break;
 
                 default :
-                    if (in_array($this->adminActions,$action)) new AdminController();
-                    else if (in_array($this->teacherActions, $action)) new TeacherController();
-                    else if (in_array($this->studentActions, $action)) new StudentController();
+                    if (in_array($action, $this->adminActions)) new AdminController();
+                    else if (in_array($action, $this->teacherActions)) new TeacherController();
+                    else if (in_array($action, $this->studentActions)) new StudentController();
                     else throw new Exception("invalid Action");
                     break;
             }
@@ -51,7 +51,7 @@ class FrontController
         catch (\PDOException $e) {
             $dVueEreur[] = 'Erreur inattendue!!! ';
         } catch (\Exception $e2) {
-            $dVueEreur[] = $e2->getMessage().'Erreur inattendue!!! ';
+            $dVueEreur[] = $e2->getMessage()." ".$e2->getFile()." ".$e2->getLine().'Erreur inattendue!!! ';
             echo $twig->render('erreur.html', ['dVueEreur' => $dVueEreur]);
         }
     }
