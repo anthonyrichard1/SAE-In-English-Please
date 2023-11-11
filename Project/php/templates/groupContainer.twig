@@ -1,0 +1,38 @@
+<table>
+    {% if groups is defined %}
+        {% for row in groups %}
+            {% if selectedGroup is defined and selectedGroup == row.id %}
+                <tr style="background-color:red;">
+            {% else %}
+                <tr>
+            {% endif %}
+            <td>ID</td>
+            <td>Num</td>
+            <td>Year</td>
+            <td>Sector</td>
+            </tr>
+            <tr>
+                <td>{{row.id}}</td>
+                <td>{{row.num}}</td>
+                <td>{{row.year}}</td>
+                <td>{{row.sector}}</td>
+
+                {% if actions is defined %}
+
+                    {% if 'showGroupDetails' in actions %}
+                    <td><a href="index.php?action=showGroupDetails&selectedGroup={{row.id}}">
+                            <input class="btn-black" type="button" value="Show"/>
+                        </a></td>
+                    {% endif %}
+
+                    {% if 'removeGroup' in actions %}
+                    <td><a href="index.php?action=removeGroup&selectedGroup={{row.id}}">
+                            <input class="btn-black" type="button" value="Remove"/>
+                        </a></td>
+                    {% endif %}
+
+                {% endif %}
+            </tr>
+        {% endfor %}
+    {% endif %}
+</table>
