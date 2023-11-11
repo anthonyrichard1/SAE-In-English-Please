@@ -35,13 +35,7 @@
 </section>
 <section class="addGroupForm">
     <h2>Add group</h2>
-    <form action="index.php" method="GET">
-        <input type="hidden" name="action" value="addGroup">
-        <input name="num" type="text" placeholder="number" required>
-        <input name="year" type="text" placeholder="year" required>
-        <input name="sector" type="text" placeholder="sector" required>
-        <input type="submit" value="Add">
-    </form>
+    {% include 'addGroupForm.twig' %}
 </section>
 <section class="unassignedUsers">
     <h1>Unassigned users</h1>
