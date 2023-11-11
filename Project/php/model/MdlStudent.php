@@ -45,10 +45,19 @@ class MdlStudent extends AbsModel
         return $res;
     }
 
+    public function getUser(int $id): User{
+        $gtw = new UserGateway();
+        return $gtw->findById($id);
+    }
 
+    public function modifyNickname(int $id, string $newNickname): void{
+        $gtw = new UserGateway();
+        $gtw->modifyNickname($id, $newNickname);
+    }
 
-
-
-
+    public function ModifyPassword(int $id, string $newPassword): void {
+        $gtw = new UserGateway();
+        $gtw->modifyPassword($id, $newPassword);
+    }
 }
 

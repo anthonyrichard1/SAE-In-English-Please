@@ -23,6 +23,9 @@ class FrontController
     );
 
     private array $studentActions = array(
+        'showAccountInfos',
+        'modifyNickname',
+        'modifyPassword'
     );
 
     public function __construct()
