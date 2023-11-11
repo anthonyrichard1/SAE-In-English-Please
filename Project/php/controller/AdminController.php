@@ -13,8 +13,6 @@ class AdminController
         global $twig;
         session_start();
 
-        $dVueEreur = [];
-
         try {
             $action = $_REQUEST['action'] ?? null;
 
@@ -39,15 +37,19 @@ class AdminController
                 case 'removeUser':
                     $this->removeUser();
                     break;
+
                 case 'showAllGroups':
                     $this->showAllGroups();
                     break;
+
                 case 'showGroupDetails':
                     $this->showGroupDetails();
                     break;
+
                 case 'removeUserFromGroup':
                     $this->removeUserFromGroup();
                     break;
+
                 case 'removeGroup':
                     $this->removeGroup();
                     break;
