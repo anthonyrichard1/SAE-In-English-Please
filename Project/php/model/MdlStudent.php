@@ -2,6 +2,7 @@
 
 namespace model;
 
+use gateway\UserGateway;
 use gateway\VocabularyGateway;
 //use http\Client\Curl\User;
 use model\AbsModel;
@@ -28,7 +29,7 @@ class MdlStudent extends AbsModel
 */
     public function getAll():array{
         global $twig;
-        $gtw = new VocabularyGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7','anrichard7','achanger'));
+        $gtw = new VocabularyGateway();
         return  $gtw->findAll();
         /*
         foreach ($data as $row){
@@ -39,7 +40,7 @@ class MdlStudent extends AbsModel
 }
 
     public function getVocabByName($name):array{
-        $gtw = new VocabularyGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7','anrichard7','achanger'));
+        $gtw = new VocabularyGateway();
         $res = $gtw->findByName($name);
         return $res;
     }

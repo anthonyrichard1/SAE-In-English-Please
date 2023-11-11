@@ -16,7 +16,7 @@ class MdlTeacher extends AbsModel
     }
 
     public function getAll():array{
-        $gtw = new VocabularyGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7','anrichard7','achanger'));
+        $gtw = new VocabularyGateway();
         return  $gtw->findAll();
         /*
         foreach ($data as $row){
@@ -27,18 +27,18 @@ class MdlTeacher extends AbsModel
     }
 
     public function getAllStudent():array {
-        $gtw = new UserGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7','anrichard7','achanger'));
+        $gtw = new UserGateway();
         return $gtw->findAll();
     }
 
     public function getVocabByName($name):array{
-        $gtw = new VocabularyGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7','anrichard7','achanger'));
+        $gtw = new VocabularyGateway();
         $res = $gtw->findByName($name);
         return $res;
     }
 
     public function RemoveVocById($id):void{
-        $gtw = new VocabularyGateway(new Connection('mysql:host=localhost;dbname=dbanrichard7','anrichard7','achanger'));
+        $gtw = new VocabularyGateway();
         $res = $gtw->remove($id);
     }
 

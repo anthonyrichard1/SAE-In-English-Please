@@ -20,7 +20,7 @@ class AbsModel
     public function connection($login, $password){
         $cleanedLogin = strip_tags($login);
         $cleanedPassword = strip_tags($password);
-        $gtw = new UserGateway(new Connection($dsn, $login, $password));
+        $gtw = new UserGateway();
         $student = $gtw->findUserByLoginPassword($cleanedLogin, $cleanedPassword);
 
         if ($student) {
