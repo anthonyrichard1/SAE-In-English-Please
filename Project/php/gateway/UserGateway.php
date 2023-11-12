@@ -46,7 +46,7 @@ class UserGateway extends AbsGateway
     public function remove(int $id): void
     {
         try {
-            $query="DELETE FROM Vocabulary WHERE creator=:id";
+            $query="DELETE FROM VocabularyList WHERE userID=:id";
             $args = array(':id' => array($id, PDO::PARAM_INT));
             $this->con->executeQuery($query, $args);
 
@@ -278,10 +278,10 @@ class UserGateway extends AbsGateway
         }
     }
 
-    public function findUnassignedUsers()
+    public function findUnassignedUsers(): array
     {
         try {
-            $query = "SELECT * FROM User_ WHERE groupID=0";
+            $query = "SELECT * FROM User_, Be WHERE groupID IS NULL AND id = userID AND roleID = 3 ";
             $this->con->executeQuery($query);
             $results = $this->con->getResults();
             $tab = array();

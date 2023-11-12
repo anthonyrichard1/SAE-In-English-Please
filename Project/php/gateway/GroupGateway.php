@@ -32,13 +32,13 @@ class GroupGateway extends AbsGateway
     public function remove(int $id): void
     {
         try{
-            $query = "DELETE FROM Group_ g WHERE g.id=:id ";
-            $args = array(':id'=>array($id,PDO::PARAM_INT));
-            $this->con->ExecuteQuery($query,$args);
+            $query="UPDATE User_ SET groupID=NULL WHERE groupID=:id";
+            $args = array(':id' => array($id, PDO::PARAM_INT));
+            $this->con->executeQuery($query, $args);
             $query = "DELETE FROM Practice WHERE groupID=:id ";
             $args = array(':id' => array($id, PDO::PARAM_INT));
             $this->con->executeQuery($query, $args);
-            $query="UPDATE User_ SET groupID=0 WHERE groupID=:id";
+            $query = "DELETE FROM Group_ WHERE id=:id ";
             $args = array(':id' => array($id, PDO::PARAM_INT));
             $this->con->executeQuery($query, $args);
         }
@@ -67,7 +67,16 @@ class GroupGateway extends AbsGateway
 
     public function findById(int $id)
     {
-        // TODO: Implement findById() method.
+        try{
+            $query = "SELECT * FROM Group_ WHERE id = :id";
+            $args = array(':id'=>array($id, PDO::PARAM_INT));
+            $this->con->executeQuery($query, args);
+
+            return $this->con->getResults();
+        }
+        catch (PDOException $e){
+            throw new Exception($e->getMessage());
+        }
     }
 
     public function findByNum(String $num): array{

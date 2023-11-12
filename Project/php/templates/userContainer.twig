@@ -18,8 +18,8 @@
                 <td>{{row.surname}}</td>
                 <td>{{row.email}}</td>
                 <td>{{row.group}}</td>
-                <td>{{row.role}}</td>
-                <td>{{row.extraTime}}</td>
+                <td>{{row.roles|join(', ')}}</td>
+                <td>{{row.extraTime? 'yes' : 'no' }}</td>
 
                 {% if action is defined %}
 
