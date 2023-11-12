@@ -54,14 +54,7 @@
     </section>
     <section>
         <h2> Modify password</h2>
-            <form action="index.php" method="GET">
-                <input type="hidden" name="action" value="modifyPassword">
-                <input type="hidden" name="user" value={{user.id}}>
-                <input type="text" name="currentPassword" placeholder="current password" required>
-                <input type="text" name="newPassword" placeholder="new password" required>
-                <input type="text" name="confirmNewPassword" placeholder="confirm new password" required>
-                <input type="submit" value="Modify your password">
-            </form>
+            {% include 'modifyPasswordForm.twig' %}
     </section>
     {% endif %}
 </body>
