@@ -36,7 +36,7 @@ class FrontController
         $dVueEreur = array();
 
         try {
-            $action = Validation::val_action($_REQUEST['action']);
+            $action = Validation::val_action($_REQUEST['action'] ?? null);
 
             switch ($action) {
                 case null:

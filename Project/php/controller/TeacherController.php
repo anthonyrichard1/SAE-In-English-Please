@@ -1,6 +1,7 @@
 <?php
 
 namespace controller;
+use config\Validation;
 use model\MdlTeacher;
 use Exception;
 
@@ -11,7 +12,7 @@ class TeacherController
         global $twig;
 
         try {
-            $action = $_REQUEST['action'] ?? null;
+            $action = Validation::val_action($_REQUEST['action'] ?? null);
             switch ($action) {
 
                 case 'getAllStudent':

@@ -12,7 +12,7 @@ class StudentController
         global $twig;
 
         try {
-            $action = $_REQUEST['action'] ?? null;
+            $action = Validation::val_action($_REQUEST['action'] ?? null);
             switch ($action) {
                 case 'allVocab':
                     $this->affAllVocab();

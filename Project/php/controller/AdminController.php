@@ -13,7 +13,7 @@ class AdminController
         global $twig;
 
         try {
-            $action = Validation::val_action($_REQUEST['action']);
+            $action = Validation::val_action($_REQUEST['action'] ?? null);
 
             switch($action) {
                 case 'showAllUsers':

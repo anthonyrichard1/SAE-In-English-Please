@@ -9,9 +9,7 @@ class Validation
 
     public static function val_action($action): string {
         $safeAction = htmlspecialchars($action, ENT_QUOTES);
-        if (!isset($action))
-            throw new \Exception('pas d\'action');
-        else if ($safeAction != $action)
+        if ($safeAction != $action)
             throw new \Exception("tentative d'injection sql détectée");
         else return $safeAction;
     }
