@@ -21,13 +21,13 @@ class Validation
     }
 
     public static function filter_str_simple($value): string {
-        if ($value == null || !preg_match('/^[A-Za-z0-9\s\-]+$/', $value))
+        if ($value == null || !preg_match('/^[A-Za-z\s\-]+$/', $value))
             throw new Exception("invalid field");
         return $value;
     }
 
     public static function filter_str_nospecialchar($value): string {
-        if ($value == null || !preg_match('/^[A-Za-z\s\-]+$/', $value))
+        if ($value == null || !preg_match('/^[A-Za-z0-9\s\-]+$/', $value))
             throw new Exception("invalid field");
         return $value;
     }
