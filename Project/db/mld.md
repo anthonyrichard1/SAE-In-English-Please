@@ -1,7 +1,15 @@
 ```plantuml
 @startuml
 
-card Group [
+skinparam cardAttributeIconSize 9
+skinparam cardBackgroundColor #009900
+skinparam cardBorderColor #black
+skinparam ArrowColor #00331f
+skinparam cardFontColor #black
+skinparam cardFontName arial
+skinparam BackgroundColor #lightgrey
+
+card Group  [
     Group
     --
     <u>id
@@ -23,17 +31,42 @@ card User [
     extratime
     ~#groupID
 ]
-User --> Group
 
-card Vocabulary [
-    Vocabulary
+card VocabularyList [
+    VocabularyList
     --
     <u>id
     name
     image
-    ~#creator
+    ~#userID
 ]
-Vocabulary --> User
+
+card Translate [
+    Translate
+    --
+    <u>#firstWord
+    <u>#secondWord
+    <u>#listVoc
+]
+
+card Vocabulary [
+    Vocabulary
+    --
+    <u>word
+]
+
+card Language [
+    Language
+    --
+    <u>name
+]
+
+card Register [
+    Register
+    --
+    <u>#language
+    <u>#word
+]
 
 card Role [
     Role
@@ -47,8 +80,7 @@ card Practice [
     <u>#vocabID
     <u>#groupID
 ]
-Practice --> Vocabulary
-Practice --> Group
+
 
 card Be [
     Be
@@ -56,7 +88,18 @@ card Be [
     <u>#userID
     <u>#roleID
 ]
+
+
+User --> Group
+Translate --> VocabularyList
+Vocabulary <-- Translate
+Vocabulary <-- Translate
+Language <-r- Register
+Register --> Vocabulary
+Practice -> VocabularyList
+Practice -> Group
 Be --> User
-Be --> Role
+Role <-l- Be
+VocabularyList -> User
 
 @enduml
