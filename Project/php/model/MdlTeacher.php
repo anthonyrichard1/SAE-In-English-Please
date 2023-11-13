@@ -2,9 +2,6 @@
 
 namespace model;
 
-//use http\Client\Curl\User;
-use model\AbsModel;
-use config\Connection;
 use gateway\UserGateway;
 use gateway\VocabularyGateway;
 class MdlTeacher extends AbsModel

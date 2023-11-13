@@ -4,10 +4,6 @@ namespace model;
 
 use gateway\UserGateway;
 use gateway\VocabularyGateway;
-//use http\Client\Curl\User;
-use model\AbsModel;
-use config\Connection;
-use model\User;
 class MdlStudent extends AbsModel
 {
 

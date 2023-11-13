@@ -2,7 +2,6 @@
 
 namespace model;
 
-use config\Connection;
 use gateway\GroupGateway;
 use gateway\UserGateway;
 

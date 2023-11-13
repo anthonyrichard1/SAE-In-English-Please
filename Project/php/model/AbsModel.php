@@ -2,7 +2,6 @@
 
 namespace model;
 
-use config\Connection;
 use gateway\UserGateway;
 
 class AbsModel
