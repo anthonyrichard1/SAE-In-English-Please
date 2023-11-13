@@ -91,11 +91,6 @@ class User
         return $this->roles;
     }
 
-    public function __toString(): string
-    {
-        $s = "User : ".$this->id." ".$this->name." ".$this->surname." ".$this->nickname." ".$this->email;
-        foreach ($this->roles as $role) $s = $s." ".$role;
-        return $s;
-    }
+
 }
 

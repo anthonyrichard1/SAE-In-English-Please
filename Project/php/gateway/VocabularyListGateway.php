@@ -31,6 +31,10 @@ class VocabularyListGateway extends AbsGateway
     public function remove(int $id): void
     {
         try{
+            $query = "DELETE FROM Practice WHERE vocabID=:id";
+            $args = array(':id'=>array($id,PDO::PARAM_INT));
+            $this->con->ExecuteQuery($query,$args);
+
             $query = "DELETE FROM VocabularyList v WHERE v.id=:id ";
             $args = array(':id'=>array($id,PDO::PARAM_INT));
             $this->con->ExecuteQuery($query,$args);
@@ -105,6 +109,21 @@ class VocabularyListGateway extends AbsGateway
         }
         catch (PDOException $e){
             throw new Exception('problème pour modifier les vocabulaires');
+        }
+    }
+
+    public function findByGroup(int $id): array {
+        try {
+            $query = "SELECT v.* FROM VocabularyList v, Practice p WHERE v.id=p.vocabID AND p.groupID=:id";
+            $args = array(':id' => array($id, PDO::PARAM_INT));
+            $this->con->executeQuery($query, $args);
+            $results = $this->con->getResults();
+            $tab = array();
+            foreach ($results as $row) $tab[] = new VocabularyList($row['id'], $row['name'], $row['image'], $row['userID']);
+            return $tab;
+        }
+        catch (PDOException $e) {
+            throw new Exception($e->getMessage());
         }
     }
 }
