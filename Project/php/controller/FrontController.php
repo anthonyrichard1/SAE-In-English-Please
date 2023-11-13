@@ -1,6 +1,7 @@
 <?php
 
 namespace controller;
+use config\Validation;
 use Exception;
 
 class FrontController
@@ -35,7 +36,7 @@ class FrontController
         $dVueEreur = array();
 
         try {
-            $action = $_REQUEST['action'] ?? null;
+            $action = Validation::val_action($_REQUEST['action']);
 
             switch ($action) {
                 case null:
