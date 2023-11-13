@@ -107,7 +107,7 @@ class AdminController
 
     public function removeUser(): void {
         try {
-            $id = Validation::filter_int($_GET['id']);
+            $id = Validation::filter_int($_GET['id'] ?? null);
             $model = new MdlAdmin();
             $model->removeUser($id);
             $this->showAllUsers();
@@ -142,7 +142,7 @@ class AdminController
 
     public function removeUserFromGroup(): void {
         try {
-            $id = Validation::filter_int($_GET['id']);
+            $id = Validation::filter_int($_GET['id'] ?? null);
             $model = new MdlAdmin();
             $model->removeUserFromGroup($id);
             $this->showGroupDetails();
@@ -154,7 +154,7 @@ class AdminController
 
     public function removeGroup(): void {
         try {
-            $selectedGroup = Validation::filter_int($_GET['selectedGroup']);
+            $selectedGroup = Validation::filter_int($_GET['selectedGroup'] ?? null);
             $model = new MdlAdmin();
             $model->removeGroup($selectedGroup);
             $this->showAllGroups();
@@ -166,9 +166,9 @@ class AdminController
 
     public function addGroup(): void {
         try {
-            $num = Validation::filter_int($_GET['num']);
-            $year = Validation::filter_int($_GET['year']);
-            $sector = Validation::filter_str_simple($_GET['sector']);
+            $num = Validation::filter_int($_GET['num'] ?? null);
+            $year = Validation::filter_int($_GET['year'] ?? null);
+            $sector = Validation::filter_str_simple($_GET['sector'] ?? null);
 
             $model = new MdlAdmin();
             $groupID = $model->addGroup($num, $year, $sector);
@@ -182,8 +182,8 @@ class AdminController
 
     public function addUserToGroup(): void {
         try {
-            $user = Validation::filter_int($_GET['userID']);
-            $group = Validation::filter_int($_GET['groupID']);
+            $user = Validation::filter_int($_GET['userID'] ?? null);
+            $group = Validation::filter_int($_GET['groupID'] ?? null);
             $model = new MdlAdmin();
             $model->addUserToGroup($user, $group);
             $_GET['selectedGroup'] = $group;
