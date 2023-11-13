@@ -23,22 +23,22 @@ class MdlAdmin extends AbsModel
         else return null;
     }*/
 
-    public function showAllUsers(): array {
+    public function getAllUsers(): array {
         $gtw = new UserGateway();
         return $gtw->findAll();
     }
 
-    public function showAllAdmins(): array {
+    public function getAllAdmins(): array {
         $gtw = new UserGateway();
         return $gtw->findAllAdmins();
     }
 
-    public function showAllTeachers(): array {
+    public function getAllTeachers(): array {
         $gtw = new UserGateway();
         return $gtw->findAllTeachers();
     }
 
-    public function showAllStudents(): array {
+    public function getAllStudents(): array {
         $gtw = new UserGateway();
         return $gtw->findAllStudents();
     }
@@ -48,7 +48,7 @@ class MdlAdmin extends AbsModel
         $gtw->remove($id);
     }
 
-    public function showAllGroups(): array {
+    public function getAllGroups(): array {
         $gtw = new GroupGateway();
         return $gtw->findAll();
     }
@@ -60,7 +60,7 @@ class MdlAdmin extends AbsModel
 
     public function removeUserFromGroup(int $id): void {
         $gtw = new UserGateway();
-        $gtw->modifyGroup($id, 0);
+        $gtw->modifyGroup($id);
     }
 
     public function removeGroup(int $id): void {

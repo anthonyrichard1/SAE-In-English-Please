@@ -251,7 +251,7 @@ class UserGateway extends AbsGateway
         }
     }
 
-    public function modifyGroup(int $id, int $newGroup) {
+    public function modifyGroup(int $id, int $newGroup = null) {
         try {
             $query="UPDATE User_ SET groupID=:group WHERE id=:id";
             $args = array(':id' => array($id, PDO::PARAM_INT), ':group' => array($newGroup, PDO::PARAM_STR));
