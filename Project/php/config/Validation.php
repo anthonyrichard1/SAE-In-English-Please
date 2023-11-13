@@ -5,6 +5,8 @@ use Exception;
 
 class Validation
 {
+    private static $passwordMinLen = 12;
+
     public static function val_action($action): string {
         $safeAction = htmlspecialchars($action, ENT_QUOTES);
         if (!isset($action))
@@ -12,6 +14,12 @@ class Validation
         else if ($safeAction != $action)
             throw new \Exception("tentative d'injection sql détectée");
         else return $safeAction;
+    }
+
+    public static function val_password($value): string {
+        if ($value == null || !preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.*\s).{' . Validation::$passwordMinLen . ',}$/', $value))
+            throw new Exception("invalid password format");
+        return $value;
     }
 
     public static function filter_int($value): int {
