@@ -1,5 +1,15 @@
 ```plantuml
 @startuml
+
+skinparam cardAttributeIconSize 9
+skinparam cardBackgroundColor #009900
+skinparam cardBorderColor #black
+skinparam ArrowColor #00331f
+skinparam cardFontColor #black
+skinparam cardFontName arial
+skinparam BackgroundColor #lightgrey
+skinparam usecaseBackgroundColor #80ff80
+
 card User [
     User
     --
@@ -13,12 +23,24 @@ card User [
     extratime
 ]
 
-card Vocabulary [
-    Vocabulary
+card VocabularyList [
+    VocabularyList
     --
     <u>id
     name
     image
+]
+
+card Vocabulary [
+    Vocabulary
+    --
+    <u>word
+]
+
+card Language [
+    Language
+    --
+    <u>name
 ]
 
 card Group [
@@ -39,21 +61,30 @@ card Role [
 
 usecase Create
 
-User "0,n" -- Create 
-Create -- "1,1" Vocabulary
+User "0,n " -- Create 
+Create -- "1,1    " VocabularyList
 
 usecase Practice
 
-Group "0,n" -- Practice
-Practice -- "1,n" Vocabulary
+Group "0,n " -- Practice
+Practice -r-- "0,n" VocabularyList
 
 usecase Belong
+User "0,1" -- Belong
+Belong -- "0,n" Group
 
-User "1,1" -- Belong
-Belong -- "1,n" Group
+usecase Have
 
-usecase Be
+User "0,n" -- Have
+Have -- "0,n " Role
 
-User "1,n" -- Be
-Be -- "1,1" Role
+usecase Register
+Vocabulary "1,n" -- Register 
+Register - "0,n" Language
+
+usecase Translate
+
+Translate - "0,n" Vocabulary
+Vocabulary - "0,n" Translate
+Translate --- "0,n" VocabularyList
 @enduml
