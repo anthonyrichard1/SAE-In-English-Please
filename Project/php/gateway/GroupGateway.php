@@ -70,7 +70,7 @@ class GroupGateway extends AbsGateway
         try{
             $query = "SELECT * FROM Group_ WHERE id = :id";
             $args = array(':id'=>array($id, PDO::PARAM_INT));
-            $this->con->executeQuery($query, args);
+            $this->con->executeQuery($query, $args);
 
             return $this->con->getResults();
         }
