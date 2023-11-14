@@ -1,3 +1,5 @@
+'''plantuml
+
 @startuml IEP
 
 hide circle
@@ -59,33 +61,54 @@ namespace Config #lightgray{
 }
 
 namespace Gateway #lightgray{
+
     abstract Class AbsGateway {
-        - con : Connection
-        + {abstract} add() : void
-        + {abstract} remove() : void
+        # con : Connection
+        + {abstract} add(parameters: array) : int
+        + {abstract} remove(id: int) : void
+        + {abstract} findAll() : array
+        + {abstract} findById(id: int)
     }
 
-    Class studentGateway {
-        + findVocabulary() : string
+    class GroupGateway {
+        + findByNum (num: string): array
+        + modifyGroupById (id: int, num: int, year: int, sector: string): void
     }
 
-    Class adminGateway {
-        + findStudent(): User
+    class TranslationGateway {
+        - addWord(word: string): void
+        + findByIdVoc(id: int): array
     }
 
-    class teacherGateway {
-        + findGroup() : Group
+    Class VocabularyListGateway {
+        + findByName(name: string): array
+        + modifVocabListById(id: int, name: string, img: string, aut: string): void
+        + findByGroup(id: int): array  
     }
 
-    class groupGateway {
-        + fct(): void
+    Class UserGateway {
+        - getRoles(id: int): array
+
+        + findAllAdmins(): array
+        + findAllTeachers(): array
+        + findAllStudents(): array
+        + findUserByEmail(email: string): User
+        + findUserByName(name: string): array
+        + findUserBySurname(surname: string): array
+        + findUserByNickname(nickname: string): array
+        + findUsersByGroup(id: int): array
+        + modifyPassword(id: int, newPassword: string): void
+        + modifyNickname(id: int, newNickname: string): void
+        + modifyImage(id: int, newImage: string): void
+        + modifyGroup(id: int, newGroup: int=Null): void
+        + findUnassignedUsers(): array
     }
 
    
-    AbsGateway <|-- studentGateway
-    AbsGateway <|-- teacherGateway
-    AbsGateway <|-- adminGateway
-    AbsGateway <|-- groupGateway
+    AbsGateway <|-- TranslationGateway
+    AbsGateway <|-- UserGateway
+    AbsGateway <|-- VocabularyListGateway
+    AbsGateway <|-- GroupGateway
 }
 
 @enduml
