@@ -4,7 +4,7 @@ namespace model;
 
 use gateway\UserGateway;
 
-class AbsModel
+abstract class AbsModel
 {
     private string $role;
 
@@ -16,7 +16,7 @@ class AbsModel
         $this->role = $role;
     }
 
-    public function connection($login, $password){
+    public function connection(string $login, string $password){
         $cleanedLogin = strip_tags($login);
         $cleanedPassword = strip_tags($password);
         $gtw = new UserGateway();
@@ -31,9 +31,11 @@ class AbsModel
         else return false;
     }
 
-    public function deconnexion(){
+    public function deconnection(){
         session_unset();
         session_destroy();
         $_SESSION = array();
     }
+
+    public abstract function is();
 }

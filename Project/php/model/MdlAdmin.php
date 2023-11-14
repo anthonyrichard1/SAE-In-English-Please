@@ -12,16 +12,6 @@ class MdlAdmin extends AbsModel
         parent::__construct("admin");
     }
 
-    /*public function isAdmin(){
-        if( isset ($_SESSION['login'])){
-            $login = strip_tags($_SESSION['login']);
-            $user = $this->gtw->findUserByEmail($login);
-            if ($user && $this->gtw->isAdmin($user->getId())) return $user;
-            else return null;
-        }
-        else return null;
-    }*/
-
     public function getAllUsers(): array {
         $gtw = new UserGateway();
         return $gtw->findAll();
@@ -72,7 +62,7 @@ class MdlAdmin extends AbsModel
         return $gtw->add(array($num, $year, $sector));
     }
 
-    public function addUserToGroup($user, $group): void {
+    public function addUserToGroup(int $user, int $group): void {
         $gtw = new UserGateway();
         $gtw->modifyGroup($user, $group);
     }
@@ -80,5 +70,10 @@ class MdlAdmin extends AbsModel
     public function getUnassignedUsers(): array {
         $gtw = new UserGateway();
         return $gtw->findUnassignedUsers();
+    }
+
+    public function is()
+    {
+        // TODO: Implement is() method.
     }
 }

@@ -12,17 +12,6 @@ class MdlStudent extends AbsModel
         parent::__construct("student");
     }
 
-/*
-    public function isStudent(){
-        if( isset ($_SESSION['login']) && isset ($_SESSION['role'])){
-            //Créer une classe nettoyer
-            $login=Nettoyer::nettoyer_string($_SESSION['login']);
-            $role=Nettoyer::nettoyer_string($_SESSION['role']);
-            return self::$gtw->findUserByEmail($login);
-        }
-        else return null;
-    }
-*/
     public function getAll():array{
         global $twig;
         $gtw = new VocabularyGateway();
@@ -35,7 +24,7 @@ class MdlStudent extends AbsModel
         */
 }
 
-    public function getVocabByName($name):array{
+    public function getVocabByName(string $name):array{
         $gtw = new VocabularyGateway();
         $res = $gtw->findByName($name);
         return $res;
@@ -54,6 +43,11 @@ class MdlStudent extends AbsModel
     public function ModifyPassword(int $id, string $newPassword): void {
         $gtw = new UserGateway();
         $gtw->modifyPassword($id, $newPassword);
+    }
+
+    public function is()
+    {
+        // TODO: Implement is() method.
     }
 }
 
