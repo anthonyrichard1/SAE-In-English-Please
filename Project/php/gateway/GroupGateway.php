@@ -99,7 +99,7 @@ class GroupGateway extends AbsGateway
         }
     }
 
-    public function ModifGroupbById(int $id, int $num, int $year ,String $sector):void{
+    public function ModifGroupById(int $id, int $num, int $year ,String $sector):void{
         try{
             $query = "UPDATE Group_ SET num=:num, year=:year, sector=:sector WHERE id=:id";
             $args = array(':id'=>array($id,PDO::PARAM_INT),

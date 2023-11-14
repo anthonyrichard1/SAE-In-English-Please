@@ -9,7 +9,7 @@ use PDOException;
 
 class TranslationGateway extends AbsGateway
 {
-    public function addWord(string $word): void {
+    private function addWord(string $word): void {
         try {
             $query = "INSERT INTO Vocabulary VALUES (:word) ON DUPLICATE KEY UPDATE word=:word";
             $args = array(':word' => array($word, PDO::PARAM_STR));
@@ -78,11 +78,11 @@ class TranslationGateway extends AbsGateway
         }
     }
 
-    public function findByIdVoc(int $id)
+    public function findByIdVoc(int $id): array
     {
         try {
-            $query = "SELECT * FROM Translate WHERE listVoc=:id";
-            $args = array(':id' => array($id, PDO::PARAM_INT));
+            $query = "SELECT * FROM Translate WHERE listVoc=:idVoc";
+            $args = array(':idVoc' => array($id, PDO::PARAM_INT));
             $this->con->executeQuery($query, $args);
             $results = $this->con->getResults();
             $tab = array();

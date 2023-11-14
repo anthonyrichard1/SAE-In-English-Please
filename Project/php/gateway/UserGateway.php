@@ -218,7 +218,8 @@ class UserGateway extends AbsGateway
         }
     }
 
-    public function modifyPassword(int $id, string $newPassword) {
+    public function modifyPassword(int $id, string $newPassword): void
+    {
         try {
             $query="UPDATE User_ SET password=:password WHERE id=:id";
             $args = array(':id' => array($id, PDO::PARAM_INT), ':password' => array($newPassword, PDO::PARAM_STR));
@@ -229,7 +230,8 @@ class UserGateway extends AbsGateway
         }
     }
 
-    public function modifyNickname(int $id, string $newNickname) {
+    public function modifyNickname(int $id, string $newNickname): void
+    {
         try {
             $query="UPDATE User_ SET nickname=:nickname WHERE id=:id";
             $args = array(':id' => array($id, PDO::PARAM_INT), ':nickname' => array($newNickname, PDO::PARAM_STR));
@@ -240,7 +242,8 @@ class UserGateway extends AbsGateway
         }
     }
 
-    public function modifyImage(int $id, string $newImage) {
+    public function modifyImage(int $id, string $newImage): void
+    {
         try {
             $query="UPDATE User_ SET image=:image WHERE id=:id";
             $args = array(':id' => array($id, PDO::PARAM_INT), ':image' => array($newImage, PDO::PARAM_STR));
@@ -251,7 +254,8 @@ class UserGateway extends AbsGateway
         }
     }
 
-    public function modifyGroup(int $id, int $newGroup = null) {
+    public function modifyGroup(int $id, int $newGroup = null): void
+    {
         try {
             $query="UPDATE User_ SET groupID=:group WHERE id=:id";
             $args = array(':id' => array($id, PDO::PARAM_INT), ':group' => array($newGroup, PDO::PARAM_STR));
