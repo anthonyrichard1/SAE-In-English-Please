@@ -8,7 +8,11 @@ $rep = __DIR__ . '/../';
 //$dConfig['includes']= array('controleur/Validation.php');
 
 //BD
+global $dsn;
+$dsn = 'mysql:host=localhost;dbname=dbanrichard7';
 
-$base  = 'sasa';
-$login = '';
-$mdp   = '';
+global $login;
+$login = 'anrichard7';
+
+global $password;
+$password = 'achanger';

@@ -164,3 +164,9 @@ fabric.properties
 # Built Visual Studio Code Extensions
 *.vsix
 
+# Fichier cache
+cache/
+
+#Fichiers composer
+vendor/
+*.lock
