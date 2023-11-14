@@ -66,13 +66,13 @@ INSERT INTO Register VALUES ("English", "Bike");
 INSERT INTO Register VALUES ("English", "Motorbike");
 
 -- Translate
-INSERT INTO Translate VALUES ("Chat", "Cat", 1);
-INSERT INTO Translate VALUES ("Chien", "Dog", 1);
+INSERT INTO Translate VALUES (null, "Chat", "Cat", 1);
+INSERT INTO Translate VALUES (null, "Chien", "Dog", 1);
 
-INSERT INTO Translate VALUES ("Ordinateur", "Computer", 2);
+INSERT INTO Translate VALUES (null, "Ordinateur", "Computer", 2);
 
-INSERT INTO Translate VALUES ("Moto", "Bike", 3);
-INSERT INTO Translate VALUES ("Moto", "Motorbike", 3);
+INSERT INTO Translate VALUES (null, "Moto", "Bike", 3);
+INSERT INTO Translate VALUES (null, "Moto", "Motorbike", 3);
 
 -- Practice
 INSERT INTO Practice VALUES (1, 1);

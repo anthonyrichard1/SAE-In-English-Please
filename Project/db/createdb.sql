@@ -67,13 +67,13 @@ CREATE TABLE Vocabulary(
 );
 
 CREATE TABLE Translate(
+    id int(10) PRIMARY KEY AUTO_INCREMENT,
     firstWord varchar(30),
     secondWord varchar(30),
     listVoc int(10),
     FOREIGN KEY (firstWord) REFERENCES Vocabulary(word),
     FOREIGN KEY (secondWord) REFERENCES Vocabulary(word),
-    FOREIGN KEY (listVoc) REFERENCES VocabularyList(id),
-    PRIMARY KEY (firstWord, secondWord, listVoc)
+    FOREIGN KEY (listVoc) REFERENCES VocabularyList(id)
 );
 
 CREATE TABLE Register(

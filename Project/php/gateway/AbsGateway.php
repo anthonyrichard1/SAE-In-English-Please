@@ -18,7 +18,7 @@ abstract class AbsGateway
     }
 
     public abstract function add(array $parameters): int;
-    //public abstract function remove(int $id): void;
+    public abstract function remove(int $id): void;
     public abstract function findAll(): array;
     public abstract function findById(int $id);
 }

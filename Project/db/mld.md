@@ -44,9 +44,10 @@ card VocabularyList [
 card Translate [
     Translate
     --
-    <u>#firstWord
-    <u>#secondWord
-    <u>#listVoc
+    <u>id
+    ~#firstWord
+    ~#secondWord
+    ~#listVoc
 ]
 
 card Vocabulary [

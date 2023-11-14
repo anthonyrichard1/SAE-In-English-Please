@@ -20,15 +20,16 @@ class TranslationGateway extends AbsGateway
         }
     }
 
-    public function add(array $parameters): int // require 3 elements
+    public function add(array $parameters): int // require 4 elements
     {
         try {
-            $this->addWord($parameters[0]);
             $this->addWord($parameters[1]);
-            $query = "INSERT INTO Translate VALUES(:word1, :word2, :id)";
-            $args = array(':word1' => array($parameters[0], PDO::PARAM_STR),
-                ':word2' => array($parameters[1], PDO::PARAM_STR),
-                ':id' => array($parameters[2], PDO::PARAM_INT));
+            $this->addWord($parameters[2]);
+            $query = "INSERT INTO Translate VALUES(:id, :word1, :word2, :idVoc)";
+            $args = array(':id' => array($parameters[0], PDO::PARAM_INT),
+                ':word1' => array($parameters[1], PDO::PARAM_STR),
+                ':word2' => array($parameters[2], PDO::PARAM_STR),
+                ':idVoc' => array($parameters[3], PDO::PARAM_INT));
             $this->con->executeQuery($query, $args);
             return $this->con->lastInsertId();
         }
@@ -37,12 +38,10 @@ class TranslationGateway extends AbsGateway
         }
     }
 
-    public function remove(string $word1, string $word2, int $id): void {
+    public function remove(int $id): void {
         try {
-            $query = "DELETE FROM Translate WHERE firstWord=:word1 AND secondWord=:word2 AND listVoc=:id";
-            $args = array(':word1' => array($word1, PDO::PARAM_STR),
-                ':word2' => array($word2, PDO::PARAM_STR),
-                ':id' => array($id, PDO::PARAM_INT));
+            $query = "DELETE FROM Translate WHERE id=:id";
+            $args = array(':id' => array($id, PDO::PARAM_INT));
             $this->con->executeQuery($query, $args);
         }
         catch (PDOException $e) {
@@ -57,7 +56,7 @@ class TranslationGateway extends AbsGateway
             $this->con->executeQuery($query);
             $results = $this->con->getResults();
             $tab = array();
-            foreach ($results as $row) $tab[] = new Translation($row['firstWord'], $row['secondWord'], $row['listVoc']);
+            foreach ($results as $row) $tab[] = new Translation($row['id'], $row['firstWord'], $row['secondWord'], $row['listVoc']);
 
             return $tab;
         }
@@ -69,12 +68,25 @@ class TranslationGateway extends AbsGateway
     public function findById(int $id)
     {
         try {
+            $query = "SELECT * FROM Translate WHERE id=:id";
+            $args = array(':id' => array($id, PDO::PARAM_INT));
+            $this->con->executeQuery($query, $args);
+            return  $this->con->getResults();
+        }
+        catch (PDOException $e){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function findByIdVoc(int $id)
+    {
+        try {
             $query = "SELECT * FROM Translate WHERE listVoc=:id";
             $args = array(':id' => array($id, PDO::PARAM_INT));
             $this->con->executeQuery($query, $args);
             $results = $this->con->getResults();
             $tab = array();
-            foreach ($results as $row) $tab[] = new Translation($row['firstWord'], $row['secondWord'], $row['listVoc']);
+            foreach ($results as $row) $tab[] = new Translation($row['id'], $row['firstWord'], $row['secondWord'], $row['listVoc']);
 
             return $tab;
         }
