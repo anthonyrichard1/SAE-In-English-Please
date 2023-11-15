@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My account</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="css/styles.css" rel="stylesheet" />
+</head>
+
+<section>
+    <h1>Add words</h1>
+    {% if user is defined %}
+    <form action="index.php" method="GET">
+        <table>
+            <tr>
+                <td colspan="2">
+                    <input type="hidden" name="action" value="addVocabList">
+                    <input type="hidden" name="userID" value="{{user}}">
+                    <input type="text" name="listName" placeholder="list name" required>
+                </td>
+            </tr>
+            {% for i in 0..1 %}
+            <tr>
+                <td><input type="text" name="frenchWord{{i}}" placeholder="french word"></td>
+                <td><input type="text" name="englishWord{{i}}" placeholder="english word"></td>
+            </tr>
+            {% endfor %}
+            <tr><td colspan="2"><input type="submit" value="Add"></td></tr>
+        </table>
+    </form>
+    {% endif %}
+</section>
+
+</body>
+</html>

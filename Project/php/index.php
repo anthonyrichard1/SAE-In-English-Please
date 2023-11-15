@@ -13,4 +13,4 @@ $twig   = new \Twig\Environment($loader, [
     'cache' => false,
 ]);
 
-$ctrl = new FrontController();
+new FrontController();

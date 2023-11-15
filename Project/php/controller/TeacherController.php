@@ -7,50 +7,6 @@ use Exception;
 
 class TeacherController
 {
-    public function __construct()
-    {
-        global $twig;
-
-        try {
-            $action = Validation::val_action($_REQUEST['action'] ?? null);
-            switch ($action) {
-
-                case 'getAllStudent':
-                    $this->affAllStudent();
-                    break;
-
-                case 'showAllVocab':
-                    $this->affAllVocab();
-                    break;
-                case 'getVocabByName':
-                    $this->getByName();
-                    break;
-                case 'addVocab':
-                    break;
-                case 'showAllGroup':
-                    $this->findAllGroup();
-                    break;
-
-
-   /*             case 'delVoc':
-                    $this->delById($_REQUEST['id']);
-                    break;*/
-
-                case null:
-                    echo $twig->render('home.html');
-                    break;
-
-                default:
-                    $dVueEreur[] = "Erreur d'appel php";
-                    echo $twig->render('vuephp1.html', ['dVueEreur' => $dVueEreur]);
-                    break;
-            }
-        }
-        catch (Exception $e) {
-            $dVueEreur[] = $e->getMessage()." ".$e->getFile()." ".$e->getLine().'Erreur inattendue!!! ';
-            echo $twig->render('erreur.html', ['dVueEreur' => $dVueEreur]);
-        }
-    }
     public function affAllStudent(): void
     {
         global $twig;
@@ -60,26 +16,20 @@ class TeacherController
 
     }
 
-
     public function affAllVocab(): void
     {
         global $twig;
         $mdl = new MdlTeacher();
         $student = $mdl->getAll();
         echo $twig->render('usersView.html', ['users' => $student]);
-
     }
 
-    public function getByName(): void
+    public function getByName($name): void
     {
         global $twig;
         $mdl = new MdlTeacher();
-        if (isset($_GET['name'])) {
-            // Get the 'name' parameter from the $_GET array
-            $name = $_GET['name'];
-            $vocab = $mdl->getVocabByName($name);
-            echo $twig->render('usersView.html', ['users' => $vocab,]);
-        }
+        $vocab = $mdl->getVocabByName($name);
+        echo $twig->render('usersView.html', ['users' => $vocab]);
 
     }
 
@@ -87,17 +37,28 @@ class TeacherController
         global $twig;
         $mdl = new MdlTeacher();
         $vocab = $mdl->removeVocById($id);
-        echo $twig->render('usersView.html', ['vocab' => $vocab]);
-
+        echo $twig->render('usersView.html', ['users' => $vocab]);
     }
 
-    public function findAllGroup(){
+    public function showVocabListForm(): void {
+        global $twig;
+        $userID = Validation::filter_int($_GET['userID'] ?? null);
+        echo $twig->render('addVocabList.html', ['user' => $userID]);
+    }
+
+    public function addVocabList():void {
         global $twig;
         $mdl = new MdlTeacher();
-        $group = $mdl->getGroup();
-        $user = $mdl->getUnassignedUsers();
-        echo $twig->render('manageVocabListView.html', ['groups' => $group,'unassignedUsers' => $user]);
+        $userID = Validation::filter_int($_GET['userID'] ?? null);
+        $name = Validation::filter_str_simple($_GET['listName'] ?? null);
+        $words = array();
+        for ($i = 0; $i <= 1; $i++) {
+            $frenchWord = Validation::filter_str_simple($_GET['frenchWord'.$i] ?? null);
+            $englishWord = Validation::filter_str_simple($_GET['englishWord'.$i] ?? null);
+            $words[] = array($frenchWord, $englishWord);
+        }
+        var_dump($words);
+        $mdl->addVocabList($userID, $name, "", $words);
+        echo $twig->render('addVocabList.html');
     }
-
-
 }

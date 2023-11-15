@@ -7,48 +7,6 @@ use Exception;
 
 class StudentController
 {
-    public function __construct()
-    {
-        global $twig;
-
-        try {
-            $action = Validation::val_action($_REQUEST['action'] ?? null);
-            switch ($action) {
-                case 'allVocab':
-                    $this->affAllVocab();
-                    break;
-
-                case 'getByName':
-                    $this->getByName($_REQUEST['nom']);
-                    break;
-
-                case 'showAccountInfos':
-                    $this->showAccountInfos();
-                    break;
-
-                case 'modifyNickname':
-                    $this->modifyNickname();
-                    break;
-
-                case 'modifyPassword':
-                    $this->modifyPassword();
-                    break;
-
-                case null:
-                    echo $twig->render('home.html');
-                    break;
-
-                default:
-                    $dVueEreur[] = "Erreur d'appel php";
-                    echo $twig->render('vuephp1.html', ['dVueEreur' => $dVueEreur]);
-                    break;
-            }
-        }
-        catch (Exception $e) {
-            $dVueEreur[] = $e->getMessage()." ".$e->getFile()." ".$e->getLine().'Erreur inattendue!!! ';
-            echo $twig->render('erreur.html', ['dVueEreur' => $dVueEreur]);
-        }
-    }
 
     public function affAllVocab(): void
     {

@@ -12,14 +12,13 @@ class VocabularyListGateway extends AbsGateway
         parent::__construct();
     }
 
-    public function add(array $parameters): int // require 4 elements
+    public function add(array $parameters): int // require 3 elements
     {
         try{
-            $query = "INSERT INTO VocabularyList VALUES(:id,:name,:img,:aut)";
-            $args = array(':id'=>array($parameters[0],PDO::PARAM_INT),
-                ':name'=>array($parameters[1],PDO::PARAM_STR),
-                ':img'=>array($parameters[2],PDO::PARAM_STR),
-                ':aut'=>array($parameters[3],PDO::PARAM_INT));
+            $query = "INSERT INTO VocabularyList VALUES(NULL, :name,:img,:aut)";
+            $args = array(':name'=>array($parameters[0],PDO::PARAM_STR),
+                ':img'=>array($parameters[1],PDO::PARAM_STR),
+                ':aut'=>array($parameters[2],PDO::PARAM_INT));
             $this->con->ExecuteQuery($query,$args);
             return $this->con->lastInsertId();
         }

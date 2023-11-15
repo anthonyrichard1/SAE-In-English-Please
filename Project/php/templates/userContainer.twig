@@ -24,18 +24,22 @@
                 {% if action is defined %}
 
                     {% if action == 'removeUserFromGroup' %}
-                    <td><a href="index.php?action=removeUserFromGroup&id={{row.id}}&selectedGroup={{selectedGroup}}">
+                    <td><a href="removeUserFromGroup?id={{row.id}}&selectedGroup={{selectedGroup}}">
                             <input class="btn-black" type="button" value="Delete from group"/>
                         </a></td>
 
                     {% elseif action == 'addUserToGroup' %}
-                    <td><a href="index.php?action=addUserToGroup&userID={{row.id}}&groupID={{selectedGroup}}">
+                    <td><a href="addUserToGroup?userID={{row.id}}&groupID={{selectedGroup}}">
                             <input class="btn-black" type="button" value="Add to group"/>
+                        </a></td>
+
+                    {% elseif action == 'removeUser' %}
+                    <td><a href="removeUser?userID={{row.id}}">
+                            <input class="btn-black" type="button" value="Delete"/>
                         </a></td>
                     {% endif %}
 
                 {% endif %}
-
             </tr>
         {% endfor %}
     {% endif %}

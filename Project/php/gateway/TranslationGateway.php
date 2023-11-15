@@ -23,13 +23,12 @@ class TranslationGateway extends AbsGateway
     public function add(array $parameters): int // require 4 elements
     {
         try {
+            $this->addWord($parameters[0]);var_dump($parameters[0]);var_dump($parameters[1]);
             $this->addWord($parameters[1]);
-            $this->addWord($parameters[2]);
-            $query = "INSERT INTO Translate VALUES(:id, :word1, :word2, :idVoc)";
-            $args = array(':id' => array($parameters[0], PDO::PARAM_INT),
-                ':word1' => array($parameters[1], PDO::PARAM_STR),
-                ':word2' => array($parameters[2], PDO::PARAM_STR),
-                ':idVoc' => array($parameters[3], PDO::PARAM_INT));
+            $query = "INSERT INTO Translate VALUES(null, :word1, :word2, :idVoc)";
+            $args = array(':word1' => array($parameters[0], PDO::PARAM_STR),
+                ':word2' => array($parameters[1], PDO::PARAM_STR),
+                ':idVoc' => array($parameters[2], PDO::PARAM_INT));
             $this->con->executeQuery($query, $args);
             return $this->con->lastInsertId();
         }

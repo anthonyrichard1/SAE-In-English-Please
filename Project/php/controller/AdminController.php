@@ -8,75 +8,6 @@ use Exception;
 
 class AdminController
 {
-    public function __construct()
-    {
-        global $twig;
-
-        try {
-            $action = Validation::val_action($_REQUEST['action'] ?? null);
-
-            switch($action) {
-                case 'showAllUsers':
-                    $this->showAllUsers();
-                    break;
-
-                case 'showAllAdmins':
-                    $this->showAllAdmins();
-                    break;
-
-                case 'showAllTeachers':
-                    $this->showAllTeachers();
-                    break;
-
-                case 'showAllStudents':
-                    $this->showAllStudents();
-                    break;
-
-                case 'removeUser':
-                    $this->removeUser();
-                    break;
-
-                case 'showAllGroups':
-                    $this->showAllGroups();
-                    break;
-
-                case 'showGroupDetails':
-                    $this->showGroupDetails();
-                    break;
-
-                case 'removeUserFromGroup':
-                    $this->removeUserFromGroup();
-                    break;
-
-                case 'removeGroup':
-                    $this->removeGroup();
-                    break;
-
-                case 'addGroup':
-                    $this->addGroup();
-                    break;
-
-                case 'addUserToGroup':
-                    $this->addUserToGroup();
-                    break;
-
-                case null:
-                    echo $twig->render('home.html');
-                    break;
-
-                default:
-                    $dVueEreur[] = "Erreur d'appel php";
-                    echo $twig->render('vuephp1.html', ['dVueEreur' => $dVueEreur]);
-                    break;
-            }
-        }
-        catch (Exception $e) {
-            $dVueEreur[] = $e->getMessage()." ".$e->getFile()." ".$e->getLine().'Erreur inattendue!!! ';
-            echo $twig->render('erreur.html', ['dVueEreur' => $dVueEreur]);
-        }
-        exit(0);
-    }
-
     public function showAllUsers(): void {
         global $twig;
         $model = new MdlAdmin();
@@ -107,7 +38,7 @@ class AdminController
 
     public function removeUser(): void {
         try {
-            $id = Validation::filter_int($_GET['id'] ?? null);
+            $id = Validation::filter_int($_GET['userID'] ?? null);
             $model = new MdlAdmin();
             $model->removeUser($id);
             $this->showAllUsers();
@@ -136,7 +67,7 @@ class AdminController
             echo $twig->render('manageGroupView.html', ['groups' => $groups, 'selectedGroup' => $selectedGroup, 'users' => $users, 'unassignedUsers' => $unassignedUsers]);
         }
         catch (Exception $e) {
-                throw new Exception("invalid group ID");
+            throw new Exception("invalid group ID");
         }
     }
 
