@@ -2,8 +2,9 @@
 
 namespace model;
 
+use gateway\GroupGateway;
 use gateway\UserGateway;
-use gateway\VocabularyGateway;
+use gateway\VocabularyListGateway;
 class MdlTeacher extends AbsModel
 {
 
@@ -13,7 +14,7 @@ class MdlTeacher extends AbsModel
     }
 
     public function getAll():array{
-        $gtw = new VocabularyGateway();
+        $gtw = new VocabularyListGateway();
         return  $gtw->findAll();
     }
 
@@ -23,14 +24,24 @@ class MdlTeacher extends AbsModel
     }
 
     public function getVocabByName(string $name):array{
-        $gtw = new VocabularyGateway();
+        $gtw = new VocabularyListGateway();
         $res = $gtw->findByName($name);
         return $res;
     }
 
     public function RemoveVocById(int $id):void{
-        $gtw = new VocabularyGateway();
-        $res = $gtw->remove($id);
+        $gtw = new VocabularyListGateway();
+        $gtw->remove($id);
+    }
+
+    public function getGroup():array{
+        $gtw = new GroupGateway();
+        return $gtw->findAll();
+    }
+
+    public function getUnassignedUsers(): array {
+        $gtw = new UserGateway();
+        return $gtw->findUnassignedUsers();
     }
 
 

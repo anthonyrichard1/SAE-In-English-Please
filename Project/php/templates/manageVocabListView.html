@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="section">
+
+    <section class="groupList">
+        <h2>Group list</h2>
+        {% include 'groupContainer.twig' with {'actions' : 'showAllGroup'} %}
+    </section>
+
+    <section class="Vocabulaire">
+        <h2>Users of the group</h2>
+        {% include 'userContainer.twig' with {'users' : teacher, 'action' : 'showAllVocab'} %}
+    </section>
+    <section class="addGroupForm">
+        <h2>Add group</h2>
+        {% include 'addGroupForm.twig' %}
+    </section>
+    <section class="unassignedUsers">
+        <h1>Unassigned users</h1>
+        {% include 'userContainer.twig' with {'vocab' : teacher, 'action' : 'getVocabByName'} %}
+    </section>
+</div>
+
+</body>
+</html>

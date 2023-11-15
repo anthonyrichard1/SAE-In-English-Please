@@ -21,6 +21,9 @@ class FrontController
     );
 
     private array $teacherActions = array(
+        'showAllGroup',
+        'showAllVocab',
+        'getVocabByName'
     );
 
     private array $studentActions = array(

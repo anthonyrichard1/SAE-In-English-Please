@@ -19,14 +19,18 @@ class TeacherController
                     $this->affAllStudent();
                     break;
 
-                case 'allVocab':
+                case 'showAllVocab':
                     $this->affAllVocab();
                     break;
                 case 'getVocabByName':
-                    $this->getByName($_REQUEST['name']);
+                    $this->getByName();
                     break;
                 case 'addVocab':
                     break;
+                case 'showAllGroup':
+                    $this->findAllGroup();
+                    break;
+
 
    /*             case 'delVoc':
                     $this->delById($_REQUEST['id']);
@@ -66,12 +70,16 @@ class TeacherController
 
     }
 
-    public function getByName($name): void
+    public function getByName(): void
     {
         global $twig;
         $mdl = new MdlTeacher();
-        $vocab = $mdl->getVocabByName($name);
-        echo $twig->render('usersView.html', ['users' => $vocab]);
+        if (isset($_GET['name'])) {
+            // Get the 'name' parameter from the $_GET array
+            $name = $_GET['name'];
+            $vocab = $mdl->getVocabByName($name);
+            echo $twig->render('usersView.html', ['users' => $vocab,]);
+        }
 
     }
 
@@ -79,10 +87,17 @@ class TeacherController
         global $twig;
         $mdl = new MdlTeacher();
         $vocab = $mdl->removeVocById($id);
-        echo $twig->render('usersView.html', ['users' => $vocab]);
+        echo $twig->render('usersView.html', ['vocab' => $vocab]);
 
     }
 
+    public function findAllGroup(){
+        global $twig;
+        $mdl = new MdlTeacher();
+        $group = $mdl->getGroup();
+        $user = $mdl->getUnassignedUsers();
+        echo $twig->render('manageVocabListView.html', ['groups' => $group,'unassignedUsers' => $user]);
+    }
 
 
 }
