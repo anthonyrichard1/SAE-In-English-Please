@@ -18,7 +18,7 @@ CREATE TABLE Group_(
 
 CREATE TABLE User_(
     id int(10) PRIMARY KEY AUTO_INCREMENT,
-    password varchar(30) NOT NULL,
+    password text NOT NULL,
     email text NOT NULL,
     name text NOT NULL,
     surname text NOT NULL,

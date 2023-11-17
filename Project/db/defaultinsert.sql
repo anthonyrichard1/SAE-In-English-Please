@@ -14,13 +14,13 @@ INSERT INTO Group_ VALUES (2, 2, 2023, "Network Administration");
 INSERT INTO Group_ VALUES (3, 1, 2023, "Computer Science");
 
 -- User : student
-INSERT INTO User_ VALUES (1, "password", "francois.dupont@etu.uca.fr", "François", "Dupont", "dupfranc", "", false, 1);
-INSERT INTO User_ VALUES (2, "password", "sylvain.volvic@etu.uca.fr", "Sylvain", "Volvic", "sylvaincpt", "", true, 1);
-INSERT INTO User_ VALUES (3, "password", "jean.bombeur@etu.uca.fr", "Jean", "Bombeur", "jambombeurre", "", false, 2);
-INSERT INTO User_ VALUES (6, "password", "tony.tonic@etu.uca.fr", "Tony", "Tonic", "tonytonic", "", false, 3);
+INSERT INTO User_ VALUES (1, "Password*123", "francois.dupont@etu.uca.fr", "François", "Dupont", "dupfranc", "", false, 1);
+INSERT INTO User_ VALUES (2, "Password*123", "sylvain.volvic@etu.uca.fr", "Sylvain", "Volvic", "sylvaincpt", "", true, 1);
+INSERT INTO User_ VALUES (3, "Password*123", "jean.bombeur@etu.uca.fr", "Jean", "Bombeur", "jambombeurre", "", false, 2);
+INSERT INTO User_ VALUES (6, "Password*123", "tony.tonic@etu.uca.fr", "Tony", "Tonic", "tonytonic", "", false, 3);
 
 -- User : teacher
-INSERT INTO User_ VALUES (5, "password", "michel.singinou@ext.uca.fr", "Michel", "Singinou", "mich", "", NULL, NULL);
+INSERT INTO User_ VALUES (5, "Password*123", "michel.singinou@ext.uca.fr", "Michel", "Singinou", "mich", "", NULL, NULL);
 
 -- User : admin
 INSERT INTO User_ VALUES (4, "admin", "admin@uca.fr", "Admin", "UCA", "admin", "", NULL, NULL);
