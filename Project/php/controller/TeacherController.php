@@ -25,12 +25,13 @@ class TeacherController
         echo $twig->render('manageVocabListView.html', ['vocabularies' => $vocabularies]);
     }
 
-    public function getByName($name): void
+    public function getByName(): void
     {
         global $twig;
         $mdl = new MdlTeacher();
+        $name = Validation::filter_str_simple($_GET['listName'] ?? null);
         $vocab = $mdl->getVocabByName($name);
-        echo $twig->render('usersView.html', ['users' => $vocab, 'selectedName' => $name]);
+        echo $twig->render('manageVocabListView.html', ['vocabularies' => $vocab, 'selectedName' => $name]);
 
     }
 
