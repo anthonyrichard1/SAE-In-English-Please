@@ -17,18 +17,20 @@ abstract class AbsModel
     }
 
     public function connection(string $login, string $password){
-        $cleanedLogin = strip_tags($login);
-        $cleanedPassword = strip_tags($password);
         $gtw = new UserGateway();
+        $hash = $gtw->login($login) ?? null;
 
-        if (password_verify($cleanedPassword, $gtw->login($cleanedLogin)[0][0])) {
-            $user = $gtw->findUserByEmail($cleanedLogin);
-            $_SESSION['login'] = $cleanedLogin;
+        if ($hash != null && password_verify($password, $hash)) {
+            $user = $gtw->findUserByEmail($login);
+            $_SESSION['login'] = $login;
+
             $roles = array();
-            foreach ($roles as $role) $roles[] = $role;
+            foreach ($user->getRoles() as $role) $roles[] = $role;
             $_SESSION['roles'] = $roles;
+
             return $user;
         }
+
         return null;
     }
 

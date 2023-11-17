@@ -4,6 +4,7 @@ namespace controller;
 
 use config\Validation;
 use Exception;
+use model\MdlStudent;
 
 class FrontController
 {
@@ -15,11 +16,6 @@ class FrontController
 
         var_dump($_SESSION['login']);
         var_dump($_SESSION['roles']);
-
-        if (!is_writable(session_save_path())) {
-            echo 'Session path "'.session_save_path().'" is not writable for PHP!';
-        }
-        else echo "good";
 
         try {
             $router = new \AltoRouter();
@@ -40,11 +36,11 @@ class FrontController
 
             switch ($action) {
                 case null:
-                    echo $twig->render('home.html');
+                    $this->home();
                     break;
 
                 case 'login':
-                    echo $twig->render('login.html');
+                    $this->login();
                     break;
 
                 case 'confirmLogin':
@@ -67,7 +63,21 @@ class FrontController
         }
     }
 
-    public function confirmLogin(): void {
+    public function home(): void {
+        global $twig;
+        echo $twig->render('home.html');
+    }
 
+    public function login(): void {
+        global $twig;
+        echo $twig->render('login.html');
+    }
+
+    public function confirmLogin(): void {
+        $model = new MdlStudent();
+        $login = strip_tags($_POST['logemail']);
+        $password = strip_tags($_POST['logpass']);
+        $user = $model->connection($login, $password);
+        $this->home();
     }
 }
