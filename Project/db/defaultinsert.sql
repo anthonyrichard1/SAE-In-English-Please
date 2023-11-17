@@ -18,23 +18,29 @@ INSERT INTO User_ VALUES (1, "Password*123", "francois.dupont@etu.uca.fr", "Fran
 INSERT INTO User_ VALUES (2, "Password*123", "sylvain.volvic@etu.uca.fr", "Sylvain", "Volvic", "sylvaincpt", "", true, 1);
 INSERT INTO User_ VALUES (3, "Password*123", "jean.bombeur@etu.uca.fr", "Jean", "Bombeur", "jambombeurre", "", false, 2);
 INSERT INTO User_ VALUES (6, "Password*123", "tony.tonic@etu.uca.fr", "Tony", "Tonic", "tonytonic", "", false, 3);
+INSERT INTO User_ VALUES (10, "$2y$10$RHgtbmnMWixD/ztTz55L9elDisjiyDy.NobsWa8L8pzYDgQYJGL.y", "student@uca.fr", "Student", "UCA", "student", "", NULL, NULL);
 
 -- User : teacher
 INSERT INTO User_ VALUES (5, "Password*123", "michel.singinou@ext.uca.fr", "Michel", "Singinou", "mich", "", NULL, NULL);
+INSERT INTO User_ VALUES (20, "$2y$10$vvY7Dny2Qt0LdRgIxcZ.5uZ3LygRd1hMhqtjjj/v5tF57yos0JEmG", "teacher@uca.fr", "Teacher", "UCA", "teacher", "", NULL, NULL);
 
 -- User : admin
-INSERT INTO User_ VALUES (4, "admin", "admin@uca.fr", "Admin", "UCA", "admin", "", NULL, NULL);
+INSERT INTO User_ VALUES (30, "$2y$10$STTT3uR83dcwduiqqyKRde3b02LQi9iavkzn47NbA.xUrt92PalgW", "admin@uca.fr", "Admin", "UCA", "admin", "", NULL, NULL);
 
 -- Role attribution
 INSERT INTO Be VALUES (1, 3);
 INSERT INTO Be VALUES (2, 3);
 INSERT INTO Be VALUES (3, 3);
 INSERT INTO Be VALUES (6, 3);
+INSERT INTO Be VALUES (10, 3);
+
 
 INSERT INTO Be VALUES (4, 1);
 INSERT INTO Be VALUES (4, 2);
+INSERT INTO Be VALUES (20, 2);
 
 INSERT INTO Be VALUES (5, 2);
+INSERT INTO Be VALUES (30, 1);
 
 -- Vocabulary list
 INSERT INTO VocabularyList VALUES (1, "Animaux", "", 5);
