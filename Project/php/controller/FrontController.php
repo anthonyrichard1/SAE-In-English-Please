@@ -11,6 +11,16 @@ class FrontController
         global $twig;
         global $altorouterPath;
 
+        session_start();
+
+        var_dump($_SESSION['login']);
+        var_dump($_SESSION['roles']);
+
+        if (!is_writable(session_save_path())) {
+            echo 'Session path "'.session_save_path().'" is not writable for PHP!';
+        }
+        else echo "good";
+
         try {
             $router = new \AltoRouter();
             $router->setBasePath($altorouterPath);
@@ -37,6 +47,10 @@ class FrontController
                     echo $twig->render('login.html');
                     break;
 
+                case 'confirmLogin':
+                    $this->confirmLogin();
+                    break;
+
                 default :
                     $controller = '\\controller\\' . $controller;
                     $controller = new $controller;
@@ -51,5 +65,9 @@ class FrontController
             $dVueEreur[] = $e->getMessage();
             echo $twig->render('erreur.html', ['dVueEreur' => $dVueEreur]);
         }
+    }
+
+    public function confirmLogin(): void {
+
     }
 }
