@@ -20,15 +20,16 @@ abstract class AbsModel
         $cleanedLogin = strip_tags($login);
         $cleanedPassword = strip_tags($password);
         $gtw = new UserGateway();
-        $student = $gtw->findUserByLoginPassword($cleanedLogin, $cleanedPassword);
 
-        if ($student) {
-            session_start();
-            $_SESSION['role'] = $this->role;
+        if (password_verify($cleanedPassword, $gtw->login($cleanedLogin)[0][0])) {
+            $user = $gtw->findUserByEmail($cleanedLogin);
             $_SESSION['login'] = $cleanedLogin;
-            return true;
+            $roles = array();
+            foreach ($roles as $role) $roles[] = $role;
+            $_SESSION['roles'] = $roles;
+            return $user;
         }
-        else return false;
+        return null;
     }
 
     public function deconnection(){
