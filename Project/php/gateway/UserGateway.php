@@ -147,13 +147,12 @@ class UserGateway extends AbsGateway
         }
     }
 
-    public function findUserByLoginPassword(string $login, string $password) : User{
+    public function login(string $login) : array{
         try {
-            $query = "SELECT * FROM User_ WHERE email=:email AND password=:password";
-            $args = array(':email' => array($login, PDO::PARAM_STR), ':password' => array($password, PDO::PARAM_STR));
+            $query = "SELECT password FROM User_ WHERE email=:email";
+            $args = array(':email' => array($login, PDO::PARAM_STR));
             $this->con->executeQuery($query, $args);
-            $results = $this->con->getResults();
-            return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID'], $this->getRoles($results[0]['id']));
+            return $this->con->getResults();
         }
         catch(PDOException $e ){
             throw new Exception($e->getMessage());
