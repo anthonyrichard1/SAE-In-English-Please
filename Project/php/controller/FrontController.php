@@ -16,6 +16,7 @@ class FrontController
             $router->setBasePath($altorouterPath);
 
             $router->map('GET', '/', 'AppController');
+            $router->map('GET|POST', '/[a:action]?', 'NULL');
             $router->map( 'GET|POST', '/admin/[i:id]/[a:action]?', 'AdminController');
             $router->map( 'GET|POST', '/teacher/[i:id]/[a:action]?', 'TeacherController');
             $router->map( 'GET|POST', '/student/[i:id]/[a:action]?', 'StudentController');
@@ -30,6 +31,10 @@ class FrontController
             switch ($action) {
                 case null:
                     echo $twig->render('home.html');
+                    break;
+
+                case 'login':
+                    echo $twig->render('login.html');
                     break;
 
                 default :
