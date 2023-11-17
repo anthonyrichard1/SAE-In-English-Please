@@ -3,6 +3,7 @@
 namespace controller;
 use config\Validation;
 use model\MdlTeacher;
+use gateway\VocabularyListGateway;
 use Exception;
 
 class TeacherController
@@ -20,8 +21,8 @@ class TeacherController
     {
         global $twig;
         $mdl = new MdlTeacher();
-        $student = $mdl->getAll();
-        echo $twig->render('usersView.html', ['users' => $student]);
+        $vocabularies = $mdl->getAll();
+        echo $twig->render('manageVocabListView.html', ['vocabularies' => $vocabularies]);
     }
 
     public function getByName($name): void
@@ -29,7 +30,7 @@ class TeacherController
         global $twig;
         $mdl = new MdlTeacher();
         $vocab = $mdl->getVocabByName($name);
-        echo $twig->render('usersView.html', ['users' => $vocab]);
+        echo $twig->render('usersView.html', ['users' => $vocab, 'selectedName' => $name]);
 
     }
 

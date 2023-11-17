@@ -16,7 +16,7 @@ class MdlTeacher extends AbsModel
     }
 
     public function getAll():array{
-        $gtw = new VocabularyGateway();
+        $gtw = new VocabularyListGateway();
         return  $gtw->findAll();
     }
 
@@ -26,13 +26,13 @@ class MdlTeacher extends AbsModel
     }
 
     public function getVocabByName(string $name):array{
-        $gtw = new VocabularyGateway();
+        $gtw = new VocabularyListGateway();
         $res = $gtw->findByName($name);
         return $res;
     }
 
     public function RemoveVocById(int $id):void{
-        $gtw = new VocabularyGateway();
+        $gtw = new VocabularyListGateway();
         $res = $gtw->remove($id);
     }
 
