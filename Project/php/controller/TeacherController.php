@@ -35,11 +35,12 @@ class TeacherController
 
     }
 
-    public function DelById($id):void{
+    public function DelById():void{
         global $twig;
         $mdl = new MdlTeacher();
+        $id = Validation::filter_int($_GET['vocabID'] ?? null);
         $vocab = $mdl->removeVocById($id);
-        echo $twig->render('usersView.html', ['users' => $vocab]);
+        echo $twig->render('manageVocabListView.html', [ 'vocabularies' => $vocab]);
     }
 
     public function showVocabListForm(): void {

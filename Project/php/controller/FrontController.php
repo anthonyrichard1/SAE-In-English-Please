@@ -14,8 +14,8 @@ class FrontController
 
         session_start();
 
-        var_dump($_SESSION['login']);
-        var_dump($_SESSION['roles']);
+        //var_dump($_SESSION['login']);
+        //var_dump($_SESSION['roles']);
 
         try {
             $router = new \AltoRouter();

@@ -18,11 +18,14 @@
                     <td>
                         {% if actions == 'affAllVocab' %}
                             <a href="affAllVocab">
-                                <input class="btn-black" type="button" value="Delete from group"/>
+
                             </a>
                         {% elseif actions == 'getByName' %}
                             <a href="getByName?listName={{ selectedName }}">
-                                <input class="btn-black" type="button" value="Delete from group"/>
+                            </a>
+                        {% elseif actions == 'delById' %}
+                            <a id="delButton" href="delById?vocabID={{ row.id }}">
+                                <input class="btn-black" type="button" value="delete from vocabulary" />
                             </a>
                         {% endif %}
                     </td>

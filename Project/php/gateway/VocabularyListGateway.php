@@ -30,16 +30,21 @@ class VocabularyListGateway extends AbsGateway
     public function remove(int $id): void
     {
         try{
+
+            $query = "DELETE FROM Translate WHERE listVoc=:id";
+            $args = array(':id'=>array($id,PDO::PARAM_INT));
+            $this->con->ExecuteQuery($query,$args);
+
             $query = "DELETE FROM Practice WHERE vocabID=:id";
             $args = array(':id'=>array($id,PDO::PARAM_INT));
             $this->con->ExecuteQuery($query,$args);
 
-            $query = "DELETE FROM VocabularyList v WHERE v.id=:id ";
+            $query = "DELETE FROM VocabularyList WHERE id=:id ";
             $args = array(':id'=>array($id,PDO::PARAM_INT));
             $this->con->ExecuteQuery($query,$args);
         }
         catch (PDOException $e){
-            throw new Exception('problème pour supprimer les vocabulaires avec leur Id');
+            throw new Exception('problème pour supprimer les vocabulaires avec leur Id'. $e->getMessage());
         }
     }
 
