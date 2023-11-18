@@ -8,6 +8,8 @@ use Exception;
 class StudentController
 {
 
+
+
     public function affAllVocab(): void
     {
         global $twig;
@@ -16,6 +18,7 @@ class StudentController
         echo $twig->render('manageVocabListView.html', ['vocabularies' => $voc]);
 
     }
+
 
     public function affAllStudent(): void
     {

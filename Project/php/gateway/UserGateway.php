@@ -296,4 +296,17 @@ class UserGateway extends AbsGateway
             throw new Exception($e->getMessage());
         }
     }
+    public function checkIdExist(int $id): bool {
+        $query = "SELECT COUNT(*) AS count FROM User_ WHERE id = :id";
+        $args = array(':id' => array($id, PDO::PARAM_INT));
+        $this->con->executeQuery($query, $args);
+        $results = $this->con->getResults();
+
+        if (is_array($results) && count($results) > 0) {
+            $count = $results[0]['count'];
+            return ($count > 0);
+        }
+
+        return false;
+    }
 }

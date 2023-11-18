@@ -38,6 +38,10 @@ class FrontController
                 $controller = $match['target'] ?? null;
                 $action = Validation::val_action($match['params']['action'] ?? null);
                 $id = $match['params']['id'] ?? null;
+                if(!$this->checkIdExist($id)) {
+                    throw new Exception("L'identifiant est invalide");
+                }
+
                 print 'user Id received ' . $id . '<br>';
                 print 'controleur appelé ' . $controller . '<br>';
                 print $action . '<br>';
@@ -93,4 +97,11 @@ class FrontController
         $user = $model->connection($login, $password);
         $this->home();
     }
+    public function checkIdExist($id):bool
+    {
+        $mdl = new MdlStudent();
+        $res = $mdl->checkIdExist($id);
+        return $res;
+    }
+
 }
