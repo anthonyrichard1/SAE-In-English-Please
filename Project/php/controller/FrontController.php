@@ -8,14 +8,15 @@ use model\MdlStudent;
 
 class FrontController
 {
-    public function __construct() {
+    public function __construct()
+    {
         global $twig;
         global $altorouterPath;
 
         session_start();
 
-        //var_dump($_SESSION['login']);
-        //var_dump($_SESSION['roles']);
+        var_dump($_SESSION['login']);
+        var_dump($_SESSION['roles']);
 
         try {
             $router = new \AltoRouter();
@@ -23,45 +24,57 @@ class FrontController
 
             $router->map('GET', '/', 'AppController');
             $router->map('GET|POST', '/[a:action]?', 'NULL');
-            $router->map( 'GET|POST', '/admin/[i:id]/[a:action]?', 'AdminController');
-            $router->map( 'GET|POST', '/teacher/[i:id]/[a:action]?', 'TeacherController');
-            $router->map( 'GET|POST', '/student/[i:id]/[a:action]?', 'StudentController');
+            $router->map('GET|POST', '/admin/[i:id]/[a:action]?', 'AdminController');
+            $router->map('GET|POST', '/teacher/[i:id]/[a:action]?', 'TeacherController');
+            $router->map('GET|POST', '/student/[i:id]/[a:action]?', 'StudentController');
 
             $match = $router->match();
 
-            if (!$match) { throw new Exception("Erreur 404");}
+            if (!$match) {
+                throw new Exception("Erreur 404");
+            }
+            if ($match) {
+//list($controller, $action) = explode('#', $match['target'] );
+                $controller = $match['target'] ?? null;
+                $action = Validation::val_action($match['params']['action'] ?? null);
+                $id = $match['params']['id'] ?? null;
+                print 'user Id received ' . $id . '<br>';
+                print 'controleur appelé ' . $controller . '<br>';
+                print $action . '<br>';
+                print $id . '<br>';
 
-            $controller = $match['target'] ?? null;
-            $action = Validation::val_action($match['params']['action'] ?? null);
 
-            switch ($action) {
-                case null:
-                    $this->home();
-                    break;
+                switch ($action) {
+                    case null:
+                        $this->home();
+                        break;
 
-                case 'login':
-                    $this->login();
-                    break;
+                    case 'login':
+                        $this->login();
+                        break;
 
-                case 'confirmLogin':
-                    $this->confirmLogin();
-                    break;
+                    case 'confirmLogin':
+                        $this->confirmLogin();
+                        break;
 
-                default :
-                    $controller = '\\controller\\' . $controller;
-                    $controller = new $controller;
+                    default :
+                        $controller = '\\controller\\' . $controller;
+                        $controller = new $controller;
 
-                    if (is_callable(array($controller, $action)))
-                        call_user_func_array(array($controller, $action), array($match['params']));
+                        if (is_callable(array($controller, $action)))
+                            call_user_func_array(array($controller, $action), array($match['params']));
 
-                    break;
+                        break;
+                }
             }
         }
-        catch (Exception $e) {
-            $dVueEreur[] = $e->getMessage();
-            echo $twig->render('erreur.html', ['dVueEreur' => $dVueEreur]);
-        }
+        catch
+            (Exception $e) {
+                $dVueEreur[] = $e->getMessage();
+                echo $twig->render('erreur.html', ['dVueEreur' => $dVueEreur]);
+            }
     }
+
 
     public function home(): void {
         global $twig;

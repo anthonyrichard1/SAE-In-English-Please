@@ -12,8 +12,8 @@ class StudentController
     {
         global $twig;
         $mdl = new MdlStudent();
-        $student = $mdl->getAll();
-        echo $twig->render('usersView.html', ['users' => $student]);
+        $voc = $mdl->getAll();
+        echo $twig->render('manageVocabListView.html', ['vocabularies' => $voc]);
 
     }
 
@@ -26,12 +26,13 @@ class StudentController
 
     }
 
-    public function getByName($name): void
+    public function getByName(): void
     {
         global $twig;
         $mdl = new MdlStudent();
+        $name = Validation::filter_str_simple($_GET['listName'] ?? null);
         $vocab = $mdl->getVocabByName($name);
-        echo $twig->render('usersView.html', ['users' => $vocab]);
+        echo $twig->render('manageVocabView.html', ['vocabularies' => $vocab]);
     }
 
     public function showAccountInfos(): void {

@@ -4,6 +4,8 @@ namespace model;
 
 use gateway\UserGateway;
 use gateway\VocabularyGateway;
+use gateway\VocabularyListGateway;
+
 class MdlStudent extends AbsModel
 {
 
@@ -14,7 +16,7 @@ class MdlStudent extends AbsModel
 
     public function getAll():array{
         global $twig;
-        $gtw = new VocabularyGateway();
+        $gtw = new VocabularyListGateway();
         return  $gtw->findAll();
         /*
         foreach ($data as $row){
@@ -25,7 +27,7 @@ class MdlStudent extends AbsModel
 }
 
     public function getVocabByName(string $name):array{
-        $gtw = new VocabularyGateway();
+        $gtw = new VocabularyListGateway();
         $res = $gtw->findByName($name);
         return $res;
     }
