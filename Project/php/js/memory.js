@@ -73,6 +73,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function checkGameCompletion(){
-        return;
+        if (document.querySelectorAll('.card.found').length === cards.length) {
+            window.location.href = '../resultatsJeux'; // A MODIFIER POUR UN TWIG RENDER
+        }
     }
 });

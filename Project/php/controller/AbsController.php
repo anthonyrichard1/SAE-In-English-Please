@@ -155,4 +155,9 @@ class AbsController
         $mdl->deconnection();
         $this->home();
     }
+
+    public function resultatsJeux(): void{
+        global $twig;
+        echo $twig->render('resultatsJeux.html');
+    }
 }
