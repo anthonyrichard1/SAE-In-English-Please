@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Manage groups</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <!-- Font Awesome icons (free version)-->
+  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+  <!-- Google fonts-->
+  <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+  <link
+          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="css/styles.css" rel="stylesheet" />
+</head>
+<body>
+<section>
+  <h1>Quiz</h1>
+  <form action="quiz" method="post">
+    <h2>{{frenchWord}}</h2>
+
+    {% for i in 0..3 %}
+
+    <input type="radio" name="answer{{i}}" value="{{valid[i]}}"> {{answers[i]}}<br>
+    {% endfor %}
+
+    <input type="submit" value="Soumettre">
+  </form>
+  <h1>Translator</h1>
+  <form action="quiz?vocabID={{row.id}}" method="POST">
+    <label for="wordInput">Enter a word:</label>
+    <input type="text" id="wordInput" name="wordInput">
+    <button type="submit">Translate</button>
+  </form>
+
+</section>
+</body>
+</html>
