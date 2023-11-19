@@ -4,6 +4,8 @@ namespace controller;
 
 use config\Validation;
 use Exception;
+use gateway\TranslationGateway;
+use gateway\VocabularyListGateway;
 use model\MdlStudent;
 use model\VocabularyList;
 
@@ -60,5 +62,17 @@ abstract class AbsController
 
     public function memory(): void{
         global $twig;
+
+        try{
+            $idVoc = Validation::filter_int($_GET['id'] ?? null);
+            $wordList = (new \gateway\TranslationGateway)->findByIdVoc($idVoc);
+
+        }
+        catch (Exception $e){
+            throw new Exception("Erreur");
+        }
+
+
+        echo $twig->render('memory.html');
     }
 }
