@@ -15,15 +15,12 @@ class FrontController
 
         session_start();
 
-        var_dump($_SESSION['login']);
-        var_dump($_SESSION['roles']);
-
         try {
             $router = new \AltoRouter();
             $router->setBasePath($altorouterPath);
 
             $router->map('GET', '/', 'AppController');
-            $router->map('GET|POST', '/[a:action]?', 'NULL');
+            $router->map('GET|POST', '/[a:action]?/[i:id]?', 'NULL');
             $router->map('GET|POST', '/admin/[i:id]/[a:action]?', 'Admin');
             $router->map('GET|POST', '/teacher/[i:id]/[a:action]?', 'Teacher');
             $router->map('GET|POST', '/student/[i:id]/[a:action]?', 'Student');

@@ -34,9 +34,6 @@ INSERT INTO Be VALUES (3, 3);
 INSERT INTO Be VALUES (6, 3);
 INSERT INTO Be VALUES (10, 3);
 
-
-INSERT INTO Be VALUES (4, 1);
-INSERT INTO Be VALUES (4, 2);
 INSERT INTO Be VALUES (20, 2);
 
 INSERT INTO Be VALUES (5, 2);
@@ -45,7 +42,7 @@ INSERT INTO Be VALUES (30, 1);
 -- Vocabulary list
 INSERT INTO VocabularyList VALUES (1, "Animaux", "", 5);
 INSERT INTO VocabularyList VALUES (2, "Informatique", "", 5);
-INSERT INTO VocabularyList VALUES (3, "Moyens de transport", "", 4);
+INSERT INTO VocabularyList VALUES (3, "Moyens de transport", "", 20);
 
 -- Vocabulary creation : FR
 INSERT INTO Vocabulary VALUES ("Chat");
