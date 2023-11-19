@@ -1,15 +1,4 @@
 @charset "UTF-8";
-/*!
-* Start Bootstrap - Grayscale v7.0.6 (https://startbootstrap.com/theme/grayscale)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-grayscale/blob/master/LICENSE)
-*/
-/*!
- * Bootstrap  v5.2.3 (https://getbootstrap.com/)
- * Copyright 2011-2022 The Bootstrap Authors
- * Copyright 2011-2022 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
@@ -10985,7 +10974,7 @@ body {
 
 #mainNav {
   min-height: 3.5rem;
-  background-color: #fff;
+  background-color: transparent;
 }
 #mainNav .navbar-toggler {
   font-size: 80%;
@@ -11015,17 +11004,16 @@ body {
     padding-top: 0;
     padding-bottom: 0;
     border-bottom: none;
-    background-color: transparent;
     transition: background-color 0.3s ease-in-out;
   }
   #mainNav .navbar-brand {
     padding: 0.5rem 0;
-    color: #FFF;
+    color: #000;
   }
   #mainNav .nav-link {
     transition: none;
     padding: 2rem 1.5rem;
-    color: #FFF;
+    color: #fff;
   }
   #mainNav .nav-link:hover {
     color: #a840a3;
@@ -11051,6 +11039,80 @@ body {
     color: #467370;
   }
   #mainNav.navbar-shrink .nav-link.active {
+    color: #64a19d;
+    outline: none;
+    border-bottom: 0.25rem solid #64a19d;
+  }
+}
+
+
+#secondNav {
+  min-height: 3.5rem;
+  background-color: #940262;
+}
+#secondNav .navbar-toggler {
+  font-size: 80%;
+  padding: 0.75rem;
+  color: #64a19d;
+  border: 1px solid #64a19d;
+}
+#secondNav .navbar-toggler:focus {
+  outline: none;
+}
+#secondNav .navbar-brand {
+  color: #000;
+  font-weight: 700;
+  padding: 0.9rem 0;
+}
+#secondNav .navbar-nav .nav-item:hover {
+  color: fade(#fff, 80%);
+  outline: none;
+  background-color: transparent;
+}
+#secondNav .navbar-nav .nav-item:active, #secondNav .navbar-nav .nav-item:focus {
+  outline: none;
+  background-color: transparent;
+}
+@media (min-width: 992px) {
+  #secondNav {
+    padding-top: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+    transition: background-color 0.3s ease-in-out;
+  }
+  #secondNav .navbar-brand {
+    padding: 0.5rem 0;
+    color: #fff;
+  }
+  #secondNav .nav-link {
+    transition: none;
+    padding: 2rem 1.5rem;
+    color: #fff;
+  }
+  #secondNav .nav-link:hover {
+    color: #a840a3;
+  }
+  #secondNav .nav-link:active {
+    color: #fff;
+  }
+  #secondNav.navbar-shrink {
+    background-color: #fff;
+  }
+  #secondNav.navbar-shrink .navbar-brand {
+    color: #000;
+  }
+  #secondNav.navbar-shrink .nav-link {
+    color: #000;
+    padding: 1.5rem 1.5rem 1.25rem;
+    border-bottom: 0.25rem solid transparent;
+  }
+  #secondNav.navbar-shrink .nav-link:hover {
+    color: #64a19d;
+  }
+  #secondNav.navbar-shrink .nav-link:active {
+    color: #467370;
+  }
+  #secondNav.navbar-shrink .nav-link.active {
     color: #64a19d;
     outline: none;
     border-bottom: 0.25rem solid #64a19d;
