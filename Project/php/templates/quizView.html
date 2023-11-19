@@ -31,9 +31,9 @@
     <form id="quizForm{{ i }}" method="post">
      {% for answer in answers[i] %}
      {% if answer == goodAnswers[i] %}
-     <input type="button" value={{ answer }} onclick="validateAndNext(true)">
+     <input type="button" value="{{ answer }}" onclick="validateAndNext(true)">
      {% else %}
-     <input type="button" value={{ answer }} onclick="validateAndNext(false)">
+     <input type="button" value="{{ answer }}" onclick="validateAndNext(false)">
      {% endif %}
      {% endfor %}
     </form>
