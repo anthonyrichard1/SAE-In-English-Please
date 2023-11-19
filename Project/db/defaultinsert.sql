@@ -59,13 +59,11 @@ INSERT INTO Register VALUES ("French", "Moto");
 INSERT INTO Vocabulary VALUES ("Cat");
 INSERT INTO Vocabulary VALUES ("Dog");
 INSERT INTO Vocabulary VALUES ("Computer");
-INSERT INTO Vocabulary VALUES ("Bike");
 INSERT INTO Vocabulary VALUES ("Motorbike");
 -- Register : EN
 INSERT INTO Register VALUES ("English", "Cat");
 INSERT INTO Register VALUES ("English", "Dog");
 INSERT INTO Register VALUES ("English", "Computer");
-INSERT INTO Register VALUES ("English", "Bike");
 INSERT INTO Register VALUES ("English", "Motorbike");
 
 -- Translate
@@ -74,7 +72,6 @@ INSERT INTO Translate VALUES (null, "Chien", "Dog", 1);
 
 INSERT INTO Translate VALUES (null, "Ordinateur", "Computer", 2);
 
-INSERT INTO Translate VALUES (null, "Moto", "Bike", 3);
 INSERT INTO Translate VALUES (null, "Moto", "Motorbike", 3);
 
 -- Practice

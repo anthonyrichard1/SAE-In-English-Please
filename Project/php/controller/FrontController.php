@@ -40,6 +40,10 @@ class FrontController
                         $this->home();
                         break;
 
+                    case 'memory':
+                        AbsController::memory($match);
+                        break;
+
                     case 'login':
                         $this->login();
                         break;
@@ -96,6 +100,7 @@ class FrontController
     public function home(): void {
         global $twig;
         echo $twig->render('home.html');
+        var_dump($_SESSION['roles']);
     }
 
     public function login(): void {
