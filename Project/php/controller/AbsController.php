@@ -85,7 +85,7 @@ class AbsController
 
             echo $twig->render('memory.html', [
                 'wordShuffle' => $wordShuffle,
-                'pairs' => $pairs,
+                'pairs' => json_encode($pairs),
             ]);
 
         }
