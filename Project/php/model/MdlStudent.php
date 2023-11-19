@@ -13,10 +13,6 @@ class MdlStudent extends AbsModel
     {
         parent::__construct("student");
     }
-    public function checkIdExist(int $id):bool {
-        $gtw = new UserGateway();
-        return $gtw->checkIdExist($id);
-    }
 
     public function getAll():array{
         $gtw = new VocabularyListGateway();

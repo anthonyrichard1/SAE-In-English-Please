@@ -125,6 +125,7 @@ class UserGateway extends AbsGateway
             $args = array(':id' => array($id, PDO::PARAM_INT));
             $this->con->executeQuery($query, $args);
             $results = $this->con->getResults();
+            if (empty($results)) return null;
             return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID'], $this->getRoles($results[0]['id']));
         }
         catch(PDOException $e ){
@@ -159,12 +160,13 @@ class UserGateway extends AbsGateway
         }
     }
 
-    public function findUserByEmail(string $email) : User{
+    public function findUserByEmail(string $email){
         try {
             $query = "SELECT * FROM User_ WHERE email=:email";
             $args = array(':email' => array($email, PDO::PARAM_STR));
             $this->con->executeQuery($query, $args);
             $results = $this->con->getResults();
+            if (empty($results)) return null;
             return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID'], $this->getRoles($results[0]['id']));
         }
         catch(PDOException $e ){
@@ -295,18 +297,5 @@ class UserGateway extends AbsGateway
         catch(PDOException $e ){
             throw new Exception($e->getMessage());
         }
-    }
-    public function checkIdExist(int $id): bool {
-        $query = "SELECT COUNT(*) AS count FROM User_ WHERE id = :id";
-        $args = array(':id' => array($id, PDO::PARAM_INT));
-        $this->con->executeQuery($query, $args);
-        $results = $this->con->getResults();
-
-        if (is_array($results) && count($results) > 0) {
-            $count = $results[0]['count'];
-            return ($count > 0);
-        }
-
-        return false;
     }
 }

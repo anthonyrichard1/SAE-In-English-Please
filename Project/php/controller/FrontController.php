@@ -55,12 +55,12 @@ class FrontController
                     case 'disconnect':
                         $this->disconnect();
                         break;
+
                     case 'quiz':
                         $this->quiz();
                         break;
 
                     default :
-                        if ($id != null && !$this->checkIdExist($id)) throw new Exception("identifiant invalide");
                         if ($target == null) throw new Exception("pas de target");
 
                         if (isset($_SESSION['login']) && isset($_SESSION['roles'])) {
@@ -112,16 +112,15 @@ class FrontController
         $model = new MdlStudent();
         $login = strip_tags($_POST['logemail']);
         $password = strip_tags($_POST['logpass']);
+        if (!$this->checkLoginExist($login)) throw new Exception(("login invalide"));
         $user = $model->connection($login, $password);
         if ($user == null) throw new Exception("mot de passe invalide");
         $this->home();
     }
 
-    public function checkIdExist(int $id):bool
-    {
+    public function checkLoginExist(string $login): bool {
         $mdl = new MdlStudent();
-        $res = $mdl->checkIdExist($id);
-        return $res;
+        return $mdl->checkLoginExist($login);
     }
 
     public function disconnect(): void {
@@ -133,6 +132,4 @@ class FrontController
         $ctrl = new StudentController();
         $ctrl->quiz();
     }
-
-
 }
