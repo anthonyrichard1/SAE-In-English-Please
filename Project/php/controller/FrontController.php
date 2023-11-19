@@ -113,6 +113,7 @@ class FrontController
         $login = strip_tags($_POST['logemail']);
         $password = strip_tags($_POST['logpass']);
         $user = $model->connection($login, $password);
+        if ($user == null) throw new Exception("mot de passe invalide");
         $this->home();
     }
 
