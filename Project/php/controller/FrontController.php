@@ -56,7 +56,7 @@ class FrontController
                         $this->disconnect();
                         break;
                     case 'quiz':
-                        AbsController::quiz();
+                        AbsController::quiz($match);
                         break;
 
                     default :

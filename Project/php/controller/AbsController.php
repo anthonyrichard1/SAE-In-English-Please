@@ -92,10 +92,10 @@ abstract class AbsController
             throw new Exception("Erreur");
         }
     }
-    public function quiz(): void
+    public function quiz($match): void
     {
         global $twig;
-        $vocabId = $_GET['vocabID'];
+        $vocabId = Validation::filter_int($match['params']['id'] ?? null);
         $mdl = new TranslationGateway();
         $allTranslation = $mdl->findByIdVoc($vocabId);
         $shuffle = $allTranslation;
