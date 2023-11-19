@@ -73,8 +73,9 @@ class VocabularyListGateway extends AbsGateway
             $query = "SELECT * FROM VocabularyList WHERE id = :id";
             $args = array(':id' => array($id, PDO::PARAM_INT));
             $this->con->executeQuery($query, $args);
-
-            return $this->con->getResults();
+            $results = $this->con->getResults();
+            if (empty($results)) return null;
+            return new VocabularyList($results[0]['id'],$results[0]['name'],$results[0]['image'],$results[0]['userID']);
         }
         catch (PDOException $e){
             throw new Exception($e->getMessage());

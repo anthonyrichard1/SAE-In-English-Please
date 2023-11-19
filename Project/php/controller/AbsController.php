@@ -97,6 +97,8 @@ class AbsController
     {
         global $twig;
         $vocabId = Validation::filter_int($match['id'] ?? null);
+        $vocabList = (new VocabularyListGateway())->findById($vocabId) ?? null;
+        if ($vocabList == null) throw new Exception("liste inconnue");
         $mdl = new TranslationGateway();
         $allTranslation = $mdl->findByIdVoc($vocabId);
         $shuffle = $allTranslation;
@@ -127,7 +129,7 @@ class AbsController
             $answers[] = $tab;
         }
 
-        echo $twig->render('quizView.html', ['questions' => $questions, 'answers' => $answers, 'goodAnswers' => $goodAnswers]);
+        echo $twig->render('quizView.html', ['questions' => $questions, 'answers' => $answers, 'goodAnswers' => $goodAnswers, 'listName' => $vocabList->getName()]);
     }
 
     public function login(): void {
