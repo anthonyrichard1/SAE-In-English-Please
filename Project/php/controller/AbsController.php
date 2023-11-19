@@ -8,6 +8,7 @@ use gateway\TranslationGateway;
 use gateway\VocabularyListGateway;
 use model\MdlStudent;
 use model\VocabularyList;
+use model\Translation;
 
 class AbsController
 {
@@ -100,7 +101,33 @@ class AbsController
         $allTranslation = $mdl->findByIdVoc($vocabId);
         $shuffle = $allTranslation;
         shuffle($shuffle);
-        echo $twig->render('quizzView.html', ['translations' => $allTranslation, 'randomtranslations' => $shuffle]);
+
+        $questions = array();
+        $goodAnswers = array();
+        $allEnglishWords = array();
+
+        foreach ($allTranslation as $translation) {
+            $questions[] = $translation->getWord1();
+            $allEnglishWords[] = $translation->getWord2();
+            $goodAnswers[] = $translation->getWord2();
+        }
+
+        $answers = array();
+
+        for($i=0 ; $i< count($questions) ; $i++) {
+            $correctAnswer = $allTranslation[$i]->getWord2();
+            array_splice($allEnglishWords, array_search($correctAnswer, $allEnglishWords), 1);
+
+            $tab = array_rand(array_flip($allEnglishWords), 3);
+
+            array_push($allEnglishWords, $correctAnswer);
+
+            $tab[] = $correctAnswer;
+            shuffle($tab);
+            $answers[] = $tab;
+        }
+
+        echo $twig->render('quizzView.html', ['questions' => $questions, 'answers' => $answers, 'goodAnswers' => $goodAnswers]);
     }
 
     public function login(): void {
