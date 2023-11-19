@@ -31,22 +31,19 @@
     <form id="quizForm{{ i }}" method="post">
      {% for answer in answers[i] %}
      {% if answer == goodAnswers[i] %}
-     <input type="radio" name="answer{{ i }}" value="{{ answer }}" class="correct"> {{ answer }}<br>
+     <input type="button" value={{ answer }} onclick="validateAndNext(true)">
      {% else %}
-     <input type="radio" name="answer{{ i }}" value="{{ answer }}"> {{ answer }}<br>
+     <input type="button" value={{ answer }} onclick="validateAndNext(false)">
      {% endif %}
      {% endfor %}
     </form>
    </div>
   </div>
   {% endfor %}
-  <input type="button" value="Suivant" onclick="validateAndNext()">
   {% endif %}
  </div>
 
- <script>
-  var len = JSON.parse('{{ questions | length }}');
- </script>
+ <script> var len = JSON.parse('{{ questions | length }}'); </script>
 
  <script src="{{base}}/js/quiz.js"></script>
 </section>
