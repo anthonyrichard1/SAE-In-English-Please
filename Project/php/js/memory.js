@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function checkGameCompletion(){
         if (document.querySelectorAll('.card.found').length === cards.length) {
-            window.location.href = '../../templates/resultatsJeux.html'; // A MODIFIER POUR UN TWIG RENDER
+            window.location.href = '../resultatsJeux'; // A MODIFIER POUR UN TWIG RENDER
         }
     }
 });
