@@ -102,4 +102,7 @@ abstract class AbsController
         shuffle($shuffle);
         echo $twig->render('quizzView.html', ['translations' => $allTranslation, 'randomtranslations' => $shuffle]);
     }
+    public function test(){
+        echo "ça marche";
+    }
 }
