@@ -8,19 +8,28 @@
 <section>
   <h1>Quiz</h1>
 
-    {% if translations is defined %}
-    {% for translation in translations %}
+  {% if translations is defined %}
+  {% for translation in translations %}
   <h2>{{ translation.word1 }}</h2>
-    {% set correctAnswer = translation.word2 %}
-    {% set otherTranslations = [translation.word2, translations[0].word2, translations[1].word2, translations[2].word2]  %}
-    <input type="radio" name="answer" value="{{ correctAnswer }}"> {{ correctAnswer }}<br>
-    {% for otherTranslation in otherTranslations %}
-    {% if otherTranslation != correctAnswer %}
-  <input type="radio" name="answer" value="{{ otherAnswer }}"> {{ otherAnswer }}<br>
+  {% set correctAnswer = translation.word2 %}
+  {% if randomtranslations is defined %}
+  {% set otherTranslations = [correctAnswer] %}
+  {% for randomtranslation in randomtranslations %}
+  {% if randomtranslation.word2 != correctAnswer and otherTranslations|length <= 3 %}
+  {% set otherTranslations = otherTranslations|merge([randomtranslation.word2]) %}
   {% endif %}
-    {% endfor %}
-    {% endfor %}
-    {% endif %}
+  {% endfor %}
+
+
+
+  {# Affichage des réponses sous forme de radio buttons #}
+  <input type="radio" name="answer" value="{{ correctAnswer }}"> {{ correctAnswer }}<br>
+  {% for otherTranslation in otherTranslations %}
+  <input type="radio" name="answer" value="{{ otherTranslation }}"> {{ otherTranslation }}<br>
+  {% endfor %}
+  {% endif %}
+  {% endfor %}
+  {% endif %}
     <input type="submit" value="Submit" name="submitForm">
   </form>
   {% if submitted %}

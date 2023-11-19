@@ -36,16 +36,7 @@ class StudentController
         echo $twig->render('manageVocabView.html', ['vocabularies' => $vocab]);
     }
 
-    public function quiz(): void
-    {
-        global $twig;
-        $vocabId = $_GET['vocabID'];
-        $mdl = new TranslationGateway();
-        $allTranslation = $mdl->findByIdVoc($vocabId);
-        $shuffle = $allTranslation;
-        shuffle($shuffle);
-        echo $twig->render('quizzView.html', ['translations' => $allTranslation, 'randomtranslations']);
-    }
+
     /*
         public function flashcard(VocabularyList $v) {
             $idVoc = $v->getId();

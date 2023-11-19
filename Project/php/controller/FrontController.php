@@ -56,7 +56,7 @@ class FrontController
                         $this->disconnect();
                         break;
                     case 'quiz':
-                        $this->quiz();
+                        AbsController::quiz();
                         break;
 
                     default :
@@ -128,10 +128,5 @@ class FrontController
         $mdl->deconnection();
         $this->home();
     }
-    public function quiz(){
-        $ctrl = new StudentController();
-        $ctrl->quiz();
-    }
-
 
 }

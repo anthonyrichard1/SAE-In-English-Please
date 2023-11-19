@@ -100,6 +100,6 @@ abstract class AbsController
         $allTranslation = $mdl->findByIdVoc($vocabId);
         $shuffle = $allTranslation;
         shuffle($shuffle);
-        echo $twig->render('quizzView.html', ['translations' => $allTranslation, 'randomtranslations']);
+        echo $twig->render('quizzView.html', ['translations' => $allTranslation, 'randomtranslations' => $shuffle]);
     }
 }
