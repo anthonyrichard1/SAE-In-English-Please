@@ -9,11 +9,19 @@
 <body>
 <div id="memory-game">
     {% for word in wordShuffle %}
-    <div class="card center-text" data-word="{{ word }}">
+    <div class="card center-text flipped" data-word="{{ word }}">
         <span>{{ word }}</span>
     </div>
     {% endfor %}
 </div>
+
+
+<script>
+    var pairs = JSON.parse('{{ pairs | raw }}');
+</script>
+
+<script src="../js/memory.js"></script>
+
 
 </body>
 </html>
