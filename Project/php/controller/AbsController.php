@@ -92,15 +92,15 @@ class AbsController
             throw new Exception("Erreur");
         }
     }
-    public static function quiz(): void
+    public function quiz($match): void
     {
         global $twig;
-        $vocabId = $_GET['vocabID'];
+        $vocabId = Validation::filter_int($match['params']['id'] ?? null);
         $mdl = new TranslationGateway();
         $allTranslation = $mdl->findByIdVoc($vocabId);
         $shuffle = $allTranslation;
         shuffle($shuffle);
-        echo $twig->render('quizzView.html', ['translations' => $allTranslation, 'randomtranslations']);
+        echo $twig->render('quizzView.html', ['translations' => $allTranslation, 'randomtranslations' => $shuffle]);
     }
 
     public function login(): void {

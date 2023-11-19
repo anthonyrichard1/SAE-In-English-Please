@@ -43,6 +43,7 @@ class FrontController
                         break;
 
                     default :
+                        if ($id != null && !$this->checkIdExist($id)) throw new Exception("identifiant invalide");
                         if ($target == null) throw new Exception("pas de target");
 
                         if (isset($_SESSION['login']) && isset($_SESSION['roles'])) {
