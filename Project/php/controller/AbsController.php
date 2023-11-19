@@ -94,6 +94,8 @@ abstract class AbsController
         $vocabId = $_GET['vocabID'];
         $mdl = new TranslationGateway();
         $allTranslation = $mdl->findByIdVoc($vocabId);
-        echo $twig->render('quizzView.html', ['translations' => $allTranslation]);
+        $shuffle = $allTranslation;
+        shuffle($shuffle);
+        echo $twig->render('quizzView.html', ['translations' => $allTranslation, 'randomtranslations']);
     }
 }

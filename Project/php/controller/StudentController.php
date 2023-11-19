@@ -42,7 +42,9 @@ class StudentController
         $vocabId = $_GET['vocabID'];
         $mdl = new TranslationGateway();
         $allTranslation = $mdl->findByIdVoc($vocabId);
-        echo $twig->render('quizzView.html', ['translations' => $allTranslation]);
+        $shuffle = $allTranslation;
+        shuffle($shuffle);
+        echo $twig->render('quizzView.html', ['translations' => $allTranslation, 'randomtranslations']);
     }
     /*
         public function flashcard(VocabularyList $v) {
