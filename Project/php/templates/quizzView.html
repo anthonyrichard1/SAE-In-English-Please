@@ -2,41 +2,56 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Manage groups</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-  <meta name="description" content="" />
-  <meta name="author" content="" />
-  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-  <!-- Font Awesome icons (free version)-->
-  <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-  <!-- Google fonts-->
-  <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
-  <link
-          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-          rel="stylesheet" />
-  <!-- Core theme CSS (includes Bootstrap)-->
-  <link href="css/styles.css" rel="stylesheet" />
+  <title>Manage groups</title><!-- Vos liens de styles et de scripts -->
 </head>
 <body>
 <section>
   <h1>Quiz</h1>
-  <form action="quiz" method="post">
-    <h2>{{frenchWord}}</h2>
 
-    {% for i in 0..3 %}
+  {% if translations is defined %}
+  {% for translation in translations %}
+  <h2>{{ translation.word1 }}</h2>
+  {% set correctAnswer = translation.word2 %}
+  {% if randomtranslations is defined %}
+  {% set otherTranslations = [correctAnswer] %}
+  {% for randomtranslation in randomtranslations %}
+  {% if randomtranslation.word2 != correctAnswer and otherTranslations|length <= 3 %}
+  {% set otherTranslations = otherTranslations|merge([randomtranslation.word2]) %}
+  {% endif %}
+  {% endfor %}
 
-    <input type="radio" name="answer{{i}}" value="{{valid[i]}}"> {{answers[i]}}<br>
-    {% endfor %}
 
-    <input type="submit" value="Soumettre">
+
+  {# Affichage des réponses sous forme de radio buttons #}
+  <input type="radio" name="answer" value="{{ correctAnswer }}"> {{ correctAnswer }}<br>
+  {% for otherTranslation in otherTranslations %}
+  <input type="radio" name="answer" value="{{ otherTranslation }}"> {{ otherTranslation }}<br>
+  {% endfor %}
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+    <input type="submit" value="Submit" name="submitForm">
   </form>
+  {% if submitted %}
+  {% if isCorrect %}
+  <p>Correct answer!</p>
+  {% else %}
+  <p>Wrong answer!</p>
+  {% endif %}
+  {% endif %}
+</section>
+
   <h1>Translator</h1>
-  <form action="quiz?vocabID={{row.id}}" method="POST">
-    <label for="wordInput">Enter a word:</label>
-    <input type="text" id="wordInput" name="wordInput">
+  <form action="quiz" method="POST">
+    {% if translations is defined %}
+    {% for translation in translations %}
+    <label for="wordInput{{ translation.id }}">Traduire {{ translation.word1 }}</label>
+    <input type="text" id="wordInput{{ translation.id }}" name="wordInput{{ translation.id }}">
+    <input type="hidden" name="vocabID" value="{{ translation.listVocab }}">
     <button type="submit">Translate</button>
+    {% endfor %}
+    {% endif %}
   </form>
-
 </section>
 </body>
 </html>

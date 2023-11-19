@@ -19,11 +19,13 @@ class FrontController
             $router = new \AltoRouter();
             $router->setBasePath($altorouterPath);
 
-            $router->map('GET', '/', 'AppController');
-            $router->map('GET|POST', '/[a:action]?/[i:id]?', 'NULL');
+            $router->map('GET', '/', 'FrontController');
             $router->map('GET|POST', '/admin/[i:id]/[a:action]?', 'Admin');
             $router->map('GET|POST', '/teacher/[i:id]/[a:action]?', 'Teacher');
             $router->map('GET|POST', '/student/[i:id]/[a:action]?', 'Student');
+            $router->map('GET|POST', '/abs/[a:action]?', 'Abs');
+
+            $twig->addGlobal('base', $altorouterPath);
 
             $match = $router->match();
 
@@ -38,25 +40,6 @@ class FrontController
                 switch ($action) {
                     case null:
                         $this->home();
-                        break;
-
-                    case 'memory':
-                        AbsController::memory($match);
-                        break;
-
-                    case 'login':
-                        $this->login();
-                        break;
-
-                    case 'confirmLogin':
-                        $this->confirmLogin();
-                        break;
-
-                    case 'disconnect':
-                        $this->disconnect();
-                        break;
-                    case 'quiz':
-                        $this->quiz();
                         break;
 
                     default :
@@ -85,7 +68,7 @@ class FrontController
 
                             break;
                         }
-                        else $this->login();
+                        else (new AbsController())->login();
                 }
             }
         }
@@ -96,42 +79,9 @@ class FrontController
             }
     }
 
-
     public function home(): void {
         global $twig;
         echo $twig->render('home.html');
         var_dump($_SESSION['roles']);
     }
-
-    public function login(): void {
-        global $twig;
-        echo $twig->render('login.html');
-    }
-
-    public function confirmLogin(): void {
-        $model = new MdlStudent();
-        $login = strip_tags($_POST['logemail']);
-        $password = strip_tags($_POST['logpass']);
-        $user = $model->connection($login, $password);
-        $this->home();
-    }
-
-    public function checkIdExist(int $id):bool
-    {
-        $mdl = new MdlStudent();
-        $res = $mdl->checkIdExist($id);
-        return $res;
-    }
-
-    public function disconnect(): void {
-        $mdl = new MdlStudent();
-        $mdl->deconnection();
-        $this->home();
-    }
-    public function quiz(){
-        $ctrl = new StudentController();
-        $ctrl->quiz();
-    }
-
-
 }
