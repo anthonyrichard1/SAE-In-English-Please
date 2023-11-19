@@ -9,6 +9,53 @@
         <td>{{ row.word2 }}</td>
         <td>{{ row.listVocab }}</td>
     </tr>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Manage groups</title>
+        <!-- Vos liens de styles et de scripts -->
+    </head>
+    <body>
+    <section>
+        <h1>Quiz</h1>
+        <form action="quiz" method="post">
+            {% if translations is defined %}
+                {% for translation in translations %}
+                    <h2>{{ translation.word1 }}</h2>
+                    {% set answers = [translation.word2] %}
+                    {% for i in 0..3 %}
+                        <input type="radio" name="answer{{ i }}" value="{{ valid[i] }}"> {{ answers[i] }}<br>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+            <input type="submit" value="Submit">
+        </form>
+
+        <h1>Translator</h1>
+        <form action="quiz" method="POST">
+            {% if translations is defined %}
+                <table>
+                    <tr>
+                        <td>ID</td>
+                        <td>Word 1</td>
+                        <td>Word 2</td>
+                        <td>List Vocabulary</td>
+                    </tr>
+                    {% for translation in translations %}
+                        <tr>
+                            <td>{{ translation.id }}</td>
+                            <td>{{ translation.word1 }}</td>
+                            <td>{{ translation.word2 }}</td>
+                            <td>{{ translation.listVocab }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+        </form>
+    </section>
+    </body>
+    </html>
 
 
 </table>

@@ -75,4 +75,12 @@ abstract class AbsController
 
         echo $twig->render('memory.html');
     }
+    public function quiz(): void
+    {
+        global $twig;
+        $vocabId = $_GET['vocabID'];
+        $mdl = new TranslationGateway();
+        $allTranslation = $mdl->findByIdVoc($vocabId);
+        echo $twig->render('quizzView.html', ['translations' => $allTranslation]);
+    }
 }
