@@ -63,13 +63,13 @@ CREATE TABLE Language(
 );
 
 CREATE TABLE Vocabulary(
-    word varchar(30) PRIMARY KEY
+    word varchar(255) PRIMARY KEY
 );
 
 CREATE TABLE Translate(
     id int(10) PRIMARY KEY AUTO_INCREMENT,
-    firstWord varchar(30),
-    secondWord varchar(30),
+    firstWord varchar(255),
+    secondWord varchar(255),
     listVoc int(10),
     FOREIGN KEY (firstWord) REFERENCES Vocabulary(word),
     FOREIGN KEY (secondWord) REFERENCES Vocabulary(word),
@@ -78,7 +78,7 @@ CREATE TABLE Translate(
 
 CREATE TABLE Register(
     language varchar(30),
-    word varchar(30),
+    word varchar(255),
     FOREIGN KEY (language) REFERENCES Language(name),
     FOREIGN KEY (word) REFERENCES Vocabulary(word),
     PRIMARY KEY (language, word)
