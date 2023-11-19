@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/styles.css" rel="stylesheet" />
+    <title>Félicitations!</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background: url('../assets/img/points.png') center/cover no-repeat;
+            background-color: lightslategray;
+        }
+
+        .container {
+            text-align: center;
+            padding-left: 40vh;
+            padding-right: 40vh;
+            background-color: #7464a1;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .message {
+            color: black;
+            font-size: 36px;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .celebration-image {
+            width: 100%;
+            max-width: 300px;
+            border-radius: var(--bs-border-radius);
+        }
+
+    </style>
+   
+</head>
+<body>
+    <div class="container">
+        <div class="message">
+            Bravo ! Vous avez gagné 125 points !!
+        </div>
+        <img class="celebration-image" src="../assets/img/celeb.png" alt="Célébration">
+    </div>
+</body>
+</html>

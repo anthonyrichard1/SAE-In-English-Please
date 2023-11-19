@@ -35,16 +35,4 @@ class StudentController
         $vocab = $mdl->getVocabByName($name);
         echo $twig->render('manageVocabView.html', ['vocabularies' => $vocab]);
     }
-
-
-    /*
-        public function flashcard(VocabularyList $v) {
-            $idVoc = $v->getId();
-            $mdl = new TranslationGateway();
-            $allTranslation = $mdl->findByIdVoc($idVoc);
-            while(1) {
-
-            }
-        }
-    }*/
 }
