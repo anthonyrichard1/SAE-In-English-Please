@@ -64,7 +64,7 @@ class AbsController
         global $twig;
 
         try{
-            $idVoc = Validation::filter_int($match['params']['id'] ?? null);
+            $idVoc = Validation::filter_int($match['id'] ?? null);
             $wordList = (new \gateway\TranslationGateway)->findByIdVoc($idVoc);
             $wordShuffle = array();
 
@@ -95,7 +95,7 @@ class AbsController
     public function quiz($match): void
     {
         global $twig;
-        $vocabId = Validation::filter_int($match['params']['id'] ?? null);
+        $vocabId = Validation::filter_int($match['id'] ?? null);
         $mdl = new TranslationGateway();
         $allTranslation = $mdl->findByIdVoc($vocabId);
         $shuffle = $allTranslation;

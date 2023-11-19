@@ -24,6 +24,7 @@ class FrontController
             $router->map('GET|POST', '/teacher/[i:id]/[a:action]?', 'Teacher');
             $router->map('GET|POST', '/student/[i:id]/[a:action]?', 'Student');
             $router->map('GET|POST', '/abs/[a:action]?', 'Abs');
+            $router->map('GET|POST', '/abs/[a:action]/[i:id]', 'Abs');
 
             $twig->addGlobal('base', $altorouterPath);
 
@@ -37,38 +38,45 @@ class FrontController
                 $action = Validation::val_action($match['params']['action'] ?? null);
                 $id = $match['params']['id'] ?? null;
 
-                switch ($action) {
-                    case null:
-                        $this->home();
-                        break;
-
-                    default :
-                        if ($id != null && !$this->checkIdExist($id)) throw new Exception("identifiant invalide");
-                        if ($target == null) throw new Exception("pas de target");
-
-                        if (isset($_SESSION['login']) && isset($_SESSION['roles'])) {
-
-                            $_SESSION['login'] = strip_tags($_SESSION['login']);
-                            for ($i=0 ; $i<count($_SESSION['roles']) ; $i++) $_SESSION['roles'][$i] = strip_tags($_SESSION['roles'][$i]);
-
-                            $mdl = '\\model\\Mdl' . $target;
-                            $mdl = new $mdl;
-
-                            if (is_callable(array($mdl, 'is'))) {
-                                $user = call_user_func_array(array($mdl, 'is'), array($_SESSION['login'], $_SESSION['roles']));
-
-                                if (!$user || $user->getId() != $id) throw new Exception("erreur 403 permission denied");
-                            }
-
-                            $controller = '\\controller\\' . $target . 'Controller';
-                            $controller = new $controller;
-
-                            if (is_callable(array($controller, $action)))
-                                call_user_func_array(array($controller, $action), array($match['params']));
-
+                if ($target == 'Abs') {
+                    $abs = new AbsController();
+                    if (is_callable(array($abs, $action)))
+                        call_user_func_array(array($abs, $action), array($match['params']));
+                }
+                else {
+                    switch ($action) {
+                        case null:
+                            $this->home();
                             break;
-                        }
-                        else (new AbsController())->login();
+
+                        default :
+                            if ($id != null && !$this->checkIdExist($id)) throw new Exception("identifiant invalide");
+                            if ($target == null) throw new Exception("pas de target");
+
+                            if (isset($_SESSION['login']) && isset($_SESSION['roles'])) {
+
+                                $_SESSION['login'] = strip_tags($_SESSION['login']);
+                                for ($i=0 ; $i<count($_SESSION['roles']) ; $i++) $_SESSION['roles'][$i] = strip_tags($_SESSION['roles'][$i]);
+
+                                $mdl = '\\model\\Mdl' . $target;
+                                $mdl = new $mdl;
+
+                                if (is_callable(array($mdl, 'is'))) {
+                                    $user = call_user_func_array(array($mdl, 'is'), array($_SESSION['login'], $_SESSION['roles']));
+
+                                    if (!$user || $user->getId() != $id) throw new Exception("erreur 403 permission denied");
+                                }
+
+                                $controller = '\\controller\\' . $target . 'Controller';
+                                $controller = new $controller;
+
+                                if (is_callable(array($controller, $action)))
+                                    call_user_func_array(array($controller, $action), array($match['params']));
+
+                                break;
+                            }
+                            else (new AbsController())->login();
+                    }
                 }
             }
         }
