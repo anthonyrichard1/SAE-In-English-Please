@@ -60,19 +60,32 @@ abstract class AbsController
         }
     }
 
-    public function memory(): void{
+    public static function memory($match): void{
         global $twig;
 
         try{
-            $idVoc = Validation::filter_int($_GET['id'] ?? null);
+            $idVoc = Validation::filter_int($match['params']['id'] ?? null);
             $wordList = (new \gateway\TranslationGateway)->findByIdVoc($idVoc);
+            $wordShuffle = array();
+
+            $pairs = [];
+            for ($i = 0; $i != count($wordList); $i += 1) {
+                $wordShuffle[] = $word1 = $wordList[$i]->getWord1();
+                $wordShuffle[] = $word2 = $wordList[$i]->getWord2();
+
+                $pairs[] = [$word1, $word2];
+            }
+
+            shuffle($wordShuffle);
+
+            echo $twig->render('memory.html', [
+                'wordShuffle' => $wordShuffle,
+                'pairs' => $pairs,
+            ]);
 
         }
         catch (Exception $e){
             throw new Exception("Erreur");
         }
-
-
-        echo $twig->render('memory.html');
     }
 }
