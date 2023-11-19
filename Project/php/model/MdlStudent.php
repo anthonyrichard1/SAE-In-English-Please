@@ -50,37 +50,13 @@ class MdlStudent extends AbsModel
         $gtw->modifyPassword($id, $newPassword);
     }
 
-    public function is()
+    public function is(string $login, array $roles)
     {
-        if (
-            isset($_SESSION['id']) &&
-            isset($_SESSION['password']) &&
-            isset($_SESSION['email']) &&
-            isset($_SESSION['name']) &&
-            isset($_SESSION['surname']) &&
-            isset($_SESSION['nickname']) &&
-            isset($_SESSION['image']) &&
-            isset($_SESSION['extraTime']) &&
-            isset($_SESSION['group']) &&
-            isset($_SESSION['roles']) &&
-            $_SESSION['roles'] === 'student'
-        ) {
-            $id = (int)$_SESSION['id'];
-            $password = $_SESSION['password'];
-            $email = $_SESSION['email'];
-            $name = $_SESSION['name'];
-            $surname = $_SESSION['surname'];
-            $nickname = $_SESSION['nickname'];
-            $image = $_SESSION['image'];
-            $extraTime = (bool)$_SESSION['extraTime'];
-            $group = (int)$_SESSION['group'];
-            $roles = $_SESSION['roles'];
+        $gtw = new UserGateway();
+        $user = $gtw->findUserByEmail($login);
 
-            return new User($id, $password, $email, $name, $surname, $nickname, $image, $extraTime, $group, $roles);
-        } else {
-            return null;
-        }
+        if ($user->getRoles() == $roles && in_array('student', $user->getRoles())) return $user;
+        else return false;
     }
-
 }
 

@@ -7,9 +7,6 @@ use Exception;
 
 class StudentController
 {
-
-
-
     public function affAllVocab(): void
     {
         global $twig;
@@ -47,13 +44,13 @@ class StudentController
             echo $twig->render('myAccountView.html', ['user' => $user]);
         }
         catch (Exception $e){
-            throw new Exception("invalid user ID");
+            throw new Exception("invalid user ID".$e->getFile().$e->getLine());
         }
     }
 
     public function modifyNickname(): void {
         try {
-            $userID = Validation::filter_int($_GET['user']);
+            $userID = Validation::filter_int($_GET['user'] ?? null);
             $newNickname = Validation::filter_str_nospecialchar($_GET['newNickname'] ?? null);
             $mdl = new MdlStudent();
             $mdl->modifyNickname($userID, $newNickname);

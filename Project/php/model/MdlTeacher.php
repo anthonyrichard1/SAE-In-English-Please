@@ -46,8 +46,12 @@ class MdlTeacher extends AbsModel
         }
     }
 
-    public function is()
+    public function is(string $login, array $roles)
     {
-        // TODO: Implement is() method.
+        $gtw = new UserGateway();
+        $user = $gtw->findUserByEmail($login);
+
+        if ($user->getRoles() == $roles && in_array('teacher', $user->getRoles())) return $user;
+        else return false;
     }
 }

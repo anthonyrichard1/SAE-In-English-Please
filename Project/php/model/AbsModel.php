@@ -40,5 +40,5 @@ abstract class AbsModel
         $_SESSION = array();
     }
 
-    public abstract function is();
+    public abstract function is(string $login, array $roles);
 }

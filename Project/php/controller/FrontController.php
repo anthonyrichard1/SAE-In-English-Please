@@ -24,29 +24,19 @@ class FrontController
 
             $router->map('GET', '/', 'AppController');
             $router->map('GET|POST', '/[a:action]?', 'NULL');
-            $router->map('GET|POST', '/admin/[i:id]/[a:action]?', 'AdminController');
-            $router->map('GET|POST', '/teacher/[i:id]/[a:action]?', 'TeacherController');
-            $router->map('GET|POST', '/student/[i:id]/[a:action]?', 'StudentController');
+            $router->map('GET|POST', '/admin/[i:id]/[a:action]?', 'Admin');
+            $router->map('GET|POST', '/teacher/[i:id]/[a:action]?', 'Teacher');
+            $router->map('GET|POST', '/student/[i:id]/[a:action]?', 'Student');
 
             $match = $router->match();
 
             if (!$match) {
-                throw new Exception("Erreur 404");
+                throw new Exception("Erreur 404 page not found");
             }
             if ($match) {
-//list($controller, $action) = explode('#', $match['target'] );
-                $controller = $match['target'] ?? null;
+                $target = $match['target'] ?? null;
                 $action = Validation::val_action($match['params']['action'] ?? null);
                 $id = $match['params']['id'] ?? null;
-                if(!$this->checkIdExist($id)) {
-                    throw new Exception("L'identifiant est invalide");
-                }
-
-                print 'user Id received ' . $id . '<br>';
-                print 'controleur appelé ' . $controller . '<br>';
-                print $action . '<br>';
-                print $id . '<br>';
-
 
                 switch ($action) {
                     case null:
@@ -61,14 +51,37 @@ class FrontController
                         $this->confirmLogin();
                         break;
 
-                    default :
-                        $controller = '\\controller\\' . $controller;
-                        $controller = new $controller;
-
-                        if (is_callable(array($controller, $action)))
-                            call_user_func_array(array($controller, $action), array($match['params']));
-
+                    case 'disconnect':
+                        $this->disconnect();
                         break;
+
+                    default :
+                        if ($id != null && !$this->checkIdExist($id)) throw new Exception("identifiant invalide");
+                        if ($target == null) throw new Exception("pas de target");
+
+                        if (isset($_SESSION['login']) && isset($_SESSION['roles'])) {
+
+                            $_SESSION['login'] = strip_tags($_SESSION['login']);
+                            for ($i=0 ; $i<count($_SESSION['roles']) ; $i++) $_SESSION['roles'][$i] = strip_tags($_SESSION['roles'][$i]);
+
+                            $mdl = '\\model\\Mdl' . $target;
+                            $mdl = new $mdl;
+
+                            if (is_callable(array($mdl, 'is'))) {
+                                $user = call_user_func_array(array($mdl, 'is'), array($_SESSION['login'], $_SESSION['roles']));
+
+                                if (!$user || $user->getId() != $id) throw new Exception("erreur 403 permission denied");
+                            }
+
+                            $controller = '\\controller\\' . $target . 'Controller';
+                            $controller = new $controller;
+
+                            if (is_callable(array($controller, $action)))
+                                call_user_func_array(array($controller, $action), array($match['params']));
+
+                            break;
+                        }
+                        else $this->login();
                 }
             }
         }
@@ -97,11 +110,18 @@ class FrontController
         $user = $model->connection($login, $password);
         $this->home();
     }
-    public function checkIdExist($id):bool
+
+    public function checkIdExist(int $id):bool
     {
         $mdl = new MdlStudent();
         $res = $mdl->checkIdExist($id);
         return $res;
+    }
+
+    public function disconnect(): void {
+        $mdl = new MdlStudent();
+        $mdl->deconnection();
+        $this->home();
     }
 
 }
