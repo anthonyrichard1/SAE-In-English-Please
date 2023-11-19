@@ -3,19 +3,21 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
     background-color: #f0f0f0;
+    margin-left: 15vh;
+    margin-right: 15vh;
 }
 
 #memory-game {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(4, 140px); /* Hauteur fixe pour chaque carte, ajustez si nécessaire */
     gap: 10px;
 }
 
 .card {
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: 100%;
     background-color: #fff;
     border: 2px solid #ccc;
     border-radius: 8px;
@@ -28,10 +30,14 @@ body {
 }
 
 .card.flipped {
-    background-color: #f0f0f0; /* Couleur de fond lorsqu'une carte est retournée */
+    background-color: #f0f0f0;
 }
 
 .card.found {
-    background-color: #8aff8a; /* Couleur de fond lorsqu'une paire est trouvée */
+    background-color: #8aff8a;
     cursor: default;
+}
+
+.center-text {
+    text-align: center;
 }

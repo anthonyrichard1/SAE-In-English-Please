@@ -68,13 +68,17 @@ abstract class AbsController
             $wordList = (new \gateway\TranslationGateway)->findByIdVoc($idVoc);
             $wordShuffle = array();
 
+            shuffle($wordList);
             $pairs = [];
-            for ($i = 0; $i != count($wordList); $i += 1) {
+            $maxWords = 28;
+
+            for ($i = 0; $i < min(count($wordList), $maxWords / 2); $i++) {
                 $wordShuffle[] = $word1 = $wordList[$i]->getWord1();
                 $wordShuffle[] = $word2 = $wordList[$i]->getWord2();
 
                 $pairs[] = [$word1, $word2];
             }
+
 
             shuffle($wordShuffle);
 
