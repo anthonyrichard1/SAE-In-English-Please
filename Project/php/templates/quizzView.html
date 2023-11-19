@@ -5,24 +5,51 @@
   <title>Manage groups</title><!-- Vos liens de styles et de scripts -->
 </head>
 <body>
-<section>
+<section id="quiz">
   <h1>Quiz</h1>
-
-    {% if translations is defined %}
-    {% for translation in translations %}
-  <h2>{{ translation.word1 }}</h2>
-    {% set correctAnswer = translation.word2 %}
-    {% set otherTranslations = [translation.word2, translations[0].word2, translations[1].word2, translations[2].word2]  %}
-    <input type="radio" name="answer" value="{{ correctAnswer }}"> {{ correctAnswer }}<br>
-    {% for otherTranslation in otherTranslations %}
-    {% if otherTranslation != correctAnswer %}
-  <input type="radio" name="answer" value="{{ otherAnswer }}"> {{ otherAnswer }}<br>
+ <div id="questionContainer">
+  {% if translations is defined %}
+  {% for translation in translations %}
+  <h2 id="question">{{ translation.word1 }}</h2>
+  {% set correctAnswer = translation.word2 %}
+  {% if randomtranslations is defined %}
+  {% set otherTranslations = [correctAnswer] %}
+  {% for randomtranslation in randomtranslations %}
+  {% if randomtranslation.word2 != correctAnswer and otherTranslations|length <= 3 %}
+  {% set otherTranslations = otherTranslations|merge([randomtranslation.word2]) %}
   {% endif %}
-    {% endfor %}
-    {% endfor %}
-    {% endif %}
-    <input type="submit" value="Submit" name="submitForm">
+  {% endfor %}
+  <form id="quizForm" method="post">
+    <div id="answers">
+  <input type="radio" name="answer" value="{{ correctAnswer }}"> {{ correctAnswer }}<br>
+    </div>
+  {% for otherTranslation in otherTranslations %}
+  <input type="radio" name="wrong" value="{{ otherTranslation }}"> {{ otherTranslation }}<br>
+
+  {% endfor %}
+    <input type="hidden" name="action" value="test">
+  <button value="submit" type="submit" >soumettre</button>
   </form>
+ </div>
+  <script>
+    $(document).ready(function() {
+      $('#quizForm').submit(function(event) {
+        event.preventDefault();
+        $.ajax({
+          type: 'POST',
+          url: '/../controller/AbsController.php',
+          data: $(this).serialize(),
+          success: function(response) {
+            $('#result').html(response);
+          }
+        });
+      });
+    });
+  </script>
+  {% endif %}
+  {% endfor %}
+  {% endif %}
+
   {% if submitted %}
   {% if isCorrect %}
   <p>Correct answer!</p>
@@ -46,3 +73,63 @@
 </section>
 </body>
 </html>
+<script>
+  const questions = [
+
+    {
+      question: "Question 2?",
+      answers: ["Answer A", "Answer B", "Answer C"],
+      correctAnswer: "Answer B"
+    },
+    // Ajoutez d'autres questions ici
+  ];
+
+  let currentQuestion = 0;
+  const questionContainer = document.getElementById('questionContainer');
+  const questionElement = document.getElementById('question');
+  const answersElement = document.getElementById('answers');
+  const resultElement = document.getElementById('result');
+
+  function showQuestion() {
+    const question = questions[currentQuestion];
+    questionElement.textContent = question.question;
+
+    answersElement.innerHTML = '';
+    question.answers.forEach(answer => {
+      const label = document.createElement('label');
+      const input = document.createElement('input');
+      input.type = 'radio';
+      input.name = 'answer';
+      input.value = answer;
+      label.appendChild(input);
+      label.appendChild(document.createTextNode(answer));
+      answersElement.appendChild(label);
+      answersElement.appendChild(document.createElement('br'));
+    });
+  }
+
+  function checkAnswer(event) {
+    event.preventDefault();
+    const selectedAnswer = document.querySelector('input[name="answer"]:checked');
+    if (!selectedAnswer) {
+      resultElement.textContent = 'Please select an answer.';
+      return;
+    }
+
+    if (selectedAnswer.value === questions[currentQuestion].correctAnswer) {
+      resultElement.textContent = 'Correct answer!';
+    } else {
+      resultElement.textContent = 'Wrong answer!';
+    }
+
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+      showQuestion();
+    } else {
+      questionContainer.style.display = 'none';
+    }
+  }
+
+  document.getElementById('quizForm').addEventListener('submit', checkAnswer);
+  showQuestion();
+</script>

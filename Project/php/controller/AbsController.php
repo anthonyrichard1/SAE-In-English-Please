@@ -9,7 +9,7 @@ use gateway\VocabularyListGateway;
 use model\MdlStudent;
 use model\VocabularyList;
 
-abstract class AbsController
+class AbsController
 {
 
     public function showAccountInfos(): void {
@@ -64,7 +64,7 @@ abstract class AbsController
         global $twig;
 
         try{
-            $idVoc = Validation::filter_int($match['params']['id'] ?? null);
+            $idVoc = Validation::filter_int($match['id'] ?? null);
             $wordList = (new \gateway\TranslationGateway)->findByIdVoc($idVoc);
             $wordShuffle = array();
 
@@ -92,14 +92,40 @@ abstract class AbsController
             throw new Exception("Erreur");
         }
     }
-    public function quiz(): void
+    public function quiz($match): void
     {
         global $twig;
-        $vocabId = $_GET['vocabID'];
+        $vocabId = Validation::filter_int($match['id'] ?? null);
         $mdl = new TranslationGateway();
         $allTranslation = $mdl->findByIdVoc($vocabId);
         $shuffle = $allTranslation;
         shuffle($shuffle);
-        echo $twig->render('quizzView.html', ['translations' => $allTranslation, 'randomtranslations']);
+        echo $twig->render('quizzView.html', ['translations' => $allTranslation, 'randomtranslations' => $shuffle]);
+    }
+
+    public function login(): void {
+        global $twig;
+        echo $twig->render('login.html');
+    }
+
+    public function confirmLogin(): void {
+        $model = new MdlStudent();
+        $login = strip_tags($_POST['logemail']);
+        $password = strip_tags($_POST['logpass']);
+        if (!$this->checkLoginExist($login)) throw new Exception(("login invalide"));
+        $user = $model->connection($login, $password);
+        if ($user == null) throw new Exception("mot de passe invalide");
+        $this->home();
+    }
+
+    public function checkLoginExist(string $login): bool {
+        $mdl = new MdlStudent();
+        return $mdl->checkLoginExist($login);
+    }
+
+    public function disconnect(): void {
+        $mdl = new MdlStudent();
+        $mdl->deconnection();
+        $this->home();
     }
 }
