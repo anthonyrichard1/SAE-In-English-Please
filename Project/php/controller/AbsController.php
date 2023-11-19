@@ -127,7 +127,7 @@ class AbsController
             $answers[] = $tab;
         }
 
-        echo $twig->render('quizzView.html', ['questions' => $questions, 'answers' => $answers, 'goodAnswers' => $goodAnswers]);
+        echo $twig->render('quizView.html', ['questions' => $questions, 'answers' => $answers, 'goodAnswers' => $goodAnswers]);
     }
 
     public function login(): void {

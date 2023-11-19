@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+</head>
+<head>
+ <meta charset="utf-8" />
+ <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+ <meta name="description" content="" />
+ <meta name="author" content="" />
+ <title>Quiz</title>
+ <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+ <!-- Google fonts-->
+ <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+ <link
+         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+         rel="stylesheet" />
+ <!-- Core theme CSS (includes Bootstrap)-->
+ <link href="{{base}}/css/styles.css" rel="stylesheet" />
+ <link href="{{base}}/css/quiz.css" rel="stylesheet" />
+</head>
+
+<body>
+
+<section id="quiz">
+ <h1>Quiz</h1>
+ <div id="questionContainer">
+  {% if questions is defined %}
+  {% for i in 0..questions|length %}
+  <div class="question" id="question{{ i }}">
+   <h2>{{ questions[i] }}</h2>
+   <div class="answers">
+    <form id="quizForm{{ i }}" method="post">
+     {% for answer in answers[i] %}
+     {% if answer == goodAnswers[i] %}
+     <input type="radio" name="answer{{ i }}" value="{{ answer }}" class="correct"> {{ answer }}<br>
+     {% else %}
+     <input type="radio" name="answer{{ i }}" value="{{ answer }}"> {{ answer }}<br>
+     {% endif %}
+     {% endfor %}
+    </form>
+   </div>
+  </div>
+  {% endfor %}
+  <input type="button" value="Suivant" onclick="validateAndNext()">
+  {% endif %}
+ </div>
+
+ <script>
+  var len = JSON.parse('{{ questions | length }}');
+ </script>
+
+ <script src="{{base}}/js/quiz.js"></script>
+</section>
+</body>
+</html>
