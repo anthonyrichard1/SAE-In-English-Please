@@ -55,6 +55,9 @@ class FrontController
                     case 'disconnect':
                         $this->disconnect();
                         break;
+                    case 'quiz':
+                        $this->quiz();
+                        break;
 
                     default :
                         if ($id != null && !$this->checkIdExist($id)) throw new Exception("identifiant invalide");
@@ -125,5 +128,10 @@ class FrontController
         $mdl->deconnection();
         $this->home();
     }
+    public function quiz(){
+        $ctrl = new StudentController();
+        $ctrl->quiz();
+    }
+
 
 }
