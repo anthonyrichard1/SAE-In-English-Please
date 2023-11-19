@@ -1,0 +1,14 @@
+<table>
+
+
+    {% if translations is defined %}
+    {% for row in translations %}
+    <tr>
+        <td>{{ row.id }}</td>
+        <td>{{ row.word1 }}</td>
+        <td>{{ row.word2 }}</td>
+        <td>{{ row.listVocab }}</td>
+    </tr>
+
+
+</table>

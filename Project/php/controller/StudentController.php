@@ -2,8 +2,11 @@
 
 namespace controller;
 use config\Validation;
+use gateway\TranslationGateway;
+use gateway\VocabularyListGateway;
 use model\MdlStudent;
 use Exception;
+use model\Translation;
 
 class StudentController
 {
@@ -82,4 +85,21 @@ class StudentController
             throw new Exception("invalid entries");
         }
     }
+    public function quiz(): void {
+        global $twig;
+        $vocabId = $_GET['vocabID'];
+        $mdl = new TranslationGateway();
+        $allTranslation = $mdl->findByIdVoc($vocabId);
+        echo $twig->render('quizzView.html',  ['translations' => $allTranslation ]);
+    }
+/*
+    public function flashcard(VocabularyList $v) {
+        $idVoc = $v->getId();
+        $mdl = new TranslationGateway();
+        $allTranslation = $mdl->findByIdVoc($idVoc);
+        while(1) {
+
+        }
+    }
+*/
 }
