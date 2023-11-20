@@ -88,6 +88,12 @@ class FrontController
 
     public static function home(): void {
         global $twig;
-        echo $twig->render('home.html');
+        global $user;
+        if(isset($user)){
+            echo $twig->render('home.html', ['userID' => $user->getId(), 'userRole' => $user->getRoles()]);
+        }
+        else{
+            echo $twig->render('home.html', );
+        }
     }
 }

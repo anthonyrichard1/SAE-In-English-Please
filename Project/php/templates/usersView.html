@@ -3,11 +3,20 @@
     <head>
         <meta charset="UTF-8">
         <title>Users</title>
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <link href="{{base}}/css/styles.css" rel="stylesheet" />
     </head>
 
     <body>
+    {% include 'navbar.twig' %}
+    <div class="content">
         <section>
             {% include 'userContainer.twig' with {'users' : users, 'action' : 'removeUser'} %}
         </section>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="{{base}}/js/scripts.js"></script>
+
     </body>
 </html>

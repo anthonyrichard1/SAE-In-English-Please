@@ -616,7 +616,7 @@ progress {
 
 .logo {
   margin-top: 10%;
-  height: 10vh;
+  max-height: 8vh;
 }
 
 .figure-caption {
@@ -11070,7 +11070,7 @@ body {
   padding: 0.9rem 0;
 }
 #secondNav .navbar-nav .nav-item:hover {
-  color: fade(#fff, 80%);
+  color: #7464a1;
   outline: none;
   background-color: transparent;
 }
@@ -11101,13 +11101,13 @@ body {
     color: #fff;
   }
   #secondNav.navbar-shrink {
-    background-color: #fff;
+    background-color: #7464a1;
   }
   #secondNav.navbar-shrink .navbar-brand {
     color: #000;
   }
   #secondNav.navbar-shrink .nav-link {
-    color: #000;
+    color: #fff;
     padding: 1.5rem 1.5rem 1.25rem;
     border-bottom: 0.25rem solid transparent;
   }
@@ -11338,4 +11338,8 @@ body {
 
 .app-badge {
   height: 3rem;
+}
+
+.content{
+  padding : 12vh;
 }

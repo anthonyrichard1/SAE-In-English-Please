@@ -17,29 +17,30 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="css/styles.css" rel="stylesheet" />
 </head>
-
-<section>
-    <h1>Add words</h1>
-    {% if user is defined %}
-    <form action="{{base}}/teacher/addVocabList" method="GET">
-        <table>
-            <tr>
-                <td colspan="2">
-                    <input type="hidden" name="userID" value="{{user}}">
-                    <input type="text" name="listName" placeholder="list name" required>
-                </td>
-            </tr>
-            {% for i in 0..1 %}
-            <tr>
-                <td><input type="text" name="frenchWord{{i}}" placeholder="french word"></td>
-                <td><input type="text" name="englishWord{{i}}" placeholder="english word"></td>
-            </tr>
-            {% endfor %}
-            <tr><td colspan="2"><input type="submit" value="Add"></td></tr>
-        </table>
-    </form>
-    {% endif %}
-</section>
-
+{% include 'navbar.twig' %}
+<div class="content">
+    <section>
+        <h1>Add words</h1>
+        {% if user is defined %}
+        <form action="{{base}}/teacher/addVocabList" method="GET">
+            <table>
+                <tr>
+                    <td colspan="2">
+                        <input type="hidden" name="userID" value="{{user}}">
+                        <input type="text" name="listName" placeholder="list name" required>
+                    </td>
+                </tr>
+                {% for i in 0..1 %}
+                <tr>
+                    <td><input type="text" name="frenchWord{{i}}" placeholder="french word"></td>
+                    <td><input type="text" name="englishWord{{i}}" placeholder="english word"></td>
+                </tr>
+                {% endfor %}
+                <tr><td colspan="2"><input type="submit" value="Add"></td></tr>
+            </table>
+        </form>
+        {% endif %}
+    </section>
+</div>
 </body>
 </html>
