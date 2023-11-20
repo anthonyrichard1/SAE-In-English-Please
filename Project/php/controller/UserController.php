@@ -32,6 +32,7 @@ class UserController extends VisitorController
 
             $mdl = new MdlUser();
             $mdl->ModifyPassword($user->getId(), password_hash($newPassword, null));
+            $user = $mdl->getUserById($user->getId());
             $this->showAccountInfos();
         }
         catch (Exception $e){
@@ -45,6 +46,7 @@ class UserController extends VisitorController
             $newNickname = Validation::filter_str_nospecialchar($_POST['newNickname'] ?? null);
             $mdl = new MdlUser();
             $mdl->modifyNickname($user->getId(), $newNickname);
+            $user = $mdl->getUserById($user->getId());
             $this->showAccountInfos();
         }
         catch (Exception $e){

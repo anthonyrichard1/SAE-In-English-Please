@@ -24,4 +24,10 @@ class MdlUser extends AbsModel {
         if (!empty($user->getRoles())) return $user;
         else return false;
     }
+
+    public function getUserById($id): User
+    {
+        $gtw = new UserGateway();
+        return $gtw->findById($id);
+    }
 }
