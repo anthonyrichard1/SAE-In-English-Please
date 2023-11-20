@@ -9,11 +9,31 @@
 
     <body>
     {% include 'navbar.twig' %}
+    {% if users is defined %}
     <div class="content">
+        <section>
+            <table>
+                <tr>
+                    <td><a href="{{base}}/admin/{{userID}}/showAllUsers">
+                        <input class="btn-black" type="button" value="Show all users"/>
+                    </a></td>
+                    <td><a href="{{base}}/admin/{{userID}}/showAllAdmins">
+                        <input class="btn-black" type="button" value="Show all admins"/>
+                    </a></td>
+                    <td><a href="{{base}}/admin/{{userID}}/showAllTeachers">
+                        <input class="btn-black" type="button" value="Show all teachers"/>
+                    </a></td>
+                    <td><a href="{{base}}/admin/{{userID}}/showAllStudents">
+                        <input class="btn-black" type="button" value="Show all students"/>
+                    </a></td>
+                </tr>
+            </table>
+        </section>
         <section>
             {% include 'userContainer.twig' with {'users' : users, 'action' : 'removeUser'} %}
         </section>
     </div>
+    {% endif %}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="{{base}}/js/scripts.js"></script>
