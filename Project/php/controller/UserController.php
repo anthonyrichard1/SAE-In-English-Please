@@ -53,4 +53,15 @@ class UserController extends VisitorController
             throw new Exception("invalid entries");
         }
     }
+
+    public function home(): void {
+        global $twig;
+        global $user;
+        if(isset($user)){
+            echo $twig->render('home.html', ['userID' => $user->getId(), 'userRole' => $user->getRoles()]);
+        }
+        else{
+            echo $twig->render('home.html', );
+        }
+    }
 }
