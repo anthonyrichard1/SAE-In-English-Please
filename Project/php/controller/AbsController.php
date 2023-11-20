@@ -144,7 +144,7 @@ class AbsController
         if (!$this->checkLoginExist($login)) throw new Exception(("login invalide"));
         $user = $model->connection($login, $password);
         if ($user == null) throw new Exception("mot de passe invalide");
-        $this->home();
+        FrontController::home();
     }
 
     public function checkLoginExist(string $login): bool {
@@ -155,7 +155,7 @@ class AbsController
     public function disconnect(): void {
         $mdl = new MdlStudent();
         $mdl->deconnection();
-        $this->home();
+        FrontController::home();
     }
 
     public function resultatsJeux(): void{

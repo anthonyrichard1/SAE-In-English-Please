@@ -87,9 +87,8 @@ class FrontController
             }
     }
 
-    public function home(): void {
+    public static function home(): void {
         global $twig;
         echo $twig->render('home.html');
-        var_dump($_SESSION['roles']);
     }
 }
