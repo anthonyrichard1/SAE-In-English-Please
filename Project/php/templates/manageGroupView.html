@@ -28,7 +28,6 @@
     <h2>Group list</h2>
     {% include 'groupContainer.twig' with {'actions' : ['showGroupDetails', 'removeGroup']} %}
 </section>
-
 <section class="users">
     <h2>Users of the group</h2>
     {% include 'userContainer.twig' with {'users' : users, 'action' : 'removeUserFromGroup'} %}

@@ -50,7 +50,6 @@ class FrontController
                             break;
 
                         default :
-                            if ($id != null && !$this->checkIdExist($id)) throw new Exception("identifiant invalide");
                             if ($target == null) throw new Exception("pas de target");
 
                             if (isset($_SESSION['login']) && isset($_SESSION['roles'])) {
@@ -62,6 +61,7 @@ class FrontController
                                 $mdl = new $mdl;
 
                                 if (is_callable(array($mdl, 'is'))) {
+                                    global $user;
                                     $user = call_user_func_array(array($mdl, 'is'), array($_SESSION['login'], $_SESSION['roles']));
 
                                     if (!$user || $user->getId() != $id) throw new Exception("erreur 403 permission denied");
