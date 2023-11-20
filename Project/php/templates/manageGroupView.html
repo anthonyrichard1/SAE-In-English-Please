@@ -24,22 +24,21 @@
     }
 </style>
 <body>
-    <section class="groupList">
-        <h2>Group list</h2>
-        {% include 'groupContainer.twig' with {'actions' : ['showGroupDetails', 'removeGroup']} %}
-    </section>
-
-    <section class="users">
-        <h2>Users of the group</h2>
-        {% include 'userContainer.twig' with {'users' : users, 'action' : 'removeUserFromGroup'} %}
-    </section>
-    <section class="addGroupForm">
-        <h2>Add group</h2>
-        {% include 'addGroupForm.twig' %}
-    </section>
-    <section class="unassignedUsers">
-        <h1>Unassigned users</h1>
-        {% include 'userContainer.twig' with {'users' : unassignedUsers, 'action' : 'addUserToGroup'} %}
-    </section>
+<section class="groupList">
+    <h2>Group list</h2>
+    {% include 'groupContainer.twig' with {'actions' : ['showGroupDetails', 'removeGroup']} %}
+</section>
+<section class="users">
+    <h2>Users of the group</h2>
+    {% include 'userContainer.twig' with {'users' : users, 'action' : 'removeUserFromGroup'} %}
+</section>
+<section class="addGroupForm">
+    <h2>Add group</h2>
+    {% include 'addGroupForm.twig' %}
+</section>
+<section class="unassignedUsers">
+    <h1>Unassigned users</h1>
+    {% include 'userContainer.twig' with {'users' : unassignedUsers, 'action' : 'addUserToGroup'} %}
+</section>
 </body>
 </html>
