@@ -59,16 +59,14 @@ class TeacherController extends UserController
         global $user;
         $id = $user->getId();
         $mdl = new MdlTeacher();
-        $userID = Validation::filter_int($_GET['userID'] ?? null);
         $name = Validation::filter_str_simple($_GET['listName'] ?? null);
         $words = array();
-        for ($i = 0; $i <= 1; $i++) {
-            $frenchWord = Validation::filter_str_simple($_GET['frenchWord'.$i] ?? null);
-            $englishWord = Validation::filter_str_simple($_GET['englishWord'.$i] ?? null);
+            $frenchWord = Validation::filter_str_simple($_GET['frenchWord'] ?? null);
+            $englishWord = Validation::filter_str_simple($_GET['englishWord'] ?? null);
             $words[] = array($frenchWord, $englishWord);
-        }
-        var_dump($words);
-        $mdl->addVocabList($userID, $name, "", $words);
-        echo $twig->render('addVocabList.html', [ 'userId' => $id ]);
+            var_dump($words);
+        $addvoc= $mdl->addVocabList($id, $name, "", $words);
+        echo $twig->render('manageVocabListView.html', [ 'vocabularies' => $addvoc ,'userId' => $id]);
     }
+
 }

@@ -38,7 +38,7 @@
 
     <section class="addGroupForm">
         <h2>Add Vocabb</h2>
-        {% include 'vocabularyContainer.twig' with { 'actions' : 'addVocabList' , 'userId' : userId } %}
+        {% include 'vocabularyContainer.twig' with { 'vocabularies' : vocabularies ,'actions' : 'addVocabList' , 'userId' : userId } %}
     </section>
 
     <section class="unassignedUsers">
