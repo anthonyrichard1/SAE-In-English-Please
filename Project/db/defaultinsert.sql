@@ -47,6 +47,9 @@ INSERT INTO VocabularyList VALUES (3, "Moyens de transport", "", 20);
 -- Vocabulary creation : FR
 INSERT INTO Vocabulary VALUES ("Chat");
 INSERT INTO Vocabulary VALUES ("Chien");
+INSERT INTO Vocabulary VALUES ("Lapin");
+INSERT INTO Vocabulary VALUES ("Souris");
+INSERT INTO Vocabulary VALUES ("Poisson");
 INSERT INTO Vocabulary VALUES ("Ordinateur");
 INSERT INTO Vocabulary VALUES ("Moto");
 -- Register : FR
@@ -54,21 +57,33 @@ INSERT INTO Register VALUES ("French", "Chat");
 INSERT INTO Register VALUES ("French", "Chien");
 INSERT INTO Register VALUES ("French", "Ordinateur");
 INSERT INTO Register VALUES ("French", "Moto");
+INSERT INTO Register VALUES ("French", "Lapin");
+INSERT INTO Register VALUES ("French", "Souris");
+INSERT INTO Register VALUES ("French", "Poisson");
 
 -- Vocabulary creation : EN
 INSERT INTO Vocabulary VALUES ("Cat");
 INSERT INTO Vocabulary VALUES ("Dog");
+INSERT INTO Vocabulary VALUES ("Rabbit");
+INSERT INTO Vocabulary VALUES ("Mouse");
+INSERT INTO Vocabulary VALUES ("Fish");
 INSERT INTO Vocabulary VALUES ("Computer");
 INSERT INTO Vocabulary VALUES ("Motorbike");
 -- Register : EN
 INSERT INTO Register VALUES ("English", "Cat");
 INSERT INTO Register VALUES ("English", "Dog");
+INSERT INTO Register VALUES ("English", "Rabbit");
+INSERT INTO REGISTER VALUES ("English", "Mouse");
+INSERT INTO REGISTER VALUES ("English", "Fish");
 INSERT INTO Register VALUES ("English", "Computer");
 INSERT INTO Register VALUES ("English", "Motorbike");
 
 -- Translate
 INSERT INTO Translate VALUES (null, "Chat", "Cat", 1);
 INSERT INTO Translate VALUES (null, "Chien", "Dog", 1);
+INSERT INTO Translate VALUES (null, "Lapin", "Rabbit", 1);
+INSERT INTO Translate VALUES (null, "Souris", "Mouse", 1);
+INSERT INTO Translate VALUES (null, "Poisson", "Fish", 1);
 
 INSERT INTO Translate VALUES (null, "Ordinateur", "Computer", 2);
 
