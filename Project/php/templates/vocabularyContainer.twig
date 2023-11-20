@@ -28,20 +28,27 @@
                                 <input class="btn-black" type="button" value="delete from vocabulary" />
                             </a>
                         {% endif %}
-                {% endif %}
-        {% endfor %}
-                        {% if actions == 'addVocabList' %}
-                            <a id="delButton" href="{{base}}/teacher/{{userId}}/addVocabList" />
-                                            <tr>
-                                                <td colspan="2">
-                                                <td><input type="text" name="image" placeholder="id"></td>
-                                                <td><input type="text" name="image" placeholder="name"></td>
-                                                    <td><input type="text" name="image" placeholder="img"></td>
-                                                    <td><input type="text" name="auth" placeholder="auth"></td>
-                                                </tr>
-                                            <td colspan="2"><input type="submit" value="Add"></td>
-                            </a>
             {% endif %}
+        {% endfor %}
+        <br>
+
+                        {% if actions == 'addVocabList' %}
+                            <form action="{{ base }}/teacher/{{ userId }}/addVocabList" method="GET">
+                                <label for="listName">Name:</label>
+                                <input type="text" id="listName" name="listName"><br><br>
+
+                                <label for="frenchWord">French Word:</label>
+                                <input type="text" id="frenchWord" name="frenchWord"><br><br>
+
+                                <label for="englishWord">English Word:</label>
+                                <input type="text" id="englishWord" name="englishWord"><br><br>
+
+                                <input type="submit" value="Add Vocabulary">
+                            </form>
+
+
+                        {% endif %}
+
                     </td>
 
             </tr>

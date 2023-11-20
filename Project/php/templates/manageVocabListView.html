@@ -25,29 +25,26 @@
     }
 </style>
 <body>
-{% include 'navbar.twig' %}
-<div class="content">
-    <div class="section">
-        <section class="VocabularyList">
-            <h2>Vocab list</h2>
-            {% include 'vocabularyContainer.twig' with {'actions' : 'affAllVocab', 'vocabularies' : vocabularies , 'userId' : userId } %}
-        </section>
+<div class="section">
+    <section class="VocabularyList">
+        <h2>Vocab list</h2>
+        {% include 'vocabularyContainer.twig' with {'actions' : 'affAllVocab', 'vocabularies' : vocabularies , 'userId' : userId } %}
+    </section>
 
-        <section class="Vocabulaire">
-            <h2>Vocab of the user</h2>
-            {% include 'vocabularyContainer.twig' with {'vocabularies' : vocabularies , 'actions' : 'getByName', 'selectedName' : 'selectedName', 'userId' : userId } %}
-        </section>
+    <section class="Vocabulaire">
+        <h2>Vocab of the user</h2>
+        {% include 'vocabularyContainer.twig' with {'vocabularies' : vocabularies , 'actions' : 'getByName', 'selectedName' : 'selectedName', 'userId' : userId } %}
+    </section>
 
-        <section class="addGroupForm">
-            <h2>Add Vocabb</h2>
-            {% include 'vocabularyContainer.twig' with { 'actions' : 'addVocabList' , 'userId' : userId } %}
-        </section>
+    <section class="addGroupForm">
+        <h2>Add Vocabb</h2>
+        {% include 'vocabularyContainer.twig' with { 'vocabularies' : vocabularies ,'actions' : 'addVocabList' , 'userId' : userId } %}
+    </section>
 
-        <section class="unassignedUsers">
-            <h1>Unassigned vocab</h1>
-            {% include 'vocabularyContainer.twig' with {'vocabularies' : vocabularies , 'actions' : 'delById', 'userId' : userId } %}
-        </section>
-    </div>
+    <section class="unassignedUsers">
+        <h1>Unassigned vocab</h1>
+        {% include 'vocabularyContainer.twig' with {'vocabularies' : vocabularies , 'actions' : 'delById', 'userId' : userId } %}
+    </section>
 </div>
 </body>
 </html>
