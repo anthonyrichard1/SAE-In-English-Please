@@ -56,6 +56,8 @@ class TeacherController
 
     public function addVocabList():void {
         global $twig;
+        global $user;
+        $id = $user->getId();
         $mdl = new MdlTeacher();
         $userID = Validation::filter_int($_GET['userID'] ?? null);
         $name = Validation::filter_str_simple($_GET['listName'] ?? null);
@@ -67,6 +69,6 @@ class TeacherController
         }
         var_dump($words);
         $mdl->addVocabList($userID, $name, "", $words);
-        echo $twig->render('addVocabList.html');
+        echo $twig->render('addVocabList.html', [ 'userId' => $id ]);
     }
 }
