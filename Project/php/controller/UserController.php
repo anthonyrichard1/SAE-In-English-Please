@@ -43,7 +43,7 @@ class UserController extends VisitorController
         try {
             global $user;
             $newNickname = Validation::filter_str_nospecialchar($_POST['newNickname'] ?? null);
-            $mdl = new MdlStudent();
+            $mdl = new MdlUser();
             $mdl->modifyNickname($user->getId(), $newNickname);
             $this->showAccountInfos();
         }

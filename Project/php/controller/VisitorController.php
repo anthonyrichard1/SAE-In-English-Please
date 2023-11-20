@@ -87,6 +87,7 @@ class VisitorController
     }
 
     public function confirmLogin(): void {
+        global $user;
         $model = new MdlUser();
         if($_POST['logemail']!=null && $_POST['logpass']!=null) {
             $login = strip_tags($_POST['logemail']);
