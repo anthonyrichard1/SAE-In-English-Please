@@ -10,7 +10,7 @@ use model\MdlStudent;
 use model\VocabularyList;
 use model\Translation;
 
-class AbsController
+class UserController
 {
 
     public function showAccountInfos(): void {

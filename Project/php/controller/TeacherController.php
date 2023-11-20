@@ -6,7 +6,7 @@ use model\MdlTeacher;
 use gateway\VocabularyListGateway;
 use Exception;
 
-class TeacherController extends AbsController
+class TeacherController
 {
     public function affAllStudent(): void
     {

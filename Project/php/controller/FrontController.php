@@ -23,8 +23,8 @@ class FrontController
             $router->map('GET|POST', '/admin/[i:id]/[a:action]?', 'Admin');
             $router->map('GET|POST', '/teacher/[i:id]/[a:action]?', 'Teacher');
             $router->map('GET|POST', '/student/[i:id]/[a:action]?', 'Student');
-            $router->map('GET|POST', '/abs/[a:action]?', 'Abs');
-            $router->map('GET|POST', '/abs/[a:action]/[i:id]', 'Abs');
+            $router->map('GET|POST', '/user/[a:action]?', 'User');
+            $router->map('GET|POST', '/user/[a:action]/[i:id]', 'User');
 
             $twig->addGlobal('base', $altorouterPath);
 
@@ -38,10 +38,10 @@ class FrontController
                 $action = Validation::val_action($match['params']['action'] ?? null);
                 $id = $match['params']['id'] ?? null;
 
-                if ($target == 'Abs') {
-                    $abs = new AbsController();
-                    if (is_callable(array($abs, $action)))
-                        call_user_func_array(array($abs, $action), array($match['params']));
+                if ($target == 'User') {
+                    $userCtrl = new UserController();
+                    if (is_callable(array($userCtrl, $action)))
+                        call_user_func_array(array($userCtrl, $action), array($match['params']));
                 }
                 else {
                     switch ($action) {
@@ -75,7 +75,7 @@ class FrontController
 
                                 break;
                             }
-                            else (new AbsController())->login();
+                            else (new UserController())->login();
                     }
                 }
             }
