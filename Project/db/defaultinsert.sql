@@ -73,8 +73,8 @@ INSERT INTO Vocabulary VALUES ("Motorbike");
 INSERT INTO Register VALUES ("English", "Cat");
 INSERT INTO Register VALUES ("English", "Dog");
 INSERT INTO Register VALUES ("English", "Rabbit");
-INSERT INTO REGISTER VALUES ("English", "Mouse");
-INSERT INTO REGISTER VALUES ("English", "Fish");
+INSERT INTO Register VALUES ("English", "Mouse");
+INSERT INTO Register VALUES ("English", "Fish");
 INSERT INTO Register VALUES ("English", "Computer");
 INSERT INTO Register VALUES ("English", "Motorbike");
 
