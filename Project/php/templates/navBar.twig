@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="secondNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="index.html">Logo</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto">
+                {% if userRole == 'admin' %}
+                    <li class="nav-item"><a class="nav-link" href="{{ { base }/admin/{{ userID }}/showAllGroups}}">Groups</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ { base }/admin/{{ userID }}/showAllUsers}}">Users</a></li>
+                {% elseif userRole == 'student' %}
+                    <li class="nav-item"><a class="nav-link" href="{{ { base }/user/memory}}">Learn a lesson</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ { base }/user/game}}">Play</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ { base }/student/{{ userID }}/createFC}}">Create flashcards</a></li>
+                {% elseif userRole == 'teacher' %}
+                    <li class="nav-item"><a class="nav-link" href="{{ { base }/teacher/memory}}">Learn a lesson</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ { base }/teacher/game}}">Play</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ { base }/teacher/createFC}}">Create flashcards</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link" href="{{ path('login') }}">Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

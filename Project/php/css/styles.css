@@ -10996,7 +10996,7 @@ body {
   padding: 0.9rem 0;
 }
 #mainNav .navbar-nav .nav-item:hover {
-  color: fade(#fff, 80%);
+  color: #faf4e0;
   outline: none;
   background-color: transparent;
 }
@@ -11021,7 +11021,7 @@ body {
     color: #fff;
   }
   #mainNav .nav-link:hover {
-    color: #a840a3;
+    color: #faf4e0;
   }
   #mainNav .nav-link:active {
     color: #fff;
@@ -11053,7 +11053,7 @@ body {
 
 #secondNav {
   min-height: 3.5rem;
-  background-color: #940262;
+  background-color: #7464a1;
 }
 #secondNav .navbar-toggler {
   font-size: 80%;
@@ -11095,7 +11095,7 @@ body {
     color: #fff;
   }
   #secondNav .nav-link:hover {
-    color: #a840a3;
+    color: #463c61;
   }
   #secondNav .nav-link:active {
     color: #fff;
