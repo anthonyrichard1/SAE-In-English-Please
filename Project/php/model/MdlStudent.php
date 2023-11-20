@@ -9,11 +9,6 @@ use gateway\VocabularyListGateway;
 class MdlStudent extends MdlUser
 {
 
-    public function __construct()
-    {
-        parent::__construct("student");
-    }
-
     public function getAll():array{
         $gtw = new VocabularyListGateway();
         return  $gtw->findAll();

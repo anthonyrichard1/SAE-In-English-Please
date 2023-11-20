@@ -7,11 +7,6 @@ use gateway\UserGateway;
 
 class MdlAdmin extends MdlUser
 {
-    public function __construct()
-    {
-        parent::__construct("admin");
-    }
-
     public function getAllUsers(): array {
         $gtw = new UserGateway();
         return $gtw->findAll();

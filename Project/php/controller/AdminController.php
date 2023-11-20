@@ -13,7 +13,7 @@ class AdminController extends UserController
         global $user;
         $model = new MdlAdmin();
         $users = $model->getAllUsers();
-        echo $twig->render('usersView.html', ['users' => $users, 'userID' => $user->getId()]);
+        echo $twig->render('usersView.html', ['users' => $users, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
     }
 
     public function showAllAdmins(): void {
@@ -21,7 +21,7 @@ class AdminController extends UserController
         global $user;
         $model = new MdlAdmin();
         $users = $model->getAllAdmins();
-        echo $twig->render('usersView.html', ['users' => $users, 'userID' => $user->getId()]);
+        echo $twig->render('usersView.html', ['users' => $users, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
     }
 
     public function showAllTeachers(): void {
@@ -29,7 +29,7 @@ class AdminController extends UserController
         global $user;
         $model = new MdlAdmin();
         $users = $model->getAllTeachers();
-        echo $twig->render('usersView.html', ['users' => $users, 'userID' => $user->getId()]);
+        echo $twig->render('usersView.html', ['users' => $users, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
     }
 
     public function showAllStudents(): void {
@@ -37,7 +37,7 @@ class AdminController extends UserController
         global $user;
         $model = new MdlAdmin();
         $users = $model->getAllStudents();
-        echo $twig->render('usersView.html', ['users' => $users, 'userID' => $user->getId()]);
+        echo $twig->render('usersView.html', ['users' => $users, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
     }
 
     public function removeUser(): void {
@@ -58,7 +58,7 @@ class AdminController extends UserController
         $model = new MdlAdmin();
         $groups = $model->getAllGroups();
         $unassignedUsers = $model->getUnassignedUsers();
-        echo $twig->render('manageGroupView.html', ['groups' => $groups, 'unassignedUsers' => $unassignedUsers, 'userID' => $user->getId()]);
+        echo $twig->render('manageGroupView.html', ['groups' => $groups, 'unassignedUsers' => $unassignedUsers, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
     }
 
     public function showGroupDetails(): void {
@@ -71,7 +71,7 @@ class AdminController extends UserController
             $users = $model->getUsersOfGroup($selectedGroup);
             $unassignedUsers = $model->getUnassignedUsers();
 
-            echo $twig->render('manageGroupView.html', ['groups' => $groups, 'selectedGroup' => $selectedGroup, 'users' => $users, 'unassignedUsers' => $unassignedUsers, 'userID' => $user->getId()]);
+            echo $twig->render('manageGroupView.html', ['groups' => $groups, 'selectedGroup' => $selectedGroup, 'users' => $users, 'unassignedUsers' => $unassignedUsers, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
         }
         catch (Exception $e) {
             throw new Exception("invalid group ID");
