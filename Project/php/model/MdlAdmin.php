@@ -5,7 +5,7 @@ namespace model;
 use gateway\GroupGateway;
 use gateway\UserGateway;
 
-class MdlAdmin extends AbsModel
+class MdlAdmin extends MdlUser
 {
     public function __construct()
     {

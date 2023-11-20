@@ -4,11 +4,7 @@ namespace model;
 
 use gateway\UserGateway;
 
-public class MdlUser extends AbsModel {
-    public function getUser(int $id): User{
-        $gtw = new UserGateway();
-        return $gtw->findById($id);
-    }
+class MdlUser extends AbsModel {
 
     public function modifyNickname(int $id, string $newNickname): void{
         $gtw = new UserGateway();

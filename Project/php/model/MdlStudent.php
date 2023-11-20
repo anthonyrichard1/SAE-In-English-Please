@@ -6,7 +6,7 @@ use gateway\UserGateway;
 use gateway\VocabularyGateway;
 use gateway\VocabularyListGateway;
 
-class MdlStudent extends AbsModel
+class MdlStudent extends MdlUser
 {
 
     public function __construct()
