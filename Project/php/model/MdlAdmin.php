@@ -7,7 +7,6 @@ use gateway\UserGateway;
 
 class MdlAdmin extends MdlUser
 {
-
     public function getAllUsers(): array {
         $gtw = new UserGateway();
         return $gtw->findAll();
