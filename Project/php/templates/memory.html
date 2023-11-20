@@ -7,14 +7,16 @@
     <link rel="stylesheet" href="{{base}}/css/memory.css">
 </head>
 <body>
-<div id="memory-game">
-    {% for word in wordShuffle %}
-    <div class="card center-text flipped" data-word="{{ word }}">
-        <span>{{ word }}</span>
+<div>
+    <h1>Memory Game : {{ nameVoc }}</h1>
+    <div id="memory-game">
+        {% for word in wordShuffle %}
+        <div class="card center-text flipped" data-word="{{ word }}">
+            <span>{{ word }}</span>
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
 </div>
-
 
 <script>
     var pairs = JSON.parse('{{ pairs | raw }}');
