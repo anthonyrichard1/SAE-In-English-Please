@@ -15,7 +15,7 @@
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css" rel="stylesheet" />
+    <link href="{{base}}/css/styles.css" rel="stylesheet" />
 </head>
 <style>
     section {
@@ -24,6 +24,8 @@
     }
 </style>
 <body>
+{% include 'navbar.twig' %}
+<div class="content">
     <section>
     <h1>My account</h1>
     {% if user is defined %}
@@ -32,8 +34,7 @@
             <tr><td>ID : </td><td>{{user.id}}</td></tr>
             <tr><td>Nickname : </td><td>{{user.nickname}}</td>
                 <td>
-                    <form action="{{base}}/user/modifyNickname" method="GET">
-                        <input type="hidden" name="user" value={{user.id}}>
+                    <form action="{{base}}/{{ userRole[0] }}/{{userID}}/modifyNickname" method="POST">
                         <input name="newNickname" type="text" placeholder="new nickname" required>
                         <input type="submit" value="Modify your nickname">
                     </form>
@@ -56,5 +57,6 @@
             {% include 'modifyPasswordForm.twig' %}
     </section>
     {% endif %}
+</div>
 </body>
 </html>

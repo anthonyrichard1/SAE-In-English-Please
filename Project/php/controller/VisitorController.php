@@ -6,6 +6,7 @@ use config\Validation;
 use gateway\TranslationGateway;
 use gateway\VocabularyListGateway;
 use model\MdlUser;
+use Exception;
 
 class VisitorController
 {

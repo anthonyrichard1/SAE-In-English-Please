@@ -6,16 +6,6 @@ use gateway\UserGateway;
 
 abstract class AbsModel
 {
-    private string $role;
-
-    /**
-     * @param string $role
-     */
-    public function __construct(string $role)
-    {
-        $this->role = $role;
-    }
-
     public function connection(string $login, string $password){
         $gtw = new UserGateway();
         $hash = $gtw->login($login) ?? null;

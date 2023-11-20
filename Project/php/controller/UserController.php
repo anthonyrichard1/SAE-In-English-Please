@@ -7,6 +7,7 @@ use Exception;
 use gateway\TranslationGateway;
 use gateway\VocabularyListGateway;
 use model\MdlStudent;
+use model\MdlUser;
 use model\VocabularyList;
 use model\Translation;
 
@@ -21,32 +22,29 @@ class UserController extends VisitorController
 
     public function modifyPassword(): void {
         try {
-            $userID = $_GET['user'];
-            $currentPassword = Validation::val_password($_GET['currentPassword'] ?? null);
-            $newPassword = Validation::val_password($_GET['newPassword'] ?? null);
-            $confirmNewPassword = Validation::val_password($_GET['confirmNewPassword'] ?? null);
-            $mdl = new MdlStudent();
-            $user = $mdl->getUser($userID);
+            global $user;
+            $currentPassword = Validation::val_password($_POST['currentPassword'] ?? null);
+            $newPassword = Validation::val_password($_POST['newPassword'] ?? null);
+            $confirmNewPassword = Validation::val_password($_POST['confirmNewPassword'] ?? null);
 
-            if ($user->getPassword() != $currentPassword || $newPassword != $confirmNewPassword)
+            if (!password_verify($currentPassword, $user->getPassword()) || $newPassword != $confirmNewPassword)
                 throw new Exception("");
 
-            $mdl->ModifyPassword($userID, $newPassword);
-            $_GET['user'] = $userID;
+            $mdl = new MdlUser();
+            $mdl->ModifyPassword($user->getId(), password_hash($newPassword, null));
             $this->showAccountInfos();
         }
         catch (Exception $e){
-            throw new Exception("invalid entries");
+            throw new Exception("invalid entries".$e->getLine());
         }
     }
 
     public function modifyNickname(): void {
         try {
-            $userID = Validation::filter_int($_GET['user'] ?? null);
-            $newNickname = Validation::filter_str_nospecialchar($_GET['newNickname'] ?? null);
+            global $user;
+            $newNickname = Validation::filter_str_nospecialchar($_POST['newNickname'] ?? null);
             $mdl = new MdlStudent();
-            $mdl->modifyNickname($userID, $newNickname);
-            $_GET['user'] = $userID;
+            $mdl->modifyNickname($user->getId(), $newNickname);
             $this->showAccountInfos();
         }
         catch (Exception $e){

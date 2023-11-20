@@ -104,9 +104,9 @@ class AdminController extends UserController
 
     public function addGroup(): void {
         try {
-            $num = Validation::filter_int($_GET['num'] ?? null);
-            $year = Validation::filter_int($_GET['year'] ?? null);
-            $sector = Validation::filter_str_simple($_GET['sector'] ?? null);
+            $num = Validation::filter_int($_POST['num'] ?? null);
+            $year = Validation::filter_int($_POST['year'] ?? null);
+            $sector = Validation::filter_str_simple($_POST['sector'] ?? null);
 
             $model = new MdlAdmin();
             $groupID = $model->addGroup($num, $year, $sector);
