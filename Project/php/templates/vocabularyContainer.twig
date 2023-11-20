@@ -17,14 +17,14 @@
                 {% if actions is defined %}
                     <td>
                         {% if actions == 'affAllVocab' %}
-                            <a href="affAllVocab">
+                            <a href="{{base}}/teacher/{{ userId }}/affAllVocab">
 
                             </a>
                         {% elseif actions == 'getByName' %}
-                            <a href="getByName?listName={{ selectedName }}">
+                            <a href="{{base}}/teacher/{{userId}}/getByName?VocabID={{selectedName}}">
                             </a>
                         {% elseif actions == 'delById' %}
-                            <a id="delButton" href="delById?vocabID={{ row.id }}">
+                            <a id="delButton" href="{{base}}/teacher/{{userId}}/delById?vocabID={{ row.id }}">
                                 <input class="btn-black" type="button" value="delete from vocabulary" />
                             </a>
                         {% endif %}

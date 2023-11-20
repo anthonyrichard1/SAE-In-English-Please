@@ -20,27 +20,32 @@ class TeacherController
     public function affAllVocab(): void
     {
         global $twig;
+        global $user;
+        $id = $user->getId();
         $mdl = new MdlTeacher();
         $vocabularies = $mdl->getAll();
-        echo $twig->render('manageVocabListView.html', ['vocabularies' => $vocabularies]);
+        echo $twig->render('manageVocabListView.html', ['vocabularies' => $vocabularies, 'userId' => $id]);
     }
 
     public function getByName(): void
     {
         global $twig;
+        global $user;
         $mdl = new MdlTeacher();
+        $id = $user->getId();
         $name = Validation::filter_str_simple($_GET['listName'] ?? null);
         $vocab = $mdl->getVocabByName($name);
-        echo $twig->render('manageVocabListView.html', ['vocabularies' => $vocab, 'selectedName' => $name]);
+        echo $twig->render('manageVocabListView.html', ['vocabularies' => $vocab, 'selectedName' => $name, 'userId' => $id ]);
 
     }
 
     public function DelById():void{
         global $twig;
+        global $user;
         $mdl = new MdlTeacher();
-        $id = Validation::filter_int($_GET['vocabID'] ?? null);
+        $id = $user->getId();
         $vocab = $mdl->removeVocById($id);
-        echo $twig->render('manageVocabListView.html', [ 'vocabularies' => $vocab]);
+        echo $twig->render('manageVocabListView.html', [ 'vocabularies' => $vocab, 'userId' => $id ]);
     }
 
     public function showVocabListForm(): void {

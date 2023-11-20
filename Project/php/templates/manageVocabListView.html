@@ -8,12 +8,12 @@
 <div class="section">
     <section class="VocabularyList">
         <h2>Vocab list</h2>
-        {% include 'vocabularyContainer.twig' with {'actions' : 'affAllVocab', 'vocabularies' : vocabularies } %}
+        {% include 'vocabularyContainer.twig' with {'actions' : 'affAllVocab', 'vocabularies' : vocabularies , 'userId' : userId} %}
     </section>
 
     <section class="Vocabulaire">
         <h2>Vocab of the user</h2>
-        {% include 'vocabularyContainer.twig' with {'vocabularies' : vocabularies , 'actions' : 'getByName', 'selectedName' : 'selectedName' } %}
+        {% include 'vocabularyContainer.twig' with {'vocabularies' : vocabularies , 'actions' : 'getByName', 'selectedName' : 'selectedName', 'userId' : userId } %}
     </section>
 
     <section class="addGroupForm">
@@ -23,7 +23,7 @@
 
     <section class="unassignedUsers">
         <h1>Unassigned vocab</h1>
-        {% include 'vocabularyContainer.twig' with {'vocabularies' : vocabularies , 'actions' : 'delById'} %}
+        {% include 'vocabularyContainer.twig' with {'vocabularies' : vocabularies , 'actions' : 'delById', 'userId' : userId } %}
     </section>
 </div>
 </body>
