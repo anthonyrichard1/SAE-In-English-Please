@@ -2,13 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Manage Vocabulary List</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+        <link
+                href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+                rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{{base}}/css/styles.css" rel="stylesheet" />
+    </head>
 </head>
+<style>
+    section {
+        border: 2px solid black;
+        margin: 10px 0;
+    }
+</style>
 <body>
 <div class="section">
     <section class="VocabularyList">
         <h2>Vocab list</h2>
-        {% include 'vocabularyContainer.twig' with {'actions' : 'affAllVocab', 'vocabularies' : vocabularies , 'userId' : userId} %}
+        {% include 'vocabularyContainer.twig' with {'actions' : 'affAllVocab', 'vocabularies' : vocabularies , 'userId' : userId } %}
     </section>
 
     <section class="Vocabulaire">
