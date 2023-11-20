@@ -97,7 +97,7 @@ class VisitorController
         if (!$this->checkLoginExist($login)) throw new Exception(("login invalide"));
         $user = $model->connection($login, $password);
         if ($user == null) throw new Exception("mot de passe invalide");
-        FrontController::home();
+        UserController::home();
     }
 
     public function checkLoginExist(string $login): bool {
@@ -108,7 +108,7 @@ class VisitorController
     public function disconnect(): void {
         $mdl = new MdlUser();
         $mdl->deconnection();
-        FrontController::home();
+        UserController::home();
     }
 
     public function resultatsJeux(): void{

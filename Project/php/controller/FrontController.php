@@ -57,16 +57,17 @@ class FrontController
                             global $user;
                             $user = call_user_func_array(array($mdl, 'is'), array($_SESSION['login'], $_SESSION['roles']));
 
+                            if ($target == 'User' && $action == null) UserController::home();
+                            else if (!$user || $user->getId() != $id) throw new Exception("erreur 403 permission denied");
+
                             $controller = '\\controller\\' . $target . 'Controller';
                             $controller = new $controller;
-
-                            if ($target == 'User' && $action == null) $controller->home();
-                            else if (!$user || $user->getId() != $id) throw new Exception("erreur 403 permission denied");
 
                             if (is_callable(array($controller, $action)))
                                 call_user_func_array(array($controller, $action), array($match['params']));
                         }
                     }
+                    else if ($target == 'User' && $action == null) UserController::home();
                     else (new UserController())->login();
                 }
             }

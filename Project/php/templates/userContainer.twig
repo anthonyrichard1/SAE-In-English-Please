@@ -24,17 +24,17 @@
                 {% if action is defined %}
 
                     {% if action == 'removeUserFromGroup' %}
-                    <td><a href="{{base}}/admin/{{ userID }}/removeUserFromGroup?id={{row.id}}&selectedGroup={{selectedGroup}}">
+                    <td><a href="{{base}}/admin/{{ userID }}/removeUserFromGroup?userToRemove={{row.id}}&selectedGroup={{ selectedGroup }}">
                             <input class="btn-black" type="button" value="Delete from group"/>
                         </a></td>
 
                     {% elseif action == 'addUserToGroup' %}
-                    <td><a href="{{base}}/admin/{{ userID }}/addUserToGroup?userID={{row.id}}&groupID={{selectedGroup}}">
+                    <td><a href="{{base}}/admin/{{ userID }}/addUserToGroup?userToAdd={{row.id}}&groupID={{selectedGroup}}">
                             <input class="btn-black" type="button" value="Add to group"/>
                         </a></td>
 
                     {% elseif action == 'removeUser' %}
-                    <td><a href="{{base}}/admin/{{ userID }}/removeUser?userID={{row.id}}">
+                    <td><a href="{{base}}/admin/{{ userID }}/removeUser?userToRemove={{row.id}}">
                             <input class="btn-black" type="button" value="Delete"/>
                         </a></td>
                     {% endif %}

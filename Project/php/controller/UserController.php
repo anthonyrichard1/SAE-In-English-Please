@@ -54,7 +54,7 @@ class UserController extends VisitorController
         }
     }
 
-    public function home(): void {
+    public static function home(): void {
         global $twig;
         global $user;
         if(isset($user)){

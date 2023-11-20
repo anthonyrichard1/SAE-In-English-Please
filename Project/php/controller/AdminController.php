@@ -42,9 +42,9 @@ class AdminController extends UserController
 
     public function removeUser(): void {
         try {
-            global $user;
+            $userToRemove = Validation::filter_int($_GET['userToRemove'] ?? null);
             $model = new MdlAdmin();
-            $model->removeUser($user->getId());
+            $model->removeUser($userToRemove);
             $this->showAllUsers();
         }
         catch (Exception $e) {
@@ -80,9 +80,11 @@ class AdminController extends UserController
 
     public function removeUserFromGroup(): void {
         try {
-            $id = Validation::filter_int($_GET['id'] ?? null);
+            $userToRemove = Validation::filter_int($_GET['userToRemove'] ?? null);
+            $groupID = Validation::filter_int($_GET['selectedGroup'] ?? null);
             $model = new MdlAdmin();
-            $model->removeUserFromGroup($id);
+            $model->removeUserFromGroup($userToRemove);
+            $_GET['selectedGroup'] = $groupID;
             $this->showGroupDetails();
         }
         catch (Exception $e) {
@@ -120,10 +122,10 @@ class AdminController extends UserController
 
     public function addUserToGroup(): void {
         try {
-            global $user;
+            $userToAdd = Validation::filter_int($_GET['userToAdd'] ?? null);
             $group = Validation::filter_int($_GET['groupID'] ?? null);
             $model = new MdlAdmin();
-            $model->addUserToGroup($user->getId(), $group);
+            $model->addUserToGroup($userToAdd, $group);
             $_GET['selectedGroup'] = $group;
             $this->showGroupDetails();
         }
