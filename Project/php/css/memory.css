@@ -34,10 +34,7 @@ body {
 }
 
 .flipped {
-    background: url("../assets/img/quizz.jpeg");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: scroll;
+    background: url("../assets/img/carte.png") no-repeat scroll center;
     background-size: cover;
 }
 

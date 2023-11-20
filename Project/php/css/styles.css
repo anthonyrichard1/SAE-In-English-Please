@@ -614,6 +614,11 @@ progress {
   line-height: 1;
 }
 
+.logo {
+  margin-top: 10%;
+  height: 10vh;
+}
+
 .figure-caption {
   font-size: 0.875em;
   color: #6c757d;
@@ -11334,9 +11339,3 @@ body {
 .app-badge {
   height: 3rem;
 }
-
-/* .separateur{
-  display: block; 
-  margin: 0 auto; 
-  width: 20%;
-} */
