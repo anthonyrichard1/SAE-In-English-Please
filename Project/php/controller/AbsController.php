@@ -139,8 +139,11 @@ class AbsController
 
     public function confirmLogin(): void {
         $model = new MdlStudent();
-        $login = strip_tags($_POST['logemail']);
-        $password = strip_tags($_POST['logpass']);
+        if($_POST['logemail']!=null && $_POST['logpass']!=null) {
+            $login = strip_tags($_POST['logemail']);
+            $password = strip_tags($_POST['logpass']);
+        }
+        else throw new Exception("logmail ou logpass null");
         if (!$this->checkLoginExist($login)) throw new Exception(("login invalide"));
         $user = $model->connection($login, $password);
         if ($user == null) throw new Exception("mot de passe invalide");
