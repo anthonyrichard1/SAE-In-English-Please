@@ -6,7 +6,7 @@ use model\MdlStudent;
 use gateway\TranslationGateway;
 use Exception;
 
-class StudentController
+class StudentController extends UserController
 {
     public function affAllVocab(): void
     {

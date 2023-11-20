@@ -6,7 +6,7 @@ use gateway\UserGateway;
 use gateway\VocabularyGateway;
 use gateway\VocabularyListGateway;
 
-class MdlStudent extends AbsModel
+class MdlStudent extends MdlUser
 {
 
     public function __construct()
@@ -29,21 +29,6 @@ class MdlStudent extends AbsModel
         $gtw = new VocabularyListGateway();
         $res = $gtw->findByName($name);
         return $res;
-    }
-
-    public function getUser(int $id): User{
-        $gtw = new UserGateway();
-        return $gtw->findById($id);
-    }
-
-    public function modifyNickname(int $id, string $newNickname): void{
-        $gtw = new UserGateway();
-        $gtw->modifyNickname($id, $newNickname);
-    }
-
-    public function ModifyPassword(int $id, string $newPassword): void {
-        $gtw = new UserGateway();
-        $gtw->modifyPassword($id, $newPassword);
     }
 
     public function is(string $login, array $roles)
