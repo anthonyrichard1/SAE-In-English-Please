@@ -21,17 +21,30 @@
 
                             </a>
                         {% elseif actions == 'getByName' %}
-                            <a href="{{base}}/teacher/{{userId}}/getByName?VocabID={{selectedName}}">
+                            <a href="{{base}}/teacher/{{userId}}/getByName?listName={{selectedName}}">
                             </a>
                         {% elseif actions == 'delById' %}
                             <a id="delButton" href="{{base}}/teacher/{{userId}}/delById?vocabID={{ row.id }}">
                                 <input class="btn-black" type="button" value="delete from vocabulary" />
                             </a>
                         {% endif %}
-                    </td>
                 {% endif %}
+        {% endfor %}
+                        {% if actions == 'addVocabList' %}
+                            <a id="delButton" href="{{base}}/teacher/{{userId}}/addVocabList" />
+                                            <tr>
+                                                <td colspan="2">
+                                                <td><input type="text" name="image" placeholder="id"></td>
+                                                <td><input type="text" name="image" placeholder="name"></td>
+                                                    <td><input type="text" name="image" placeholder="img"></td>
+                                                    <td><input type="text" name="auth" placeholder="auth"></td>
+                                                </tr>
+                                            <td colspan="2"><input type="submit" value="Add"></td>
+                            </a>
+            {% endif %}
+                    </td>
 
             </tr>
-        {% endfor %}
+
     {% endif %}
 </table>
