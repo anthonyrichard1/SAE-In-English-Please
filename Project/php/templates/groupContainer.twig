@@ -1,4 +1,5 @@
 <table>
+    {{ userID }}
     {% if groups is defined %}
         {% for row in groups %}
             {% if selectedGroup is defined and selectedGroup == row.id %}
@@ -21,7 +22,7 @@
 
                     {% if 'showGroupDetails' in actions %}
                         <td>
-                            <a href="showGroupDetails?selectedGroup={{ row.id }}">
+                            <a href="{{base}}/admin/{{userID}}/showGroupDetails?selectedGroup={{ row.id }}">
                                 <input class="btn-black" type="button" value="Show"/>
                             </a>
                         </td>
@@ -29,7 +30,7 @@
 
                     {% if 'removeGroup' in actions %}
                         <td>
-                            <a href="removeGroup?selectedGroup={{ row.id }}">
+                            <a href="{{base}}/admin/{{userID}}/removeGroup?selectedGroup={{ row.id }}">
                                 <input class="btn-black" type="button" value="Remove"/>
                             </a>
                         </td>

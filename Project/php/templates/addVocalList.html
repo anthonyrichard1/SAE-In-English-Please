@@ -21,11 +21,10 @@
 <section>
     <h1>Add words</h1>
     {% if user is defined %}
-    <form action="index.php" method="GET">
+    <form action="{{base}}/teacher/addVocabList" method="GET">
         <table>
             <tr>
                 <td colspan="2">
-                    <input type="hidden" name="action" value="addVocabList">
                     <input type="hidden" name="userID" value="{{user}}">
                     <input type="text" name="listName" placeholder="list name" required>
                 </td>

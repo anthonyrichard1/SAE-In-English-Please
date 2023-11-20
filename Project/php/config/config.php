@@ -18,4 +18,4 @@ global $password;
 $password = 'achanger';
 
 global $altorouterPath;
-$altorouterPath = "/SAE_2A_Anglais/Project/php";
+$altorouterPath = "/~anrichard7/SAE_2A_Anglais/Project/php";
