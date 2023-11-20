@@ -6,7 +6,7 @@ use config\Validation;
 use model\MdlAdmin;
 use Exception;
 
-class AdminController
+class AdminController extends UserController
 {
     public function showAllUsers(): void {
         global $twig;

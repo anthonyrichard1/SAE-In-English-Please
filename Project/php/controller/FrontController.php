@@ -23,8 +23,7 @@ class FrontController
             $router->map('GET|POST', '/admin/[i:id]/[a:action]?', 'Admin');
             $router->map('GET|POST', '/teacher/[i:id]/[a:action]?', 'Teacher');
             $router->map('GET|POST', '/student/[i:id]/[a:action]?', 'Student');
-            $router->map('GET|POST', '/user/[a:action]?', 'User');
-            $router->map('GET|POST', '/user/[a:action]/[i:id]', 'User');
+            $router->map('GET|POST', '/visitor/[a:action]/[i:id]?', 'Visitor');
 
             $twig->addGlobal('base', $altorouterPath);
 
@@ -38,8 +37,8 @@ class FrontController
                 $action = Validation::val_action($match['params']['action'] ?? null);
                 $id = $match['params']['id'] ?? null;
 
-                if ($target == 'User') {
-                    $userCtrl = new UserController();
+                if ($target == 'Visitor') {
+                    $userCtrl = new VisitorController();
                     if (is_callable(array($userCtrl, $action)))
                         call_user_func_array(array($userCtrl, $action), array($match['params']));
                 }
