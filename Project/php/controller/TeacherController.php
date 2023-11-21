@@ -14,14 +14,6 @@ class TeacherController extends UserController
         global $twig;
         global $user;
         $mdl = new MdlTeacher();
-        $vocabularies = $mdl->getAll();
-        $groups = $mdl->getAllGroups();
-        echo $twig->render('manageVocabListView.html', ['vocabularies' => $vocabularies, 'groups' => $groups, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
-    }
-    public function findByUser():void {
-        global $twig;
-        global $user;
-        $mdl = new MdlTeacher();
         $vocabularies = $mdl->findByUser($user->getId());
         $groups = $mdl->getAllGroups();
         echo $twig->render('manageVocabListView.html', ['vocabularies' => $vocabularies, 'groups' => $groups, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
@@ -38,7 +30,7 @@ class TeacherController extends UserController
         global $twig;
         global $user;
         $mdl = new MdlTeacher();
-        $vocabularies = $mdl->getAll();
+        $vocabularies = $mdl->findByUser($user->getId());
         $name = Validation::filter_int($_GET['vocabID'] ?? null);
         $groupsVocab = $mdl->findGroupVocab($name);
         $groupsNoVocab = $mdl->findGroupNoVocab($name);

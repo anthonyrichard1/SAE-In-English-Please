@@ -134,7 +134,7 @@ class VocabularyListGateway extends AbsGateway
 
     public function findByUser(int $id): array {
         try {
-            $query = "SELECT v.* FROM VocabularyList v, User_ u WHERE v.userID =u.id AND u.id=:id";
+            $query = "SELECT * FROM VocabularyList WHERE userID=:id";
             $args = array(':id' => array($id, PDO::PARAM_INT));
             $this->con->executeQuery($query, $args);
             $results = $this->con->getResults();

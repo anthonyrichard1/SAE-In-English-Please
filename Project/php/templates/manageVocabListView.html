@@ -29,7 +29,7 @@
 <div class="content">
     <section class="VocabularyList">
         <h2>My lists</h2>
-        {% include 'vocabularyContainer.twig' with {'actions' : ['findByUser', 'delById', 'getContent' ], 'vocabularies' : vocabularies, 'vocabID' : vocabID, 'content' : content } %}
+        {% include 'vocabularyContainer.twig' with {'actions' : ['affAllVocab', 'delById', 'getContent' ], 'vocabularies' : vocabularies, 'vocabID' : vocabID, 'content' : content } %}
     </section>
     <section>
         <h2>Content</h2>
