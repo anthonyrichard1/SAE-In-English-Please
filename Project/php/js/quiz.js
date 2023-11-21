@@ -17,7 +17,22 @@ function nextQuestion() {
         var nextQuestionDiv = document.getElementById("question" + currentQuestion);
         nextQuestionDiv.style.display = "block";
     }
-    else alert("Quiz terminé. Votre score est de " + score + "/" + len);
+    else{
+        window.location.href = 'resultatsJeux';
+        var form = document.createElement('form');
+        form.method = 'post';
+        form.action = 'resultatsJeux';
+
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'score';
+        input.value = score + '/20';
+
+        form.appendChild(input);
+        document.body.appendChild(form);
+
+        form.submit();
+    }
 }
 
 window.onload = function () {
