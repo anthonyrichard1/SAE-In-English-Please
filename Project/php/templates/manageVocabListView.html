@@ -25,26 +25,26 @@
     }
 </style>
 <body>
-<div class="section">
+{% include 'navBar.twig' %}
+<div class="content">
     <section class="VocabularyList">
-        <h2>Vocab list</h2>
-        {% include 'vocabularyContainer.twig' with {'actions' : 'affAllVocab', 'vocabularies' : vocabularies , 'userId' : userId } %}
+        <h2>My lists</h2>
+        {% include 'vocabularyContainer.twig' with {'actions' : ['affContent', 'delById'], 'vocabularies' : vocabularies } %}
     </section>
-
-    <section class="Vocabulaire">
-        <h2>Vocab of the user</h2>
-        {% include 'vocabularyContainer.twig' with {'vocabularies' : vocabularies , 'actions' : 'getByName', 'selectedName' : 'selectedName', 'userId' : userId } %}
+    <section>
+        <h2>Content</h2>
+        {% if content is defined %}
+        {% endif %}
+        //for ou ça affiche chaque traduction french - english [remove]
     </section>
-
-    <section class="addGroupForm">
-        <h2>Add Vocabb</h2>
-        {% include 'vocabularyContainer.twig' with { 'vocabularies' : vocabularies ,'actions' : 'addVocabList' , 'userId' : userId } %}
+    <section>
+        <h2>Groups</h2>
+        //la liste des groupes [ajouter] ou [retirer]
     </section>
-
-    <section class="unassignedUsers">
-        <h1>Unassigned vocab</h1>
-        {% include 'vocabularyContainer.twig' with {'vocabularies' : vocabularies , 'actions' : 'delById', 'userId' : userId } %}
     </section>
+        <a href="{{base}}/teacher/{{userID}}/showVocabListForm">
+            <input class="btn-black" type="button" value="add a list" />
+        </a>
 </div>
 </body>
 </html>
