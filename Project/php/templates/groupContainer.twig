@@ -1,58 +1,41 @@
-<table>
-    {% if groups is defined %}
-        {% for row in groups %}
-            {% if selectedGroup is defined and selectedGroup == row.id %}
-                <tr style="background-color:red;">
-            {% else %}
-                <tr>
-            {% endif %}
-            <td>ID</td>
-            <td>Num</td>
-            <td>Year</td>
-            <td>Sector</td>
-            </tr>
-            <tr>
-                <td>{{ row.id }}</td>
-                <td>{{ row.num }}</td>
-                <td>{{ row.year }}</td>
-                <td>{{ row.sector }}</td>
-
-                {% if actions is defined %}
-
-                    {% if 'showGroupDetails' in actions %}
-                        <td>
-                            <a href="{{base}}/admin/{{userID}}/showGroupDetails?selectedGroup={{ row.id }}">
-                                <input class="btn-black" type="button" value="Show"/>
-                            </a>
-                        </td>
-                    {% endif %}
-
-                    {% if 'removeGroup' in actions %}
-                        <td>
-                            <a href="{{base}}/admin/{{userID}}/removeGroup?selectedGroup={{ row.id }}">
-                                <input class="btn-black" type="button" value="Remove"/>
-                            </a>
-                        </td>
-                    {% endif %}
-
-                    {% if 'removeVocabFromGroup' in actions %}
-                        <td>
-                            <a href="{{base}}/teacher/{{userID}}/removeVocabFromGroup?vocabID={{ vocabID }}&selectedGroup={{ row.id }}">
-                                <input class="btn-black" type="button" value="Remove from group"/>
-                            </a>
-                        </td>
-                    {% endif %}
-
-                    {% if 'addVocabToGroup' in actions %}
-                        <td>
-                            <a href="{{base}}/teacher/{{userID}}/addVocabToGroup?vocabID={{ vocabID }}&selectedGroup={{ row.id }}">
-                                <input class="btn-black" type="button" value="Add to group"/>
-                            </a>
-                        </td>
-                    {% endif %}
-
-                {% endif %}
-            </tr>
-        {% endfor %}
-    {% endif %}
-</table>
+<div class="container mt-5">
+    <table class="table table-bordered thead-dark">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Num</th>
+            <th>Year</th>
+            <th>Sector</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if groups is defined %}
+            {% for row in groups %}
+                <tr {% if selectedGroup is defined and selectedGroup == row.id %}class="table-danger"{% endif %}>
+                    <td>{{ row.id }}</td>
+                    <td>{{ row.num }}</td>
+                    <td>{{ row.year }}</td>
+                    <td>{{ row.sector }}</td>
+                    <td>
+                        {% if actions is defined %}
+                            {% if 'showGroupDetails' in actions %}
+                                <a href="{{ base }}/admin/{{ userID }}/showGroupDetails?selectedGroup={{ row.id }}" class="btn btn-primary fs-6">Show</a>
+                            {% endif %}
+                            {% if 'removeGroup' in actions %}
+                                <a href="{{ base }}/admin/{{ userID }}/removeGroup?selectedGroup={{ row.id }}" class="btn btn-danger fs-6">Remove</a>
+                            {% endif %}
+                            {% if 'removeVocabFromGroup' in actions %}
+                                <a href="{{ base }}/teacher/{{ userID }}/removeVocabFromGroup?vocabID={{ vocabID }}&selectedGroup={{ row.id }}" class="btn btn-warning fs-6">Remove from group</a>
+                            {% endif %}
+                            {% if 'addVocabToGroup' in actions %}
+                                <a href="{{ base }}/teacher/{{ userID }}/addVocabToGroup?vocabID={{ vocabID }}&selectedGroup={{ row.id }}" class="btn btn-success">Add to group</a>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+</div>

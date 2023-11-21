@@ -11,39 +11,34 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
     <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet" />
+
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{base}}/css/styles.css" rel="stylesheet" />
 </head>
-<style>
-    section {
-        border: 2px solid black;
-        margin: 10px 0;
-    }
-</style>
 <body>
+
 {% include 'navBar.twig' %}
 <div class="content">
-    <section class="groupList">
-        <h2>Group list</h2>
+    <div class="border my-2 py-2 border-5 border-secondary rounded-3 text-center">
+        <h1>Group list</h1>
         {% include 'groupContainer.twig' with {'actions' : ['showGroupDetails', 'removeGroup']} %}
-    </section>
-    <section class="users">
-        <h2>Users of the group</h2>
+    </div>
+    <div class="border my-2 py-2 border-5 border-secondary rounded-3 text-center">
+        <h1>Users of the group</h1>
         {% include 'userContainer.twig' with {'users' : users, 'action' : 'removeUserFromGroup'} %}
-    </section>
-    <section class="addGroupForm">
-        <h2>Add group</h2>
+    </div>
+        <div class="border my-2 py-2 border-5 border-secondary rounded-3 text-center">
+        <h1>Add group</h1>
         {% include 'addGroupForm.twig' %}
-    </section>
-    <section class="unassignedUsers">
+    </div>
+    <div class="border my-2 py-2 border-5 border-secondary rounded-3 text-center">
         <h1>Unassigned users</h1>
         {% include 'userContainer.twig' with {'users' : unassignedUsers, 'action' : 'addUserToGroup'} %}
-    </section>
+    </div>
 </div>
-<script src="{{base}}/js/scripts.js"></script>
 
 </body>
 </html>
