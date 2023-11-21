@@ -2,6 +2,7 @@
 
 namespace model;
 
+use gateway\GroupGateway;
 use gateway\TranslationGateway;
 use gateway\UserGateway;
 use gateway\VocabularyGateway;
@@ -14,6 +15,11 @@ class MdlTeacher extends MdlUser
         return  $gtw->findAll();
     }
 
+    public function getAllGroups(): array {
+        $gtw = new GroupGateway();
+        return $gtw->findAll();
+    }
+
     public function getAllStudent():array {
         $gtw = new UserGateway();
         return $gtw->findAll();
@@ -23,6 +29,11 @@ class MdlTeacher extends MdlUser
         $gtw = new VocabularyListGateway();
         $res = $gtw->findByName($name);
         return $res;
+    }
+    public function findByIdVoc($id):array {
+        $gtw = new TranslationGateway();
+        return $gtw->findByIdVoc($id);
+
     }
 
     public function RemoveVocById(int $id):void{
