@@ -15,12 +15,11 @@
                         <li class="nav-item"><a class="nav-link" href="{{ base }}/admin/{{ userID }}/showAccountInfos">My account</a></li>
                     {% endif %}
                     {% if  'student' in userRole%}
-                        <li class="nav-item"><a class="nav-link" href="{{ base }}/student/{{ userID }}/memoryChoice">Memory</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ base }}/student/{{ userID }}/gameChoice">Play</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ base }}/student/{{ userID }}/showAccountInfos">My account</a></li>
                     {% endif %}
                     {% if 'teacher' in userRole%}
                         <li class="nav-item"><a class="nav-link" href="{{ base }}/teacher/{{ userID }}/affAllVocab">Manage lessons</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ base }}/teacher/{{ userID }}/game">Play</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ base }}/teacher/{{ userID }}/showAccountInfos">My account</a></li>
                     {% endif %}
                     {% if userRole is empty %}
