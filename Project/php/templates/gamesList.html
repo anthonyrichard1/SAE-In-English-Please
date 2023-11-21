@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link href="{{base}}/css/styles.css" rel="stylesheet" />
+</head>
+<style>
+    body {
+        margin-top: 5vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    table {
+        border-spacing: 5%;
+    }
+</style>
+
+<body>
+{% include 'navBar.twig' %}
+{% if vocabularies is defined %}
+<div class="content">
+    <section>
+        <table>
+            {% for row in vocabularies %}
+            <tr>
+                <td>
+                    <form action="{{base}}/student/{{userID}}/memory" method="post">
+                        <input type="hidden" name="idVoc" value="{{ row.id }}">
+                        <input class="btn-list" type="submit" value="{{ row.name }}" />
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </section>
+</div>
+{% endif %}
+</body>
+</html>
