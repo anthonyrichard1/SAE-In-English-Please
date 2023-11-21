@@ -18,6 +18,14 @@ class TeacherController extends UserController
         $groups = $mdl->getAllGroups();
         echo $twig->render('manageVocabListView.html', ['vocabularies' => $vocabularies, 'groups' => $groups, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
     }
+    public function findByUser():void {
+        global $twig;
+        global $user;
+        $mdl = new MdlTeacher();
+        $vocabularies = $mdl->findByUser($user->getId());
+        $groups = $mdl->getAllGroups();
+        echo $twig->render('manageVocabListView.html', ['vocabularies' => $vocabularies, 'groups' => $groups, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
+    }
 
     public function DelById():void{
         global $user;

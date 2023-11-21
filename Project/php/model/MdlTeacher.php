@@ -24,6 +24,12 @@ class MdlTeacher extends MdlUser
         $gtw = new UserGateway();
         return $gtw->findAll();
     }
+    public function findByUser($id):array
+    {
+        $gtw = new VocabularyListGateway();
+        return $gtw->findByUser($id);
+        }
+
 
     public function getVocabByName(string $name):array{
         $gtw = new VocabularyListGateway();

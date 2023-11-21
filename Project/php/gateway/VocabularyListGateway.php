@@ -131,4 +131,19 @@ class VocabularyListGateway extends AbsGateway
             throw new Exception($e->getMessage());
         }
     }
+
+    public function findByUser(int $id): array {
+        try {
+            $query = "SELECT v.* FROM VocabularyList v, User_ u WHERE v.userID =u.id AND u.id=:id";
+            $args = array(':id' => array($id, PDO::PARAM_INT));
+            $this->con->executeQuery($query, $args);
+            $results = $this->con->getResults();
+            $tab = array();
+            foreach ($results as $row) $tab[] = new VocabularyList($row['id'], $row['name'], $row['image'], $row['userID']);
+            return $tab;
+        }
+        catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
 }
