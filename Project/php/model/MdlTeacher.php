@@ -2,6 +2,7 @@
 
 namespace model;
 
+use gateway\GroupGateway;
 use gateway\TranslationGateway;
 use gateway\UserGateway;
 use gateway\VocabularyGateway;
@@ -12,6 +13,11 @@ class MdlTeacher extends MdlUser
     public function getAll():array{
         $gtw = new VocabularyListGateway();
         return  $gtw->findAll();
+    }
+
+    public function getAllGroups(): array {
+        $gtw = new GroupGateway();
+        return $gtw->findAll();
     }
 
     public function getAllStudent():array {

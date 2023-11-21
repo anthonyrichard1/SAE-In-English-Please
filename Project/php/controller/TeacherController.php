@@ -9,36 +9,14 @@ use model\MdlUser;
 
 class TeacherController extends UserController
 {
-    public function affAllStudent(): void
-    {
-        global $twig;
-        global $user;
-        $mdl = new MdlTeacher();
-        $student = $mdl->getAllStudent();
-        echo $twig->render('usersView.html', ['users' => $student, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
-
-    }
-
     public function affAllVocab(): void
     {
         global $twig;
         global $user;
-        $id = $user->getId();
         $mdl = new MdlTeacher();
         $vocabularies = $mdl->getAll();
-        echo $twig->render('manageVocabListView.html', ['vocabularies' => $vocabularies, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
-    }
-
-    public function getByName(): void
-    {
-        global $twig;
-        global $user;
-        $mdl = new MdlTeacher();
-        $id = $user->getId();
-        $name = Validation::filter_str_simple($_GET['listName'] ?? null);
-        $vocab = $mdl->getVocabByName($name);
-        echo $twig->render('manageVocabListView.html', ['vocabularies' => $vocab, 'selectedName' => $name, 'userID' => $user->getId(), 'userRole' => $user->getRoles() ]);
-
+        $groups = $mdl->getAllGroups();
+        echo $twig->render('manageVocabListView.html', ['vocabularies' => $vocabularies, 'groups' => $groups, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
     }
 
     public function DelById():void{

@@ -34,12 +34,25 @@
     <section>
         <h2>Content</h2>
         {% if content is defined %}
+        <table>
+            <tr>
+                <td>French word</td>
+                <td>English word</td>
+            </tr>
+            {% for trad in content %}
+            <tr>
+                <td>trad.word1</td>
+                <td>trad.word2</td>
+            </tr>
+            {% endfor %}
+        </table>
         {% endif %}
-        //for ou ça affiche chaque traduction french - english [remove]
     </section>
     <section>
         <h2>Groups</h2>
-        //la liste des groupes [ajouter] ou [retirer]
+        {% if groups is defined %}
+        {% include 'groupContainer.twig' with {'actions' : ['addVocabToGroup', 'removeVocabFromGroup'] } %}
+        {% endif %}
     </section>
     </section>
         <a href="{{base}}/teacher/{{userID}}/showVocabListForm">
