@@ -1,46 +1,46 @@
-<table>
-    <tr>
-        <td>ID</td>
-        <td>Nickname</td>
-        <td>Name</td>
-        <td>Surname</td>
-        <td>Mail</td>
-        <td>Group</td>
-        <td>Role</td>
-        <td>Extra Time</td>
-    </tr>
-    {% if users is defined %}
-        {% for row in users %}
-            <tr>
-                <td>{{row.id}}</td>
-                <td>{{row.nickname}}</td>
-                <td>{{row.name}}</td>
-                <td>{{row.surname}}</td>
-                <td>{{row.email}}</td>
-                <td>{{row.group}}</td>
-                <td>{{row.roles|join(', ')}}</td>
-                <td>{{row.extraTime? 'yes' : 'no' }}</td>
-
-                {% if action is defined %}
-
-                    {% if action == 'removeUserFromGroup' %}
-                    <td><a href="{{base}}/admin/{{ userID }}/removeUserFromGroup?userToRemove={{row.id}}&selectedGroup={{ selectedGroup }}">
-                            <input class="btn-black" type="button" value="Delete from group"/>
-                        </a></td>
-
-                    {% elseif action == 'addUserToGroup' %}
-                    <td><a href="{{base}}/admin/{{ userID }}/addUserToGroup?userToAdd={{row.id}}&groupID={{selectedGroup}}">
-                            <input class="btn-black" type="button" value="Add to group"/>
-                        </a></td>
-
-                    {% elseif action == 'removeUser' %}
-                    <td><a href="{{base}}/admin/{{ userID }}/removeUser?userToRemove={{row.id}}">
-                            <input class="btn-black" type="button" value="Delete"/>
-                        </a></td>
+<div class="container mt-5">
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nickname</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Mail</th>
+            <th>Group</th>
+            <th>Role</th>
+            <th>Extra Time</th>
+            {% if action is defined %}
+                <th>Action</th>
+            {% endif %}
+        </tr>
+        </thead>
+        <tbody>
+        {% if users is defined %}
+            {% for row in users %}
+                <tr>
+                    <td>{{ row.id }}</td>
+                    <td>{{ row.nickname }}</td>
+                    <td>{{ row.name }}</td>
+                    <td>{{ row.surname }}</td>
+                    <td>{{ row.email }}</td>
+                    <td>{{ row.group }}</td>
+                    <td>{{ row.roles|join(', ') }}</td>
+                    <td>{{ row.extraTime ? 'yes' : 'no' }}</td>
+                    {% if action is defined %}
+                        <td>
+                            {% if action == 'removeUserFromGroup' %}
+                                <a href="{{ base }}/admin/{{ userID }}/removeUserFromGroup?userToRemove={{ row.id }}&selectedGroup={{ selectedGroup }}" class="btn btn-danger">Delete from group</a>
+                            {% elseif action == 'addUserToGroup' %}
+                                <a href="{{ base }}/admin/{{ userID }}/addUserToGroup?userToAdd={{ row.id }}&groupID={{ selectedGroup }}" class="btn btn-success">Add to group</a>
+                            {% elseif action == 'removeUser' %}
+                                <a href="{{ base }}/admin/{{ userID }}/removeUser?userToRemove={{ row.id }}" class="btn btn-warning">Delete</a>
+                            {% endif %}
+                        </td>
                     {% endif %}
-
-                {% endif %}
-            </tr>
-        {% endfor %}
-    {% endif %}
-</table>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+</div>

@@ -22,13 +22,13 @@
                     <td>
                         {% if 'getContent' in actions %}
                             <a href="{{base}}/teacher/{{userID}}/getContent?vocabID={{row.id}}">
-                                <input class="btn-black" type="button" value="show content" />
+                                <input class="btn btn-primary" type="button" value="show content" />
                             </a>
                         {% endif %}
 
                         {% if 'delById' in actions %}
                             <a id="delButton" href="{{base}}/teacher/{{userID}}/delById?vocabID={{ row.id }}">
-                                <input class="btn-black" type="button" value="delete from vocabulary" />
+                                <input class="btn btn-primary" type="button" value="delete from vocabulary" />
                             </a>
                         {% endif %}
 
