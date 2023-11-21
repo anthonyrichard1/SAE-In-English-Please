@@ -4,40 +4,48 @@
     <meta charset="UTF-8">
     <title>Users</title>
     <link href="{{base}}/css/styles.css" rel="stylesheet" />
-</head>
-<style>
-    body {
-        margin-top: 5vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-    }
+    <style>
+        body {
+            margin-top: 5vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
 
-    table {
-        border-spacing: 5%;
-    }
-</style>
+        .content {
+            text-align: center;
+        }
+
+        table {
+            margin-top: 20px;
+        }
+    </style>
+</head>
 
 <body>
 {% include 'navBar.twig' %}
-{% if vocabularies is defined %}
 <div class="content">
     <section>
         <table>
-            {% for row in vocabularies %}
             <tr>
                 <td>
-                    <form action="{{base}}/student/{{userID}}/memory" method="post">
-                        <input type="hidden" name="idVoc" value="{{ row.id }}">
-                        <input class="btn-list" type="submit" value="{{ row.name }}" />
+                    <form action="{{base}}/student/{{userID}}/listVocChoice" method="post">
+                        <input type="hidden" name="jeu" value="quiz">
+                        <input class="btn-list" type="submit" value="Quiz" />
                     </form>
                 </td>
             </tr>
-            {% endfor %}
+            <tr>
+                <td>
+                    <form action="{{base}}/student/{{userID}}/listVocChoice" method="post">
+                        <input type="hidden" name="jeu" value="memory">
+                        <input class="btn-list" type="submit" value="Memory" />
+                    </form>
+                </td>
+            </tr>
         </table>
     </section>
 </div>
-{% endif %}
 </body>
 </html>

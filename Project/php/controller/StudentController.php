@@ -36,12 +36,13 @@ class StudentController extends UserController
         echo $twig->render('manageVocabView.html', ['vocabularies' => $vocab]);
     }
 
-    public function memoryChoice(): void {
+    public function ListVocChoice(): void {
         global $twig;
         global $user;
+        $jeu = $_POST['jeu'];
         $model = new MdlStudent();
         $voc = $model->getAll();
-        echo $twig->render('vocabList.html', ['vocabularies' => $voc, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
+        echo $twig->render('vocabList.html', ['jeu' => $jeu, 'vocabularies' => $voc, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
     }
 
     public function gameChoice(): void {

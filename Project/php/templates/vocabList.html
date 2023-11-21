@@ -14,8 +14,12 @@
         height: 100vh;
     }
 
+    .content {
+        text-align: center;
+    }
+
     table {
-        border-spacing: 5%;
+        margin-top: 20px;
     }
 </style>
 
@@ -28,7 +32,7 @@
             {% for row in vocabularies %}
                 <tr>
                     <td>
-                        <form action="{{base}}/student/{{userID}}/memory" method="post">
+                        <form action="{{base}}/student/{{userID}}/{{jeu}}" method="post">
                             <input type="hidden" name="idVoc" value="{{ row.id }}">
                             <input class="btn-list" type="submit" value="{{ row.name }}" />
                         </form>
