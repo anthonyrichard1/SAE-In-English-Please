@@ -16,7 +16,7 @@
                     {% endif %}
                     {% if  'student' in userRole%}
                         <li class="nav-item"><a class="nav-link" href="{{ base }}/visitor/memory">Learn a lesson</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ base }}/visitor/game">Play</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ base }}/student/{{ userID }}/memoryChoice">Memory</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ base }}/student/{{ userID }}/createFC}}">Create flashcards</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ base }}/student/{{ userID }}/showAccountInfos">My account</a></li>
                     {% endif %}
