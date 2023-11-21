@@ -2995,6 +2995,25 @@ textarea.form-control-lg {
   --bs-btn-disabled-border-color: #000;
 }
 
+.btn-list{
+  background-color: #884288;
+  color: white;
+  border: none;
+  width: 60vw;
+  height: 20vh;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.btn-list:hover {
+  background-color: #5a0073;
+}
+
 .btn-white {
   --bs-btn-color: #000;
   --bs-btn-bg: #fff;

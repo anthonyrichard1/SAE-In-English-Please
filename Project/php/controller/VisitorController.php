@@ -14,7 +14,7 @@ class VisitorController
         global $twig;
 
         try{
-            $idVoc = Validation::filter_int($_POST['idVoc'] ?? 2);
+            $idVoc = Validation::filter_int($_POST['idVoc'] ?? 4);
             $wordList = (new \gateway\TranslationGateway())->findByIdVoc($idVoc);
             $name = ((new \gateway\VocabularyListGateway())->findById($idVoc))->getName();
             $wordShuffle = array();
@@ -115,7 +115,9 @@ class VisitorController
 
     public function resultatsJeux($match): void{
         global $twig;
+        global $user;
         $score = $_POST['score'];
-        echo $twig->render('resultatsJeux.html', ['points' => $score]);
+        if(isset($user)) echo $twig->render('resultatsJeux.html', ['userID' => $user->getId(), 'userRole' => $user->getRoles(), 'points' => $score]);
+        else echo $twig->render('resultatsJeux.html', ['points'=>$score]);
     }
 }

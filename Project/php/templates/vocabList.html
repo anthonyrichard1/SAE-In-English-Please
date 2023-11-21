@@ -3,23 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <link href="{{base}}/css/styles.css" rel="stylesheet" />
 </head>
+<style>
+    body {
+        margin-top: 5vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    table {
+        border-spacing: 5%;
+    }
+</style>
 
 <body>
 {% include 'navBar.twig' %}
-{% if vocabulary is defined %}
+{% if vocabularies is defined %}
 <div class="content">
     <section>
         <table>
-            <tr>
-                {% for row in vocabularies %}
-                    <td><a href="{{base}}/student/{{idStudent}}/memory/{{idVoc}}">
-                        <input class="btn-black" type="button" value="Show all users"/>
-                    </a></td>
-                {% endfor %}
-            </tr>
+            {% for row in vocabularies %}
+                <tr>
+                    <td>
+                        <form action="{{base}}/student/{{userID}}/memory" method="post">
+                            <input type="hidden" name="idVoc" value="{{ row.id }}">
+                            <input class="btn-list" type="submit" value="{{ row.name }}" />
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
         </table>
     </section>
 </div>
