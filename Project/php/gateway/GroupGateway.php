@@ -99,13 +99,37 @@ class GroupGateway extends AbsGateway
         }
     }
 
-    public function ModifGroupById(int $id, int $num, int $year ,String $sector):void{
+    public function modifGroupById(int $id, int $num, int $year ,String $sector):void{
         try{
             $query = "UPDATE Group_ SET num=:num, year=:year, sector=:sector WHERE id=:id";
             $args = array(':id'=>array($id,PDO::PARAM_INT),
                 ':num'=>array($num,PDO::PARAM_INT),
                 ':year'=>array($year,PDO::PARAM_INT),
                 ':sector'=>array($sector,PDO::PARAM_STR));
+            $this->con->ExecuteQuery($query,$args);
+        }
+        catch (PDOException $e){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function addVocabToGroup(int $vocab, int $group) {
+        try {
+            $query = "INSERT INTO Practice VALUES (:vocabID, :groupID)";
+            $args = array(':vocabID'=>array($vocab,PDO::PARAM_INT),
+                ':groupID'=>array($group,PDO::PARAM_INT));
+            $this->con->ExecuteQuery($query,$args);
+        }
+        catch (PDOException $e){
+            throw new Exception($e->getMessage());
+        }
+    }
+
+    public function removeVocabFromGroup(int $vocab, int $group) {
+        try {
+            $query = "DELETE FROM Practice WHERE vocabID=:vocabID and groupID=:groupID;";
+            $args = array(':vocabID'=>array($vocab,PDO::PARAM_INT),
+                ':groupID'=>array($group,PDO::PARAM_INT));
             $this->con->ExecuteQuery($query,$args);
         }
         catch (PDOException $e){

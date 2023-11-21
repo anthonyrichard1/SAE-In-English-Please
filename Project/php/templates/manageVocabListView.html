@@ -41,8 +41,8 @@
             </tr>
             {% for trad in content %}
             <tr>
-                <td>trad.word1</td>
-                <td>trad.word2</td>
+                <td>{{trad.word1}}</td>
+                <td>{{trad.word2}}</td>
             </tr>
             {% endfor %}
         </table>
@@ -50,7 +50,7 @@
     </section>
     <section>
         <h2>Groups</h2>
-        {% if groups is defined %}
+        {% if groups is defined and vocabID is defined %}
         {% include 'groupContainer.twig' with {'actions' : ['addVocabToGroup', 'removeVocabFromGroup'] } %}
         {% endif %}
     </section>

@@ -36,6 +36,16 @@ class MdlTeacher extends MdlUser
 
     }
 
+    public function removeVocabFromGroup(int $vocabID, int $groupID){
+        $mdl = new GroupGateway();
+        $mdl->removeVocabFromGroup($vocabID, $groupID);
+    }
+
+    public function addVocabToGroup(int $vocabID, int $groupID){
+        $mdl = new GroupGateway();
+        $mdl->addVocabToGroup($vocabID, $groupID);
+    }
+
     public function RemoveVocById(int $id):void{
         $gtw = new VocabularyListGateway();
         $res = $gtw->remove($id);
@@ -46,7 +56,6 @@ class MdlTeacher extends MdlUser
         $vocabID = $vocabGtw->add(array($name, $image, $userID));
         $transGtw = new TranslationGateway();
         foreach ($words as $word) {
-            var_dump($word[0]." ".$word[1]);
             $transGtw->add(array($word[0], $word[1], $vocabID));
         }
     }

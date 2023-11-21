@@ -37,7 +37,7 @@
 
                     {% if 'removeVocabFromGroup' in actions %}
                         <td>
-                            <a href="{{base}}/teacher/{{userID}}/removeVocabFromGroup&vocabID={{ vocabID }}&selectedGroup={{ row.id }}">
+                            <a href="{{base}}/teacher/{{userID}}/removeVocabFromGroup?vocabID={{ vocabID }}&selectedGroup={{ row.id }}">
                                 <input class="btn-black" type="button" value="Remove from group"/>
                             </a>
                         </td>
@@ -45,7 +45,7 @@
 
                     {% if 'addVocabToGroup' in actions %}
                         <td>
-                            <a href="{{base}}/admin/{{userID}}/addVocabToGroup?vocabID={{ vocabID }}&selectedGroup={{ row.id }}">
+                            <a href="{{base}}/teacher/{{userID}}/addVocabToGroup?vocabID={{ vocabID }}&selectedGroup={{ row.id }}">
                                 <input class="btn-black" type="button" value="Add to group"/>
                             </a>
                         </td>

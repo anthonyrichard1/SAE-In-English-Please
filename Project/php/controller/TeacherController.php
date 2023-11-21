@@ -20,22 +20,47 @@ class TeacherController extends UserController
     }
 
     public function DelById():void{
-        global $twig;
         global $user;
         $mdl = new MdlTeacher();
-        $id = $user->getId();
-        $vocab = $mdl->removeVocById($id);
-        echo $twig->render('manageVocabListView.html', [ 'vocabularies' => $vocab, 'userID' => $user->getId(), 'userRole' => $user->getRoles() ]);
+        $id = Validation::filter_int($_GET['vocabID'] ?? null);
+        $mdl->removeVocById($id);
+        $this->affAllVocab();
     }
     public function getContent(){
         global $twig;
         global $user;
         $mdl = new MdlTeacher();
-        $name = Validation::filter_str_simple($_GET['vocabID'] ?? null);
+        $vocabularies = $mdl->getAll();
+        $groups = $mdl->getAllGroups();
+        $name = Validation::filter_int($_GET['vocabID'] ?? null);
         $content= $mdl->findByIdVoc($name);
-        echo $twig->render('manageVocabListView.html', ['content' => $content, 'userID' => $user->getId(), 'userRole' => $user->getRoles() ]);
+        echo $twig->render('manageVocabListView.html', ['vocabularies' => $vocabularies, 'groups' => $groups, 'userID' => $user->getId(), 'userRole' => $user->getRoles(), 'content' => $content, 'vocabID' => $name]);
 
     }
+
+    public function addVocabToGroup():void {
+        global $twig;
+        global $user;
+        $vocabID = Validation::filter_int($_GET['vocabID'] ?? null);
+        $groupID = Validation::filter_int($_GET['selectedGroup'] ?? null);
+        $mdl = new MdlTeacher();
+
+        $mdl->addVocabToGroup($vocabID, $groupID);
+        $this->getContent();
+    }
+
+    public function removeVocabFromGroup():void {
+        global $twig;
+        global $user;
+        $vocabID = Validation::filter_int($_GET['vocabID'] ?? null);
+        $groupID = Validation::filter_int($_GET['selectedGroup'] ?? null);
+        $mdl = new MdlTeacher();
+
+        $mdl->removeVocabFromGroup($vocabID, $groupID);
+        $this->getContent();
+    }
+
+
     public function showVocabListForm(): void {
         global $twig;
         global $user;
