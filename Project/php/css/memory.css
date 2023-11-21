@@ -21,6 +21,8 @@ h1{
     gap: 10px;
     margin: auto;
     perspective: 1000px;
+    min-width: 70vw;
+    max-height: 70vh;
 }
 
 .card {

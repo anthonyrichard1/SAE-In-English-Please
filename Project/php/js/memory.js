@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var word1;
     var word2;
     var clickEnabled = true;
-    var score = 25;
+    var score = 500;
 
     cards.forEach(function (card) {
         card.addEventListener('click', function () {
@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 return;
             }
             card.classList.toggle('flipped');
-
             nbCard += 1;
             if (nbCard === 1) {
                 word1 = card.dataset.word;
@@ -67,12 +66,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 (pair[0] === word1 && pair[1] === word2) ||
                 (pair[0] === word2 && pair[1] === word1)
             ) {
-                score+=10;
                 return true;
             }
         }
         if(score !== 0){
-            score-=1;
+            score-=5;
         }
         return false;
     }
