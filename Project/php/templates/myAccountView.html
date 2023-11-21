@@ -17,26 +17,20 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="{{base}}/css/styles.css" rel="stylesheet" />
 </head>
-<style>
-    section {
-        border: 2px solid black;
-        margin: 10px 0;
-    }
-</style>
 <body>
 {% include 'navBar.twig' %}
 <div class="content">
-    <section>
-    <h1>My account</h1>
+    <div class="border my-2 py-2 border-5 border-secondary rounded-3">
+    <h1 class="text-center">My account</h1>
     {% if user is defined %}
         <table>
-            <tr><td>Image : </td><td>{{user.image}}</td></tr>
+            <tr><td colspan="2"><img class="logo" src="{{base}}/assets/img/user-avatar.png"></td></tr>
             <tr><td>ID : </td><td>{{user.id}}</td></tr>
             <tr><td>Nickname : </td><td>{{user.nickname}}</td>
                 <td>
                     <form action="{{base}}/{{ userRole[0] }}/{{userID}}/modifyNickname" method="POST">
-                        <input name="newNickname" type="text" placeholder="new nickname" required>
-                        <input type="submit" value="Modify your nickname">
+                        <input class="input-group-text d-inline" name="newNickname" type="text" placeholder="new nickname" required>
+                        <input class="btn btn-info" type="submit" value="Modify your nickname">
                     </form>
                 </td>
             </tr>
@@ -51,11 +45,11 @@
             <tr><td>Group : </td><td>{{user.group}}</td></tr>
             <tr><td>Extra Time : </td><td>{{user.extraTime? 'yes' : 'no'}}</td></tr>
         </table>
-    </section>
-    <section>
+    </div>
+    <div class="border my-2 py-2 border-5 border-secondary rounded-3 text-center">
         <h2> Modify password</h2>
             {% include 'modifyPasswordForm.twig' %}
-    </section>
+    </div>
     {% endif %}
 </div>
 </body>

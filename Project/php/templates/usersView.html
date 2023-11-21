@@ -11,9 +11,9 @@
     {% include 'navBar.twig' %}
     {% if users is defined %}
     <div class="content">
-        <section>
-            <table>
-                <tr class="d-flex justify-content-center">
+        <section class="w-100">
+            <table class="w-100">
+                <tr class="d-flex flex-fill justify-content-around">
                     <td><a href="{{base}}/admin/{{userID}}/showAllUsers">
                         <input class="btn btn-info" type="button" value="Show all users"/>
                     </a></td>

@@ -19,27 +19,25 @@
 </head>
 {% include 'navBar.twig' %}
 <div class="content">
-    <section>
-        <h1>Add words</h1>
+        <h1 class="text-center">Add words</h1>
         {% if userID is defined %}
-        <form action="{{base}}/teacher/{{userID}}/addVocabList" method="POST">
-            <table>
+        <form action="{{base}}/teacher/{{userID}}/addVocabList" method="POST" class="w-100">
+            <table class="w-100 d-flex flex-column align-items-center">
                 <tr>
                     <td colspan="2">
-                        <input type="text" name="listName" placeholder="list name" required>
+                        <input class="input-group-text w-100" type="text" name="listName" placeholder="list name" required>
                     </td>
                 </tr>
                 {% for i in 0..20 %}
                 <tr>
-                    <td><input type="text" name="frenchWord{{i}}" placeholder="french word"></td>
-                    <td><input type="text" name="englishWord{{i}}" placeholder="english word"></td>
+                    <td><input class="input-group-text" type="text" name="frenchWord{{i}}" placeholder="french word"></td>
+                    <td><input class="input-group-text" type="text" name="englishWord{{i}}" placeholder="english word"></td>
                 </tr>
                 {% endfor %}
-                <tr><td colspan="2"><input type="submit" value="Add"></td></tr>
+                <tr class="d-flex justify-content-center"><td colspan="2"><input class="btn btn-primary" type="submit" value="Add"></td></tr>
             </table>
         </form>
         {% endif %}
-    </section>
 </div>
 </body>
 </html>

@@ -1,35 +1,24 @@
-<table>
-    <tr>
-        <td>ID</td>
-        <td>Name</td>
-        <td>Image</td>
-        <td>Author</td>
-    </tr>
+<table class="table table-bordered">
+    <thead>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
+    </thead>
 
     {% if vocabularies is defined %}
         {% for row in vocabularies %}
-            {% if vocabID is defined and vocabID == row.id %}
-                <tr style="background-color:red;">
-            {% else %}
-                <tr>
-            {% endif %}
+                <tr {% if vocabID is defined and vocabID == row.id %} class="table-info" {% endif %}>
                 <td>{{ row.id }}</td>
                 <td>{{ row.name }}</td>
-                <td>{{ row.image }}</td>
-                <td>{{ row.author }}</td>
 
-                {% if actions is defined%}
+                {% if actions is defined %}
                     <td>
                         {% if 'getContent' in actions %}
-                            <a href="{{base}}/teacher/{{userID}}/getContent?vocabID={{row.id}}">
-                                <input class="btn btn-primary" type="button" value="show content" />
-                            </a>
+                            <a href="{{base}}/teacher/{{userID}}/getContent?vocabID={{row.id}}" class="btn btn-primary">Get content</a>
                         {% endif %}
 
                         {% if 'delById' in actions %}
-                            <a id="delButton" href="{{base}}/teacher/{{userID}}/delById?vocabID={{ row.id }}">
-                                <input class="btn btn-primary" type="button" value="delete from vocabulary" />
-                            </a>
+                            <a id="delButton" href="{{base}}/teacher/{{userID}}/delById?vocabID={{ row.id }}" class="btn btn-danger">Remove</a>
                         {% endif %}
 
             {% endif %}

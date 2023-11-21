@@ -17,23 +17,24 @@
     <link href="{{base}}/css/styles.css" rel="stylesheet" />
     <link rel="icon" type="image/x-icon" href="{{base}}/assets/favicon.ico"/>
 </head>
-<style>
-</style>
 <body>
 {% include 'navBar.twig' %}
 <div class="content">
-    <section class="VocabularyList">
+    <div class="border my-2 py-2 border-5 border-secondary rounded-3 text-center">
         <h2>My lists</h2>
         {% include 'vocabularyContainer.twig' with {'actions' : ['affAllVocab', 'delById', 'getContent' ], 'vocabularies' : vocabularies, 'vocabID' : vocabID, 'content' : content } %}
-    </section>
-    <section>
+    </div>
+    <div class="d-flex justify-content-center">
+        <a href="{{base}}/teacher/{{userID}}/showVocabListForm" class="btn btn-primary">Add a new list</a>
+    </div>
+    <div class="border my-2 py-2 border-5 border-secondary rounded-3 text-center">
         <h2>Content</h2>
         {% if content is defined %}
-        <table>
-            <tr>
-                <td>French word</td>
-                <td>English word</td>
-            </tr>
+        <table class="table table-bordered">
+            <thead>
+                <th>French word</th>
+                <th>English word</th>
+            </thead>
             {% for trad in content %}
             <tr>
                 <td>{{trad.word1}}</td>
@@ -42,24 +43,20 @@
             {% endfor %}
         </table>
         {% endif %}
-    </section>
-    <section>
+    </div>
+    <div class="border my-2 py-2 border-5 border-secondary rounded-3 text-center">
         <h2>Groups with vocab</h2>
         {% if vocabID is defined %}
         {% include 'groupContainer.twig' with {'actions' : 'removeVocabFromGroup', groups : groupsVocab } %}
         {% endif %}
-    </section>
+    </div>
 
-    <section>
+    <div class="border my-2 py-2 border-5 border-secondary rounded-3 text-center">
         <h2>Groups without vocab</h2>
         {% if groupsNoVocab is defined and vocabID is defined %}
         {% include 'groupContainer.twig' with {'actions' : 'addVocabToGroup', groups : groupsNoVocab } %}
         {% endif %}
-    </section>
-    </section>
-        <a href="{{base}}/teacher/{{userID}}/showVocabListForm">
-            <input class="btn-black" type="button" value="add a list" />
-        </a>
+    </div>
 </div>
 </body>
 </html>
