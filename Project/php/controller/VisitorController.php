@@ -12,12 +12,14 @@ class VisitorController
 {
     public function memory($match): void{
         global $twig;
+        global $user;
 
         try{
             $idVoc = Validation::filter_int($_POST['idVoc'] ?? 4);
             $wordList = (new \gateway\TranslationGateway())->findByIdVoc($idVoc);
             $name = ((new \gateway\VocabularyListGateway())->findById($idVoc))->getName();
             $wordShuffle = array();
+
 
             shuffle($wordList);
             $pairs = [];
@@ -33,11 +35,22 @@ class VisitorController
 
             shuffle($wordShuffle);
 
-            echo $twig->render('memory.html', [
-                'wordShuffle' => $wordShuffle,
-                'pairs' => json_encode($pairs),
-                'name' => $name
-            ]);
+            if(isset($user)) {
+                echo $twig->render('memory.html', [
+                    'wordShuffle' => $wordShuffle,
+                    'pairs' => json_encode($pairs),
+                    'name' => $name,
+                    'userID' => $user->getID(),
+                    'userRole' => $user->getRoles()
+                ]);
+            }
+            else{
+                echo $twig->render('memory.html', [
+                    'wordShuffle' => $wordShuffle,
+                    'pairs' => json_encode($pairs),
+                    'name' => $name
+                ]);
+            }
 
         }
         catch (Exception $e){
@@ -47,40 +60,60 @@ class VisitorController
     public function quiz($match): void
     {
         global $twig;
-        $vocabId = Validation::filter_int($_POST['idVoc'] ?? 4);
-        $vocabList = (new VocabularyListGateway())->findById($vocabId) ?? null;
-        if ($vocabList == null) throw new Exception("liste inconnue");
-        $mdl = new TranslationGateway();
-        $allTranslation = $mdl->findByIdVoc($vocabId);
-        $shuffle = $allTranslation;
-        shuffle($shuffle);
+        global $user;
+        try {
+            $vocabId = Validation::filter_int($_POST['idVoc'] ?? 4);
+            $vocabList = (new VocabularyListGateway())->findById($vocabId) ?? null;
+            if ($vocabList == null) throw new Exception("liste inconnue");
+            $mdl = new TranslationGateway();
+            $allTranslation = $mdl->findByIdVoc($vocabId);
+            $shuffle = $allTranslation;
+            shuffle($shuffle);
 
-        $questions = array();
-        $goodAnswers = array();
-        $allEnglishWords = array();
+            $questions = array();
+            $goodAnswers = array();
+            $allEnglishWords = array();
 
-        foreach ($allTranslation as $translation) {
-            $questions[] = $translation->getWord1();
-            $allEnglishWords[] = $translation->getWord2();
-            $goodAnswers[] = $translation->getWord2();
+            foreach ($allTranslation as $translation) {
+                $questions[] = $translation->getWord1();
+                $allEnglishWords[] = $translation->getWord2();
+                $goodAnswers[] = $translation->getWord2();
+            }
+
+            $answers = array();
+
+            for ($i = 0; $i < count($questions); $i++) {
+                $correctAnswer = $allTranslation[$i]->getWord2();
+                array_splice($allEnglishWords, array_search($correctAnswer, $allEnglishWords), 1);
+
+                $tab = array_rand(array_flip($allEnglishWords), 3);
+
+                array_push($allEnglishWords, $correctAnswer);
+
+                $tab[] = $correctAnswer;
+                shuffle($tab);
+                $answers[] = $tab;
+            }
+
+            if (isset($user)) {
+                echo $twig->render('quizView.html', [
+                    'questions' => $questions,
+                    'answers' => $answers,
+                    'goodAnswers' => $goodAnswers,
+                    'listName' => $vocabList->getName(),
+                    'userID' => $user->getID(),
+                    'userRole' => $user->getRoles()]);
+            } else {
+                echo $twig->render('quizView.html', [
+                    'questions' => $questions,
+                    'answers' => $answers,
+                    'goodAnswers' => $goodAnswers,
+                    'listName' => $vocabList->getName()]);
+            }
         }
-
-        $answers = array();
-
-        for($i=0 ; $i< count($questions) ; $i++) {
-            $correctAnswer = $allTranslation[$i]->getWord2();
-            array_splice($allEnglishWords, array_search($correctAnswer, $allEnglishWords), 1);
-
-            $tab = array_rand(array_flip($allEnglishWords), 3);
-
-            array_push($allEnglishWords, $correctAnswer);
-
-            $tab[] = $correctAnswer;
-            shuffle($tab);
-            $answers[] = $tab;
+        catch (Exception $e){
+            throw new Exception("Erreur");
         }
-
-        echo $twig->render('quizView.html', ['questions' => $questions, 'answers' => $answers, 'goodAnswers' => $goodAnswers, 'listName' => $vocabList->getName()]);
     }
 
     public function login(): void {

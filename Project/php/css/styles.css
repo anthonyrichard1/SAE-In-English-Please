@@ -11338,6 +11338,7 @@ body {
   background-image: url("../assets/img/portrait_black.png");
 }
 
+
 .device[data-device=iPhoneX][data-orientation=portrait][data-color=black] .button {
   display: none;
   top: 0%;
