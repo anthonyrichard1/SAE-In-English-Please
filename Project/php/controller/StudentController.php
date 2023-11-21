@@ -43,4 +43,12 @@ class StudentController extends UserController
         $voc = $model->getAll();
         echo $twig->render('vocabList.html', ['vocabularies' => $voc, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
     }
+
+    public function gameChoice(): void {
+        global $twig;
+        global $user;
+        $model = new MdlStudent();
+        $voc = $model->getAll();
+        echo $twig->render('gamesList.html',[ 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
+    }
 }
