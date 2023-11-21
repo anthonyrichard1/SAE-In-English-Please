@@ -15,7 +15,8 @@ class VisitorController
 
         try{
             $idVoc = Validation::filter_int($match['id'] ?? null);
-            $wordList = (new \gateway\TranslationGateway)->findByIdVoc($idVoc);
+            $wordList = (new \gateway\TranslationGateway())->findByIdVoc($idVoc);
+            $name = ((new \gateway\VocabularyListGateway())->findById($idVoc))->getName();
             $wordShuffle = array();
 
             shuffle($wordList);
@@ -35,6 +36,7 @@ class VisitorController
             echo $twig->render('memory.html', [
                 'wordShuffle' => $wordShuffle,
                 'pairs' => json_encode($pairs),
+                'name' => $name
             ]);
 
         }
