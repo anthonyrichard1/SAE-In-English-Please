@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="{{base}}/css/styles.css" rel="stylesheet" />
+</head>
+
+<body>
+{% include 'navBar.twig' %}
+{% if vocabulary is defined %}
+<div class="content">
+    <section>
+        <table>
+            <tr>
+                {% for row in vocabularies %}
+                    <td><a href="{{base}}/student/{{idStudent}}/memory/{{idVoc}}">
+                        <input class="btn-black" type="button" value="Show all users"/>
+                    </a></td>
+                {% endfor %}
+            </tr>
+        </table>
+    </section>
+</div>
+{% endif %}
+</body>
+</html>
