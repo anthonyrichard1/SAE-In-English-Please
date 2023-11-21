@@ -111,8 +111,9 @@ class VisitorController
         UserController::home();
     }
 
-    public function resultatsJeux(): void{
+    public function resultatsJeux($match): void{
         global $twig;
-        echo $twig->render('resultatsJeux.html');
+        $score = Validation::filter_int($match['id']);
+        echo $twig->render('resultatsJeux.html', ['points' => $score]);
     }
 }

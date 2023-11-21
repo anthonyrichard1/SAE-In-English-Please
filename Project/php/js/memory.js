@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     var word1;
     var word2;
     var clickEnabled = true;
+    var score = 25;
 
     cards.forEach(function (card) {
         card.addEventListener('click', function () {
@@ -66,15 +67,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 (pair[0] === word1 && pair[1] === word2) ||
                 (pair[0] === word2 && pair[1] === word1)
             ) {
+                score+=10;
                 return true;
             }
+        }
+        if(score !== 0){
+            score-=1;
         }
         return false;
     }
 
     function checkGameCompletion(){
         if (document.querySelectorAll('.card.found').length === cards.length) {
-            window.location.href = '../resultatsJeux'; // A MODIFIER POUR UN TWIG RENDER
+            window.location.href = '../resultatsJeux/' + score;
         }
     }
 });
