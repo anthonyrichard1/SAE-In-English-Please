@@ -127,7 +127,7 @@ class GroupGateway extends AbsGateway
 
     public function removeVocabFromGroup(int $vocab, int $group) {
         try {
-            $query = "DELETE FROM Practice WHERE vocabID=:vocabID and groupID=:groupID;";
+            $query = "DELETE FROM Practice WHERE vocabID=:vocabID and groupID=:groupID";
             $args = array(':vocabID'=>array($vocab,PDO::PARAM_INT),
                 ':groupID'=>array($group,PDO::PARAM_INT));
             $this->con->ExecuteQuery($query,$args);
@@ -135,5 +135,29 @@ class GroupGateway extends AbsGateway
         catch (PDOException $e){
             throw new Exception($e->getMessage());
         }
+    }
+
+    public function findGroupVocab(int $vocab) : array{
+        $query = "SELECT g.* FROM Practice p, Group_ g WHERE g.id=p.groupID AND p.vocabID=:vocabID;";
+        $args = array(':vocabID'=>array($vocab,PDO::PARAM_INT));
+        $this->con->ExecuteQuery($query,$args);
+        $results = $this->con->getResults();
+        $tab = array();
+
+        foreach ($results as $row) $tab[] = new Group($row['id'],$row['num'],$row['year'],$row['sector']);
+
+        return $tab;
+    }
+
+    public function findGroupNoVocab(int $vocab) : array {
+        $query = "SELECT * FROM Group_ WHERE id NOT IN (SELECT groupID FROM Practice Where vocabID=:vocabID);";
+        $args = array(':vocabID'=>array($vocab,PDO::PARAM_INT));
+        $this->con->ExecuteQuery($query,$args);
+        $results = $this->con->getResults();
+        $tab = array();
+
+        foreach ($results as $row) $tab[] = new Group($row['id'],$row['num'],$row['year'],$row['sector']);
+
+        return $tab;
     }
 }

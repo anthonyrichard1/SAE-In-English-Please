@@ -39,11 +39,11 @@ class TeacherController extends UserController
         global $user;
         $mdl = new MdlTeacher();
         $vocabularies = $mdl->getAll();
-        $groups = $mdl->getAllGroups();
         $name = Validation::filter_int($_GET['vocabID'] ?? null);
+        $groupsVocab = $mdl->findGroupVocab($name);
+        $groupsNoVocab = $mdl->findGroupNoVocab($name);
         $content= $mdl->findByIdVoc($name);
-        echo $twig->render('manageVocabListView.html', ['vocabularies' => $vocabularies, 'groups' => $groups, 'userID' => $user->getId(), 'userRole' => $user->getRoles(), 'content' => $content, 'vocabID' => $name]);
-
+        echo $twig->render('manageVocabListView.html', ['vocabularies' => $vocabularies, 'groupsVocab' => $groupsVocab, 'groupsNoVocab' => $groupsNoVocab, 'userID' => $user->getId(), 'userRole' => $user->getRoles(), 'content' => $content, 'vocabID' => $name]);
     }
 
     public function addVocabToGroup():void {
