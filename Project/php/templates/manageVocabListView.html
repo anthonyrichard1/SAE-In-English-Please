@@ -49,9 +49,16 @@
         {% endif %}
     </section>
     <section>
-        <h2>Groups</h2>
-        {% if groups is defined and vocabID is defined %}
-        {% include 'groupContainer.twig' with {'actions' : ['addVocabToGroup', 'removeVocabFromGroup'] } %}
+        <h2>Groups with vocab</h2>
+        {% if vocabID is defined %}
+        {% include 'groupContainer.twig' with {'actions' : 'removeVocabFromGroup', groups : groupsVocab } %}
+        {% endif %}
+    </section>
+
+    <section>
+        <h2>Groups without vocab</h2>
+        {% if groupsNoVocab is defined and vocabID is defined %}
+        {% include 'groupContainer.twig' with {'actions' : 'addVocabToGroup', groups : groupsNoVocab } %}
         {% endif %}
     </section>
     </section>

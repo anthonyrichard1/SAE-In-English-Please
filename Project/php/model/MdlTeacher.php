@@ -46,6 +46,16 @@ class MdlTeacher extends MdlUser
         $mdl->addVocabToGroup($vocabID, $groupID);
     }
 
+    public function findGroupVocab(int $vocab): array {
+        $mdl = new GroupGateway();
+        return $mdl->findGroupVocab($vocab);
+    }
+
+    public function findGroupNoVocab(int $vocab): array {
+        $mdl = new GroupGateway();
+        return $mdl->findGroupNoVocab($vocab);
+    }
+
     public function RemoveVocById(int $id):void{
         $gtw = new VocabularyListGateway();
         $res = $gtw->remove($id);
