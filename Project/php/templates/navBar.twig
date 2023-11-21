@@ -21,9 +21,8 @@
                         <li class="nav-item"><a class="nav-link" href="{{ base }}/student/{{ userID }}/showAccountInfos">My account</a></li>
                     {% endif %}
                     {% if 'teacher' in userRole%}
-                        <li class="nav-item"><a class="nav-link" href="{{ base }}/teacher/{{ userID }}/addVocabList">Vocabulary</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ base }}/teacher/{{ userID }}/affAllVocab">Manage lessons</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ base }}/teacher/{{ userID }}/game">Play</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ base }}/teacher/{{ userID }}/createFC">Create flashcards</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ base }}/teacher/{{ userID }}/showAccountInfos">My account</a></li>
                     {% endif %}
                     {% if userRole is empty %}
