@@ -29,11 +29,12 @@
 <div class="content">
     <section class="VocabularyList">
         <h2>My lists</h2>
-        {% include 'vocabularyContainer.twig' with {'actions' : ['affContent', 'delById'], 'vocabularies' : vocabularies } %}
+        {% include 'vocabularyContainer.twig' with {'actions' : ['affContent', 'delById', 'getContent' ], 'vocabularies' : vocabularies, 'vocabID' : vocabID, 'content' : content } %}
     </section>
     <section>
         <h2>Content</h2>
         {% if content is defined %}
+        <?php var_dump(content); ?>
         {% endif %}
         //for ou ça affiche chaque traduction french - english [remove]
     </section>
