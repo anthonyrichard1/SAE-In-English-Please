@@ -27,7 +27,15 @@ class TeacherController extends UserController
         $vocab = $mdl->removeVocById($id);
         echo $twig->render('manageVocabListView.html', [ 'vocabularies' => $vocab, 'userID' => $user->getId(), 'userRole' => $user->getRoles() ]);
     }
+    public function getContent(){
+        global $twig;
+        global $user;
+        $mdl = new MdlTeacher();
+        $name = Validation::filter_str_simple($_GET['vocabID'] ?? null);
+        $content= $mdl->findByIdVoc($name);
+        echo $twig->render('manageVocabListView.html', ['content' => $content, 'userID' => $user->getId(), 'userRole' => $user->getRoles() ]);
 
+    }
     public function showVocabListForm(): void {
         global $twig;
         global $user;

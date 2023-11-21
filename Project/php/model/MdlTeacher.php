@@ -30,6 +30,11 @@ class MdlTeacher extends MdlUser
         $res = $gtw->findByName($name);
         return $res;
     }
+    public function findByIdVoc($id):array {
+        $gtw = new TranslationGateway();
+        return $gtw->findByIdVoc($id);
+
+    }
 
     public function RemoveVocById(int $id):void{
         $gtw = new VocabularyListGateway();
