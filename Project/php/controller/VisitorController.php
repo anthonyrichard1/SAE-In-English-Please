@@ -5,6 +5,7 @@ namespace controller;
 use config\Validation;
 use gateway\TranslationGateway;
 use gateway\VocabularyListGateway;
+use http\Message;
 use model\MdlUser;
 use Exception;
 
@@ -54,7 +55,7 @@ class VisitorController
 
         }
         catch (Exception $e){
-            throw new Exception("Erreur");
+            throw new Exception($e->getMessage());
         }
     }
     public function quiz($match): void
@@ -85,7 +86,9 @@ class VisitorController
             for ($i = 0; $i < count($questions); $i++) {
                 $correctAnswer = $allTranslation[$i]->getWord2();
                 array_splice($allEnglishWords, array_search($correctAnswer, $allEnglishWords), 1);
-
+                if(count($allEnglishWords) < 3) {
+                    throw new Exception("pas assez de vocabulaire");
+                }
                 $tab = array_rand(array_flip($allEnglishWords), 3);
 
                 array_push($allEnglishWords, $correctAnswer);
@@ -112,7 +115,7 @@ class VisitorController
             }
         }
         catch (Exception $e){
-            throw new Exception("Erreur");
+            throw new Exception($e->getMessage());
         }
     }
 

@@ -32,6 +32,7 @@
       flex-direction: column;
       background-size: cover; /* Ajuster la taille de l'image pour couvrir tout le corps */
       background-position: center;
+      overflow: hidden;
     }
     .err{
       justify-content:center;
@@ -54,7 +55,8 @@
   </style>
 
   <body>
-  <div class="err">
+  {% include 'navBar.twig' %}
+  <div class="err content">
     <h1> ERREUR</h1>
     {% if dVueEreur is defined %}
       {% for value in dVueEreur %}

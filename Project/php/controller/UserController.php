@@ -50,7 +50,7 @@ class UserController extends VisitorController
             $this->showAccountInfos();
         }
         catch (Exception $e){
-            throw new Exception("invalid entries");
+            throw new Exception("invalid entries". $e->getMessage());
         }
     }
 
