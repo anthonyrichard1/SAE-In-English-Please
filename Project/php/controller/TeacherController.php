@@ -81,7 +81,7 @@ class TeacherController extends UserController
                 $words[] = array($frenchWord, $englishWord);
         }
 
-        if (count($words) % 2 == 0) throw new Exception("il manque un mot");
+        if (count($words) % 2 == 1) throw new Exception("il manque un mot");
         else {
             $mdl->addVocabList($user->getId(), $name, "", $words);
             $this->affAllVocab();
