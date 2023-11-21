@@ -68,25 +68,22 @@ class TeacherController extends UserController
     }
 
     public function addVocabList():void {
-        global $twig;
         global $user;
         $mdl = new MdlTeacher();
         $name = Validation::filter_str_simple($_POST['listName'] ?? null);
         $words = array();
 
-        for ($i = 0; $i <= 19; $i++) {
-            echo $i;
-            if (!isset($_POST['frenchWord' . $i]) == null || !isset($_POST['englishWord' . $i]) == null) break;
+        for ($i = 0; $i <= 20; $i++) {
+            if (empty($_POST['frenchWord' . $i]) || empty($_POST['englishWord' . $i])) break;
+                $frenchWord = Validation::filter_str_simple($_POST['frenchWord' . $i] ?? null);
+                $englishWord = Validation::filter_str_simple($_POST['englishWord' . $i] ?? null);
 
-            $frenchWord = Validation::filter_str_simple($_POST['frenchWord' . $i] ?? null);
-            $englishWord = Validation::filter_str_simple($_POST['englishWord' . $i] ?? null);
-
-            $words[] = array($frenchWord, $englishWord);
+                $words[] = array($frenchWord, $englishWord);
         }
 
-        if (count($words) % 2 == 1) throw new Exception("il manque un mot");
+        if (count($words) % 2 == 0) throw new Exception("il manque un mot");
         else {
-            $addvoc= $mdl->addVocabList($user->getId(), $name, "", $words);
+            $mdl->addVocabList($user->getId(), $name, "", $words);
             $this->affAllVocab();
         }
     }
