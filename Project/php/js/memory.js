@@ -79,7 +79,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function checkGameCompletion(){
         if (document.querySelectorAll('.card.found').length === cards.length) {
-            window.location.href = '../resultatsJeux/' + score;
+            window.location.href = 'resultatsJeux';
+            var form = document.createElement('form');
+            form.method = 'post';
+            form.action = 'resultatsJeux';
+
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'score';
+            input.value = score;
+
+            form.appendChild(input);
+            document.body.appendChild(form);
+
+            form.submit();
         }
     }
 });

@@ -23,7 +23,7 @@ class FrontController
             $router->map('GET|POST', '/admin/[i:id]/[a:action]?', 'Admin');
             $router->map('GET|POST', '/teacher/[i:id]/[a:action]?', 'Teacher');
             $router->map('GET|POST', '/student/[i:id]/[a:action]?', 'Student');
-            $router->map('GET|POST', '/visitor/[a:action]/[i:id]?', 'Visitor');
+            $router->map('GET|POST', '/visitor/[a:action]', 'Visitor');
 
             $twig->addGlobal('base', $altorouterPath);
 

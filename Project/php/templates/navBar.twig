@@ -1,6 +1,6 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="secondNav">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="{{base}}"><img class="logo" src="{{base}}/assets/img/logo.png"/></a>
+            <a class="navbar-brand" href="{{base}}/#page-top"><img class="logo" src="{{base}}/assets/img/logo.png"/></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -27,9 +27,9 @@
                         <li class="nav-item"><a class="nav-link" href="{{ base }}/teacher/{{ userID }}/showAccountInfos">My account</a></li>
                     {% endif %}
                     {% if userRole is empty %}
-                        <li class="nav-item"><a class="nav-link" href="#game">Game</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#download">Download</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{base}}/visitor/login">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ base }}#game">Game</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ base }}#download">Download</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ base }}/visitor/login">Login</a></li>
                     {% else %}
                             <li class="nav-item"><a class="nav-link" href="{{ base }}/visitor/disconnect">Log out</a></li>
                     {% endif %}
