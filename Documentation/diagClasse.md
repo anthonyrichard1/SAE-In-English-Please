@@ -11,95 +11,245 @@ skinparam classFontColor #white
 skinparam classFontName arial
 skinparam BackgroundColor #white
 
-namespace Model #lightgrey{
-    abstract Class AbsModel{
-        - role : string
-        + connection(login: string, password: string) : void
-        + deconnection()
-        + {abstract} is()
+namespace Model #lightgrey {
+    Class VocabularyList {
+        - id : int
+        - name : string
+        - image : string
+        - aut : int
+
+        + VocabularyList(id : int, name : string, image : string, aut : sint)
+        + getId() : int
+        + getName() : string
+        + getImage() : string
+        + getAut() : int
     }
 
-    abstract Class User {
+    Class User {
         - id : int
         - password : string
-        - email : string 
+        - email : string
         - name : string
         - surname : string
         - nickname : string
         - image : string
         - extraTime : bool
-        - group : int 
         - roles : array
+        - group : int
 
-        + User(id : int, password : string, email : string, string name, string surname, string nickname, string image, bool extraTime, int group)
+        + User(id : int, password : string, email : string, name : string, surname : string, nickname : string, image : string, extratime : bool, roles : array, group : int)
+        + getId() : int
+        + getPassword() : string
+        + getEmail() : string
+        + getName() : string
+        + getSurname() : string
+        + getNickname() : string
+        + getImage() : string
+        + isExtratime() : bool
+        + getRoles() : array
+        + getGroup() : int
     }
 
-    Class MdlAdmin{
-        + getAllUsers() : array
-        + getAllAdmins() : array
-        + getAllTeachers() : array
-        + getAllStudents() : array
-        + getAllGroups() : array
-        + removeUser(id: int) : void
-        + getUsersOfGroup(id: int) : array
-        + removeUserFromGroup(id: int) : void
-        + removeGroup(id: int) : void
-        + addGroup(num: int, year: int, sector: string) : int
-        + addUserToGroup(user: int, group: int) : void
-        + getUnassignedUsers(): array
-    }
-
-    Class MdlStudent{
-        + getAll() : array
-        + getVocabByNale(name: string) : array
-        + getUser(id: int) : User
-        + modifyNickname(id: int, newNickname: string) : void
-        + modifyPassword(id: int, newPassword: string) : void
-    }
-
-    Class MdlTeacher{
-        + getAll() : array
-        + getAllStudent() : array
-        + getVocabByName(name: string) : array
-        + RemoveVocById(id: int) : void
-    }
-
-    Class Translation{
+    Class Translation {
         - id : int
         - word1 : string
         - word2 : string
         - listVocab : int
 
         + Translation(id : int, word1 : string, word2 : string, listVocab : int)
+        + getId() : int
+        + getWord1() : string
+        + getWord2() : string
+        + getListVocab() : int
     }
 
-    Class Group{
-        - id : int
+    Class Group {
+        - id : string
         - num : int
         - year : int
         - sector : string
 
         + Group(id : int, num : int, year : int, sector : string)
+        + getId() : int
+        + getNum() : int
+        + getYear() : int
+        + getSector() : string
     }
 
-    Class VocabularyList{
-        - id : int
-        - name : string
-        - image : string
-        - aut : string
-
-        + VocabularyList(id : int, name : string, image : string, aut : string)
+    Abstract Class AbsModel {
+        + connection(login : string, password : string) : void
+        + deconnection() : void
+        + checkLoginExist(login : string)
+        + abstract is(login : string, roles : array) : User
     }
 
-    AbsModel *-> Gateway.AbsGateway
-    AbsModel <|-- MdlStudent
-    AbsModel <|-- MdlAdmin
-    AbsModel <|-- MdlTeacher
+    Class MdlAdmin {
+        + getAllUsers() : array
+        + getAllAdmins(): array 
+        + getAllTeachers() : array
+        + getAllGroups() : array 
+        + getUnassignedUsers() : array
+        + getUsersOfGroup(id : int) : array
+        + removeUser(id : int) : void
+        + addUserToGroup(user : int, group : int) : void
+        + removeUserFromGroup(id : int) : void
+        + addGroup(num : int, year : int, sector : string) : int
+        + removeGroup(id : int) : void
+        + is(login : string, roles : array) : User
+    }
 
+    Class MdlStudent {
+        + getAll() : array
+        + getVocabByName(name : string) : array
+        + {abstract} is(login : string, roles : array) : User
+    }
+
+    Class MdlTeacher {
+        + getAll() : array
+        + getAllGroups() : array
+        + getAllStudent() : array
+        + getVocabByName(name : string) : array
+        + findByUser(id : int) : array
+        + findGroupVocab(vocab : int) : array
+        + findGroupNoVocab(vocab : int) : array
+        + findByIdVoc(id : int) : array
+        + addVocabToGroup(vocabID : int, groupID : int) : void
+        + removeVocabFromGroup(vocabID : int, groupID : int) : void
+        + addVocabList(userID : int, name : string, image : string, words : array) : void
+        + removeVocById(id : int) : void
+        + is(login : string, roles : array) : User
+    }
+
+    Class MdlUser {
+        + getAll() : array
+        + modifyNickname(id : int, newNickname : string) : void
+        + ModifyPassword(id : int, newPassword : string) : void
+        + getUserById(id : int) : User
+        + is(login : string, roles : array) : User
+    }
+
+    MdlAdmin --|> MdlUser
+    MdlStudent --|> MdlUser
+    MdlTeacher --|> MdlUser
+    MdlUser --|> AbsModel
+
+    MdlAdmin --|> Gateway.GroupGateway
+    MdlAdmin --|> Gateway.UserGateway
+
+    MdlStudent --|> Gateway.UserGateway
+    MdlStudent --|> Gateway.VocabularyGateway
+    MdlStudent --|> Gateway.VocabularyListGateway
+
+    MdlTeacher --|> Gateway.UserGateway
+    MdlTeacher --|> Gateway.GroupGateway
+    MdlTeacher --|> Gateway.Translation
+    MdlTeacher --|> Gateway.VocabularyGateway
+    MdlTeacher --|> Gateway.VocabularyListGateway
 }
 
+namespace Gateway #lightgrey {
+    abstract Class AbsGateway {
+        # con : Connection
 
-namespace Controller #lightgray{
+        + AbsGateway()
+        + {abstract} add(parameters: array) : int
+        + {abstract} remove(id: int) : void
+        + {abstract} findAll() : array
+        + {abstract} findById(id: int)
+    }
+
+    Class UserGateway {
+        - getRoles(id : int) : array
+        + UserGateway()
+        + add(parameters: array) : int
+        + remove(id: int) : void
+        + findAll() : array
+        + findById(id: int) : User
+        + findAllAdmins() : array
+        + findAllTeachers() : array
+        + findAllStudents() : array
+        + findUserByEmail() : User
+        + findUserByName(name : string) : array
+        + findUserBySurname(surname : string) : array
+        + findUserByNickname(nickname : string) : array
+        + findUsersByGroup(id : int) : array
+        + findUnassignedUsers() : array
+        + login(login : string) : string
+        + modifyPassword(id : int, newPassword : string) : void
+        + modifyNickname(id : int, nickname : string) : void
+        + modifyImage(id : int, image : string) : void
+        + modifyGroup(id : int, newGroup : int) : void
+        
+    }
+
+    class GroupGateway {
+        + GroupGateway()
+        + add(parameters: array) : int
+        + remove(id: int) : void
+        + findAll() : array
+        + findById(id: int) : Group
+        + findByNum (num: string): array
+        + findGroupVocab(vocab : int) : array
+        + findGroupNoVocab(vocab : int) : array
+        + addVocabToGroup(vocab : int, group : int) : void
+        + removeVocabFromGroup(vocab : int, group : int) : void
+        + modifyGroupById (id: int, num: int, year: int, sector: string): void
+        
+    }
+
+    class TranslationGateway {
+        - addWord(word: string): void
+        + TranslationGateway()
+        + add(parameters: array) : int
+        + remove(id: int) : void
+        + findAll() : array
+        + findById(id: int) : Translation
+        + findByIdVoc(id: int): array
+    }
+
+    Class VocabularyListGateway {
+        + VocabularyListGateway()
+        + add(parameters: array) : int
+        + remove(id: int) : void
+        + findAll() : array
+        + findById(id: int) : VocabularyList
+        + findByName(name : string) : array
+        + findByGroup(id : int) : array
+        + findByUser(id : int) : array
+        + findByName(name: string): array
+        + findByGroup(id: int): array  
+        + modifVocabListById(id : int, name : string, img : string, aut : string) : void
+    }    
+
+    UserGateway ..|> AbsGateway
+    GroupGateway ..|> AbsGateway
+    TranslationGateway ..|> AbsGateway
+    VocabularyListGateway ..|> AbsGateway
+    AbsGateway *-- Config.Connection
+    UserGateway .> Model.User
+    GroupGateway .> Model.Group
+    TranslationGateway .> Model.Translation
+    VocabularyListGateway .> Model.VocabularyList
+}
+
+namespace Controller #lightgrey {
+    class VisitorController {
+        + login() : void
+        + confirmLogin() : void
+        + disconnect() : void
+        + checkLoginExist(login : string) : bool
+        + memory(match : array) : void
+        + quiz(match : array) : void
+        + resultatsJeux(match : string) : void
+    }
+
+    class UserController {
+        + showAccountInfos() : void
+        + modifyPassword() : void
+        + modifyNickname() : void
+        + {static} home() : void
+    }
+
     Class AdminController{
         + showAllUsers() : void
         + showAllAdmins() : void
@@ -115,12 +265,8 @@ namespace Controller #lightgray{
     }
 
     Class StudentController{
-        + affAllVocab() : void
-        + affAllStudent() : void
-        + getByName() : void
-        + showAccountInfos() : void
-        + modifyNickname() : void
-        + modifyPassword() : void
+        + ListVocChoice() : void
+        + gameChoice() : void
     }
 
     Class TeacherController{
@@ -128,13 +274,27 @@ namespace Controller #lightgray{
         + affAllVocab() : void
         + getByName() : void
         + DelById() : void
+        + getContent() : void
+        + addVocabToGroup() : void
+        + removeVocabFromGroup() : void
+        + showVocabListForm() : void
+        + addVocabList() : void
     }
 
-    Model.MdlTeacher <-- TeacherController
-    Model.MdlStudent <-- StudentController
-    Model.MdlAdmin <-- AdminController
-}
+    Class FrontController {
+        + FrontController()
+    }
 
+    AdminController --|> UserController
+    TeacherController --|> UserController
+    StudentController --|> UserController
+    UserController --|> VisitorController
+    FrontController ..> VisitorController
+    FrontController ..> UserController
+    FrontController ..> Config.Validation
+    FrontController ..> Model.MdlUser
+    
+}
 
 namespace Config #lightgray{
     Class Connection {
@@ -150,63 +310,6 @@ namespace Config #lightgray{
         + {static} filter_str_simple(value) : string
         + {static} filter_str_nospecialchar(value) : string
     }
-
-    Connection *--> Gateway.AbsGateway
-
-    Validation <-- Controller.AdminController
-    Validation <-- Controller.StudentController
-    Validation <-- Controller.TeacherController
-}
-
-namespace Gateway #lightgray{
-
-    abstract Class AbsGateway {
-        # con : Connection
-        + {abstract} add(parameters: array) : int
-        + {abstract} remove(id: int) : void
-        + {abstract} findAll() : array
-        + {abstract} findById(id: int)
-    }
-
-    class GroupGateway {
-        + findByNum (num: string): array
-        + modifyGroupById (id: int, num: int, year: int, sector: string): void
-    }
-
-    class TranslationGateway {
-        - addWord(word: string): void
-        + findByIdVoc(id: int): array
-    }
-
-    Class VocabularyListGateway {
-        + findByName(name: string): array
-        + modifVocabListById(id: int, name: string, img: string, aut: string): void
-        + findByGroup(id: int): array  
-    }
-
-    Class UserGateway {
-        - getRoles(id: int): array
-
-        + findAllAdmins(): array
-        + findAllTeachers(): array
-        + findAllStudents(): array
-        + findUserByEmail(email: string): User
-        + findUserByName(name: string): array
-        + findUserBySurname(surname: string): array
-        + findUserByNickname(nickname: string): array
-        + findUsersByGroup(id: int): array
-        + modifyPassword(id: int, newPassword: string): void
-        + modifyNickname(id: int, newNickname: string): void
-        + modifyImage(id: int, newImage: string): void
-        + modifyGroup(id: int, newGroup: int=Null): void
-        + findUnassignedUsers(): array
-    }
-
-   
-    AbsGateway <|-- TranslationGateway
-    AbsGateway <|-- UserGateway
-    AbsGateway <|-- VocabularyListGateway
-    AbsGateway <|-- GroupGateway
 }
 
 @enduml
