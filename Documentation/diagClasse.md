@@ -1,7 +1,6 @@
 ```plantuml
 @startuml IEP
 
-hide circle
 allowmixing
 skinparam classAttributeIconSize 9
 skinparam classBackgroundColor #123123
@@ -80,10 +79,11 @@ namespace Model #lightgrey {
         + connection(login : string, password : string) : void
         + deconnection() : void
         + checkLoginExist(login : string)
-        + abstract is(login : string, roles : array) : User
+        + {abstract} is(login : string, roles : array) : User
     }
 
     Class MdlAdmin {
+        + getAllStudents() : array
         + getAllUsers() : array
         + getAllAdmins(): array 
         + getAllTeachers() : array
@@ -101,7 +101,7 @@ namespace Model #lightgrey {
     Class MdlStudent {
         + getAll() : array
         + getVocabByName(name : string) : array
-        + {abstract} is(login : string, roles : array) : User
+        + is(login : string, roles : array) : User
     }
 
     Class MdlTeacher {
@@ -121,36 +121,32 @@ namespace Model #lightgrey {
     }
 
     Class MdlUser {
-        + getAll() : array
         + modifyNickname(id : int, newNickname : string) : void
-        + ModifyPassword(id : int, newPassword : string) : void
+        + modifyPassword(id : int, newPassword : string) : void
         + getUserById(id : int) : User
         + is(login : string, roles : array) : User
     }
 
-    MdlAdmin --|> MdlUser
+    MdlAdmin ---|> MdlUser
     MdlStudent --|> MdlUser
     MdlTeacher --|> MdlUser
     MdlUser --|> AbsModel
 
-    MdlAdmin --|> Gateway.GroupGateway
-    MdlAdmin --|> Gateway.UserGateway
+    MdlAdmin .u..> Gateway.GroupGateway
+    MdlAdmin .u..> Gateway.UserGateway
 
-    MdlStudent --|> Gateway.UserGateway
-    MdlStudent --|> Gateway.VocabularyGateway
-    MdlStudent --|> Gateway.VocabularyListGateway
+    MdlStudent .do..> Gateway.UserGateway
+    MdlStudent .do..> Gateway.VocabularyListGateway
 
-    MdlTeacher --|> Gateway.UserGateway
-    MdlTeacher --|> Gateway.GroupGateway
-    MdlTeacher --|> Gateway.Translation
-    MdlTeacher --|> Gateway.VocabularyGateway
-    MdlTeacher --|> Gateway.VocabularyListGateway
+    MdlTeacher .left.> Gateway.UserGateway
+    MdlTeacher .left> Gateway.GroupGateway
+    MdlTeacher .left> Gateway.TranslationGateway
+    MdlTeacher .left> Gateway.VocabularyListGateway
+
 }
 
 namespace Gateway #lightgrey {
     abstract Class AbsGateway {
-        # con : Connection
-
         + AbsGateway()
         + {abstract} add(parameters: array) : int
         + {abstract} remove(id: int) : void
@@ -160,6 +156,7 @@ namespace Gateway #lightgrey {
 
     Class UserGateway {
         - getRoles(id : int) : array
+
         + UserGateway()
         + add(parameters: array) : int
         + remove(id: int) : void
@@ -168,7 +165,7 @@ namespace Gateway #lightgrey {
         + findAllAdmins() : array
         + findAllTeachers() : array
         + findAllStudents() : array
-        + findUserByEmail() : User
+        + findUserByEmail(email : string) : User
         + findUserByName(name : string) : array
         + findUserBySurname(surname : string) : array
         + findUserByNickname(nickname : string) : array
@@ -199,6 +196,7 @@ namespace Gateway #lightgrey {
 
     class TranslationGateway {
         - addWord(word: string): void
+
         + TranslationGateway()
         + add(parameters: array) : int
         + remove(id: int) : void
@@ -221,15 +219,15 @@ namespace Gateway #lightgrey {
         + modifVocabListById(id : int, name : string, img : string, aut : string) : void
     }    
 
-    UserGateway ..|> AbsGateway
-    GroupGateway ..|> AbsGateway
-    TranslationGateway ..|> AbsGateway
-    VocabularyListGateway ..|> AbsGateway
-    AbsGateway *-- Config.Connection
-    UserGateway .> Model.User
-    GroupGateway .> Model.Group
-    TranslationGateway .> Model.Translation
-    VocabularyListGateway .> Model.VocabularyList
+    UserGateway -|> AbsGateway
+    GroupGateway --|> AbsGateway
+    TranslationGateway ---|> AbsGateway
+    VocabularyListGateway ---|> AbsGateway
+    AbsGateway *--- Config.Connection : #con : Connection
+    UserGateway ..> Model.User
+    GroupGateway ..> Model.Group
+    TranslationGateway ..> Model.Translation
+    VocabularyListGateway ..> Model.VocabularyList
 }
 
 namespace Controller #lightgrey {
@@ -240,7 +238,7 @@ namespace Controller #lightgrey {
         + checkLoginExist(login : string) : bool
         + memory(match : array) : void
         + quiz(match : array) : void
-        + resultatsJeux(match : string) : void
+        + resultatsJeux(match : array) : void
     }
 
     class UserController {
@@ -267,6 +265,7 @@ namespace Controller #lightgrey {
     Class StudentController{
         + ListVocChoice() : void
         + gameChoice() : void
+        + getByName() : void
     }
 
     Class TeacherController{
@@ -286,13 +285,18 @@ namespace Controller #lightgrey {
     }
 
     AdminController --|> UserController
-    TeacherController --|> UserController
+    TeacherController -left|> UserController
     StudentController --|> UserController
     UserController --|> VisitorController
+    VisitorController ..> Config.Validation
     FrontController ..> VisitorController
     FrontController ..> UserController
     FrontController ..> Config.Validation
     FrontController ..> Model.MdlUser
+
+    StudentController ..> Model.MdlStudent
+    TeacherController ..> Model.MdlTeacher
+    AdminController ..> Model.MdlAdmin
     
 }
 
