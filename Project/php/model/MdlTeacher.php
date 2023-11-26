@@ -42,12 +42,12 @@ class MdlTeacher extends MdlUser
 
     }
 
-    public function removeVocabFromGroup(int $vocabID, int $groupID){
+    public function removeVocabFromGroup(int $vocabID, int $groupID): void{
         $mdl = new GroupGateway();
         $mdl->removeVocabFromGroup($vocabID, $groupID);
     }
 
-    public function addVocabToGroup(int $vocabID, int $groupID){
+    public function addVocabToGroup(int $vocabID, int $groupID): void{
         $mdl = new GroupGateway();
         $mdl->addVocabToGroup($vocabID, $groupID);
     }
@@ -76,12 +76,12 @@ class MdlTeacher extends MdlUser
         }
     }
 
-    public function is(string $login, array $roles)
+    public function is(string $login, array $roles): User
     {
         $gtw = new UserGateway();
         $user = $gtw->findUserByEmail($login);
 
         if ($user->getRoles() == $roles && in_array('teacher', $user->getRoles())) return $user;
-        else return false;
+        else return null;
     }
 }

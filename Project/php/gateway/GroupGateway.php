@@ -113,7 +113,7 @@ class GroupGateway extends AbsGateway
         }
     }
 
-    public function addVocabToGroup(int $vocab, int $group) {
+    public function addVocabToGroup(int $vocab, int $group): void {
         try {
             $query = "INSERT INTO Practice VALUES (:vocabID, :groupID)";
             $args = array(':vocabID'=>array($vocab,PDO::PARAM_INT),
@@ -125,7 +125,7 @@ class GroupGateway extends AbsGateway
         }
     }
 
-    public function removeVocabFromGroup(int $vocab, int $group) {
+    public function removeVocabFromGroup(int $vocab, int $group): void {
         try {
             $query = "DELETE FROM Practice WHERE vocabID=:vocabID and groupID=:groupID";
             $args = array(':vocabID'=>array($vocab,PDO::PARAM_INT),

@@ -3,10 +3,10 @@ namespace model;
 
 class Group
 {
-    protected int $id;
-    protected int $num;
-    protected int $year;
-    protected string $sector;
+    private int $id;
+    private int $num;
+    private int $year;
+    private string $sector;
 
     /**
      * @param int $id

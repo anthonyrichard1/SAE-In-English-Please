@@ -30,10 +30,10 @@ abstract class AbsModel
         $_SESSION = array();
     }
 
-    public function checkLoginExist(string $login) {
+    public function checkLoginExist(string $login): bool {
         $gtw = new UserGateway();
         return $gtw->findUserByEmail($login) != null;
     }
 
-    public abstract function is(string $login, array $roles);
+    public abstract function is(string $login, array $roles): User;
 }

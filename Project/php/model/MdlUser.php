@@ -16,13 +16,13 @@ class MdlUser extends AbsModel {
         $gtw->modifyPassword($id, $newPassword);
     }
 
-    public function is(string $login, array $roles)
+    public function is(string $login, array $roles): User
     {
         $gtw = new UserGateway();
         $user = $gtw->findUserByEmail($login);
 
         if (!empty($user->getRoles())) return $user;
-        else return false;
+        else return null;
     }
 
     public function getUserById($id): User

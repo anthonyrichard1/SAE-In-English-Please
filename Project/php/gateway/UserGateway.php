@@ -160,7 +160,7 @@ class UserGateway extends AbsGateway
         }
     }
 
-    public function findUserByEmail(string $email){
+    public function findUserByEmail(string $email): User{
         try {
             $query = "SELECT * FROM User_ WHERE email=:email";
             $args = array(':email' => array($email, PDO::PARAM_STR));
@@ -196,7 +196,10 @@ class UserGateway extends AbsGateway
             $args = array(':surname' => array($surname, PDO::PARAM_STR));
             $this->con->executeQuery($query, $args);
             $results = $this->con->getResults();
-            return new User($results[0]['id'], $results[0]['password'], $results[0]['email'], $results[0]['name'], $results[0]['surname'], $results[0]['nickname'], $results[0]['image'], $results[0]['extraTime'], $results[0]['groupID'], $this->getRoles($results[0]['id']));
+            $tab = array();
+            foreach ($results as $row)
+                $tab[] = new User($row['id'], $row['password'], $row['email'], $row['name'], $row['surname'], $row['nickname'], $row['image'], $row['extraTime'], $row['groupID'], $this->getRoles($row['id']));
+            return $tab;
         }
         catch(PDOException $e ){
             throw new Exception($e->getMessage());
