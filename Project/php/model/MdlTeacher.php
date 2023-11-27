@@ -20,26 +20,15 @@ class MdlTeacher extends MdlUser
         return $gtw->findAll();
     }
 
-    public function getAllStudent():array {
-        $gtw = new UserGateway();
-        return $gtw->findAll();
-    }
     public function findByUser($id):array
     {
         $gtw = new VocabularyListGateway();
         return $gtw->findByUser($id);
-        }
-
-
-    public function getVocabByName(string $name):array{
-        $gtw = new VocabularyListGateway();
-        $res = $gtw->findByName($name);
-        return $res;
     }
+
     public function findByIdVoc($id):array {
         $gtw = new TranslationGateway();
         return $gtw->findByIdVoc($id);
-
     }
 
     public function removeVocabFromGroup(int $vocabID, int $groupID): void{
