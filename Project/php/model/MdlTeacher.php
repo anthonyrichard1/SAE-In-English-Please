@@ -76,7 +76,7 @@ class MdlTeacher extends MdlUser
         }
     }
 
-    public function is(string $login, array $roles): User
+    public function is(string $login, array $roles): ?User
     {
         $gtw = new UserGateway();
         $user = $gtw->findUserByEmail($login);

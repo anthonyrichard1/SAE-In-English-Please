@@ -16,7 +16,7 @@ class MdlUser extends AbsModel {
         $gtw->modifyPassword($id, $newPassword);
     }
 
-    public function is(string $login, array $roles): User
+    public function is(string $login, array $roles): ?User
     {
         $gtw = new UserGateway();
         $user = $gtw->findUserByEmail($login);

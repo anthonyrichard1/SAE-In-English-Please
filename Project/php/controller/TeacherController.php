@@ -26,7 +26,7 @@ class TeacherController extends UserController
         $mdl->removeVocById($id);
         $this->affAllVocab();
     }
-    public function getContent(){
+    public function getContent():void{
         global $twig;
         global $user;
         $mdl = new MdlTeacher();

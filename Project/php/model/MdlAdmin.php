@@ -67,7 +67,7 @@ class MdlAdmin extends MdlUser
         return $gtw->findUnassignedUsers();
     }
 
-    public function is(string $login, array $roles): User
+    public function is(string $login, array $roles): ?User
     {
         $gtw = new UserGateway();
         $user = $gtw->findUserByEmail($login);

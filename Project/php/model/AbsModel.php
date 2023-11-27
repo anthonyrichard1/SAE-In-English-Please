@@ -6,7 +6,7 @@ use gateway\UserGateway;
 
 abstract class AbsModel
 {
-    public function connection(string $login, string $password){
+    public function connection(string $login, string $password):?User{
         $gtw = new UserGateway();
         $hash = $gtw->login($login) ?? null;
 
@@ -24,7 +24,7 @@ abstract class AbsModel
         return null;
     }
 
-    public function deconnection(){
+    public function deconnection():void{
         session_unset();
         session_destroy();
         $_SESSION = array();
@@ -35,5 +35,5 @@ abstract class AbsModel
         return $gtw->findUserByEmail($login) != null;
     }
 
-    public abstract function is(string $login, array $roles): User;
+    public abstract function is(string $login, array $roles): ?User;
 }

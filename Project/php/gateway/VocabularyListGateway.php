@@ -67,7 +67,7 @@ class VocabularyListGateway extends AbsGateway
         }
     }
 
-    public function findById(int $id)
+    public function findById(int $id) : ?VocabularyList
     {
         try{
             $query = "SELECT * FROM VocabularyList WHERE id = :id";
