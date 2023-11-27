@@ -22,7 +22,7 @@ class StudentController extends UserController
         global $user;
         $jeu = $_POST['jeu'];
         $model = new MdlStudent();
-        $voc = $model->getAll();
+        $voc = $model->getVocByGroup($user->getGroup());
         echo $twig->render('vocabList.html', ['jeu' => $jeu, 'vocabularies' => $voc, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
     }
 

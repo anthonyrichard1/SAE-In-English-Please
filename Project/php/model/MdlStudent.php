@@ -19,6 +19,11 @@ class MdlStudent extends MdlUser
         return $res;
     }
 
+    public function getVocByGroup(int $group): array{
+        $gtw = new VocabularyListGateway();
+        return $gtw->findByGroup($group);
+    }
+
     public function is(string $login, array $roles): ?User
     {
         $gtw = new UserGateway();
