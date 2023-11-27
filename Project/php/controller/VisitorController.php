@@ -149,11 +149,21 @@ class VisitorController
         UserController::home();
     }
 
-    public function resultatsJeux($match): void{
+    public function resultatsQuiz(): void{
         global $twig;
         global $user;
-        $score = $_POST['score'];
-        if(isset($user)) echo $twig->render('resultatsJeux.html', ['userID' => $user->getId(), 'userRole' => $user->getRoles(), 'points' => $score]);
-        else echo $twig->render('resultatsJeux.html', ['points'=>$score]);
+        $score = Validation::filter_int(intval($_POST['score'] ?? null));
+        $len = Validation::filter_int(intval($_POST['total']??null));
+        $res = $score . '/'. $len;
+        if(isset($user)) echo $twig->render('resultatsJeux.html', ['userID' => $user->getId(),'res' => $res, 'userRole' => $user->getRoles()]);
+        else echo $twig->render('resultatsJeux.html', ['res' => $res]);
+    }
+
+    public function resultatsMemory(): void{
+        global $twig;
+        global $user;
+        $score = Validation::filter_int(intval($_POST['score'] ?? null));
+        if(isset($user)) echo $twig->render('resultatsJeux.html', ['userID' => $user->getId(),'res' => $score, 'userRole' => $user->getRoles()]);
+        else echo $twig->render('resultatsJeux.html', ['res' => $score]);
     }
 }

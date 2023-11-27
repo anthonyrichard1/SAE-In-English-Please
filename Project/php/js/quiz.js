@@ -1,8 +1,8 @@
 var currentQuestion = 0;
-var score = 0;
+var currentScore = 0;
 
 function validateAndNext(correct) {
-    if (correct) score++;
+    if (correct) currentScore++;
     nextQuestion();
 }
 
@@ -18,17 +18,25 @@ function nextQuestion() {
         nextQuestionDiv.style.display = "block";
     }
     else{
-        window.location.href = 'resultatsJeux';
-        var form = document.createElement('form');
+        alert()
+        let form = document.createElement('form');
         form.method = 'post';
-        form.action = 'resultatsJeux';
+        form.action = 'resultatsQuiz';
 
-        var input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = 'score';
-        input.value = score + '/20';
+        let score = document.createElement('input');
+        score.type = 'hidden';
+        score.name = 'score';
+        score.value = currentScore;
 
-        form.appendChild(input);
+        let total = document.createElement('input');
+        total.type = 'hidden';
+        total.name = 'total';
+        total.value = len;
+
+
+
+        form.appendChild(score);
+        form.appendChild(total);
         document.body.appendChild(form);
 
         form.submit();

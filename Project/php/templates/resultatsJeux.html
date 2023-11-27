@@ -45,13 +45,15 @@
 </head>
 <body>
 {% include 'navBar.twig' %}
+{% if res is defined %}
 <div class="content">
     <div class="container">
         <div class="message">
-            Votre score est de {{ points }}!
+            Votre score est de {{ res }} !
         </div>
         <img class="celebration-image" src="{{ base }}/assets/img/celeb.png" alt="Célébration">
     </div>
 </div>
+{% endif %}
 </body>
 </html>

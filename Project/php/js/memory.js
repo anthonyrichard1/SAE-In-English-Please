@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
             window.location.href = 'resultatsJeux';
             var form = document.createElement('form');
             form.method = 'post';
-            form.action = 'resultatsJeux';
+            form.action = 'resultatsMemory';
 
             var input = document.createElement('input');
             input.type = 'hidden';
