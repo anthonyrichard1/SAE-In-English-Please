@@ -5,7 +5,8 @@ namespace controller;
 use config\Validation;
 use gateway\TranslationGateway;
 use gateway\VocabularyListGateway;
-use http\Message;
+use model\MdlStudent;
+use model\MdlTeacher;
 use model\MdlUser;
 use Exception;
 
@@ -17,10 +18,9 @@ class VisitorController
 
         try{
             $idVoc = Validation::filter_int($_POST['idVoc'] ?? 4);
-            $wordList = (new \gateway\TranslationGateway())->findByIdVoc($idVoc);
-            $name = ((new \gateway\VocabularyListGateway())->findById($idVoc))->getName();
+            $wordList = (new MdlTeacher())->findByIdVoc($idVoc);
+            $name = ((new MdlStudent())->getVocabById($idVoc))->getName();
             $wordShuffle = array();
-
 
             shuffle($wordList);
             $pairs = [];
