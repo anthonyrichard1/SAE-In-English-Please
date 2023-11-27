@@ -10,13 +10,7 @@ class MdlStudent extends MdlUser
 {
     public function getAll():array{
         $gtw = new VocabularyListGateway();
-        return  $gtw->findAll();
-        /*
-        foreach ($data as $row){
-            $AllStudent[] = User($row['id'],$row['password'],$row['email'],$row['name'],$row['surname'],$row['nickname'],$row['image'],$row['extraTime'],$row['group'],$row['roles']);
-        }
-        return  $AllStudent;
-        */
+        return $gtw->findAll();
 }
 
     public function getVocabByName(string $name):array{

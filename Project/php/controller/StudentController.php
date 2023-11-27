@@ -8,25 +8,6 @@ use Exception;
 
 class StudentController extends UserController
 {
-    public function affAllVocab(): void
-    {
-        global $twig;
-        $mdl = new MdlStudent();
-        $voc = $mdl->getAll();
-        echo $twig->render('manageVocabListView.html', ['vocabularies' => $voc]);
-
-    }
-
-
-    public function affAllStudent(): void
-    {
-        global $twig;
-        $mdl = new MdlStudent();
-        $student = $mdl->getAll();
-        echo $twig->render('usersView.html', ['users' => $student]);
-
-    }
-
     public function getByName(): void
     {
         global $twig;
