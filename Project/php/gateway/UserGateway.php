@@ -118,7 +118,7 @@ class UserGateway extends AbsGateway
         }
     }
 
-    public function findById(int $id)
+    public function findById(int $id): ?User
     {
         try {
             $query = "SELECT * FROM User_ WHERE id=:id";
@@ -160,7 +160,7 @@ class UserGateway extends AbsGateway
         }
     }
 
-    public function findUserByEmail(string $email): User{
+    public function findUserByEmail(string $email): ?User{
         try {
             $query = "SELECT * FROM User_ WHERE email=:email";
             $args = array(':email' => array($email, PDO::PARAM_STR));

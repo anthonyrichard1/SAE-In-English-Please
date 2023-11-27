@@ -64,7 +64,7 @@ class TranslationGateway extends AbsGateway
         }
     }
 
-    public function findById(int $id)
+    public function findById(int $id): array
     {
         try {
             $query = "SELECT * FROM Translate WHERE id=:id";

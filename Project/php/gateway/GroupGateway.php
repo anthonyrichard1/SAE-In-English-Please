@@ -65,7 +65,7 @@ class GroupGateway extends AbsGateway
         }
     }
 
-    public function findById(int $id)
+    public function findById(int $id):array
     {
         try{
             $query = "SELECT * FROM Group_ WHERE id = :id";
