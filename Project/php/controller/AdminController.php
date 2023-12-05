@@ -8,60 +8,80 @@ use Exception;
 
 class AdminController extends UserController
 {
-    public function showAllUsers(): void {
+    private string $invgpID = "invalid group ID";
+
+    public function showAllUsers(): void
+    {
         global $twig;
         global $user;
         $model = new MdlAdmin();
         $users = $model->getAllUsers();
-        echo $twig->render('usersView.html', ['users' => $users, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
+        echo $twig->render('usersView.html', ['users' => $users,
+            'userID' => $user->getId(),
+            'userRole' => $user->getRoles()]);
     }
 
-    public function showAllAdmins(): void {
+    public function showAllAdmins(): void
+    {
         global $twig;
         global $user;
         $model = new MdlAdmin();
         $users = $model->getAllAdmins();
-        echo $twig->render('usersView.html', ['users' => $users, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
+        echo $twig->render('usersView.html', ['users' => $users,
+            'userID' => $user->getId(),
+            'userRole' => $user->getRoles()]);
     }
 
-    public function showAllTeachers(): void {
+    public function showAllTeachers(): void
+    {
         global $twig;
         global $user;
         $model = new MdlAdmin();
         $users = $model->getAllTeachers();
-        echo $twig->render('usersView.html', ['users' => $users, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
+        echo $twig->render('usersView.html', ['users' => $users,
+            'userID' => $user->getId(),
+            'userRole' => $user->getRoles()]);
     }
 
-    public function showAllStudents(): void {
+    public function showAllStudents(): void
+    {
         global $twig;
         global $user;
         $model = new MdlAdmin();
         $users = $model->getAllStudents();
-        echo $twig->render('usersView.html', ['users' => $users, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
+        echo $twig->render('usersView.html', ['users' => $users,
+            'userID' => $user->getId(),
+            'userRole' => $user->getRoles()]);
     }
 
-    public function removeUser(): void {
+    public function removeUser(): void
+    {
         try {
             $userToRemove = Validation::filter_int($_GET['userToRemove'] ?? null);
             $model = new MdlAdmin();
             $model->removeUser($userToRemove);
             $this->showAllUsers();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             throw new Exception("invalid user ID");
         }
     }
 
-    public function showAllGroups(): void {
+    public function showAllGroups(): void
+    {
         global $twig;
         global $user;
         $model = new MdlAdmin();
         $groups = $model->getAllGroups();
         $unassignedUsers = $model->getUnassignedUsers();
-        echo $twig->render('manageGroupView.html', ['groups' => $groups, 'unassignedUsers' => $unassignedUsers, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
+
+        echo $twig->render('manageGroupView.html', ['groups' => $groups,
+            'unassignedUsers' => $unassignedUsers,
+            'userID' => $user->getId(),
+            'userRole' => $user->getRoles()]);
     }
 
-    public function showGroupDetails(): void {
+    public function showGroupDetails(): void
+    {
         try {
             global $twig;
             global $user;
@@ -71,14 +91,20 @@ class AdminController extends UserController
             $users = $model->getUsersOfGroup($selectedGroup);
             $unassignedUsers = $model->getUnassignedUsers();
 
-            echo $twig->render('manageGroupView.html', ['groups' => $groups, 'selectedGroup' => $selectedGroup, 'users' => $users, 'unassignedUsers' => $unassignedUsers, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
-        }
-        catch (Exception $e) {
-            throw new Exception("invalid group ID");
+            echo $twig->render('manageGroupView.html', ['groups' => $groups,
+                'selectedGroup' => $selectedGroup,
+                'users' => $users,
+                'unassignedUsers' => $unassignedUsers,
+                'userID' => $user->getId(),
+                'userRole' => $user->getRoles()]);
+
+        } catch (Exception $e) {
+            throw new Exception($this->invgpID);
         }
     }
 
-    public function removeUserFromGroup(): void {
+    public function removeUserFromGroup(): void
+    {
         try {
             $userToRemove = Validation::filter_int($_GET['userToRemove'] ?? null);
             $groupID = Validation::filter_int($_GET['selectedGroup'] ?? null);
@@ -86,25 +112,25 @@ class AdminController extends UserController
             $model->removeUserFromGroup($userToRemove);
             $_GET['selectedGroup'] = $groupID;
             $this->showGroupDetails();
-        }
-        catch (Exception $e) {
-            throw new Exception("invalid group ID");
+        } catch (Exception $e) {
+            throw new Exception($this->invgpID);
         }
     }
 
-    public function removeGroup(): void {
+    public function removeGroup(): void
+    {
         try {
             $selectedGroup = Validation::filter_int($_GET['selectedGroup'] ?? null);
             $model = new MdlAdmin();
             $model->removeGroup($selectedGroup);
             $this->showAllGroups();
-        }
-        catch (Exception $e) {
-            throw new Exception("invalid group ID");
+        } catch (Exception $e) {
+            throw new Exception($this->invgpID);
         }
     }
 
-    public function addGroup(): void {
+    public function addGroup(): void
+    {
         try {
             $num = Validation::filter_int($_POST['num'] ?? null);
             $year = Validation::filter_int($_POST['year'] ?? null);
@@ -114,13 +140,13 @@ class AdminController extends UserController
             $groupID = $model->addGroup($num, $year, $sector);
             $_GET['selectedGroup'] = $groupID;
             $this->showGroupDetails();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             throw new Exception("invalid form");
         }
     }
 
-    public function addUserToGroup(): void {
+    public function addUserToGroup(): void
+    {
         try {
             $userToAdd = Validation::filter_int($_GET['userToAdd'] ?? null);
             $group = Validation::filter_int($_GET['groupID'] ?? null);
@@ -128,8 +154,7 @@ class AdminController extends UserController
             $model->addUserToGroup($userToAdd, $group);
             $_GET['selectedGroup'] = $group;
             $this->showGroupDetails();
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             throw new Exception("invalid IDs");
         }
     }

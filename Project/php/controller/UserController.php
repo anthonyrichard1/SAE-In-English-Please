@@ -13,34 +13,38 @@ use model\Translation;
 
 class UserController extends VisitorController
 {
-
-    public function showAccountInfos(): void {
+    public function showAccountInfos(): void
+    {
         global $twig;
         global $user;
-        echo $twig->render('myAccountView.html', ['user' => $user, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
+        echo $twig->render('myAccountView.html', ['user' => $user,
+            'userID' => $user->getId(),
+            'userRole' => $user->getRoles()]);
     }
 
-    public function modifyPassword(): void {
+    public function modifyPassword(): void
+    {
         try {
             global $user;
             $currentPassword = Validation::val_password($_POST['currentPassword'] ?? null);
             $newPassword = Validation::val_password($_POST['newPassword'] ?? null);
             $confirmNewPassword = Validation::val_password($_POST['confirmNewPassword'] ?? null);
 
-            if (!password_verify($currentPassword, $user->getPassword()) || $newPassword != $confirmNewPassword)
+            if (!password_verify($currentPassword, $user->getPassword()) || $newPassword != $confirmNewPassword) {
                 throw new Exception("");
+            }
 
             $mdl = new MdlUser();
-            $mdl->ModifyPassword($user->getId(), password_hash($newPassword, null));
+            $mdl->modifyPassword($user->getId(), password_hash($newPassword, null));
             $user = $mdl->getUserById($user->getId());
             $this->showAccountInfos();
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             throw new Exception("invalid entries".$e->getLine());
         }
     }
 
-    public function modifyNickname(): void {
+    public function modifyNickname(): void
+    {
         try {
             global $user;
             $newNickname = Validation::filter_str_nospecialchar($_POST['newNickname'] ?? null);
@@ -48,20 +52,20 @@ class UserController extends VisitorController
             $mdl->modifyNickname($user->getId(), $newNickname);
             $user = $mdl->getUserById($user->getId());
             $this->showAccountInfos();
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             throw new Exception("invalid entries". $e->getMessage());
         }
     }
 
-    public static function home(): void {
+    public static function home(): void
+    {
         global $twig;
         global $user;
-        if(isset($user)){
+
+        if (isset($user)) {
             echo $twig->render('home.html', ['userID' => $user->getId(), 'userRole' => $user->getRoles()]);
-        }
-        else{
-            echo $twig->render('home.html', );
+        } else {
+            echo $twig->render('home.html');
         }
     }
 }

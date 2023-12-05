@@ -9,18 +9,18 @@ use PDOException;
 
 class TranslationGateway extends AbsGateway
 {
-    private function addWord(string $word): void {
+    private function addWord(string $word): void
+    {
         try {
             $query = "INSERT INTO Vocabulary VALUES (:word) ON DUPLICATE KEY UPDATE word=:word";
             $args = array(':word' => array($word, PDO::PARAM_STR));
             $this->con->executeQuery($query, $args);
-        }
-        catch (PDOException $e) {
+        } catch (PDOException $e) {
             throw new Exception($e->getMessage());
         }
     }
 
-    public function add(array $parameters): int // require 4 elements
+    public function add(array $parameters): int
     {
         try {
             $this->addWord($parameters[0]);
@@ -31,19 +31,18 @@ class TranslationGateway extends AbsGateway
                 ':idVoc' => array($parameters[2], PDO::PARAM_INT));
             $this->con->executeQuery($query, $args);
             return $this->con->lastInsertId();
-        }
-        catch (PDOException $e) {
+        } catch (PDOException $e) {
             throw new Exception($e->getMessage().+$e->getLine());
         }
     }
 
-    public function remove(int $id): void {
+    public function remove(int $id): void
+    {
         try {
             $query = "DELETE FROM Translate WHERE id=:id";
             $args = array(':id' => array($id, PDO::PARAM_INT));
             $this->con->executeQuery($query, $args);
-        }
-        catch (PDOException $e) {
+        } catch (PDOException $e) {
             throw new Exception($e->getMessage().+$e->getLine());
         }
     }
@@ -55,11 +54,12 @@ class TranslationGateway extends AbsGateway
             $this->con->executeQuery($query);
             $results = $this->con->getResults();
             $tab = array();
-            foreach ($results as $row) $tab[] = new Translation($row['id'], $row['firstWord'], $row['secondWord'], $row['listVoc']);
 
+            foreach ($results as $row) {
+                $tab[] = new Translation($row['id'], $row['firstWord'], $row['secondWord'], $row['listVoc']);
+            }
             return $tab;
-        }
-        catch (PDOException $e) {
+        } catch (PDOException $e) {
             throw new Exception($e->getMessage());
         }
     }
@@ -71,8 +71,7 @@ class TranslationGateway extends AbsGateway
             $args = array(':id' => array($id, PDO::PARAM_INT));
             $this->con->executeQuery($query, $args);
             return  $this->con->getResults();
-        }
-        catch (PDOException $e){
+        } catch (PDOException $e) {
             throw new Exception($e->getMessage());
         }
     }
@@ -85,11 +84,12 @@ class TranslationGateway extends AbsGateway
             $this->con->executeQuery($query, $args);
             $results = $this->con->getResults();
             $tab = array();
-            foreach ($results as $row) $tab[] = new Translation($row['id'], $row['firstWord'], $row['secondWord'], $row['listVoc']);
 
+            foreach ($results as $row) {
+                $tab[] = new Translation($row['id'], $row['firstWord'], $row['secondWord'], $row['listVoc']);
+            }
             return $tab;
-        }
-        catch (PDOException $e) {
+        } catch (PDOException $e) {
             throw new Exception($e->getMessage());
         }
     }

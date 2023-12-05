@@ -27,8 +27,18 @@ class User
      * @param int|null $group
      * @param array $roles
      */
-    public function __construct(int $id, string $password, string $email, string $name, string $surname, string $nickname, string $image, ?bool $extraTime, ?int $group, array $roles)
-    {
+    public function __construct(
+        int $id,
+        string $password,
+        string $email,
+        string $name,
+        string $surname,
+        string $nickname,
+        string $image,
+        ?bool $extraTime,
+        ?int $group,
+        array $roles
+    ) {
         $this->id = $id;
         $this->password = $password;
         $this->email = $email;
@@ -90,7 +100,5 @@ class User
     {
         return $this->roles;
     }
-
-
 }
 

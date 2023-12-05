@@ -4,14 +4,17 @@ namespace model;
 
 use gateway\UserGateway;
 
-class MdlUser extends AbsModel {
+class MdlUser extends AbsModel
+{
 
-    public function modifyNickname(int $id, string $newNickname): void{
+    public function modifyNickname(int $id, string $newNickname): void
+    {
         $gtw = new UserGateway();
         $gtw->modifyNickname($id, $newNickname);
     }
 
-    public function ModifyPassword(int $id, string $newPassword): void {
+    public function modifyPassword(int $id, string $newPassword): void
+    {
         $gtw = new UserGateway();
         $gtw->modifyPassword($id, $newPassword);
     }
@@ -20,9 +23,7 @@ class MdlUser extends AbsModel {
     {
         $gtw = new UserGateway();
         $user = $gtw->findUserByEmail($login);
-
-        if (!empty($user->getRoles())) return $user;
-        else return null;
+        return !empty($user->getRoles()) ? $user : null;
     }
 
     public function getUserById($id): User

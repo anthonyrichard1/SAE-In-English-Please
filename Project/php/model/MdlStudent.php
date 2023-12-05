@@ -8,23 +8,26 @@ use gateway\VocabularyListGateway;
 
 class MdlStudent extends MdlUser
 {
-    public function getAll():array{
+    public function getAll():array
+    {
         $gtw = new VocabularyListGateway();
         return $gtw->findAll();
 }
 
-    public function getVocabByName(string $name):array{
+    public function getVocabByName(string $name):array
+    {
         $gtw = new VocabularyListGateway();
-        $res = $gtw->findByName($name);
-        return $res;
+        return $gtw->findByName($name);
     }
 
-    public function getVocByGroup(int $group): array{
+    public function getVocByGroup(int $group): array
+    {
         $gtw = new VocabularyListGateway();
         return $gtw->findByGroup($group);
     }
 
-    public function getVocabById(int $id): VocabularyList {
+    public function getVocabById(int $id): VocabularyList
+    {
         $gtw = new VocabularyListGateway();
         return $gtw->findById($id);
     }
@@ -33,9 +36,6 @@ class MdlStudent extends MdlUser
     {
         $gtw = new UserGateway();
         $user = $gtw->findUserByEmail($login);
-
-        if ($user->getRoles() == $roles && in_array('student', $user->getRoles())) return $user;
-        else return null;
+        return $user->getRoles() == $roles && in_array('student', $user->getRoles()) ? $user : null;
     }
 }
-

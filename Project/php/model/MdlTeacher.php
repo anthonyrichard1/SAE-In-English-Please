@@ -10,12 +10,14 @@ use gateway\VocabularyListGateway;
 
 class MdlTeacher extends MdlUser
 {
-    public function getAll():array{
+    public function getAll():array
+    {
         $gtw = new VocabularyListGateway();
         return  $gtw->findAll();
     }
 
-    public function getAllGroups(): array {
+    public function getAllGroups(): array
+    {
         $gtw = new GroupGateway();
         return $gtw->findAll();
     }
@@ -26,37 +28,44 @@ class MdlTeacher extends MdlUser
         return $gtw->findByUser($id);
     }
 
-    public function findByIdVoc($id):array {
+    public function findByIdVoc($id):array
+    {
         $gtw = new TranslationGateway();
         return $gtw->findByIdVoc($id);
     }
 
-    public function removeVocabFromGroup(int $vocabID, int $groupID): void{
+    public function removeVocabFromGroup(int $vocabID, int $groupID): void
+    {
         $mdl = new GroupGateway();
         $mdl->removeVocabFromGroup($vocabID, $groupID);
     }
 
-    public function addVocabToGroup(int $vocabID, int $groupID): void{
+    public function addVocabToGroup(int $vocabID, int $groupID): void
+    {
         $mdl = new GroupGateway();
         $mdl->addVocabToGroup($vocabID, $groupID);
     }
 
-    public function findGroupVocab(int $vocab): array {
+    public function findGroupVocab(int $vocab): array
+    {
         $mdl = new GroupGateway();
         return $mdl->findGroupVocab($vocab);
     }
 
-    public function findGroupNoVocab(int $vocab): array {
+    public function findGroupNoVocab(int $vocab): array
+    {
         $mdl = new GroupGateway();
         return $mdl->findGroupNoVocab($vocab);
     }
 
-    public function RemoveVocById(int $id):void{
+    public function removeVocById(int $id):void
+    {
         $gtw = new VocabularyListGateway();
-        $res = $gtw->remove($id);
+        $gtw->remove($id);
     }
 
-    public function addVocabList(int $userID, string $name, string $image, array $words): void {
+    public function addVocabList(int $userID, string $name, string $image, array $words): void
+    {
         $vocabGtw = new VocabularyListGateway();
         $vocabID = $vocabGtw->add(array($name, $image, $userID));
         $transGtw = new TranslationGateway();
@@ -69,8 +78,6 @@ class MdlTeacher extends MdlUser
     {
         $gtw = new UserGateway();
         $user = $gtw->findUserByEmail($login);
-
-        if ($user->getRoles() == $roles && in_array('teacher', $user->getRoles())) return $user;
-        else return null;
+        return $user->getRoles() == $roles && in_array('teacher', $user->getRoles()) ? $user : null;
     }
 }

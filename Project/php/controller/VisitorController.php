@@ -12,11 +12,12 @@ use Exception;
 
 class VisitorController
 {
-    public function memory($match): void{
+    public function memory(): void
+    {
         global $twig;
         global $user;
 
-        try{
+        try {
             $idVoc = Validation::filter_int($_POST['idVoc'] ?? 4);
             $wordList = (new MdlTeacher())->findByIdVoc($idVoc);
             $name = ((new MdlStudent())->getVocabById($idVoc))->getName();
@@ -36,7 +37,7 @@ class VisitorController
 
             shuffle($wordShuffle);
 
-            if(isset($user)) {
+            if (isset($user)) {
                 echo $twig->render('memory.html', [
                     'wordShuffle' => $wordShuffle,
                     'pairs' => json_encode($pairs),
@@ -44,8 +45,7 @@ class VisitorController
                     'userID' => $user->getID(),
                     'userRole' => $user->getRoles()
                 ]);
-            }
-            else{
+            } else {
                 echo $twig->render('memory.html', [
                     'wordShuffle' => $wordShuffle,
                     'pairs' => json_encode($pairs),
@@ -53,19 +53,23 @@ class VisitorController
                 ]);
             }
 
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
-    public function quiz($match): void
+    public function quiz(): void
     {
         global $twig;
         global $user;
+
         try {
             $vocabId = Validation::filter_int($_POST['idVoc'] ?? 4);
             $vocabList = (new VocabularyListGateway())->findById($vocabId) ?? null;
-            if ($vocabList == null) throw new Exception("liste inconnue");
+
+            if ($vocabList == null) {
+                throw new Exception("liste inconnue");
+            }
+
             $mdl = new TranslationGateway();
             $allTranslation = $mdl->findByIdVoc($vocabId);
             $shuffle = $allTranslation;
@@ -86,9 +90,11 @@ class VisitorController
             for ($i = 0; $i < count($questions); $i++) {
                 $correctAnswer = $allTranslation[$i]->getWord2();
                 array_splice($allEnglishWords, array_search($correctAnswer, $allEnglishWords), 1);
-                if(count($allEnglishWords) < 3) {
+
+                if (count($allEnglishWords) < 3) {
                     throw new Exception("pas assez de vocabulaire");
                 }
+
                 $tab = array_rand(array_flip($allEnglishWords), 3);
 
                 array_push($allEnglishWords, $correctAnswer);
@@ -113,57 +119,84 @@ class VisitorController
                     'goodAnswers' => $goodAnswers,
                     'listName' => $vocabList->getName()]);
             }
-        }
-        catch (Exception $e){
+        } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
     }
 
-    public function login(): void {
+    public function login(): void
+    {
         global $twig;
         echo $twig->render('login.html');
     }
 
-    public function confirmLogin(): void {
+    public function confirmLogin(): void
+    {
         global $user;
         $model = new MdlUser();
-        if($_POST['logemail']!=null && $_POST['logpass']!=null) {
+
+        if ($_POST['logemail']!=null && $_POST['logpass']!=null) {
             $login = strip_tags($_POST['logemail']);
             $password = strip_tags($_POST['logpass']);
+        } else {
+            throw new Exception("logmail ou logpass null");
         }
-        else throw new Exception("logmail ou logpass null");
-        if (!$this->checkLoginExist($login)) throw new Exception(("login invalide"));
+
+        if (!$this->checkLoginExist($login)) {
+            throw new Exception(("login invalide"));
+        }
+
         $user = $model->connection($login, $password);
-        if ($user == null) throw new Exception("mot de passe invalide");
+
+        if ($user == null) {
+            throw new Exception("mot de passe invalide");
+        }
+
         UserController::home();
     }
 
-    public function checkLoginExist(string $login): bool {
+    public function checkLoginExist(string $login): bool
+    {
         $mdl = new MdlUser();
         return $mdl->checkLoginExist($login);
     }
 
-    public function disconnect(): void {
+    public function disconnect(): void
+    {
         $mdl = new MdlUser();
         $mdl->deconnection();
         UserController::home();
     }
 
-    public function resultatsQuiz(): void{
+    public function resultatsQuiz(): void
+    {
         global $twig;
         global $user;
         $score = Validation::filter_int(intval($_POST['score'] ?? null));
         $len = Validation::filter_int(intval($_POST['total']??null));
         $res = $score . '/'. $len;
-        if(isset($user)) echo $twig->render('resultatsJeux.html', ['userID' => $user->getId(),'res' => $res, 'userRole' => $user->getRoles()]);
-        else echo $twig->render('resultatsJeux.html', ['res' => $res]);
+
+        if (isset($user)) {
+            echo $twig->render('resultatsJeux.html', ['userID' => $user->getId(),
+                'res' => $res,
+                'userRole' => $user->getRoles()]);
+        } else {
+            echo $twig->render('resultatsJeux.html', ['res' => $res]);
+        }
     }
 
-    public function resultatsMemory(): void{
+    public function resultatsMemory(): void
+    {
         global $twig;
         global $user;
         $score = Validation::filter_int(intval($_POST['score'] ?? null));
-        if(isset($user)) echo $twig->render('resultatsJeux.html', ['userID' => $user->getId(),'res' => $score, 'userRole' => $user->getRoles()]);
-        else echo $twig->render('resultatsJeux.html', ['res' => $score]);
+
+        if (isset($user)) {
+            echo $twig->render('resultatsJeux.html', ['userID' => $user->getId(),
+                'res' => $score,
+                'userRole' => $user->getRoles()]);
+        } else {
+            echo $twig->render('resultatsJeux.html', ['res' => $score]);
+        }
     }
 }

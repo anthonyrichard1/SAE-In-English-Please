@@ -1,6 +1,7 @@
 <?php
 
 namespace controller;
+
 use config\Validation;
 use model\MdlStudent;
 use gateway\TranslationGateway;
@@ -17,20 +18,23 @@ class StudentController extends UserController
         echo $twig->render('manageVocabView.html', ['vocabularies' => $vocab]);
     }
 
-    public function ListVocChoice(): void {
+    public function listVocChoice(): void
+    {
         global $twig;
         global $user;
         $jeu = $_POST['jeu'];
         $model = new MdlStudent();
         $voc = $model->getVocByGroup($user->getGroup());
-        echo $twig->render('vocabList.html', ['jeu' => $jeu, 'vocabularies' => $voc, 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
+        echo $twig->render('vocabList.html', ['jeu' => $jeu,
+            'vocabularies' => $voc,
+            'userID' => $user->getId(),
+            'userRole' => $user->getRoles()]);
     }
 
-    public function gameChoice(): void {
+    public function gameChoice(): void
+    {
         global $twig;
         global $user;
-        $model = new MdlStudent();
-        $voc = $model->getAll();
-        echo $twig->render('gamesList.html',[ 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
+        echo $twig->render('gamesList.html', [ 'userID' => $user->getId(), 'userRole' => $user->getRoles()]);
     }
 }
