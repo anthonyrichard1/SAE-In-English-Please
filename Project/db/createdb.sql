@@ -63,25 +63,26 @@ CREATE TABLE Language(
 );
 
 CREATE TABLE Vocabulary(
-    word varchar(255) PRIMARY KEY
+    id int(10) PRIMARY KEY AUTO_INCREMENT,
+    word varchar(255)
 );
 
 CREATE TABLE Translate(
     id int(10) PRIMARY KEY AUTO_INCREMENT,
-    firstWord varchar(255),
-    secondWord varchar(255),
+    firstWordID int(10),
+    secondWordID int(10),
     listVoc int(10),
-    FOREIGN KEY (firstWord) REFERENCES Vocabulary(word),
-    FOREIGN KEY (secondWord) REFERENCES Vocabulary(word),
+    FOREIGN KEY (firstWordID) REFERENCES Vocabulary(id),
+    FOREIGN KEY (secondWordID) REFERENCES Vocabulary(id),
     FOREIGN KEY (listVoc) REFERENCES VocabularyList(id)
 );
 
 CREATE TABLE Register(
     language varchar(30),
-    word varchar(255),
+    idWord int(10),
     FOREIGN KEY (language) REFERENCES Language(name),
-    FOREIGN KEY (word) REFERENCES Vocabulary(word),
-    PRIMARY KEY (language, word)
+    FOREIGN KEY (idWord) REFERENCES Vocabulary(id),
+    PRIMARY KEY (language, idWord)
 );
 
 INSERT INTO Role_ VALUES (1, 'admin');
