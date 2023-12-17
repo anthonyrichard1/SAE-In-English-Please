@@ -18,7 +18,6 @@ function nextQuestion() {
         nextQuestionDiv.style.display = "block";
     }
     else{
-        alert()
         let form = document.createElement('form');
         form.method = 'post';
         form.action = 'resultatsQuiz';
