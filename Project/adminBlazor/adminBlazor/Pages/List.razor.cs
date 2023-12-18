@@ -37,7 +37,7 @@ namespace adminBlazor.Pages
             if (currentData == null)
             {
                 // this code add in the local storage the fake data (we load the data sync for initialize the data before load the OnReadData method)
-                var originalData = Http.GetFromJsonAsync<User[]>($"{NavigationManager.BaseUri}fake-data.json").Result;
+                var originalData = Http.GetFromJsonAsync<User[]>($"{NavigationManager.BaseUri}user.json").Result;
                 await LocalStorage.SetItemAsync("data", originalData);
             }
         }
