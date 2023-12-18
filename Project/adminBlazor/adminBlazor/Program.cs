@@ -14,7 +14,7 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddHttpClient();
-
+builder.Services.AddBlazoredLocalStorage();
 
 
 builder.Services
@@ -22,7 +22,6 @@ builder.Services
    .AddBootstrapProviders()
    .AddFontAwesomeIcons();
 
-builder.Services.AddBlazoredLocalStorage();
 
 var app = builder.Build();
 

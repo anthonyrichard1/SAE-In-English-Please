@@ -2,16 +2,16 @@
 {
     public class User
     {
-        private int id { get; set; }
-        private string password { get; set; }
-        private string email { get; set; }
-        private string name { get; set; }
-        private string surname { get; set; }
-        private string nickname { get; set; }
-        private string image {  get; set; }
-        private bool extraTime { get; set; }
-        private int group {  get; set; }
-        private string[] roles { get; set; }
+        public int id { get; set; }
+        public string password { get; set; }
+        public string email { get; set; }
+        public string name { get; set; }
+        public string surname { get; set; }
+        public string nickname { get; set; }
+        public string image {  get; set; }
+        public bool extraTime { get; set; }
+        public int group {  get; set; }
+        public string[] roles { get; set; }
 
     }
 }
