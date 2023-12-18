@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "password": "password1",
+    "email": "user1@example.com",
+    "name": "John",
+    "surname": "Doe",
+    "nickname": "JD",
+    "image": "user1.jpg",
+    "extraTime": true,
+    "group": 1,
+    "roles": [ "Admin", "Student" ]
+  },
+  {
+    "id": 2,
+    "password": "password2",
+    "email": "user2@example.com",
+    "name": "Alice",
+    "surname": "Smith",
+    "nickname": "AS",
+    "image": "user2.jpg",
+    "extraTime": false,
+    "group": 2,
+    "roles": [ "Student" ]
+  },
+  {
+    "id": 3,
+    "password": "password3",
+    "email": "user3@example.com",
+    "name": "Bob",
+    "surname": "Johnson",
+    "nickname": "BJ",
+    "image": "user3.jpg",
+    "extraTime": true,
+    "group": 3,
+    "roles": [ "Teacher" ]
+  }
+]

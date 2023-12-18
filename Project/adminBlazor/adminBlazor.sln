@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 25.0.1706.7
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "adminBlazor", "adminBlazor\adminBlazor.csproj", "{5985AE7A-DA9C-4A68-80E0-2D92926C1FB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "adminBlazor", "adminBlazor\adminBlazor.csproj", "{5985AE7A-DA9C-4A68-80E0-2D92926C1FB5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
