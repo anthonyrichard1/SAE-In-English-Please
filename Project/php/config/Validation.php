@@ -7,7 +7,8 @@ class Validation
 {
     private static $passwordMinLen = 12;
 
-    public static function val_action($action): string {
+    public static function val_action($action): ?string {
+        if ($action == null) return null;
         $safeAction = htmlspecialchars($action, ENT_QUOTES);
         if ($safeAction != $action)
             throw new Exception("tentative d'injection sql détectée");
