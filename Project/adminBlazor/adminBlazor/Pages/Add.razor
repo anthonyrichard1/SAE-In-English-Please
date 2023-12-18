@@ -1,0 +1,52 @@
+﻿@page "/add"
+
+<h3>Add</h3>
+
+<EditForm Model="@user" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <p>
+        <label for="name">
+            Name:
+            <InputText id="name" @bind-Value="user.Name" />
+        </label>
+    </p>
+    <p>
+        <label for="stack-size">
+            Password:
+            <InputText id="stack-size" @bind-Value="user.Password" />
+        </label>
+    </p>
+    <p>
+        <label for="max-durability">
+            Email:
+            <InputText id="max-durability" @bind-Value="user.Email" />
+        </label>
+    </p>
+    <p>
+        Roles categories:
+        <div>
+            @foreach (var item in roles)
+            {
+                <label>
+                    <input type="checkbox" @onchange="@(e => OnEnchantCategoriesChange(item, e.Value))" />@item
+                </label>
+            }
+        </div>
+    </p>
+    <p>
+        <label>
+            Item image:
+            <InputFile OnChange="@LoadImage" accept=".png" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Accept Condition:
+            <InputCheckbox @bind-Value="user.AcceptCondition" />
+        </label>
+    </p>
+
+    <button type="submit">Submit</button>
+</EditForm>

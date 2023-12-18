@@ -22,18 +22,18 @@
           PageSize="10"
           ShowPager
           Responsive>
-        <DataGridColumn TItem="User" Field="@nameof(User.id)" Caption="id" />
-       <!-- <DataGridColumn TItem="User" Field="@nameof(User.password)" Caption="Password" /> -->
-    <DataGridColumn TItem="User" Field="@nameof(User.name)" Caption="Name" />
-        <DataGridColumn TItem="User" Field="@nameof(User.email)" Caption="Email" />
-        <DataGridColumn TItem="User" Field="@nameof(User.surname)" Caption="Surname" />
-        <DataGridColumn TItem="User" Field="@nameof(User.nickname)" Caption="Nickname" />
-       <!-- <DataGridColumn TItem="User" Field="@nameof(User.image)" Caption="Image" /> -->
-        <DataGridColumn TItem="User" Field="@nameof(User.extraTime)" Caption="Extra Time" />
-        <DataGridColumn TItem="User" Field="@nameof(User.group)" Caption="Group" />
-        <DataGridColumn TItem="User" Field="@nameof(User.roles)" Caption="Rôles">
+        <DataGridColumn TItem="User" Field="@nameof(User.Id)" Caption="id" />
+       <!-- <DataGridColumn TItem="User" Field="@nameof(User.Password)" Caption="Password" /> -->
+    <DataGridColumn TItem="User" Field="@nameof(User.Name)" Caption="Name" />
+        <DataGridColumn TItem="User" Field="@nameof(User.Email)" Caption="Email" />
+        <DataGridColumn TItem="User" Field="@nameof(User.Surname)" Caption="Surname" />
+        <DataGridColumn TItem="User" Field="@nameof(User.Nickname)" Caption="Nickname" />
+       <!-- <DataGridColumn TItem="User" Field="@nameof(User.Image)" Caption="Image" /> -->
+        <DataGridColumn TItem="User" Field="@nameof(User.ExtraTime)" Caption="Extra Time" />
+        <DataGridColumn TItem="User" Field="@nameof(User.Group)" Caption="Group" />
+        <DataGridColumn TItem="User" Field="@nameof(User.Roles)" Caption="Rôles">
         <DisplayTemplate>
-            @(string.Join(", ", ((User)context).roles))
+            @(string.Join(", ", ((User)context).Roles))
         </DisplayTemplate>
     </DataGridColumn>
 

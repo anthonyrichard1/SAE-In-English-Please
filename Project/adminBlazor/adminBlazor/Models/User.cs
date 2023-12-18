@@ -1,17 +1,33 @@
-﻿namespace adminBlazor.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace adminBlazor.Models
 {
     public class User
     {
-        public int id { get; set; }
-        public string password { get; set; }
-        public string email { get; set; }
-        public string name { get; set; }
-        public string surname { get; set; }
-        public string nickname { get; set; }
-        public string image {  get; set; }
-        public bool extraTime { get; set; }
-        public int group {  get; set; }
-        public string[] roles { get; set; }
+        [Required]
+        public int Id { get; set; }
+
+        [StringLength(50, ErrorMessage = "Name length can't be more than 50.")]
+        public string Password { get; set; }
+
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [StringLength(50, ErrorMessage = "Name length can't be more than 50.")]
+        public string Name { get; set; }
+
+        [StringLength(50, ErrorMessage = "Name length can't be more than 50.")]
+        public string Surname { get; set; }
+
+        [StringLength(50, ErrorMessage = "Name length can't be more than 50.")]
+        public string Nickname { get; set; }
+
+        [StringLength(50, ErrorMessage = "Name length can't be more than 50.")]
+        public string Image {  get; set; }
+
+        public bool ExtraTime { get; set; }
+        public int Group {  get; set; }
+        public string[] Roles { get; set; }
 
     }
 }
