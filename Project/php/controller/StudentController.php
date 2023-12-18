@@ -22,7 +22,7 @@ class StudentController extends UserController
     {
         global $twig;
         global $user;
-        $jeu = $_POST['jeu'];
+        $jeu = Validation::filter_str_nospecialchar($_GET['jeu'] ?? null);
         $model = new MdlStudent();
         $voc = $model->getVocByGroup($user->getGroup());
         echo $twig->render('vocabList.html', ['jeu' => $jeu,

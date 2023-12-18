@@ -7,42 +7,16 @@
     <link rel="icon" type="image/x-icon" href="{{base}}/assets/favicon.ico"/>
     <title>Manage lists</title>
 </head>
-<style>
-    body {
-        margin-top: 5vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: auto;
-    }
 
-    .content {
-        text-align: center;
-    }
-
-    table {
-        margin-top: 20px;
-    }
-</style>
-
-<body>
+<body class="min-vh-100 d-flex justify-content-center align-items-center">
 {% include 'navBar.twig' %}
 {% if vocabularies is defined %}
-<div class="content">
-    <div class="border my-2 py-2 border-5 border-secondary rounded-3 text-center">
-        <table class="table table-bordered">
-            {% for row in vocabularies %}
-                <tr>
-                    <td>
-                        <form action="{{base}}/student/{{userID}}/{{jeu}}" method="post">
-                            <input type="hidden" name="idVoc" value="{{ row.id }}">
-                            <input class="btn-list" type="submit" value="{{ row.name }}" />
-                        </form>
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
-    </div>
+<div class="w-50 d-flex flex-column gap-3">
+    {% for row in vocabularies %}
+        <a href="{{base}}/student/{{userID}}/{{jeu}}?idVoc={{row.id}}">
+            <input class="w-100 btn btn-primary rounded-4 fs-1" style="height: 17vh" type="button" value="{{row.name}}"/>
+        </a>
+    {% endfor %}
 </div>
 {% endif %}
 </body>

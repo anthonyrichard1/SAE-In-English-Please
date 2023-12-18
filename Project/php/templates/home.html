@@ -54,7 +54,12 @@
     <section class="projects-section">
         <div class="container px-4 px-lg-5" id="game">
             <!-- Game One Row-->
-            <a class="click-game" href="{{base}}/visitor/quiz">
+            <a class="click-game"
+               {% if userRole is defined and 'student' in userRole %}
+                href="{{base}}/student/{{userID}}/listVocChoice?jeu=quiz">
+                {% else %}
+                href="{{base}}/visitor/quiz">
+                {% endif %}>
                 <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
                     <div class="col-lg-6"><img class="img-fluid" src="{{base}}/assets/img/quizz.jpeg" alt="..." /></div>
                     <div class="col-lg-6">
@@ -70,7 +75,12 @@
                 </div>
             </a>
             <!-- Game Two Row-->
-            <a class="click-game" href="{{base}}/visitor/memory">
+            <a class="click-game"
+               {% if userRole is defined and 'student' in userRole %}
+                href="{{base}}/student/{{userID}}/listVocChoice?jeu=memory">
+                {% else %}
+                href="{{base}}/visitor/memory">
+                {% endif %}
                 <div class="row gx-0 justify-content-center">
                     <div class="col-lg-6"><img class="img-fluid" src="{{base}}/assets/img/memory.jpeg" alt="..." /></div>
                     <div class="col-lg-6 order-lg-first">

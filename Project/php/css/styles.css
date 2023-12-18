@@ -2846,7 +2846,7 @@ textarea.form-control-lg {
   --bs-btn-bg: #a840a3;
   --bs-btn-border-color: #a840a3;
   --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #cf51c9;
+  --bs-btn-hover-bg: #6e176a;
   --bs-btn-hover-border-color: #cf51c9;
   --bs-btn-focus-shadow-rgb: 123, 175, 172;
   --bs-btn-active-color: #fff;
@@ -8177,6 +8177,12 @@ textarea.form-control-lg {
 .text-capitalize {
   text-transform: capitalize !important;
 }
+.text-capitalize-first-letter::first-letter {
+  text-transform: uppercase;
+}
+.text-capitalize-first-letter {
+  text-transform: lowercase;
+}
 
 .text-wrap {
   white-space: normal !important;
@@ -11147,9 +11153,9 @@ body {
   padding: 1.25rem 2rem;
   font-family: "Varela Round", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 80%;
-  text-transform: uppercase;
-  letter-spacing: 0.15rem;
+  letter-spacing: 0.1rem;
   border: 0;
+  text-align: center;
 }
 
 .masthead {

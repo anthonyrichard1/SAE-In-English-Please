@@ -18,7 +18,7 @@ class VisitorController
         global $user;
 
         try {
-            $idVoc = Validation::filter_int($_POST['idVoc'] ?? 4);
+            $idVoc = Validation::filter_int($_GET['idVoc'] ?? 4);
             $wordList = (new MdlTeacher())->findByIdVoc($idVoc);
             $name = ((new MdlStudent())->getVocabById($idVoc))->getName();
             $wordShuffle = array();
@@ -63,7 +63,7 @@ class VisitorController
         global $user;
 
         try {
-            $vocabId = Validation::filter_int($_POST['idVoc'] ?? 4);
+            $vocabId = Validation::filter_int($_GET['idVoc'] ?? 4);
             $vocabList = (new VocabularyListGateway())->findById($vocabId) ?? null;
 
             if ($vocabList == null) {
