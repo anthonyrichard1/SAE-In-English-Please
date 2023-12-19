@@ -47,6 +47,24 @@
             <InputText @bind-Value="user.Surname" />
         </label>
     </p>
+    <p>
+        <label>
+            Image
+            <InputText @bind-Value="user.Image" />
+        </label>
+    </p>
+    <p>
+        <label>
+            ExtraTime
+            <InputCheckbox @bind-Value="user.ExtraTime" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Group
+            <InputNumber @bind-Value="user.Group" />
+        </label>
+    </p>
 
     <button type="submit">Submit</button>
 </EditForm>

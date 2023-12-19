@@ -8,12 +8,14 @@ namespace adminBlazor.Models
         public int Id { get; set; }
 
         [StringLength(50, ErrorMessage = "Name length can't be more than 50.")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [EmailAddress]
         public string Email { get; set; }
 
         [StringLength(50, ErrorMessage = "Name length can't be more than 50.")]
+        [Required]
         public string Name { get; set; }
 
         [StringLength(50, ErrorMessage = "Name length can't be more than 50.")]
@@ -26,7 +28,9 @@ namespace adminBlazor.Models
         public string Image {  get; set; }
 
         public bool ExtraTime { get; set; }
+   
         public int Group {  get; set; }
+
         public List<String> Roles { get; set; }
 
     }
