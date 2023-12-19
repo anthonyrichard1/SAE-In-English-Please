@@ -30,7 +30,7 @@
             @foreach (var item in roles)
             {
                 <label>
-                    <input type="checkbox" @onchange="@(e => OnEnchantCategoriesChange(item, e.Value))" />@item
+                    <input type="checkbox" @onchange="@(e => RolesCategoriesChange(item, e.Value))" />@item
                 </label>
             }
         </div>

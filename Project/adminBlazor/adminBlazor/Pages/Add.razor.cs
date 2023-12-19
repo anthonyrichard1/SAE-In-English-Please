@@ -2,11 +2,14 @@
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components;
 using adminBlazor.Models;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace adminBlazor.Pages
 {
     public partial class Add
     {
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
         [Inject]
         public ILocalStorageService LocalStorage { get; set; }
 
@@ -68,6 +71,8 @@ namespace adminBlazor.Pages
 
             // Save the data
             await LocalStorage.SetItemAsync("data", currentData);
+
+            NavigationManager.NavigateTo("list");
         }
         /*
         private async Task LoadImage(InputFileChangeEventArgs e)
@@ -81,7 +86,7 @@ namespace adminBlazor.Pages
         }
         */
         
-        private void OnEnchantCategoriesChange(string item, object checkedValue)
+        private void RolesCategoriesChange(string item, object checkedValue)
         {
             if ((bool)checkedValue)
             {
