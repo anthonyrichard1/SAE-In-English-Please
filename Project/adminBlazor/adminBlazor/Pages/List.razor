@@ -31,9 +31,19 @@
        <!-- <DataGridColumn TItem="User" Field="@nameof(User.Image)" Caption="Image" /> -->
         <DataGridColumn TItem="User" Field="@nameof(User.ExtraTime)" Caption="Extra Time" />
         <DataGridColumn TItem="User" Field="@nameof(User.Group)" Caption="Group" />
-        <DataGridColumn TItem="User" Field="@nameof(User.Roles)" Caption="Rôles">
+    <DataGridColumn TItem="User" Field="@nameof(User.Roles)" Caption="Roles">
         <DisplayTemplate>
-            @(string.Join(", ", ((User)context).Roles))
+            @if (context is User user)
+            {
+                @if (user.Roles != null && user.Roles.Any())
+                {
+                    @string.Join(", ", user.Roles)
+                }
+                else
+                {
+                    <span>Aucun rôle</span>
+                }
+            }
         </DisplayTemplate>
     </DataGridColumn>
 

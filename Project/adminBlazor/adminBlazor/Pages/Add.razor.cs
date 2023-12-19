@@ -25,7 +25,7 @@ namespace adminBlazor.Pages
         /// </summary>
         private User user = new User()
         {
-            Roles = new string[] { "admin", "teacher", "student" }
+            Roles = new List<string>()
     };
 
         private async void HandleValidSubmit()
@@ -61,7 +61,7 @@ namespace adminBlazor.Pages
             }
 
             // Determine the image name
-            var fileName = new FileInfo($"{imagePathInfo}/{user.Name}.png");
+            var fileName = new FileInfo($"{imagePathInfo}/{user.Image}.png");
 
             // Write the file content
            //await File.WriteAllBytesAsync(fileName.FullName, users.Image);
@@ -80,19 +80,19 @@ namespace adminBlazor.Pages
             }
         }
         */
-        /*
+        
         private void OnEnchantCategoriesChange(string item, object checkedValue)
         {
             if ((bool)checkedValue)
             {
                 if (!user.Roles.Contains(item))
                 {
-                    user.Roles.Add(item);
+                   user.Roles.Add(item);
                 }
 
                 return;
             }
         }
-        */
+        
     }
 }

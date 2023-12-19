@@ -37,14 +37,14 @@
     </p>
     <p>
         <label>
-            Item image:
-            <InputFile OnChange="@LoadImage" accept=".png" />
+            Nickname
+            <InputText @bind-Value="user.Nickname" />
         </label>
     </p>
     <p>
         <label>
-            Accept Condition:
-            <InputCheckbox @bind-Value="user.AcceptCondition" />
+            Surname
+            <InputText @bind-Value="user.Surname" />
         </label>
     </p>
 

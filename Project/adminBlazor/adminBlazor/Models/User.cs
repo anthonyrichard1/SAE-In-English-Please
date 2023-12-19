@@ -27,7 +27,7 @@ namespace adminBlazor.Models
 
         public bool ExtraTime { get; set; }
         public int Group {  get; set; }
-        public string[] Roles { get; set; }
+        public List<String> Roles { get; set; }
 
     }
 }
