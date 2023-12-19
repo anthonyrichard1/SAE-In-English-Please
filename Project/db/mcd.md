@@ -34,7 +34,8 @@ card VocabularyList [
 card Vocabulary [
     Vocabulary
     --
-    <u>word
+    <u>id
+    word
 ]
 
 card Language [

@@ -45,15 +45,16 @@ card Translate [
     Translate
     --
     <u>id
-    ~#firstWord
-    ~#secondWord
+    ~#firstWordID
+    ~#secondWordID
     ~#listVoc
 ]
 
 card Vocabulary [
     Vocabulary
     --
-    <u>word
+    <u>id
+    word
 ]
 
 card Language [
@@ -66,7 +67,7 @@ card Register [
     Register
     --
     <u>#language
-    <u>#word
+    <u>#idWord
 ]
 
 card Role [
