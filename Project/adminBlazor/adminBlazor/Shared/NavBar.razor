@@ -1,0 +1,28 @@
+﻿<div class="container px-4 px-lg-5">
+    <a class="navbar-brand" href="/">
+        <img class="logo" alt="Logo" />
+    </a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        Menu
+        <i class="fas fa-bars"></i>
+    </button>
+    <div class="collapse navbar-collapse" style="@navMenuStyle">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link" href="http://londres.uca.local/~lugoigoux1/SAE_2A_Anglais/Project/php/#page-top">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="http://londres.uca.local/~lugoigoux1/SAE_2A_Anglais/Project/php/#download">Download</a></li>
+            <li class="nav-item"><a class="nav-link" href="http://londres.uca.local/~lugoigoux1/SAE_2A_Anglais/Project/php/visitor/login">Log in</a></li>
+        </ul>
+    </div>
+    </div>
+</div>
+
+@code {
+    private bool isNavMenuVisible = false;
+
+    private string navMenuStyle => isNavMenuVisible ? "display: flex;" : "display: none;";
+
+    private void ToggleNavMenu()
+    {
+        isNavMenuVisible = !isNavMenuVisible;
+    }
+}
