@@ -13,9 +13,9 @@
         </label>
     </p>
     <p>
-        <label for="stack-size">
+        <label for="password">
             Password:
-            <InputText id="stack-size" @bind-Value="user.Password" />
+            <InputText  id="password" @bind-Value="user.Password" type="password" />
         </label>
     </p>
     <p>
@@ -24,17 +24,42 @@
             <InputText id="max-durability" @bind-Value="user.Email" />
         </label>
     </p>
+    @*
     <p>
-        Roles categories:
+     Roles categories:
         <div>
             @foreach (var item in roles)
             {
                 <label>
-                    <input type="checkbox" @onchange="@(e => RolesCategoriesChange(item, e.Value))" />@item
+                    <input type="checkbox" @onchange="@(e => RolesCategoriesChange(item, e.Value))" 
+                    checked="@user.Roles.Contains(item)" />@item
                 </label>
             }
         </div>
     </p>
+    *@
+
+<p>roles
+    <div>
+@foreach (var role in roles)
+{
+    var currentItem = role; // Capturer la variable locale pour éviter les problèmes de fermeture
+    @if (currentItem == "student")
+    {
+        <label>
+                        <input type="checkbox" @onchange="@(e => RolesCategoriesChange(role, e.Value))" />
+            Student
+        </label>
+        break;
+    }
+    <label>
+                    <input type="checkbox" @onchange="@(e => RolesCategoriesChange(role, e.Value))" disabled="@disableOtherCheckboxes" checked="@user.Roles.Contains(currentItem)" />
+        @currentItem
+    </label>
+    <br />
+}
+        </div>
+</p>
     <p>
         <label>
             Nickname

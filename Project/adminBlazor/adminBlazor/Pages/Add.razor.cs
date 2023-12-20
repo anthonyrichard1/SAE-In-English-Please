@@ -20,7 +20,7 @@ namespace adminBlazor.Pages
         /// <summary>
         /// The default enchant categories.
         /// </summary>
-        private List<string> roles = new List<string>() { "admin","teacher","student" };
+        private List<string> roles = new List<string>() { "admin","teacher", "student" };
 
 
         /// <summary>
@@ -85,19 +85,85 @@ namespace adminBlazor.Pages
             }
         }
         */
-        
-        private void RolesCategoriesChange(string item, object checkedValue)
-        {
-            if ((bool)checkedValue)
-            {
-                if (!user.Roles.Contains(item))
-                {
-                   user.Roles.Add(item);
-                }
+        private bool isStudentChecked = false;
+        private bool disableOtherCheckboxes = false;
 
-                return;
+        private void StudentCheckboxChange(string currentItem, object checkedValue)
+        {
+            if (currentItem == "student")
+            {
+                if (isStudentChecked)
+                {
+                    // Activer les autres cases à cocher si "Étudiant" est cochée
+                    disableOtherCheckboxes = true;
+                    if (!user.Roles.Contains(currentItem))
+                    {
+                        user.Roles.Add(currentItem);
+                    }
+                }
+                else
+                {
+                    // Désactiver les autres cases à cocher si "Étudiant" est décochée
+                    disableOtherCheckboxes = false;
+                    user.Roles.Remove(currentItem);
+                }
             }
         }
-        
+
+        private void OtherCheckboxChange(string currentItem)
+        {
+            if (isStudentChecked && currentItem != "student")
+            {
+                // Si "Étudiant" est coché, désactiver les autres cases
+                disableOtherCheckboxes = true;
+                if (!user.Roles.Contains(currentItem))
+                {
+                    user.Roles.Add(currentItem);
+                }
+            }
+            else
+            {
+                // Sinon, activer les autres cases
+                disableOtherCheckboxes = false;
+                user.Roles.Remove(currentItem);
+            }
+        }
+        private void RolesCategoriesChange(string item, object checkedValue)
+        {
+            if (item == "student")
+            {
+                isStudentChecked = (bool)checkedValue;
+
+                if (isStudentChecked)
+                {
+                    // Activer les autres cases à cocher si "Étudiant" est cochée
+                    disableOtherCheckboxes = true;
+                    if (!user.Roles.Contains(item))
+                    {
+                        user.Roles.Add(item);
+                    }
+                }
+                else
+                {
+                    // Désactiver les autres cases à cocher si "Étudiant" est décochée
+                    disableOtherCheckboxes = false;
+                    user.Roles.Remove(item);
+                }
+            }
+            else
+            {
+                if ((bool)checkedValue)
+                {
+                    if (!user.Roles.Contains(item))
+                    {
+                        user.Roles.Add(item);
+                    }
+                }
+                else
+                {
+                    user.Roles.Remove(item);
+                }
+            }
+        }
     }
 }
