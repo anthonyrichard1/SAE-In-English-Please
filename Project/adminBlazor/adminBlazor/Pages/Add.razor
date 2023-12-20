@@ -47,13 +47,13 @@
     @if (currentItem == "student")
     {
         <label>
-                        <input type="checkbox" @onchange="@(e => RolesCategoriesChange(role, e.Value))" />
+                <input type="checkbox" @onchange="@(e => RolesCategoriesChange(role, e.Value))" />
             Student
         </label>
         break;
     }
     <label>
-                    <input type="checkbox" @onchange="@(e => RolesCategoriesChange(role, e.Value))" disabled="@disableOtherCheckboxes" checked="@user.Roles.Contains(currentItem)" />
+        <input type="checkbox" @onchange="@(e => RolesCategoriesChange(role, e.Value))" disabled="@disableOtherCheckboxes" checked="@user.Roles.Contains(currentItem)" />
         @currentItem
     </label>
     <br />

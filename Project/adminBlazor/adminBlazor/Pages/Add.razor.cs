@@ -152,16 +152,21 @@ namespace adminBlazor.Pages
             }
             else
             {
-                if ((bool)checkedValue)
+                if (disableOtherCheckboxes)
                 {
-                    if (!user.Roles.Contains(item))
+                    //la case student a été coché ducoup on n'ajoute pas les autres rôles cochés
+                    return;
+                    if ((bool)checkedValue)
                     {
-                        user.Roles.Add(item);
+                        if (!user.Roles.Contains(item))
+                        {
+                            user.Roles.Add(item);
+                        }
                     }
-                }
-                else
-                {
-                    user.Roles.Remove(item);
+                    else
+                    {
+                        user.Roles.Remove(item);
+                    }
                 }
             }
         }
