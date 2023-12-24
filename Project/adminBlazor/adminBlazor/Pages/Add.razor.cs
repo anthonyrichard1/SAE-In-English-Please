@@ -26,7 +26,7 @@ namespace adminBlazor.Pages
         /// <summary>
         /// The current item model
         /// </summary>
-        private User user = new User()
+        private Models.User user = new Models.User()
         {
             Roles = new List<string>()
     };
