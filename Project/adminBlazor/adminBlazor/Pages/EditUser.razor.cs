@@ -13,9 +13,8 @@ namespace adminBlazor.Pages
         public int Id { get; set; }
 
         //IDataService
-
+        [Inject]
         public IDataService DataService { get; set; }
-        //public ILocalStorageService LocalStorage { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -33,7 +32,7 @@ namespace adminBlazor.Pages
         /// <summary>
         /// The current item model
         /// </summary>
-        private Models.User user = new Models.User()
+        private Models.UserModel user = new Models.UserModel()
         {
             Roles = new List<string>()
         };
@@ -49,16 +48,15 @@ namespace adminBlazor.Pages
         protected override async Task OnInitializedAsync()
         {
             var item = await DataService.GetById(Id);
-
-            var fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/default.png");
+        //    var fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/default.png");
 
            if (File.Exists($"{WebHostEnvironment.WebRootPath}/images/{user.Name}.png"))
             {
-                fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/{item.Name}.png");
+        //        fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/{item.Name}.png");
             }
 
             // Set the model with the item
-            user = new User
+            user = new UserModel
             {
                 Id = user.Id,
                 Name = user.Name,

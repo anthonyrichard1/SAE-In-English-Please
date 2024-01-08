@@ -9,15 +9,28 @@ namespace adminBlazor.Services
 {
     public class DataLocalService : IDataService
     {
+            private readonly HttpClient _http;
+            private readonly ILocalStorageService _localStorage;
+            private readonly NavigationManager _navigationManager;
+            private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public required ILocalStorageService LocalStorage { get; set; }
+            public DataLocalService(
+                ILocalStorageService localStorage,
+                HttpClient http,
+                IWebHostEnvironment webHostEnvironment,
+                NavigationManager navigationManager)
+            {
+                _localStorage = localStorage;
+                _http = http;
+                _webHostEnvironment = webHostEnvironment;
+                _navigationManager = navigationManager;
+            }
+            public DataLocalService(ILocalStorageService localStorage)
+        {
+            _localStorage = localStorage; // Assure-toi que LocalStorage est initialisé correctement ici
+        }
 
-        [Inject]
-        public required IWebHostEnvironment WebHostEnvironment { get; set; }
-
-        public DataLocalService dataLocalService => throw new NotImplementedException();
-
-        public Task Add(User model)
+        public Task Add(UserModel model)
         {
             throw new NotImplementedException();
         }
@@ -27,10 +40,11 @@ namespace adminBlazor.Services
             throw new NotImplementedException();
         }
 
-        public async Task<User> GetById(int id)
+        public async Task<UserModel> GetById(int id)
         {
-            // Get the current data
-            var currentData = await LocalStorage.GetItemAsync<List<User>>("data");
+
+            //var currentData = await LocalStorage.GetItemAsync<User[]>("user.json");
+            var currentData = await _localStorage.GetItemAsync<List<UserModel>>("data");
 
             var user = currentData.FirstOrDefault(w => w.Id == id);
 
@@ -42,15 +56,15 @@ namespace adminBlazor.Services
             return user;
         }
 
-        public Task<List<User>> List(int currentPage, int pageSize)
+        public Task<List<UserModel>> List(int currentPage, int pageSize)
         {
             throw new NotImplementedException();
         }
 
-        public async Task Update(int id, User model)
+        public async Task Update(int id, UserModel model)
         {
             // Get the current data
-            var currentData = await LocalStorage.GetItemAsync<List<User>>("data");
+            var currentData = await _localStorage.GetItemAsync<List<UserModel>>("data");
 
             var user = currentData.FirstOrDefault(w => w.Id == id);
 
@@ -60,30 +74,30 @@ namespace adminBlazor.Services
             }
 
             // Save the image
-            var imagePathInfo = new DirectoryInfo($"{WebHostEnvironment.WebRootPath}/images");
+       //     var imagePathInfo = new DirectoryInfo($"{WebHostEnvironment.WebRootPath}/images");
 
             // Check if the folder "images" exist
-            if (!imagePathInfo.Exists)
+      //      if (!imagePathInfo.Exists)
             {
-                imagePathInfo.Create();
+       //         imagePathInfo.Create();
             }
 
             // Delete the previous image
             if (user.Name != model.Name)
             {
-                var oldFileName = new FileInfo($"{imagePathInfo}/{user.Name}.png");
+         //       var oldFileName = new FileInfo($"{imagePathInfo}/{user.Name}.png");
 
-                if (oldFileName.Exists)
+           //     if (oldFileName.Exists)
                 {
-                    File.Delete(oldFileName.FullName);
+             //       File.Delete(oldFileName.FullName);
                 }
             }
 
             // Determine the image name
-            var fileName = new FileInfo($"{imagePathInfo}/{model.Name}.png");
+            //var fileName = new FileInfo($"{imagePathInfo}/{model.Name}.png");
 
             // Write the file content
-            //await File.WriteAllBytesAsync(fileName.FullName, model.Image);
+           // await File.WriteAllBytesAsync(fileName.FullName, model.Image);
             UserFactory.Update(user, model);
 
             // Modify the content of the item
@@ -98,7 +112,7 @@ namespace adminBlazor.Services
             user.Image = model.Image;
 
             // Save the data
-            await LocalStorage.SetItemAsync("data", currentData);
+            await _localStorage.SetItemAsync("data", currentData);
         }
     }
 }

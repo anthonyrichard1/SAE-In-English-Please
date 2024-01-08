@@ -26,7 +26,7 @@ namespace adminBlazor.Pages
         /// <summary>
         /// The current item model
         /// </summary>
-        private Models.User user = new Models.User()
+        private Models.UserModel user = new Models.UserModel()
         {
             Roles = new List<string>()
     };
@@ -34,13 +34,13 @@ namespace adminBlazor.Pages
         private async void HandleValidSubmit()
         {
             // Get the current data
-            var currentData = await LocalStorage.GetItemAsync<List<User>>("data");
+            var currentData = await LocalStorage.GetItemAsync<List<UserModel>>("data");
 
             // Simulate the Id
             user.Id = currentData.Max(s => s.Id) + 1;
 
             // Add the item to the current data
-            currentData.Add(new User
+            currentData.Add(new UserModel
             {
                 Id = user.Id,
                 Name = user.Name,

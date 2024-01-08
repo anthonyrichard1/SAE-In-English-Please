@@ -8,9 +8,9 @@ namespace adminBlazor.Factories
 {
     public static class UserFactory
     {
-        public static User ToModel(User user, byte[] imageContent)
+        public static UserModel ToModel(UserModel user, byte[] imageContent)
         {
-            return new User
+            return new UserModel
             {
                 Id = user.Id,
                 Name = user.Name,
@@ -25,9 +25,9 @@ namespace adminBlazor.Factories
             };
         }
 
-        public static User Create(User user)
+        public static UserModel Create(UserModel user)
         {
-            return new User
+            return new UserModel
             {
                 Id = user.Id,
                 Name = user.Name,
@@ -42,7 +42,7 @@ namespace adminBlazor.Factories
             };
         }
 
-        public static void Update(User item, User user)
+        public static void Update(UserModel item, UserModel user)
         {
             item.Id = user.Id;
             item.Name = user.Name;

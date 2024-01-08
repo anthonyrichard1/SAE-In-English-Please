@@ -7,15 +7,15 @@ namespace adminBlazor.Services
     public interface IDataService
     {
 
-        Task Add(User model);
+        Task Add(UserModel model);
 
         Task<int> Count();
 
-        Task<List<User>> List(int currentPage, int pageSize);
+        Task<List<UserModel>> List(int currentPage, int pageSize);
 
-        Task<User> GetById(int id);
+        Task<UserModel> GetById(int id);
 
-        Task Update(int id, User model);
+        Task Update(int id, UserModel model);
     } 
    
 }
