@@ -15,25 +15,25 @@
     </NavLink>
 </div>
 
-<DataGrid TItem="User"
+<DataGrid TItem="UserModel"
           Data="@_users"
           ReadData="@OnReadData"
           TotalItems="@totalUser"
           PageSize="10"
           ShowPager
           Responsive>
-        <DataGridColumn TItem="User" Field="@nameof(User.Id)" Caption="id" />
+        <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.Id)" Caption="id" />
        <!-- <DataGridColumn TItem="User" Field="@nameof(User.Password)" Caption="Password" /> -->
-    <DataGridColumn TItem="User" Field="@nameof(User.Name)" Caption="Name" />
-        <DataGridColumn TItem="User" Field="@nameof(User.Email)" Caption="Email" />
-        <DataGridColumn TItem="User" Field="@nameof(User.Surname)" Caption="Surname" />
-        <DataGridColumn TItem="User" Field="@nameof(User.Nickname)" Caption="Nickname" />
+    <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.Name)" Caption="Name" />
+        <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.Email)" Caption="Email" />
+        <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.Surname)" Caption="Surname" />
+        <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.Nickname)" Caption="Nickname" />
        <!-- <DataGridColumn TItem="User" Field="@nameof(User.Image)" Caption="Image" /> -->
-        <DataGridColumn TItem="User" Field="@nameof(User.ExtraTime)" Caption="Extra Time" />
-        <DataGridColumn TItem="User" Field="@nameof(User.Group)" Caption="Group" />
-    <DataGridColumn TItem="User" Field="@nameof(User.Roles)" Caption="Roles">
+        <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.ExtraTime)" Caption="Extra Time" />
+        <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.Group)" Caption="Group" />
+    <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.Roles)" Caption="Roles">
         <DisplayTemplate>
-            @if (context is User user)
+            @if (context is UserModel user)
             {
                 @if (user.Roles != null && user.Roles.Any())
                 {
@@ -45,9 +45,8 @@
                 }
             }
         </DisplayTemplate>
-
     </DataGridColumn>
-    <DataGridColumn TItem="User" Field="@nameof(User.Id)" Caption="Modifier">
+    <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.Id)" Caption="Modifier">
         <DisplayTemplate>
             <a href="EditUser/@(context.Id)" class="btn btn-primary"><i class="fa fa-edit"></i> Editer</a>
         </DisplayTemplate>

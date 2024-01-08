@@ -1,5 +1,6 @@
 ﻿using adminBlazor.Models;
 using Blazorise;
+using Blazorise.Extensions;
 using System.Data;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -8,9 +9,9 @@ namespace adminBlazor.Factories
 {
     public static class UserFactory
     {
-        public static User ToModel(User user, byte[] imageContent)
+        public static UserModel ToModel(User user/* byte[] imageContent*/)
         {
-            return new User
+            return new UserModel
             {
                 Id = user.Id,
                 Name = user.Name,
@@ -25,9 +26,9 @@ namespace adminBlazor.Factories
             };
         }
 
-        public static User Create(User user)
+        public static UserModel Create(UserModel user)
         {
-            return new User
+            return new UserModel
             {
                 Id = user.Id,
                 Name = user.Name,
@@ -41,19 +42,37 @@ namespace adminBlazor.Factories
                 Roles = user.Roles
             };
         }
-
-        public static void Update(User item, User user)
+        public static void Update(User item, UserModel user)
         {
-            item.Id = user.Id;
-            item.Name = user.Name;
-            item.Surname = user.Surname;
-            item.Nickname = user.Nickname;
-            item.ExtraTime = user.ExtraTime;
-            item.Image = user.Image;
-            item.Group = user.Group;
-            item.Password = user.Password;
-            item.Email = user.Email;
-            item.Roles = user.Roles;
+
+
+            if (!string.IsNullOrEmpty(user.Name))
+                item.Name = user.Name;
+
+            if (!string.IsNullOrEmpty(user.Surname))
+                item.Surname = user.Surname;
+
+            if (!string.IsNullOrEmpty(user.Nickname))
+                item.Nickname = user.Nickname;
+
+            if (user.ExtraTime!=null)
+                item.ExtraTime = user.ExtraTime;
+
+            if (!string.IsNullOrEmpty(user.Image))
+                item.Image = user.Image;
+
+            if (user.Group!=null)
+                item.Group = user.Group;
+
+            if (!string.IsNullOrEmpty(user.Password))
+                item.Password = user.Password;
+
+            if (!string.IsNullOrEmpty(user.Email))
+                item.Email = user.Email;
+
+            if (user.Roles != null)
+                item.Roles = user.Roles;
         }
+
     }
 }

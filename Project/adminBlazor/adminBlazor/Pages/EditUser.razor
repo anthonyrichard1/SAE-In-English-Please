@@ -1,8 +1,9 @@
 ﻿@page "/editUser/{Id:int}"
 @using adminBlazor.Models
 
-<h3>Edit</h3>
 
+<h3>Edit</h3>
+<h4>User id : @Id</h4>
 <EditForm Model="@user" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />

@@ -1,4 +1,5 @@
-﻿using adminBlazor.Models;
+﻿using adminBlazor.Factories;
+using adminBlazor.Models;
 using adminBlazor.Services;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
@@ -13,9 +14,8 @@ namespace adminBlazor.Pages
         public int Id { get; set; }
 
         //IDataService
-
+        [Inject]
         public IDataService DataService { get; set; }
-        //public ILocalStorageService LocalStorage { get; set; }
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
@@ -40,7 +40,10 @@ namespace adminBlazor.Pages
 
         private async void HandleValidSubmit()
         {
-            await DataService.Update(Id, user);
+            UserModel item = UserFactory.ToModel(user);
+            
+            await DataService.Update(Id,item);
+   
 
             NavigationManager.NavigateTo("list");
         }
@@ -49,12 +52,11 @@ namespace adminBlazor.Pages
         protected override async Task OnInitializedAsync()
         {
             var item = await DataService.GetById(Id);
-
-            var fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/default.png");
+        //    var fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/default.png");
 
            if (File.Exists($"{WebHostEnvironment.WebRootPath}/images/{user.Name}.png"))
             {
-                fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/{item.Name}.png");
+        //        fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/{item.Name}.png");
             }
 
             // Set the model with the item
