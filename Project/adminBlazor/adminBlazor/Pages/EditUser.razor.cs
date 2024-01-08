@@ -1,4 +1,5 @@
-﻿using adminBlazor.Models;
+﻿using adminBlazor.Factories;
+using adminBlazor.Models;
 using adminBlazor.Services;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
@@ -32,14 +33,17 @@ namespace adminBlazor.Pages
         /// <summary>
         /// The current item model
         /// </summary>
-        private Models.UserModel user = new Models.UserModel()
+        private Models.User user = new Models.User()
         {
             Roles = new List<string>()
         };
 
         private async void HandleValidSubmit()
         {
-            await DataService.Update(Id, user);
+            UserModel item = UserFactory.ToModel(user);
+            
+            await DataService.Update(Id,item);
+   
 
             NavigationManager.NavigateTo("list");
         }
@@ -56,7 +60,7 @@ namespace adminBlazor.Pages
             }
 
             // Set the model with the item
-            user = new UserModel
+            user = new User
             {
                 Id = user.Id,
                 Name = user.Name,

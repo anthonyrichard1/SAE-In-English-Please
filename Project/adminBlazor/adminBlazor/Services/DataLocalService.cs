@@ -30,7 +30,7 @@ namespace adminBlazor.Services
             _localStorage = localStorage; // Assure-toi que LocalStorage est initialisé correctement ici
         }
 
-        public Task Add(UserModel model)
+        public Task Add(User model)
         {
             throw new NotImplementedException();
         }
@@ -40,11 +40,11 @@ namespace adminBlazor.Services
             throw new NotImplementedException();
         }
 
-        public async Task<UserModel> GetById(int id)
+        public async Task<User> GetById(int id)
         {
 
             //var currentData = await LocalStorage.GetItemAsync<User[]>("user.json");
-            var currentData = await _localStorage.GetItemAsync<List<UserModel>>("data");
+            var currentData = await _localStorage.GetItemAsync<List<User>>("data");
 
             var user = currentData.FirstOrDefault(w => w.Id == id);
 
@@ -56,7 +56,7 @@ namespace adminBlazor.Services
             return user;
         }
 
-        public Task<List<UserModel>> List(int currentPage, int pageSize)
+        public Task<List<User>> List(int currentPage, int pageSize)
         {
             throw new NotImplementedException();
         }
@@ -64,7 +64,7 @@ namespace adminBlazor.Services
         public async Task Update(int id, UserModel model)
         {
             // Get the current data
-            var currentData = await _localStorage.GetItemAsync<List<UserModel>>("data");
+            var currentData = await _localStorage.GetItemAsync<List<User>>("data");
 
             var user = currentData.FirstOrDefault(w => w.Id == id);
 
@@ -74,7 +74,8 @@ namespace adminBlazor.Services
             }
 
             // Save the image
-       //     var imagePathInfo = new DirectoryInfo($"{WebHostEnvironment.WebRootPath}/images");
+       //
+       var imagePathInfo = new DirectoryInfo($"{_webHostEnvironment.WebRootPath}/images");
 
             // Check if the folder "images" exist
       //      if (!imagePathInfo.Exists)
@@ -94,22 +95,14 @@ namespace adminBlazor.Services
             }
 
             // Determine the image name
-            //var fileName = new FileInfo($"{imagePathInfo}/{model.Name}.png");
+            var fileName = new FileInfo($"{imagePathInfo}/{model.Name}.png");
 
             // Write the file content
            // await File.WriteAllBytesAsync(fileName.FullName, model.Image);
             UserFactory.Update(user, model);
 
             // Modify the content of the item
-            user.Nickname = model.Nickname;
-            user.Name = model.Name;
-            user.Surname = model.Surname;
-            user.Roles = model.Roles;
-            user.Group = model.Group;
-            user.Email = model.Email;
-            user.ExtraTime = model.ExtraTime;
-            user.Password = model.Password;
-            user.Image = model.Image;
+
 
             // Save the data
             await _localStorage.SetItemAsync("data", currentData);

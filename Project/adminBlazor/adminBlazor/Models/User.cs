@@ -12,10 +12,7 @@ namespace adminBlazor.Models
         public string Nickname { get; set; }
         public string Image { get; set; }
         public bool ExtraTime { get; set; }
-
-        [Range(0, 100)]
         public int Group { get; set; }
-
         public List<String> Roles { get; set; }
     }
 }
