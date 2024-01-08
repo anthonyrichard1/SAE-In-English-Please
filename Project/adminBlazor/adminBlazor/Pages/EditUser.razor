@@ -3,4 +3,95 @@
 
 <h3>Edit</h3>
 
-<div>My parameter: @Id</div>
+<EditForm Model="@user" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <p>
+        <label for="name">
+            Name:
+            <InputText id="name" @bind-Value="user.Name" />
+        </label>
+    </p>
+    <p>
+        <label for="password">
+            Password:
+            <InputText id="password" @bind-Value="user.Password" type="password" />
+        </label>
+    </p>
+    <p>
+        <label for="max-durability">
+            Email:
+            <InputText id="max-durability" @bind-Value="user.Email" />
+        </label>
+    </p>
+    @*
+    <p>
+    Roles categories:
+    <div>
+    @foreach (var item in roles)
+    {
+    <label>
+    <input type="checkbox" @onchange="@(e => RolesCategoriesChange(item, e.Value))"
+    checked="@user.Roles.Contains(item)" />@item
+    </label>
+    }
+    </div>
+    </p>
+    *@
+
+    <p>
+        roles
+        <div>
+            @foreach (var role in roles)
+            {
+                var currentItem = role; // Capturer la variable locale pour éviter les problèmes de fermeture
+                @if (currentItem == "student")
+                {
+                    <label>
+                        <input type="checkbox" @onchange="@(e => RolesCategoriesChange(role, e.Value))" checked="@(user.Roles.Contains(currentItem) ? "checked" : null)" />
+                        Student
+                    </label>
+                    break;
+                }
+                <label>
+                    <input type="checkbox" @onchange="@(e => RolesCategoriesChange(role, e.Value))" disabled="@disableOtherCheckboxes" checked="@(user.Roles.Contains(currentItem) ? "checked" : null)" />
+                    @currentItem
+                </label>
+                <br />
+            }
+        </div>
+    </p>
+    <p>
+        <label>
+            Nickname
+            <InputText @bind-Value="user.Nickname" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Surname
+            <InputText @bind-Value="user.Surname" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Image
+            <InputText @bind-Value="user.Image" />
+        </label>
+    </p>
+    <p>
+        <label>
+            ExtraTime
+            <InputCheckbox @bind-Value="user.ExtraTime" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Group
+            <InputNumber @bind-Value="user.Group" />
+        </label>
+    </p>
+
+    <button type="submit">Submit</button>
+</EditForm>

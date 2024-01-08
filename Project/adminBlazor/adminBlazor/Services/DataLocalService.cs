@@ -1,4 +1,5 @@
-﻿using adminBlazor.Models;
+﻿using adminBlazor.Factories;
+using adminBlazor.Models;
 using Blazored.LocalStorage;
 using Blazorise.Extensions;
 using Microsoft.AspNetCore.Components;
@@ -6,13 +7,26 @@ using Microsoft.AspNetCore.Hosting;
 
 namespace adminBlazor.Services
 {
-    public class DataLocalService
+    public class DataLocalService : IDataService
     {
-        [Inject]
+
         public required ILocalStorageService LocalStorage { get; set; }
 
         [Inject]
         public required IWebHostEnvironment WebHostEnvironment { get; set; }
+
+        public DataLocalService dataLocalService => throw new NotImplementedException();
+
+        public Task Add(User model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> Count()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<User> GetById(int id)
         {
             // Get the current data
@@ -26,6 +40,11 @@ namespace adminBlazor.Services
             }
 
             return user;
+        }
+
+        public Task<List<User>> List(int currentPage, int pageSize)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task Update(int id, User model)
@@ -64,7 +83,8 @@ namespace adminBlazor.Services
             var fileName = new FileInfo($"{imagePathInfo}/{model.Name}.png");
 
             // Write the file content
-           // await File.WriteAllBytesAsync(fileName.FullName, model.Image);
+            //await File.WriteAllBytesAsync(fileName.FullName, model.Image);
+            UserFactory.Update(user, model);
 
             // Modify the content of the item
             user.Nickname = model.Nickname;

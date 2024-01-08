@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Blazored.LocalStorage;
 namespace adminBlazor.Services
 {
+
     public interface IDataService
     {
+
         Task Add(User model);
 
         Task<int> Count();
