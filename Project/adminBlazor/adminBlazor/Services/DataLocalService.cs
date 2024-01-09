@@ -30,9 +30,35 @@ namespace adminBlazor.Services
             _localStorage = localStorage; // Assure-toi que LocalStorage est initialisé correctement ici
         }
 
-        public Task Add(User model)
+        public async Task Add(UserModel model)
         {
-            throw new NotImplementedException();
+            var currentData = await _localStorage.GetItemAsync<List<User>>("data");
+
+            // Simulate the Id
+            model.Id = currentData.Max(s => s.Id) + 1;
+
+            // Add the item to the current data
+            currentData.Add(UserFactory.Create(model));
+
+            // Save the image
+            var imagePathInfo = new DirectoryInfo($"{_webHostEnvironment.WebRootPath}/images");
+
+            // Check if the folder "images" exist
+            if (!imagePathInfo.Exists)
+            {
+                imagePathInfo.Create();
+            }
+
+            // Determine the image name
+            var fileName = new FileInfo($"{imagePathInfo}/{model.Name}.png");
+
+            // Write the file content
+            //await File.WriteAllBytesAsync(fileName.FullName, model.ImageContent);
+
+            // Save the data
+            await _localStorage.SetItemAsync("data", currentData);
+
+
         }
 
         public Task<int> Count()

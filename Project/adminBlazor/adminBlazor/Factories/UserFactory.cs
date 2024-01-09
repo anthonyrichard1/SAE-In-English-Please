@@ -26,9 +26,9 @@ namespace adminBlazor.Factories
             };
         }
 
-        public static UserModel Create(UserModel user)
+        public static User Create(UserModel user)
         {
-            return new UserModel
+            return new User
             {
                 Id = user.Id,
                 Name = user.Name,
