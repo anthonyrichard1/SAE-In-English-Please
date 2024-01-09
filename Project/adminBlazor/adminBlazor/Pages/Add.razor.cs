@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components;
 using adminBlazor.Models;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using adminBlazor.Services;
 
 namespace adminBlazor.Pages
 {
@@ -12,6 +13,8 @@ namespace adminBlazor.Pages
         public NavigationManager NavigationManager { get; set; }
         [Inject]
         public ILocalStorageService LocalStorage { get; set; }
+        [Inject]
+        public IDataService DataService { get; set; }
 
         [Inject]
         public IWebHostEnvironment WebHostEnvironment { get; set; }
@@ -33,44 +36,8 @@ namespace adminBlazor.Pages
 
         private async void HandleValidSubmit()
         {
-            // Get the current data
-            var currentData = await LocalStorage.GetItemAsync<List<UserModel>>("data");
-
-            // Simulate the Id
-            user.Id = currentData.Max(s => s.Id) + 1;
-
-            // Add the item to the current data
-            currentData.Add(new UserModel
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Surname = user.Surname,
-                Nickname = user.Nickname,
-                ExtraTime = user.ExtraTime,
-                Image = user.Image,
-                Group = user.Group,
-                Password = user.Password,
-                Email = user.Email,
-                Roles = user.Roles
-            });
-
-            // Save the image
-            var imagePathInfo = new DirectoryInfo($"{WebHostEnvironment.WebRootPath}/images");
-
-            // Check if the folder "images" exist
-            if (!imagePathInfo.Exists)
-            {
-                imagePathInfo.Create();
-            }
-
-            // Determine the image name
-            var fileName = new FileInfo($"{imagePathInfo}/{user.Image}.png");
-
-            // Write the file content
-           //await File.WriteAllBytesAsync(fileName.FullName, users.Image);
-
-            // Save the data
-            await LocalStorage.SetItemAsync("data", currentData);
+            await DataService.Add(user);
+            
 
             NavigationManager.NavigateTo("list");
         }

@@ -7,7 +7,7 @@ namespace adminBlazor.Services
     public interface IDataService
     {
 
-        Task Add(User model);
+        Task Add(UserModel model);
 
         Task<int> Count();
 

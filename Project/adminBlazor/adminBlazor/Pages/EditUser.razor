@@ -11,7 +11,7 @@
     <p>
         <label for="name">
             Name:
-            <InputText id="name" @bind-Value="user.Name" />
+            <InputText id="name" @bind-Value="user.Name"  />
         </label>
     </p>
     <p>
@@ -47,16 +47,9 @@
             @foreach (var role in roles)
             {
                 var currentItem = role; // Capturer la variable locale pour éviter les problèmes de fermeture
-                @if (currentItem == "student")
-                {
+
                     <label>
                         <input type="checkbox" @onchange="@(e => RolesCategoriesChange(role, e.Value))" checked="@(user.Roles.Contains(currentItem) ? "checked" : null)" />
-                        Student
-                    </label>
-                    break;
-                }
-                <label>
-                    <input type="checkbox" @onchange="@(e => RolesCategoriesChange(role, e.Value))" disabled="@disableOtherCheckboxes" checked="@(user.Roles.Contains(currentItem) ? "checked" : null)" />
                     @currentItem
                 </label>
                 <br />

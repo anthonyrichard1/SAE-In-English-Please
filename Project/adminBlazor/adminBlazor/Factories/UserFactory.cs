@@ -26,9 +26,9 @@ namespace adminBlazor.Factories
             };
         }
 
-        public static UserModel Create(UserModel user)
+        public static User Create(UserModel user)
         {
-            return new UserModel
+            return new User
             {
                 Id = user.Id,
                 Name = user.Name,
@@ -55,13 +55,12 @@ namespace adminBlazor.Factories
             if (!string.IsNullOrEmpty(user.Nickname))
                 item.Nickname = user.Nickname;
 
-            if (user.ExtraTime!=null)
                 item.ExtraTime = user.ExtraTime;
 
             if (!string.IsNullOrEmpty(user.Image))
                 item.Image = user.Image;
 
-            if (user.Group!=null)
+            if (user.Group != 0)
                 item.Group = user.Group;
 
             if (!string.IsNullOrEmpty(user.Password))
@@ -71,8 +70,33 @@ namespace adminBlazor.Factories
                 item.Email = user.Email;
 
             if (user.Roles != null)
-                item.Roles = user.Roles;
-        }
+            {
+
+                if (user.Roles.Contains("student"))
+                {
+                    item.Roles = new List<string>();
+                    item.Roles.Add("Student");
+                }
+                else
+                {
+                    if (user.Roles.Contains("teacher") || user.Roles.Contains("admin"))
+                    {
+                        item.Roles = new List<string>();
+                        if (user.Roles.Contains("teacher"))
+                        {
+                            item.Roles.Add("Teacher");
+                        }
+                        if (user.Roles.Contains("admin"))
+                        {
+                            item.Roles.Add("Admin");
+                        }
+                    }
+                }
+
+            }
+                            
+                }
+            }
 
     }
-}
+
