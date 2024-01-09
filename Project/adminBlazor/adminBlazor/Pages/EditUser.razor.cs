@@ -23,6 +23,8 @@ namespace adminBlazor.Pages
         [Inject]
         public IWebHostEnvironment WebHostEnvironment { get; set; }
 
+        public User currUser;
+
 
         /// <summary>
         /// The default enchant categories.
@@ -41,9 +43,9 @@ namespace adminBlazor.Pages
         private async void HandleValidSubmit()
         {
             UserModel item = UserFactory.ToModel(user);
-            
-            await DataService.Update(Id,item);
-   
+
+            await DataService.Update(Id, item);
+
 
             NavigationManager.NavigateTo("list");
         }
@@ -52,11 +54,12 @@ namespace adminBlazor.Pages
         protected override async Task OnInitializedAsync()
         {
             var item = await DataService.GetById(Id);
-        //    var fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/default.png");
+            // currentUser = item;
+            //    var fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/default.png");
 
-           if (File.Exists($"{WebHostEnvironment.WebRootPath}/images/{user.Name}.png"))
+            if (File.Exists($"{WebHostEnvironment.WebRootPath}/images/{user.Name}.png"))
             {
-        //        fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/{item.Name}.png");
+                //        fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/{item.Name}.png");
             }
 
             // Set the model with the item
@@ -106,7 +109,7 @@ namespace adminBlazor.Pages
                 {
                     // Désactiver les autres cases à cocher si "Étudiant" est décochée
                     disableOtherCheckboxes = false;
-                    user.Roles.Remove(currentItem);
+                    //user.Roles.Remove(currentItem);
                 }
             }
         }
@@ -126,51 +129,30 @@ namespace adminBlazor.Pages
             {
                 // Sinon, activer les autres cases
                 disableOtherCheckboxes = false;
-                user.Roles.Remove(currentItem);
+                //user.Roles.Remove(currentItem);
             }
         }
         private void RolesCategoriesChange(string item, object checkedValue)
         {
-            if (item == "student")
-            {
-                isStudentChecked = (bool)checkedValue;
 
-                if (isStudentChecked)
+            isStudentChecked = (bool)checkedValue;
+
+            if (isStudentChecked)
+            {
+                // Activer les autres cases à cocher si "Étudiant" est cochée
+                disableOtherCheckboxes = true;
+                if (!user.Roles.Contains(item))
                 {
-                    // Activer les autres cases à cocher si "Étudiant" est cochée
-                    disableOtherCheckboxes = true;
-                    if (!user.Roles.Contains(item))
-                    {
-                        user.Roles.Add(item);
-                    }
-                }
-                else
-                {
-                    // Désactiver les autres cases à cocher si "Étudiant" est décochée
-                    disableOtherCheckboxes = false;
-                    user.Roles.Remove(item);
+                    user.Roles.Add(item);
                 }
             }
             else
             {
-                if (disableOtherCheckboxes)
-                {
-                    //la case student a été coché ducoup on n'ajoute pas les autres rôles cochés
-                    return;
-                    if ((bool)checkedValue)
-                    {
-                        if (!user.Roles.Contains(item))
-                        {
-                            user.Roles.Add(item);
-                        }
-                    }
-                    else
-                    {
-                        user.Roles.Remove(item);
-                    }
-                }
+                // Désactiver les autres cases à cocher si "Étudiant" est décochée
+                disableOtherCheckboxes = false;
+                //user.Roles.Remove(item);
             }
         }
-    }
 
+    }
 }

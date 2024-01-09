@@ -64,7 +64,7 @@ namespace adminBlazor.Services
         public async Task Update(int id, UserModel model)
         {
             // Get the current data
-            var currentData = await _localStorage.GetItemAsync<List<User>>("data");
+            var currentData = await _localStorage.GetItemAsync<User[]>("data");
 
             var user = currentData.FirstOrDefault(w => w.Id == id);
 
