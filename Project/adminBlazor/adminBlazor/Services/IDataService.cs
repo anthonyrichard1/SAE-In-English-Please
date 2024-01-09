@@ -16,6 +16,8 @@ namespace adminBlazor.Services
         Task<User> GetById(int id);
 
         Task Update(int id, UserModel model);
+
+        Task Delete(int id);
     } 
    
 }

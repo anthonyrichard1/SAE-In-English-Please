@@ -6,6 +6,9 @@ using adminBlazor.Models;
 using System.Net.Http;
 using System.Net.Http.Json;
 using adminBlazor.Services;
+using Blazored.Modal.Services;
+using Blazored.Modal;
+using adminBlazor.Modals;
 
 namespace adminBlazor.Pages
 {
@@ -23,6 +26,12 @@ namespace adminBlazor.Pages
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
+
+        [CascadingParameter]
+        public IModalService Modal { get; set; }
+
+        [Inject]
+        public IDataService DataService { get; set; }
 
 
         protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -60,6 +69,25 @@ namespace adminBlazor.Pages
                 totalUser = (await LocalStorage.GetItemAsync<List<UserModel>>("data")).Count;
                 _users = new List<UserModel>(response); // an actual data for the current page
             }
+        }
+
+        private async void OnDelete(int id)
+        {
+            var parameters = new ModalParameters();
+            parameters.Add("Id", id);
+
+            var modal = Modal.Show<DeleteConfirmation>("Delete Confirmation", parameters);
+            var result = await modal.Result;
+
+            if (result.Cancelled)
+            {
+                return;
+            }
+
+            await DataService.Delete(id);
+
+            // Reload the page
+            NavigationManager.NavigateTo("list", true);
         }
     }
 

@@ -6,6 +6,7 @@ using Blazorise.Bootstrap;
 using Blazorise.Icons.FontAwesome;
 using Blazored.LocalStorage;
 using adminBlazor.Services;
+using Blazored.Modal;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IDataService, DataLocalService>();
@@ -16,7 +17,7 @@ builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddHttpClient();
 builder.Services.AddBlazoredLocalStorage();
-
+builder.Services.AddBlazoredModal();
 
 
 builder.Services
