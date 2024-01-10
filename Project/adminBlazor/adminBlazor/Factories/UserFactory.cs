@@ -41,7 +41,7 @@ namespace adminBlazor.Factories
                 Password = user.Password,
                 Email = user.Email,
                 Roles = user.Roles,
-                ImageBase64 = Convert.ToBase64String(user.Image)
+                ImageBase64 = user.Image != null ? Convert.ToBase64String(user.Image) : null
             };
         }
         public static void Update(User item, UserModel user)
