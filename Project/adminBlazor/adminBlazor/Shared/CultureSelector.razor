@@ -3,15 +3,18 @@
 
 <p>
     <label>
-        Select your locale:
-        <select @bind="Culture">
+        @*Select your locale:*@
+        <img class="img" src="~/wwwroot/img/logoTraduction.png" />
+        @* <select @bind="Culture">
             @foreach (var culture in supportedCultures)
             {
                 <option value="@culture">@culture.DisplayName</option>
             }
-        </select>
+        </select> *@
     </label>
 </p>
+
+
 
 @code
 {
