@@ -1,7 +1,12 @@
-﻿@page "/"
+﻿@using System.Globalization
+@page "/"
 
 <PageTitle>Welcome</PageTitle>
 
 <h1>Hello Admin</h1>
 
 This website is the most simple way to manage users.
+
+<p>
+    <b>CurrentCulture</b>: @CultureInfo.CurrentCulture
+</p>
