@@ -9,7 +9,7 @@ namespace adminBlazor.Factories
 {
     public static class UserFactory
     {
-        public static UserModel ToModel(User user/* byte[] imageContent*/)
+        public static UserModel ToModel(User user, byte[] imageContent)
         {
             return new UserModel
             {
@@ -18,11 +18,12 @@ namespace adminBlazor.Factories
                 Surname = user.Surname,
                 Nickname = user.Nickname,
                 ExtraTime = user.ExtraTime,
-                Image = user.Image,
+                //Image = imageContent,
                 Group = user.Group,
                 Password = user.Password,
                 Email = user.Email,
-                Roles = user.Roles
+                Roles = user.Roles,
+                ImageBase64 = string.IsNullOrWhiteSpace(user.ImageBase64) ? Convert.ToBase64String(imageContent) : user.ImageBase64
             };
         }
 
@@ -35,11 +36,12 @@ namespace adminBlazor.Factories
                 Surname = user.Surname,
                 Nickname = user.Nickname,
                 ExtraTime = user.ExtraTime,
-                Image = user.Image,
+                //Image = user.Image,
                 Group = user.Group,
                 Password = user.Password,
                 Email = user.Email,
-                Roles = user.Roles
+                Roles = user.Roles,
+                ImageBase64 = Convert.ToBase64String(user.Image)
             };
         }
         public static void Update(User item, UserModel user)
@@ -57,8 +59,6 @@ namespace adminBlazor.Factories
 
                 item.ExtraTime = user.ExtraTime;
 
-            if (!string.IsNullOrEmpty(user.Image))
-                item.Image = user.Image;
 
             if (user.Group != 0)
                 item.Group = user.Group;
@@ -68,6 +68,9 @@ namespace adminBlazor.Factories
 
             if (!string.IsNullOrEmpty(user.Email))
                 item.Email = user.Email;
+
+            if (user.ImageBase64 != null && user.Image != null)
+            item.ImageBase64 = Convert.ToBase64String(user.Image);
 
             if (user.Roles != null)
             {

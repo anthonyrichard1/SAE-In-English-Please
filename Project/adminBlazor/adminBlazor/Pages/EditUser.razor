@@ -71,9 +71,15 @@
     <p>
         <label>
             Image
-            <InputText @bind-Value="user.Image" />
+            <InputFile OnChange="@LoadImage" accept=".png, .jpeg" />
         </label>
     </p>
+    <p>
+    <label>
+        Current Item image:
+        <img src="data:image/png;base64, @(user.ImageBase64)" class="img-thumbnail" style="min-width: 50px; max-width: 150px"/>
+    </label>
+</p>
     <p>
         <label>
             ExtraTime

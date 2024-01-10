@@ -15,25 +15,36 @@
     </NavLink>
 </div>
 
-<DataGrid TItem="UserModel"
+<DataGrid TItem="User"
           Data="@_users"
           ReadData="@OnReadData"
           TotalItems="@totalUser"
           PageSize="10"
           ShowPager
           Responsive>
-        <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.Id)" Caption="id" />
-       <!-- <DataGridColumn TItem="User" Field="@nameof(User.Password)" Caption="Password" /> -->
-    <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.Name)" Caption="Name" />
-        <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.Email)" Caption="Email" />
-        <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.Surname)" Caption="Surname" />
-        <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.Nickname)" Caption="Nickname" />
-       <!-- <DataGridColumn TItem="User" Field="@nameof(User.Image)" Caption="Image" /> -->
-        <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.ExtraTime)" Caption="Extra Time" />
-        <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.Group)" Caption="Group" />
-    <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.Roles)" Caption="Roles">
+        <DataGridColumn TItem="User" Field="@nameof(User.Id)" Caption="Image">
         <DisplayTemplate>
-            @if (context is UserModel user)
+            @if (!string.IsNullOrWhiteSpace(context.ImageBase64))
+            {
+                <img src="@($"data:image/png;base64, {context.ImageBase64}")" class="img-thumbnail" style="min-width: 50px; max-width: 150px" />
+            }
+            else
+            {
+                <img src="images/default.png" class="img-thumbnail" style="max-width: 150px" />
+            }
+        </DisplayTemplate>
+    </DataGridColumn>
+       <!-- <DataGridColumn TItem="User" Field="@nameof(User.Password)" Caption="Password" /> -->
+    <DataGridColumn TItem="User" Field="@nameof(User.Name)" Caption="Name" />
+        <DataGridColumn TItem="User" Field="@nameof(User.Email)" Caption="Email" />
+        <DataGridColumn TItem="User" Field="@nameof(User.Surname)" Caption="Surname" />
+        <DataGridColumn TItem="User" Field="@nameof(User.Nickname)" Caption="Nickname" />
+        <!--<DataGridColumn TItem="User" Field="@nameof(User.Image)" Caption="Image" /> -->
+        <DataGridColumn TItem="User" Field="@nameof(User.ExtraTime)" Caption="Extra Time" />
+        <DataGridColumn TItem="User" Field="@nameof(User.Group)" Caption="Group" />
+    <DataGridColumn TItem="User" Field="@nameof(User.Roles)" Caption="Roles">
+        <DisplayTemplate>
+            @if (context is User user)
             {
                 @if (user.Roles != null && user.Roles.Any())
                 {
@@ -46,7 +57,7 @@
             }
         </DisplayTemplate>
     </DataGridColumn>
-    <DataGridColumn TItem="UserModel" Field="@nameof(UserModel.Id)" Caption="Modifier">
+    <DataGridColumn TItem="User" Field="@nameof(User.Id)" Caption="Modifier">
         <DisplayTemplate>
             <a href="EditUser/@(context.Id)" class="btn btn-primary"><i class="fa fa-edit"></i> Editer</a>
             <button type="button" class="btn btn-primary" @onclick="() => OnDelete(context.Id)"><i class="fa fa-trash"></i> Supprimer</button>

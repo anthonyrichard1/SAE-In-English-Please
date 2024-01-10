@@ -75,7 +75,7 @@
     <p>
         <label>
             Image
-            <InputText @bind-Value="user.Image" />
+            <InputFile OnChange="@LoadImage" accept=".png, .jpeg" />
         </label>
     </p>
     <p>

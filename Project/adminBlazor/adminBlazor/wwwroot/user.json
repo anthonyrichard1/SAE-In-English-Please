@@ -6,10 +6,10 @@
     "name": "John",
     "surname": "Doe",
     "nickname": "JD",
-    "image": "user1.jpg",
+    "image": null,
     "extraTime": true,
     "group": 1,
-    "roles": [ "Admin", "Student" ]
+    "roles": [ "Admin", "Teacher" ]
   },
   {
     "id": 2,
@@ -18,7 +18,7 @@
     "name": "Alice",
     "surname": "Smith",
     "nickname": "AS",
-    "image": "user2.jpg",
+    "image": null,
     "extraTime": false,
     "group": 2,
     "roles": [ "Student" ]
@@ -30,7 +30,7 @@
     "name": "Bob",
     "surname": "Johnson",
     "nickname": "BJ",
-    "image": "user3.jpg",
+    "image": null,
     "extraTime": true,
     "group": 3,
     "roles": [ "Teacher" ]

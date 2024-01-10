@@ -41,7 +41,7 @@ namespace adminBlazor.Pages
 
             NavigationManager.NavigateTo("list");
         }
-        /*
+        
         private async Task LoadImage(InputFileChangeEventArgs e)
         {
             // Set the content of the image to the model
@@ -51,7 +51,7 @@ namespace adminBlazor.Pages
                 user.Image = memoryStream.ToArray();
             }
         }
-        */
+        
         private bool isStudentChecked = false;
         private bool disableOtherCheckboxes = false;
 

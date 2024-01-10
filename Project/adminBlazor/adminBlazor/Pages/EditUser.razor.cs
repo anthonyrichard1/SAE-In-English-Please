@@ -3,6 +3,7 @@ using adminBlazor.Models;
 using adminBlazor.Services;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Hosting;
 
 
@@ -23,7 +24,6 @@ namespace adminBlazor.Pages
         [Inject]
         public IWebHostEnvironment WebHostEnvironment { get; set; }
 
-        public User currUser;
 
 
         /// <summary>
@@ -31,20 +31,20 @@ namespace adminBlazor.Pages
         /// </summary>
         private List<string> roles = new List<string>() { "admin", "teacher", "student" };
 
-
-        /// <summary>
-        /// The current item model
-        /// </summary>
-        private Models.User user = new Models.User()
+        private UserModel user = new UserModel()
         {
             Roles = new List<string>()
         };
+        /// <summary>
+        /// The current item model
+        /// </summary>
+  
 
         private async void HandleValidSubmit()
         {
-            UserModel item = UserFactory.ToModel(user);
+            
 
-            await DataService.Update(Id, item);
+            await DataService.Update(Id, user);
 
 
             NavigationManager.NavigateTo("list");
@@ -54,31 +54,15 @@ namespace adminBlazor.Pages
         protected override async Task OnInitializedAsync()
         {
             var item = await DataService.GetById(Id);
-            // currentUser = item;
-            //    var fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/default.png");
 
-            if (File.Exists($"{WebHostEnvironment.WebRootPath}/images/{user.Name}.png"))
-            {
-                //        fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/{item.Name}.png");
-            }
+               var fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/default.png");
 
             // Set the model with the item
-            user = new User
-            {
-                Id = user.Id,
-                Name = user.Name,
-                Surname = user.Surname,
-                Nickname = user.Nickname,
-                ExtraTime = user.ExtraTime,
-                Image = user.Image,
-                Group = user.Group,
-                Password = user.Password,
-                Email = user.Email,
-                Roles = user.Roles
-            };
+
+            user = UserFactory.ToModel(item,fileContent);
         }
 
-        /*
+        
         private async Task LoadImage(InputFileChangeEventArgs e)
         {
             // Set the content of the image to the model
@@ -88,7 +72,7 @@ namespace adminBlazor.Pages
                 user.Image = memoryStream.ToArray();
             }
         }
-        */
+        
         private bool isStudentChecked = false;
         private bool disableOtherCheckboxes = false;
 

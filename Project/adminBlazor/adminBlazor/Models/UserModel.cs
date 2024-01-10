@@ -25,8 +25,8 @@ namespace adminBlazor.Models
         [StringLength(50, ErrorMessage = "Name length can't be more than 50.")]
         public string Nickname { get; set; }
 
-        [StringLength(50, ErrorMessage = "Name length can't be more than 50.")]
-        public string Image {  get; set; }
+
+        public byte[] Image { get; set; }
 
         public bool ExtraTime { get; set; }
 
@@ -34,6 +34,7 @@ namespace adminBlazor.Models
         public int Group {  get; set; }
 
         public List<String> Roles { get; set; }
+        public string ImageBase64 { get; set; }
 
     }
 }
