@@ -10,18 +10,21 @@
         <label for="name">
             Name:
             <InputText id="name" @bind-Value="user.Name" />
+            <ValidationMessage For="@(() => user.Name)"/>
         </label>
     </p>
     <p>
         <label for="password">
             Password:
             <InputText  id="password" @bind-Value="user.Password" type="password" />
+            <ValidationMessage For="@(() => user.Password)" />
         </label>
     </p>
     <p>
         <label for="max-durability">
             Email:
             <InputText id="max-durability" @bind-Value="user.Email" />
+            <ValidationMessage For="@(() => user.Email)" />
         </label>
     </p>
     @*
@@ -49,12 +52,14 @@
         <label>
                 <input type="checkbox" @onchange="@(e => RolesCategoriesChange(role, e.Value))" />
             Student
+                        <ValidationMessage For="@(() => user.Roles)" />
         </label>
         break;
     }
     <label>
         <input type="checkbox" @onchange="@(e => RolesCategoriesChange(role, e.Value))" disabled="@disableOtherCheckboxes" checked="@user.Roles.Contains(currentItem)" />
         @currentItem
+                    <ValidationMessage For="@(() => user.Roles)" />
     </label>
     <br />
 }
@@ -64,30 +69,35 @@
         <label>
             Nickname
             <InputText @bind-Value="user.Nickname" />
+            <ValidationMessage For="@(() => user.Nickname)" />
         </label>
     </p>
     <p>
         <label>
             Surname
             <InputText @bind-Value="user.Surname" />
+            <ValidationMessage For="@(() => user.Surname)" />
         </label>
     </p>
     <p>
         <label>
             Image
-            <InputFile OnChange="@LoadImage" accept=".png, .jpeg" />
+            <InputFile OnChange="@LoadImage" accept=".png , .jpeg" />
+            <ValidationMessage For="@(() => user.Image)" />
         </label>
     </p>
     <p>
         <label>
             ExtraTime
             <InputCheckbox @bind-Value="user.ExtraTime" />
+            <ValidationMessage For="@(() => user.ExtraTime)" />
         </label>
     </p>
     <p>
         <label>
             Group
             <InputNumber @bind-Value="user.Group" />
+            <ValidationMessage For="@(() => user.Group)" />
         </label>
     </p>
 

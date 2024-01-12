@@ -18,7 +18,7 @@ namespace adminBlazor.Factories
                 Surname = user.Surname,
                 Nickname = user.Nickname,
                 ExtraTime = user.ExtraTime,
-                //Image = imageContent,
+                Image = imageContent,
                 Group = user.Group,
                 Password = user.Password,
                 Email = user.Email,
@@ -70,7 +70,7 @@ namespace adminBlazor.Factories
                 item.Email = user.Email;
 
             if (user.ImageBase64 != null && user.Image != null)
-            item.ImageBase64 = Convert.ToBase64String(user.Image);
+                item.ImageBase64 = Convert.ToBase64String(user.Image);
 
             if (user.Roles != null)
             {
