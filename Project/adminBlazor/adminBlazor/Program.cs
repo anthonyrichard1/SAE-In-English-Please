@@ -12,11 +12,12 @@ using System.Globalization;
 using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddScoped<IDataService, DataLocalService>();
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddScoped<IDataService, DataLocalService>();
 
 builder.Services.AddHttpClient();
 builder.Services.AddBlazoredLocalStorage();

@@ -49,9 +49,20 @@ namespace adminBlazor.Services
 
         }
 
-        public Task<int> Count()
+        public async Task<int> Count()
         {
-            throw new NotImplementedException();
+            // Load data from the local storage
+            var currentData = await _localStorage.GetItemAsync<User[]>("data");
+
+            // Check if data exist in the local storage
+            if (currentData == null)
+            {
+                // this code add in the local storage the fake data
+                var originalData = await _http.GetFromJsonAsync<User[]>($"{_navigationManager.BaseUri}fake-data.json");
+                await _localStorage.SetItemAsync("data", originalData);
+            }
+
+            return (await _localStorage.GetItemAsync<User[]>("data")).Length;
         }
 
         public async Task<User> GetById(int id)
@@ -69,9 +80,20 @@ namespace adminBlazor.Services
             return user;
         }
 
-        public Task<List<User>> List(int currentPage, int pageSize)
+        public async Task<List<User>> List(int currentPage, int pageSize)
         {
-            throw new NotImplementedException();
+            // Load data from the local storage
+            var currentData = await _localStorage.GetItemAsync<User[]>("data");
+
+            // Check if data exist in the local storage
+            if (currentData == null)
+            {
+                // this code add in the local storage the fake data
+                var originalData = await _http.GetFromJsonAsync<User[]>($"{_navigationManager.BaseUri}user.json");
+                await _localStorage.SetItemAsync("data", originalData);
+            }
+
+            return (await _localStorage.GetItemAsync<User[]>("data")).Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
         }
 
         public async Task Update(int id, UserModel model)
