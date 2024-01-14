@@ -18,4 +18,8 @@
   <ItemGroup>
     <Content Remove="Modals\DeleteConfirmation.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Resources\Pages.List.fr-FR.resx" />
+    <EmbeddedResource Remove="Resources\Pages.List.resx" />
+  </ItemGroup>
 </Project>

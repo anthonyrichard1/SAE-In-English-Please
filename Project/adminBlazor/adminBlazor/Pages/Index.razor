@@ -1,11 +1,13 @@
 ﻿@using System.Globalization
 @page "/"
+@using adminBlazor.Models
 
-<PageTitle>Welcome</PageTitle>
+<PageTitle>@Localizer["Welcome"]</PageTitle>
 
-<h1>Hello Admin</h1>
+<h1>@Localizer["Title"]</h1>
 
-This website is the most simple way to manage users.
+
+@Localizer["indexPhrase"]
 
 <p>
     <b>CurrentCulture</b>: @CultureInfo.CurrentCulture
