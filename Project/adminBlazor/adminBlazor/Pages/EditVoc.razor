@@ -11,14 +11,16 @@
     <p>
         <label for="name">
             Name:
-            <InputText id="name" @bind-Value="voc.name" />
+            <InputText id="name" @bind-Value="voc.Name" />
+            <ValidationMessage For="@(() => voc.Name)" />
         </label>
     </p>
 
     <p>
         <label for="image">
             Image:
-            <InputText id="image" @bind-Value="voc.image" />
+            <InputText id="image" @bind-Value="voc.Image" />
+            <ValidationMessage For="@(() => voc.Image)" />
         </label>
     </p>
 

@@ -13,10 +13,10 @@ namespace adminBlazor.Factories
         {
             return new VocabularyListModel
             {
-                id = voc.id,
-                name = voc.name,
-                image = voc.image,
-                aut = voc.aut
+                Id = voc.Id,
+                Name = voc.Name,
+                Image = voc.Image,
+                Aut = voc.Aut
             };
         }
 
@@ -24,19 +24,19 @@ namespace adminBlazor.Factories
         {
             return new VocabularyList
             {
-                id = voc.id,
-                name = voc.name,
-                image = voc.image,
-                aut = voc.aut
+                Id = voc.Id,
+                Name = voc.Name,
+                Image = voc.Image,
+                Aut = voc.Aut
             };
         }
         public static void Update(VocabularyList item, VocabularyListModel voc)
         {
-            if (!string.IsNullOrEmpty(voc.name))
-                item.name = voc.name;
+            if (!string.IsNullOrEmpty(voc.Name))
+                item.Name = voc.Name;
 
-            if (!string.IsNullOrEmpty(voc.image))
-                item.image = voc.image;
+            if (!string.IsNullOrEmpty(voc.Image))
+                item.Image = voc.Image;
         }
 
     }

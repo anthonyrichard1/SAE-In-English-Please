@@ -34,7 +34,7 @@ namespace adminBlazor.Services
         {
             var currentList = await _localStorage.GetItemAsync<List<VocabularyList>>("voc");
 
-            model.id = currentList.Max(s => s.id) + 1;
+            model.Id = currentList.Max(s => s.Id) + 1;
 
             currentList.Add(VocListFactory.Create(model));
 
@@ -74,19 +74,58 @@ namespace adminBlazor.Services
 
         public async Task<VocabularyList> GetById(int id)
         {
-            var currentLists = await _localStorage.GetItemAsync<List<VocabularyList>>("voc");   
+            var currentLists = await _localStorage.GetItemAsync<List<VocabularyList>>("voc");
 
-            return new VocabularyList();
+            var list = currentLists.FirstOrDefault(w => w.Id == id);
+
+            if (list == null)
+            {
+                throw new Exception($"Unable to found the item with ID: {id}");
+            }
+
+            return list;
         }
 
-        public Task Update(int id, VocabularyListModel model)
+        public async Task Update(int id, VocabularyListModel model)
         {
-            throw new NotImplementedException();
+            // Get the current data
+            var currentList = await _localStorage.GetItemAsync<List<VocabularyList>>("voc");
+
+            var voc = currentList.FirstOrDefault(w => w.Id == id);
+
+            if (voc == null)
+            {
+                throw new Exception($"Unable to found the item with ID: {id}");
+            }
+
+            // Save the image
+            //
+
+            VocListFactory.Update(voc, model);
+
+            // Modify the content of the item
+
+
+            // Save the data
+            await _localStorage.SetItemAsync("voc", currentList);
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            // Get the current data
+            var currentList = await _localStorage.GetItemAsync<List<VocabularyList>>("voc");
+
+            // Get the item int the list
+            var voc = currentList.FirstOrDefault(w => w.Id == id);
+
+            // Delete item in
+            currentList.Remove(voc);
+
+            // Delete the image
+
+
+            // Save the data
+            await _localStorage.SetItemAsync("voc", currentList);
         }
     }
 }

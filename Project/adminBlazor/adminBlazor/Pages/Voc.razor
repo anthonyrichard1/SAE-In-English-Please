@@ -16,16 +16,16 @@
           ShowPager
           Responsive>
 
-    <DataGridColumn TItem="VocabularyList" Field="@nameof(VocabularyList.id)" Caption="id" />
-    <DataGridColumn TItem="VocabularyList" Field="@nameof(VocabularyList.name)" Caption="Name" />
-    <DataGridColumn TItem="VocabularyList" Field="@nameof(VocabularyList.image)" Caption="Image" />
-    <DataGridColumn TItem="VocabularyList" Field="@nameof(VocabularyList.aut)" Caption="Author ID">
+    <DataGridColumn TItem="VocabularyList" Field="@nameof(VocabularyList.Id)" Caption="id" />
+    <DataGridColumn TItem="VocabularyList" Field="@nameof(VocabularyList.Name)" Caption="Name" />
+    <DataGridColumn TItem="VocabularyList" Field="@nameof(VocabularyList.Image)" Caption="Image" />
+    <DataGridColumn TItem="VocabularyList" Field="@nameof(VocabularyList.Aut)" Caption="Author ID">
         <DisplayTemplate>
             @if (context is VocabularyList voc)
             {
-                @if (voc.aut != null)
+                @if (voc.Aut != null)
                 {
-                    @voc.aut
+                    @voc.Aut
                 }
                 else
                 {
@@ -35,9 +35,10 @@
         </DisplayTemplate>
     </DataGridColumn>
 
-    <DataGridColumn TItem="VocabularyList" Field="@nameof(VocabularyList.id)" Caption="Modifier">
+    <DataGridColumn TItem="VocabularyList" Field="@nameof(VocabularyList.Id)" Caption="Modifier">
         <DisplayTemplate>
-            <a href="editVoc/@(context.id)" class="btn btn-primary"><i class="fa fa-edit"></i> Editer</a>
+            <a href="editVoc/@(context.Id)" class="btn btn-primary"><i class="fa fa-edit"></i> Editer</a>
+            <button type="button" class="btn btn-primary" @onclick="() => OnDelete(context.Id)"><i class="fa fa-trash"></i> Supprimer</button>
         </DisplayTemplate>
     </DataGridColumn>
 </DataGrid>

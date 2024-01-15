@@ -31,7 +31,7 @@ namespace adminBlazor.Pages
         public IVocListService VocListService { get; set; }
 
 
-        protected async Task OnAfterRenderAsync(bool firstRender)
+        /*protected async Task OnAfterRenderAsync(bool firstRender)
         {
             // Do not treat this action if is not the first render
             if (firstRender)
@@ -48,7 +48,7 @@ namespace adminBlazor.Pages
                 var originalData = Http.GetFromJsonAsync<VocabularyList[]>($"{NavigationManager.BaseUri}voc.json").Result;
                 await LocalStorage.SetItemAsync("voc", originalData);
             }
-        }
+        }*/
 
         private async Task OnReadData(DataGridReadDataEventArgs<VocabularyList> e)
         {
@@ -59,13 +59,32 @@ namespace adminBlazor.Pages
 
             // When you use a real API, we use this follow code
             //var response = await Http.GetJsonAsync<Data[]>( $"http://my-api/api/data?page={e.Page}&pageSize={e.PageSize}" );
-            //var response = (await LocalStorage.GetItemAsync<User[]>("data")).Skip((e.Page - 1) * e.PageSize).Take(e.PageSize).ToList();
+            //var response = (await LocalStorage.GetItemAsync<VocabularyList[]>("voc")).Skip((e.Page - 1) * e.PageSize).Take(e.PageSize).ToList();
 
             if (!e.CancellationToken.IsCancellationRequested)
             {
                 _vocList = await VocListService.List(e.Page, e.PageSize);
                 totalVocList = await VocListService.Count();// an actual data for the current page
             }
+        }
+
+        private async void OnDelete(int id)
+        {
+            var parameters = new ModalParameters();
+            parameters.Add("Id", id);
+
+            var modal = Modal.Show<VocListDeleteConfirmation>("Delete Confirmation", parameters);
+            var result = await modal.Result;
+
+            if (result.Cancelled)
+            {
+                return;
+            }
+
+            await VocListService.Delete(id);
+
+            // Reload the page
+            NavigationManager.NavigateTo("voc", true);
         }
     }
 }

@@ -6,13 +6,13 @@ namespace adminBlazor.Models
     public class VocabularyListModel
     {
         [Required]
-        public int id { get; set; }
+        public int Id { get; set; }
 
-        public string name { get; set; }
+        public string Name { get; set; }
 
-        public string image { get; set; }
+        public string Image { get; set; }
 
-        public int? aut { get; set; }
+        public int? Aut { get; set; }
     }
 }
 
