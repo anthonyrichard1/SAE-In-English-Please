@@ -8,12 +8,15 @@ namespace adminBlazor.Services
     public class DataApiService : IDataService
     {
         private readonly HttpClient _http;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public DataApiService(
-            HttpClient http)
+        public DataApiService(IHttpClientFactory httpClientFactory)
         {
-            _http = http;
+            _httpClientFactory = httpClientFactory;
+            _http = _httpClientFactory.CreateClient("GitHub");
         }
+ 
+
         public async Task Add(UserModel model)
         {
             // Get the item
@@ -35,9 +38,7 @@ namespace adminBlazor.Services
 
         public async Task<User> GetById(int id)
         {
-            if ( _http.GetFromJsonAsync<User>($"https://localhost:7234/api/Crafting/{id}") != null)
                 return await _http.GetFromJsonAsync<User>($"https://localhost:7234/api/Crafting/{id}");
-            else return null;
         }
 
         public async Task Update(int id, UserModel model)
