@@ -8,14 +8,12 @@ namespace adminBlazor.Services
     public class DataApiService : IDataService
     {
         private readonly HttpClient _http;
-        private readonly IHttpClientFactory _httpClientFactory;
 
-        public DataApiService(IHttpClientFactory httpClientFactory)
+        public DataApiService(
+           HttpClient http)
         {
-            _httpClientFactory = httpClientFactory;
-            _http = _httpClientFactory.CreateClient("GitHub");
+            _http = http;
         }
- 
 
         public async Task Add(UserModel model)
         {

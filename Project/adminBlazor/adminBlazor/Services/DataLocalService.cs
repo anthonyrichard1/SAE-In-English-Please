@@ -13,27 +13,18 @@ namespace adminBlazor.Services
             private readonly ILocalStorageService _localStorage;
             private readonly NavigationManager _navigationManager;
             private readonly IWebHostEnvironment _webHostEnvironment;
-            private readonly IHttpClientFactory _httpClientFactory;
-
         public DataLocalService(
                 ILocalStorageService localStorage,
                 HttpClient http,
                 IWebHostEnvironment webHostEnvironment,
-                NavigationManager navigationManager,
-                IHttpClientFactory httpClientFactory)
+                NavigationManager navigationManager)
         {
                 _localStorage = localStorage;
-                //_http = http;
                 _webHostEnvironment = webHostEnvironment;
                 _navigationManager = navigationManager;
-                _httpClientFactory = httpClientFactory;
-                _http = httpClientFactory.CreateClient("GitHub");
+                _http = http;
 
             }
-            public DataLocalService(ILocalStorageService localStorage)
-        {
-            _localStorage = localStorage; // Assure-toi que LocalStorage est initialisé correctement ici
-        }
 
         public async Task Add(UserModel model)
         {
