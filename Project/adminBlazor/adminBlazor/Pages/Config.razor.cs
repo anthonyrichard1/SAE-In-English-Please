@@ -15,8 +15,8 @@ namespace adminBlazor.Pages
         {
             base.OnInitialized();
 
-
-            userOptions = Configuration.GetSection(UserOptions.User).Get<UserOptions>();
+            userOptions = new UserOptions();
+            Configuration.GetSection(UserOptions.User).Bind(userOptions);
 
         }
     }
