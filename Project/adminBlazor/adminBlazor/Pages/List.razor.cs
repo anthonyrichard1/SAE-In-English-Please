@@ -81,7 +81,7 @@ namespace adminBlazor.Pages
             var parameters = new ModalParameters();
             parameters.Add("Id", id);
 
-            var modal = Modal.Show<DeleteConfirmation>("Delete Confirmation", parameters);
+            var modal = Modal.Show<UserDeleteConfirmation>("Delete Confirmation", parameters);
             var result = await modal.Result;
 
             if (result.Cancelled)

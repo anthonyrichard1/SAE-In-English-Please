@@ -110,9 +110,22 @@ namespace adminBlazor.Services
             await _localStorage.SetItemAsync("voc", currentList);
         }
 
-        public Task Delete(int id)
+        public async Task Delete(int id)
         {
-            throw new NotImplementedException();
+            // Get the current data
+            var currentList = await _localStorage.GetItemAsync<List<VocabularyList>>("voc");
+
+            // Get the item int the list
+            var voc = currentList.FirstOrDefault(w => w.Id == id);
+
+            // Delete item in
+            currentList.Remove(voc);
+
+            // Delete the image
+
+
+            // Save the data
+            await _localStorage.SetItemAsync("voc", currentList);
         }
     }
 }

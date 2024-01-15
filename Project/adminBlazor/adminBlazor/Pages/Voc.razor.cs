@@ -67,5 +67,24 @@ namespace adminBlazor.Pages
                 totalVocList = await VocListService.Count();// an actual data for the current page
             }
         }
+
+        private async void OnDelete(int id)
+        {
+            var parameters = new ModalParameters();
+            parameters.Add("Id", id);
+
+            var modal = Modal.Show<VocListDeleteConfirmation>("Delete Confirmation", parameters);
+            var result = await modal.Result;
+
+            if (result.Cancelled)
+            {
+                return;
+            }
+
+            await VocListService.Delete(id);
+
+            // Reload the page
+            NavigationManager.NavigateTo("voc", true);
+        }
     }
 }

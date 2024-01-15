@@ -38,6 +38,7 @@
     <DataGridColumn TItem="VocabularyList" Field="@nameof(VocabularyList.Id)" Caption="Modifier">
         <DisplayTemplate>
             <a href="editVoc/@(context.Id)" class="btn btn-primary"><i class="fa fa-edit"></i> Editer</a>
+            <button type="button" class="btn btn-primary" @onclick="() => OnDelete(context.Id)"><i class="fa fa-trash"></i> Supprimer</button>
         </DisplayTemplate>
     </DataGridColumn>
 </DataGrid>

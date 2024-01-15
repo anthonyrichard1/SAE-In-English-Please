@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Components;
+﻿using Microsoft.AspNetCore.Components;
 using Blazored.Modal;
 using Blazored.Modal.Services;
 using adminBlazor.Services;
@@ -6,23 +6,23 @@ using adminBlazor.Models;
 
 namespace adminBlazor.Modals
 {
-    public partial class DeleteConfirmation
+    public partial class VocListDeleteConfirmation
     {
         [CascadingParameter]
         public BlazoredModalInstance ModalInstance { get; set; }
 
         [Inject]
-        public IDataService DataService { get; set; }
+        public IVocListService VocListService { get; set; }
 
         [Parameter]
         public int Id { get; set; }
 
-        private User item = new User();
+        private VocabularyList item = new VocabularyList();
 
         protected override async Task OnInitializedAsync()
         {
             // Get the item
-            item = await DataService.GetById(Id);
+            item = await VocListService.GetById(Id);
         }
 
         void ConfirmDelete()
