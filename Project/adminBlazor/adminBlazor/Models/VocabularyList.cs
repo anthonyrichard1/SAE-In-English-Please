@@ -3,10 +3,10 @@ namespace adminBlazor.Models
 {
 	public class VocabularyList
 	{
-		public int id;
-		public string name;
-		public string image;
-		public int? aut;
-	}
+		public int Id { get; set; }
+        public string Name { get; set; }
+        public string Image { get; set; }
+        public int? Aut { get; set; }
+    }
 }
 
