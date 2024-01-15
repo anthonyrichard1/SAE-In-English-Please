@@ -1,0 +1,26 @@
+﻿@page "/editVoc/{Id:int}"
+@using adminBlazor.Models
+
+
+<h3>Edit</h3>
+<h4>Voc id : @Id</h4>
+<EditForm Model="@voc" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <p>
+        <label for="name">
+            Name:
+            <InputText id="name" @bind-Value="voc.name" />
+        </label>
+    </p>
+
+    <p>
+        <label for="image">
+            Image:
+            <InputText id="image" @bind-Value="voc.image" />
+        </label>
+    </p>
+
+    <button type="submit">Submit</button>
+</EditForm>

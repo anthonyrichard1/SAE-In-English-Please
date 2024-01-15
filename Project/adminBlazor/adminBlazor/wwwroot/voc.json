@@ -1,0 +1,14 @@
+﻿[
+  {
+    "id": 1,
+    "name": "Entreprise",
+    "image": "link",
+    "aut": null
+  },
+  {
+    "id": 2,
+    "name": "Animaux",
+    "image": "link",
+    "aut" :  1
+  }
+]

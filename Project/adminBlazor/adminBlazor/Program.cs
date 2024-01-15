@@ -29,7 +29,12 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddScoped<IDataService, DataLocalService>();
+<<<<<<< HEAD
 builder.Services.AddScoped<IDataService, DataApiService>();
+=======
+builder.Services.AddScoped<IVocListService, VocListLocalService>();
+//builder.Services.AddScoped<IDataService, DataApiService>();
+>>>>>>> f62a4611bcbbfe0ed449a38e75f10df8ce6a5bbe
 
 builder.Services.AddHttpClient();
 builder.Services.AddBlazoredLocalStorage();
