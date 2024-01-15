@@ -1,0 +1,16 @@
+﻿@page "/config"
+
+<h3>Config</h3>
+
+@if (userOptions != null)
+{
+    <div>
+        <div>Title: @userOptions.Id</div>
+        <div>Name: @userOptions.Name</div>
+        <div>Surname: @userOptions.Surname</div>
+        <div>Nickname: @userOptions.Nickname</div>
+        <div>ExtraTime: @userOptions.ExtraTime</div>
+        <div>Group: @userOptions.Group</div>
+        <div>Roles: @string.Join(", ", userOptions.Roles)</div>
+    </div>
+}

@@ -11,82 +11,86 @@ using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
+using adminBlazor.Models;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+    // Add services to the container.
 
-builder.Services.AddRazorPages();
-builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
-builder.Services.AddScoped<IDataService, DataLocalService>();
+    builder.Services.AddRazorPages();
+    builder.Services.AddServerSideBlazor();
+    builder.Services.AddSingleton<WeatherForecastService>();
+    builder.Services.AddScoped<IDataService, DataLocalService>();
 
-//builder.Services.AddScoped<IDataService, DataApiService>();
+    //builder.Services.AddScoped<IDataService, DataApiService>();
 
-builder.Services.AddScoped<IVocListService, VocListLocalService>();
+    builder.Services.AddScoped<IVocListService, VocListLocalService>();
 
 
-builder.Services.AddHttpClient();
-builder.Services.AddBlazoredLocalStorage();
-builder.Services.AddBlazoredModal();
+    builder.Services.AddHttpClient();
+    builder.Services.AddBlazoredLocalStorage();
+    builder.Services.AddBlazoredModal();
+
 
 // Add the controller of the app
 builder.Services.AddControllers();
 
-// Add the localization to the app and specify the resources path
-builder.Services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
+    // Add the localization to the app and specify the resources path
+    builder.Services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
 
-// Configure the localtization
-builder.Services.Configure<RequestLocalizationOptions>(options =>
-{
-    // Set the default culture of the web site
-    options.DefaultRequestCulture = new RequestCulture(new CultureInfo("en-US"));
+    // Configure the localtization
+    builder.Services.Configure<RequestLocalizationOptions>(options =>
+    {
+        // Set the default culture of the web site
+        options.DefaultRequestCulture = new RequestCulture(new CultureInfo("en-US"));
 
-    // Declare the supported culture
-    options.SupportedCultures = new List<CultureInfo> { new CultureInfo("en-US"), new CultureInfo("fr-FR") };
-    options.SupportedUICultures = new List<CultureInfo> { new CultureInfo("en-US"), new CultureInfo("fr-FR") };
-});
-
-
-builder.Services
-   .AddBlazorise()
-   .AddBootstrapProviders()
-   .AddFontAwesomeIcons();
+        // Declare the supported culture
+        options.SupportedCultures = new List<CultureInfo> { new CultureInfo("en-US"), new CultureInfo("fr-FR") };
+        options.SupportedUICultures = new List<CultureInfo> { new CultureInfo("en-US"), new CultureInfo("fr-FR") };
+    });
 
 
-var app = builder.Build();
+    builder.Services
+       .AddBlazorise()
+       .AddBootstrapProviders()
+       .AddFontAwesomeIcons();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
 
-app.UseHttpsRedirection();
+    var app = builder.Build();
 
-app.UseStaticFiles();
+    // Configure the HTTP request pipeline.
+    if (!app.Environment.IsDevelopment())
+    {
+        app.UseExceptionHandler("/Error");
+        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+        app.UseHsts();
+    }
 
-app.UseRouting();
+    app.UseHttpsRedirection();
 
-// Get the current localization options
-var options = ((IApplicationBuilder)app).ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+    app.UseStaticFiles();
 
-if (options?.Value != null)
-{
-    // use the default localization
-    app.UseRequestLocalization(options.Value);
-}
+    app.UseRouting();
 
-// Add the controller to the endpoint
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
+    // Get the current localization options
+    var options = ((IApplicationBuilder)app).ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
 
-app.MapBlazorHub();
-app.MapFallbackToPage("/_Host");
+    if (options?.Value != null)
+    {
+        // use the default localization
+        app.UseRequestLocalization(options.Value);
+    }
 
-app.Run();
+    // Add the controller to the endpoint
+    app.UseEndpoints(endpoints =>
+    {
+        endpoints.MapControllers();
+    });
+
+    app.MapBlazorHub();
+    app.MapFallbackToPage("/_Host");
+
+    app.Run();
+
 
