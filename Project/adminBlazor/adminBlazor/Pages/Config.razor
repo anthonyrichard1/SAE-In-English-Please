@@ -2,15 +2,25 @@
 
 <h3>Config</h3>
 
-@if (userOptions != null)
+@if (creatorOptions != null)
 {
     <div>
-        <div>Title: @userOptions.id</div>
-        <div>Name: @userOptions.name</div>
-        <div>Surname: @userOptions.Surname</div>
-        <div>Nickname: @userOptions.Nickname</div>
-        <div>ExtraTime: @userOptions.ExtraTime</div>
-        <div>Group: @userOptions.Group</div>
-        <div>Roles: @string.Join(", ", userOptions.Roles)</div>
+        <div>Logging:LogLevel:Default: @Configuration["Logging:LogLevel:Default"]</div>
+        <div>Logging:LogLevel:Default: @Configuration["Logging:LogLevel:Microsoft.AspNetCore"]</div>
+  
+        <h4>Noms des créateurs</h4>
+        @if (creatorOptions.Name != null)
+        {
+            @foreach (var creator in creatorOptions.Name)
+            {
+                <div>@creator</div>
+            }
+        }
+        else
+        {
+            <div>No creators found</div>
+        }
     </div>
+        
+      
 }

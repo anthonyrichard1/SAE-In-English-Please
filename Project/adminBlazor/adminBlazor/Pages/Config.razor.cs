@@ -9,14 +9,19 @@ namespace adminBlazor.Pages
         public IConfiguration Configuration { get; set; }
   
 
-        private UserOptions userOptions;
+        private CreatorOptions creatorOptions;
 
         protected override void OnInitialized()
         {
             base.OnInitialized();
 
-            userOptions = new UserOptions();
-            Configuration.GetSection(UserOptions.User).Bind(userOptions);
+            creatorOptions = new CreatorOptions();
+            Configuration.GetSection(CreatorOptions.Creators).Bind(creatorOptions);
+
+            if (creatorOptions.Name == null)
+            {
+                return;
+            }
 
         }
     }
