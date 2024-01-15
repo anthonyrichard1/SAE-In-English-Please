@@ -10,15 +10,26 @@ using Blazored.Modal;
 using Microsoft.AspNetCore.Localization;
 using System.Globalization;
 using Microsoft.Extensions.Options;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpClient();
+builder.Services.AddHttpClient("GitHub", httpClient =>
+{
+    httpClient.BaseAddress = new Uri("https://api.github.com/");
+
+    // using Microsoft.Net.Http.Headers;
+    // The GitHub API requires two headers.
+    httpClient.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/vnd.github.v3+json");
+    httpClient.DefaultRequestHeaders.Add(HeaderNames.UserAgent, "HttpRequestsSample");
+});
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddScoped<IDataService, DataLocalService>();
-//builder.Services.AddScoped<IDataService, DataApiService>();
+builder.Services.AddScoped<IDataService, DataApiService>();
 
 builder.Services.AddHttpClient();
 builder.Services.AddBlazoredLocalStorage();

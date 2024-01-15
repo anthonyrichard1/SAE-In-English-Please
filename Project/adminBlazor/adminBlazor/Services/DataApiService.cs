@@ -1,4 +1,5 @@
-﻿using adminBlazor.Factories;
+﻿using adminBlazor.Components;
+using adminBlazor.Factories;
 using adminBlazor.Models;
 using System.Reflection.Metadata.Ecma335;
 
@@ -52,9 +53,9 @@ namespace adminBlazor.Services
             await _http.DeleteAsync($"https://localhost:7234/api/Crafting/{id}");
         }
 
-        // public async Task<List<CraftingRecipe>> GetRecipes()
-        // {
-       //     return await _http.GetFromJsonAsync<List<CraftingRecipe>>("https://localhost:7234/api/Crafting/recipe");
-      //   }
+         public async Task<List<CraftingRecipe>> GetRecipes()
+         {
+            return await _http.GetFromJsonAsync<List<CraftingRecipe>>("https://localhost:7234/api/Crafting/recipe");
+         }
     }
 }
