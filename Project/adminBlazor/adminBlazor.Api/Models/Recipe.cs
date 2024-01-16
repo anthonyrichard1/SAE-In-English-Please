@@ -16,7 +16,7 @@ namespace Minecraft.Crafting.Api
         /// <summary>
         /// Gets or sets the give.
         /// </summary>
-        public Item Give { get; set; }
+        public User Give { get; set; }
 
         /// <summary>
         /// Gets or sets the have.

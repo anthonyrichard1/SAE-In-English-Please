@@ -35,9 +35,9 @@ namespace Minecraft.Crafting.Api.Controllers
         /// <returns>The async task.</returns>
         [HttpPost]
         [Route("")]
-        public Task Add(Item item)
+        public Task Add(User item)
         {
-            var data = JsonSerializer.Deserialize<List<Item>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
@@ -60,9 +60,9 @@ namespace Minecraft.Crafting.Api.Controllers
         /// <returns>All items.</returns>
         [HttpGet]
         [Route("all")]
-        public Task<List<Item>> All()
+        public Task<List<User>> All()
         {
-            var data = JsonSerializer.Deserialize<List<Item>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
@@ -80,7 +80,7 @@ namespace Minecraft.Crafting.Api.Controllers
         [Route("count")]
         public Task<int> Count()
         {
-            var data = JsonSerializer.Deserialize<List<Item>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
@@ -99,7 +99,7 @@ namespace Minecraft.Crafting.Api.Controllers
         [Route("{id}")]
         public Task Delete(int id)
         {
-            var data = JsonSerializer.Deserialize<List<Item>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
@@ -127,9 +127,9 @@ namespace Minecraft.Crafting.Api.Controllers
         /// <returns>The item.</returns>
         [HttpGet]
         [Route("{id}")]
-        public Task<Item> GetById(int id)
+        public Task<User> GetById(int id)
         {
-            var data = JsonSerializer.Deserialize<List<Item>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
@@ -155,9 +155,9 @@ namespace Minecraft.Crafting.Api.Controllers
         /// </returns>
         [HttpGet]
         [Route("by-name/{name}")]
-        public Task<Item> GetByName(string name)
+        public Task<User> GetByName(string name)
         {
-            var data = JsonSerializer.Deserialize<List<Item>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
@@ -205,9 +205,9 @@ namespace Minecraft.Crafting.Api.Controllers
         /// <returns>The items.</returns>
         [HttpGet]
         [Route("")]
-        public Task<List<Item>> List(int currentPage, int pageSize)
+        public Task<List<User>> List(int currentPage, int pageSize)
         {
-            var data = JsonSerializer.Deserialize<List<Item>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
@@ -230,7 +230,7 @@ namespace Minecraft.Crafting.Api.Controllers
                 System.IO.File.Delete("Data/items.json");
             }
 
-            var data = JsonSerializer.Deserialize<List<Item>>(System.IO.File.ReadAllText("Data/items-original.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items-original.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
@@ -277,9 +277,9 @@ namespace Minecraft.Crafting.Api.Controllers
                     imageFilepath = Convert.ToBase64String(System.IO.File.ReadAllBytes($"Images/oak_{item.Name}.png"));
                 }
 
-                if (imageFilepath == defaultImage && System.IO.File.Exists($"Images/{item.DisplayName.ToLower().Replace(" ", "_")}.png"))
+                if (imageFilepath == defaultImage && System.IO.File.Exists($"Images/{item.Name.ToLower().Replace(" ", "_")}.png"))
                 {
-                    imageFilepath = Convert.ToBase64String(System.IO.File.ReadAllBytes($"Images/{item.DisplayName.ToLower().Replace(" ", "_")}.png"));
+                    imageFilepath = Convert.ToBase64String(System.IO.File.ReadAllBytes($"Images/{item.Name.ToLower().Replace(" ", "_")}.png"));
                 }
 
                 if (imageFilepath == defaultImage && imageTranslation.ContainsKey(item.Name))
@@ -321,9 +321,9 @@ namespace Minecraft.Crafting.Api.Controllers
         /// <returns>The async task.</returns>
         [HttpPut]
         [Route("{id}")]
-        public Task Update(int id, Item item)
+        public Task Update(int id, User item)
         {
-            var data = JsonSerializer.Deserialize<List<Item>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
 
             var itemOriginal = data?.FirstOrDefault(w => w.Id == id);
 
@@ -334,13 +334,13 @@ namespace Minecraft.Crafting.Api.Controllers
 
             itemOriginal.Id = item.Id;
             itemOriginal.Name = item.Name;
-            itemOriginal.CreatedDate = item.CreatedDate;
-            itemOriginal.DisplayName = item.DisplayName;
-            itemOriginal.EnchantCategories = item.EnchantCategories;
-            itemOriginal.MaxDurability = item.MaxDurability;
-            itemOriginal.RepairWith = item.RepairWith;
-            itemOriginal.StackSize = item.StackSize;
-            itemOriginal.UpdatedDate = item.UpdatedDate;
+            itemOriginal.Surname = item.Surname;
+            itemOriginal.Nickname = item.Nickname;
+            itemOriginal.Email = item.Email;
+            itemOriginal.ExtraTime = item.ExtraTime;
+            itemOriginal.Password = item.Password;
+            itemOriginal.Roles = item.Roles;
+            itemOriginal.Group = item.Group;
             itemOriginal.ImageBase64 = item.ImageBase64;
 
             System.IO.File.WriteAllText("Data/items.json", JsonSerializer.Serialize(data, _jsonSerializerOptions));
@@ -356,7 +356,7 @@ namespace Minecraft.Crafting.Api.Controllers
         /// <param name="line">The line.</param>
         /// <param name="row">The row.</param>
         /// <returns>The name of the item.</returns>
-        private static string GetItemName(List<Item> items, InShape[][] inShape, int line, int row)
+        private static string GetItemName(List<User> items, InShape[][] inShape, int line, int row)
         {
             if (inShape.Length < line + 1)
             {
@@ -384,7 +384,7 @@ namespace Minecraft.Crafting.Api.Controllers
         /// <param name="items">The items.</param>
         /// <param name="id">The identifier.</param>
         /// <returns>The name of the item.</returns>
-        private static string GetItemName(List<Item> items, long id)
+        private static string GetItemName(List<User> items, long id)
         {
             var item = items.FirstOrDefault(w => w.Id == id);
             return item?.Name;
@@ -395,7 +395,7 @@ namespace Minecraft.Crafting.Api.Controllers
         /// </summary>
         private void ConvertRecipes()
         {
-            var data = JsonSerializer.Deserialize<List<Item>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
