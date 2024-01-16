@@ -16,7 +16,7 @@ namespace Minecraft.Crafting.Api.Controllers
     /// </summary>
     [ApiController]
     [Route("api/[controller]")]
-    public class CraftingController : ControllerBase
+    public class UserController : ControllerBase
     {
         /// <summary>
         /// The json serializer options.
@@ -34,7 +34,7 @@ namespace Minecraft.Crafting.Api.Controllers
         /// <param name="item">The item.</param>
         /// <returns>The async task.</returns>
         [HttpPost]
-        [Route("")]
+        [Route("add")]
         public Task Add(User item)
         {
             var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
@@ -178,16 +178,16 @@ namespace Minecraft.Crafting.Api.Controllers
         /// Gets the recipes.
         /// </summary>
         /// <returns>The recipes.</returns>
-        [HttpGet]
+/*        [HttpGet]
         [Route("recipe")]
         public Task<List<Recipe>> GetRecipe()
         {
-            if (!System.IO.File.Exists("Data/convert-recipes.json"))
+            if (!System.IO.File.Exists("Data/items.json"))
             {
                 ResetRecipes();
             }
 
-            var data = JsonSerializer.Deserialize<List<Recipe>>(System.IO.File.ReadAllText("Data/convert-recipes.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<Recipe>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
@@ -196,6 +196,7 @@ namespace Minecraft.Crafting.Api.Controllers
 
             return Task.FromResult(data);
         }
+*/
 
         /// <summary>
         /// Get the items with pagination.
@@ -237,7 +238,7 @@ namespace Minecraft.Crafting.Api.Controllers
                 throw new Exception("Unable to get the items.");
             }
 
-            var defaultImage = Convert.ToBase64String(System.IO.File.ReadAllBytes("Images/default.png"));
+            var defaultImage = Convert.ToBase64String(System.IO.File.ReadAllBytes("Images/default.jpeg"));
 
             var imageTranslation = new Dictionary<string, string>
             {
@@ -299,19 +300,20 @@ namespace Minecraft.Crafting.Api.Controllers
         /// Resets the recipes.
         /// </summary>
         /// <returns>The async task.</returns>
-        [HttpGet]
+/*        [HttpGet]
         [Route("reset-recipes")]
         public Task ResetRecipes()
         {
-            if (!System.IO.File.Exists("Data/convert-recipes.json"))
+            if (!System.IO.File.Exists("Data/items.json"))
             {
-                System.IO.File.Delete("Data/convert-recipes.json");
+                System.IO.File.Delete("Data/items.json");
             }
 
             ConvertRecipes();
 
             return Task.CompletedTask;
         }
+*/
 
         /// <summary>
         /// Updates the specified identifier.
@@ -332,7 +334,7 @@ namespace Minecraft.Crafting.Api.Controllers
                 throw new Exception($"Unable to found the item with ID: {id}");
             }
 
-            itemOriginal.Id = item.Id;
+            //itemOriginal.Id = item.Id;
             itemOriginal.Name = item.Name;
             itemOriginal.Surname = item.Surname;
             itemOriginal.Nickname = item.Nickname;
@@ -393,7 +395,7 @@ namespace Minecraft.Crafting.Api.Controllers
         /// <summary>
         /// Converts the recipes.
         /// </summary>
-        private void ConvertRecipes()
+ /*       private void ConvertRecipes()
         {
             var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
 
@@ -402,7 +404,7 @@ namespace Minecraft.Crafting.Api.Controllers
                 return;
             }
 
-            var recipes = Recipes.FromJson(System.IO.File.ReadAllText("Data/recipes.json"));
+            var recipes = Recipes.FromJson(System.IO.File.ReadAllText("Data/items.json"));
 
             var items = new List<Recipe>();
 
@@ -447,7 +449,8 @@ namespace Minecraft.Crafting.Api.Controllers
                 });
             }
 
-            System.IO.File.WriteAllText("Data/convert-recipes.json", JsonSerializer.Serialize(items, _jsonSerializerOptions));
+            System.IO.File.WriteAllText("Data/items.json", JsonSerializer.Serialize(items, _jsonSerializerOptions));
         }
+ */
     }
 }
