@@ -1,20 +1,22 @@
-FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+﻿FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Minecraft.Crafting.Api/Minecraft.Crafting.Api.csproj", "Minecraft.Crafting.Api/"]
-RUN dotnet restore "Minecraft.Crafting.Api/Minecraft.Crafting.Api.csproj"
-COPY src/. .
-WORKDIR "/src/Minecraft.Crafting.Api"
-RUN dotnet build "Minecraft.Crafting.Api.csproj" -c Release -o /app/build
+COPY ["adminBlazor.Api/adminBlazor.Api.csproj", "adminBlazor.Api/"]
+RUN dotnet restore "adminBlazor.Api/adminBlazor.Api.csproj"
+COPY . .
+WORKDIR "/src/adminBlazor.Api"
+RUN dotnet build "adminBlazor.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Minecraft.Crafting.Api.csproj" -c Release -o /app/publish /p:UseAppHost=false
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "adminBlazor.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Minecraft.Crafting.Api.dll"]
+ENTRYPOINT ["dotnet", "adminBlazor.Api.dll"]
