@@ -54,7 +54,7 @@ steps:
     image: plugins/docker
     settings:
        dockerfile: Project/adminBlazor/adminBlazor/Dockerfile
-       context: .
+       context: Project/adminBlazor/
        registry: hub.codefirst.iut.uca.fr
        repo: hub.codefirst.iut.uca.fr/antoine.jourdain/SAE_2A_Anglais
        username:
