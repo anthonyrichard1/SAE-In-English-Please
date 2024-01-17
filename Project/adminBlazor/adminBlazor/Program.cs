@@ -24,7 +24,7 @@ var builder = WebApplication.CreateBuilder(args);
 
     builder.Services.AddScoped<IDataService, DataApiService>();
 
-//builder.Services.AddScoped<IDataService, DataLocalService>();
+builder.Services.AddScoped<IDataService, DataLocalService>();
 
 builder.Services.AddScoped<IVocListService, VocListLocalService>();
 
