@@ -50,7 +50,7 @@ steps:
         - blazor
     depends_on: [ build ]
 
-  - name: docker-build
+  - name: docker-build-app
     image: plugins/docker
     settings:
        dockerfile: Project/adminBlazor/adminBlazor/Dockerfile
@@ -61,6 +61,18 @@ steps:
          from_secret: SECRET_REGISTRY_USERNAME
        password:
          from_secret: SECRET_REGISTRY_PASSWORD
+    when:
+      branch:
+        - blazor
+
+  - name: deploy-container-app
+    image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
+    environment:
+        IMAGENAME: hub.codefirst.iut.uca.fr/antoine.jourdain/sae_2a_anglais:latest
+        CONTAINERNAME: in_english_please
+        COMMAND: create
+        OVERWRITE: true
+    depends_on: [ docker-build-app ]
     when:
       branch:
         - blazor
