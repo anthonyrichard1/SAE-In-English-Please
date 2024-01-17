@@ -23,7 +23,7 @@ steps:
     depends_on: [build]
 
   - name: code-analysis
-    image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dronesonarplugin-dotnet7
+    image: hub.codefirst.iut.uca.fr/marc.chevaldonne/codefirst-dronesonarplugin-dotnet7
     commands:
       - cd Project/adminBlazor
       - dotnet restore adminBlazor.sln
