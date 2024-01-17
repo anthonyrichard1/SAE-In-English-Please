@@ -53,10 +53,10 @@ steps:
   - name: docker-build
     image: plugins/docker
     settings:
-       dockerfile: Sources/Dockerfile
+       dockerfile: Project/adminBlazor/adminBlazor/Dockerfile
        context: .
        registry: hub.codefirst.iut.uca.fr
-       repo: hub.codefirst.iut.uca.fr/my-group/my-application-client
+       repo: hub.codefirst.iut.uca.fr/antoine.jourdain/SAE_2A_Anglais
        username:
          from_secret: SECRET_REGISTRY_USERNAME
        password:
