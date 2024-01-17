@@ -37,11 +37,11 @@ namespace Minecraft.Crafting.Api.Controllers
         [Route("add")]
         public Task Add(User item)
         {
-            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/users.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
-                throw new Exception("Unable to get the items.");
+                throw new Exception("Unable to get the users.");
             }
 
             // Simulate the Id
@@ -49,42 +49,42 @@ namespace Minecraft.Crafting.Api.Controllers
 
             data.Add(item);
 
-            System.IO.File.WriteAllText("Data/items.json", JsonSerializer.Serialize(data, _jsonSerializerOptions));
+            System.IO.File.WriteAllText("Data/users.json", JsonSerializer.Serialize(data, _jsonSerializerOptions));
 
             return Task.CompletedTask;
         }
 
         /// <summary>
-        /// Get all items.
+        /// Get all users.
         /// </summary>
-        /// <returns>All items.</returns>
+        /// <returns>All users.</returns>
         [HttpGet]
         [Route("all")]
         public Task<List<User>> All()
         {
-            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/users.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
-                throw new Exception("Unable to get the items.");
+                throw new Exception("Unable to get the users.");
             }
 
             return Task.FromResult(data.ToList());
         }
 
         /// <summary>
-        /// Count the number of items.
+        /// Count the number of users.
         /// </summary>
-        /// <returns>The number of items.</returns>
+        /// <returns>The number of users.</returns>
         [HttpGet]
         [Route("count")]
         public Task<int> Count()
         {
-            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/users.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
-                throw new Exception("Unable to get the items.");
+                throw new Exception("Unable to get the users.");
             }
 
             return Task.FromResult(data.Count);
@@ -99,11 +99,11 @@ namespace Minecraft.Crafting.Api.Controllers
         [Route("{id}")]
         public Task Delete(int id)
         {
-            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/users.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
-                throw new Exception("Unable to get the items.");
+                throw new Exception("Unable to get the users.");
             }
 
             var item = data.FirstOrDefault(w => w.Id == id);
@@ -115,7 +115,7 @@ namespace Minecraft.Crafting.Api.Controllers
 
             data.Remove(item);
 
-            System.IO.File.WriteAllText("Data/items.json", JsonSerializer.Serialize(data, _jsonSerializerOptions));
+            System.IO.File.WriteAllText("Data/users.json", JsonSerializer.Serialize(data, _jsonSerializerOptions));
 
             return Task.CompletedTask;
         }
@@ -129,11 +129,11 @@ namespace Minecraft.Crafting.Api.Controllers
         [Route("{id}")]
         public Task<User> GetById(int id)
         {
-            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/users.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
-                throw new Exception("Unable to get the items.");
+                throw new Exception("Unable to get the users.");
             }
 
             var item = data.FirstOrDefault(w => w.Id == id);
@@ -157,21 +157,21 @@ namespace Minecraft.Crafting.Api.Controllers
         [Route("by-name/{name}")]
         public Task<User> GetByName(string name)
         {
-            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/users.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
-                throw new Exception("Unable to get the items.");
+                throw new Exception("Unable to get the users.");
             }
 
-            var item = data.FirstOrDefault(w => w.Name.ToLowerInvariant() == name.ToLowerInvariant());
+            var user = data.FirstOrDefault(w => w.Name.ToLowerInvariant() == name.ToLowerInvariant());
 
-            if (item == null)
+            if (user == null)
             {
-                throw new Exception($"Unable to found the item with name: {name}");
+                throw new Exception($"Unable to found the users with name: {name}");
             }
 
-            return Task.FromResult(item);
+            return Task.FromResult(user);
         }
 
         /// <summary>
@@ -199,43 +199,43 @@ namespace Minecraft.Crafting.Api.Controllers
 */
 
         /// <summary>
-        /// Get the items with pagination.
+        /// Get the users with pagination.
         /// </summary>
         /// <param name="currentPage">The current page.</param>
         /// <param name="pageSize">Size of the page.</param>
-        /// <returns>The items.</returns>
+        /// <returns>The users.</returns>
         [HttpGet]
         [Route("")]
         public Task<List<User>> List(int currentPage, int pageSize)
         {
-            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/users.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
-                throw new Exception("Unable to get the items.");
+                throw new Exception("Unable to get the users.");
             }
 
             return Task.FromResult(data.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList());
         }
 
         /// <summary>
-        /// Resets the items.
+        /// Resets the users.
         /// </summary>
         /// <returns>The async task.</returns>
         [HttpGet]
-        [Route("reset-items")]
-        public Task ResetItems()
+        [Route("reset-users")]
+        public Task ResetUsers()
         {
-            if (!System.IO.File.Exists("Data/items.json"))
+            if (!System.IO.File.Exists("Data/users.json"))
             {
-                System.IO.File.Delete("Data/items.json");
+                System.IO.File.Delete("Data/users.json");
             }
 
-            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items-original.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/users-original.json"), _jsonSerializerOptions);
 
             if (data == null)
             {
-                throw new Exception("Unable to get the items.");
+                throw new Exception("Unable to get the users.");
             }
 
             var defaultImage = Convert.ToBase64String(System.IO.File.ReadAllBytes("Images/default.jpeg"));
@@ -291,7 +291,7 @@ namespace Minecraft.Crafting.Api.Controllers
                 item.ImageBase64 = imageFilepath;
             }
 
-            System.IO.File.WriteAllText("Data/items.json", JsonSerializer.Serialize(data, _jsonSerializerOptions));
+            System.IO.File.WriteAllText("Data/users.json", JsonSerializer.Serialize(data, _jsonSerializerOptions));
 
             return Task.FromResult(data);
         }
@@ -319,13 +319,13 @@ namespace Minecraft.Crafting.Api.Controllers
         /// Updates the specified identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <param name="item">The item.</param>
+        /// <param name="item">The item.</param>    
         /// <returns>The async task.</returns>
         [HttpPut]
         [Route("{id}")]
         public Task Update(int id, User item)
         {
-            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
+            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/users.json"), _jsonSerializerOptions);
 
             var itemOriginal = data?.FirstOrDefault(w => w.Id == id);
 
@@ -345,7 +345,7 @@ namespace Minecraft.Crafting.Api.Controllers
             itemOriginal.Group = item.Group;
             itemOriginal.ImageBase64 = item.ImageBase64;
 
-            System.IO.File.WriteAllText("Data/items.json", JsonSerializer.Serialize(data, _jsonSerializerOptions));
+            System.IO.File.WriteAllText("Data/users.json", JsonSerializer.Serialize(data, _jsonSerializerOptions));
 
             return Task.CompletedTask;
         }
@@ -353,12 +353,12 @@ namespace Minecraft.Crafting.Api.Controllers
         /// <summary>
         /// Gets the name of the item.
         /// </summary>
-        /// <param name="items">The items.</param>
+        /// <param name="users">The items.</param>
         /// <param name="inShape">The in shape.</param>
         /// <param name="line">The line.</param>
         /// <param name="row">The row.</param>
         /// <returns>The name of the item.</returns>
-        private static string GetItemName(List<User> items, InShape[][] inShape, int line, int row)
+        private static string GetItemName(List<User> users, InShape[][] inShape, int line, int row)
         {
             if (inShape.Length < line + 1)
             {
@@ -377,19 +377,19 @@ namespace Minecraft.Crafting.Api.Controllers
                 return null;
             }
 
-            return GetItemName(items, id.Value);
+            return GetItemName(users, id.Value);
         }
 
         /// <summary>
-        /// Gets the name of the item.
+        /// Gets the name of the user.
         /// </summary>
-        /// <param name="items">The items.</param>
+        /// <param name="users">The users.</param>
         /// <param name="id">The identifier.</param>
-        /// <returns>The name of the item.</returns>
-        private static string GetItemName(List<User> items, long id)
+        /// <returns>The name of the user.</returns>
+        private static string GetItemName(List<User> users, long id)
         {
-            var item = items.FirstOrDefault(w => w.Id == id);
-            return item?.Name;
+            var user = users.FirstOrDefault(w => w.Id == id);
+            return user?.Name;
         }
 
         /// <summary>

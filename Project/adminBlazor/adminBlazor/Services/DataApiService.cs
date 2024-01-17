@@ -21,22 +21,22 @@ namespace adminBlazor.Services
             var item = UserFactory.Create(model);
 
             // Save the data
-            await _http.PostAsJsonAsync("https://localhost:7234/api/Crafting/", item);
+             await _http.PostAsJsonAsync("https://localhost:7234/api/User/", item);
         }
 
         public async Task<int> Count()
         {
-            return await _http.GetFromJsonAsync<int>("https://localhost:7234/api/Crafting/count");
+            return await _http.GetFromJsonAsync<int>("https://localhost:7234/api/User/count");
         }
 
         public async Task<List<User>> List(int currentPage, int pageSize)
         {
-            return await _http.GetFromJsonAsync<List<User>>($"https://localhost:7234/api/Crafting/?currentPage={currentPage}&pageSize={pageSize}");
+            return await _http.GetFromJsonAsync<List<User>>($"https://localhost:7234/api/User/?currentPage={currentPage}&pageSize={pageSize}");
         }
 
         public async Task<User> GetById(int id)
         {
-                return await _http.GetFromJsonAsync<User>($"https://localhost:7234/api/Crafting/{id}");
+                return await _http.GetFromJsonAsync<User>($"https://localhost:7234/api/User/{id}");
         }
 
         public async Task Update(int id, UserModel model)
@@ -44,17 +44,17 @@ namespace adminBlazor.Services
             // Get the item
             var item = UserFactory.Create(model);
 
-            await _http.PutAsJsonAsync($"https://localhost:7234/api/Crafting/{id}", item);
+             await _http.PutAsJsonAsync($"https://localhost:7234/api/User/{id}", item);
         }
 
         public async Task Delete(int id)
         {
-            await _http.DeleteAsync($"https://localhost:7234/api/Crafting/{id}");
+            await _http.DeleteAsync($"https://localhost:7234/api/User/{id}");
         }
 
          public async Task<List<CraftingRecipe>> GetRecipes()
          {
-            return await _http.GetFromJsonAsync<List<CraftingRecipe>>("https://localhost:7234/api/Crafting/recipe");
+            return await _http.GetFromJsonAsync<List<CraftingRecipe>>("https://localhost:7234/api/User/recipe");
          }
     }
 }
