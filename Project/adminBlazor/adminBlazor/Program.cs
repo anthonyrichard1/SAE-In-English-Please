@@ -12,13 +12,18 @@ using System.Globalization;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using adminBlazor.Models;
+using adminBlazor;
+using Microsoft.AspNetCore.Components.Authorization;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-    // Add services to the container.
 
-    builder.Services.AddRazorPages();
+
+
+// Add services to the container.
+
+builder.Services.AddRazorPages();
     builder.Services.AddServerSideBlazor();
     builder.Services.AddSingleton<WeatherForecastService>();
 
@@ -93,5 +98,4 @@ builder.Services.AddControllers();
     app.MapFallbackToPage("/_Host");
 
     app.Run();
-
 

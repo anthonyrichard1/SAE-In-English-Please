@@ -9,6 +9,7 @@
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Minecraft.Crafting.Api' " />
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="8.0.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>

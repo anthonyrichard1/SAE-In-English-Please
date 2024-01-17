@@ -4,8 +4,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "adminBlazor", "adminBlazor\adminBlazor.csproj", "{5985AE7A-DA9C-4A68-80E0-2D92926C1FB5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7A7CE974-02E6-4248-B5C5-54A04724327B} = {7A7CE974-02E6-4248-B5C5-54A04724327B}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "adminBlazor.Api", "adminBlazor.Api\adminBlazor.Api.csproj", "{69C7F430-9B80-4253-B572-FDBC90076C5E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoAuthentication", "..\..\..\..\..\Downloads\Authentication\DemoAuthentication\DemoAuthentication\DemoAuthentication.csproj", "{7A7CE974-02E6-4248-B5C5-54A04724327B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +26,10 @@ Global
 		{69C7F430-9B80-4253-B572-FDBC90076C5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69C7F430-9B80-4253-B572-FDBC90076C5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69C7F430-9B80-4253-B572-FDBC90076C5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A7CE974-02E6-4248-B5C5-54A04724327B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A7CE974-02E6-4248-B5C5-54A04724327B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A7CE974-02E6-4248-B5C5-54A04724327B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A7CE974-02E6-4248-B5C5-54A04724327B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
