@@ -50,6 +50,33 @@ steps:
         - blazor
     depends_on: [ build ]
 
+    name: docker-build-api
+    image: plugins/docker
+    settings:
+       dockerfile: Project/adminBlazor/adminBlazor.Api/Dockerfile
+       context: Project/adminBlazor/
+       registry: hub.codefirst.iut.uca.fr
+       repo: hub.codefirst.iut.uca.fr/antoine.jourdain/sae_2a_anglais
+       username:
+         from_secret: SECRET_REGISTRY_USERNAME
+       password:
+         from_secret: SECRET_REGISTRY_PASSWORD
+    when:
+      branch:
+        - blazor
+
+  - name: deploy-container-api
+    image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
+    environment:
+        IMAGENAME: hub.codefirst.iut.uca.fr/antoine.jourdain/sae_2a_anglais:latest
+        CONTAINERNAME: api-in-english-please
+        COMMAND: create
+        OVERWRITE: true
+    depends_on: [ docker-build-api ]
+    when:
+      branch:
+        - blazor
+
   - name: docker-build-app
     image: plugins/docker
     settings:
@@ -69,7 +96,7 @@ steps:
     image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
     environment:
         IMAGENAME: hub.codefirst.iut.uca.fr/antoine.jourdain/sae_2a_anglais:latest
-        CONTAINERNAME: in_english_please
+        CONTAINERNAME: in-english-please
         COMMAND: create
         OVERWRITE: true
     depends_on: [ docker-build-app ]
