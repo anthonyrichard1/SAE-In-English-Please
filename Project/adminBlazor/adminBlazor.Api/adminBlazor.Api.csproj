@@ -20,8 +20,7 @@
     
 	<ItemGroup>
 	  <None Remove="images\.png" />
-	  <None Remove="images\Alice.png" />
-	  <None Remove="images\apple.png" />
+	  <None Remove="Images\Alice.png" />
 	  <None Remove="images\banane.png" />
 	  <None Remove="images\Bob.png" />
 	  <None Remove="images\default.jpeg" />
@@ -35,10 +34,6 @@
 	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 	  </Content>
 	  <Content Update="Images\Alice.png">
-	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-	  </Content>
-	  <Content Update="Images\apple.png">
 	    <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 	    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 	  </Content>
