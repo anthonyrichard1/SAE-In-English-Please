@@ -4,6 +4,8 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>7a3db01a-a0a7-405b-828f-f17ed704acd6</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
@@ -14,6 +16,7 @@
     <PackageReference Include="Blazorise.DataGrid" Version="1.4.0" />
     <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.4.0" />
     <PackageReference Include="Blazored.Modal" Version="7.1.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Modals\DeleteConfirmation.cshtml" />
