@@ -1,0 +1,70 @@
+kind: pipeline
+type: docker
+name: default
+ 
+trigger:
+  event:
+    - push
+
+steps:
+  - name: build
+    image: mcr.microsoft.com/dotnet/sdk:7.0
+    commands:
+      - cd Project/adminBlazor/
+      - dotnet restore adminBlazor.sln
+      - dotnet build adminBlazor.sln -c Release --no-restore
+
+  - name: tests
+    image: mcr.microsoft.com/dotnet/sdk:7.0
+    commands:
+      - cd Project/adminBlazor
+      - dotnet restore adminBlazor.sln
+      - dotnet test adminBlazor.sln --no-restore
+    depends_on: [build]
+
+  - name: code-analysis
+    image: hub.codefirst.iut.uca.fr/marc.chevaldonne/codefirst-dronesonarplugin-dotnet7
+    environment:
+      project_key: SAE_2A_Anglais_Blazor
+      sonar_host: https://codefirst.iut.uca.fr/sonar/
+      sonar_token:
+        from_secret: SECRET_SONAR_LOGIN
+    commands:
+      - cd Project/adminBlazor
+      - dotnet restore adminBlazor.sln
+      - dotnet sonarscanner begin /k:$${project_key} /d:sonar.host.url=$${sonar_host} /d:sonar.login=$${sonar_token}
+      - dotnet build adminBlazor.sln -c Release --no-restore
+      - dotnet sonarscanner end /d:sonar.login=$${sonar_token}
+    depends_on: [tests]
+
+  - name: generate-and-deploy-docs
+    image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-docdeployer
+    failure: ignore
+    volumes:
+      - name: docs
+        path: /docs
+    commands:
+      - /entrypoint.sh
+    when:
+      branch:
+        - master
+    depends_on: [ build ]
+
+  - name: docker-build
+    image: plugins/docker
+    settings:
+       dockerfile: Sources/Dockerfile
+       context: .
+       registry: hub.codefirst.iut.uca.fr
+       repo: hub.codefirst.iut.uca.fr/my-group/my-application-client
+       username:
+         from_secret: SECRET_REGISTRY_USERNAME
+       password:
+         from_secret: SECRET_REGISTRY_PASSWORD
+    when:
+      branch:
+        - master
+
+volumes:
+- name: docs
+  temp: {}
