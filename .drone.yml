@@ -47,7 +47,7 @@ steps:
       - /entrypoint.sh
     when:
       branch:
-        - master
+        - blazor
     depends_on: [ build ]
 
   - name: docker-build
@@ -63,7 +63,7 @@ steps:
          from_secret: SECRET_REGISTRY_PASSWORD
     when:
       branch:
-        - master
+        - blazor
 
 volumes:
 - name: docs
