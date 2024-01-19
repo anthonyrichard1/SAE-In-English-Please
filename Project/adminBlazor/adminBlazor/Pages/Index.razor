@@ -1,15 +1,23 @@
-﻿@using System.Globalization
-@page "/"
-@using adminBlazor.Models
+﻿@page "/"
+<AuthorizeView>
+    <Authorized>
+        <h1>Hello @context.User.Identity.Name !!</h1>
 
-<PageTitle>@Localizer["Welcome"]</PageTitle>
+        <p>Welcome to Blazor Learner.</p>
 
-<h1>@Localizer["Title"]</h1>
+        <ul>
+            @foreach (var claim in context.User.Claims)
+            {
+                <li>@claim.Type: @claim.Value</li>
+            }
+        </ul>
 
-
-@Localizer["indexPhrase"]
-
-<p>
-    <b>CurrentCulture</b>: @CultureInfo.CurrentCulture
-</p>
-
+    </Authorized>
+    <Authorizing>
+        <h1>Loading ...</h1>
+    </Authorizing>
+    <NotAuthorized>
+        <h1>Authentication Failure!</h1>
+        <p>You're not signed in.</p>
+    </NotAuthorized>
+</AuthorizeView>

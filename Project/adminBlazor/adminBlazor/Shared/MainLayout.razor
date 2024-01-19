@@ -9,7 +9,11 @@
             <CultureSelector />
         </div>
     </div>
-
+    <div class="main">
+        <div class="top-row px-4">
+            <a href="http://blazor.net" target="_blank" class="ml-md-auto">About</a>
+            <button type="button" class="btn btn-link ml-md-auto" @onclick="@LogoutClick">Logout</button>
+        </div>
 
     <main>
 
@@ -17,5 +21,6 @@
             @Body
         </article>
     </main>
+</div>
 </div>
 

@@ -1,4 +1,9 @@
-﻿
+﻿<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">DemoAuthentication</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
 
 <div class="navbar">
     <a href="http://localhost/SAE_2A_Anglais/Project/php/#page-top">@Localizer["Home"]</a>
@@ -6,6 +11,13 @@
     <a href="/account">@Localizer["My account"]</a>
     <a href="/voc">@Localizer["Vocabulary Lists"]</a>
     <a href="/config">@Localizer["Config"]</a>
+    <AuthorizeView Roles="admin">
+        <li class="nav-item px-3">
+            <NavLink class="nav-link" href="admin" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Admin page
+            </NavLink>
+        </li>
+    </AuthorizeView>
 </div>
 
 
