@@ -50,7 +50,7 @@ steps:
         - blazor
     depends_on: [ build ]
 
-    name: docker-build-api
+  - name: docker-build-api
     image: plugins/docker
     settings:
        dockerfile: Project/adminBlazor/adminBlazor.Api/Dockerfile
