@@ -11,6 +11,12 @@
     overflow: hidden;
 }
 
+.custom-button {
+    background-color: none;
+    color: #ffffff;
+    border-color: #ffffff;
+    border-radius: 10px;
+}
 main {
     flex: 1;
 }
