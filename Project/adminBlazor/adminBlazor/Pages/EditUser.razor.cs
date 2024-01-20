@@ -27,7 +27,7 @@ namespace adminBlazor.Pages
 
 
         /// <summary>
-        /// The default enchant categories.
+        /// The default roles.
         /// </summary>
         private List<string> roles = new List<string>() { "admin", "teacher", "student" };
 

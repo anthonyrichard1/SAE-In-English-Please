@@ -238,7 +238,10 @@ namespace Minecraft.Crafting.Api.Controllers
                 throw new Exception("Unable to get the users.");
             }
 
-            var defaultImage = Convert.ToBase64String(System.IO.File.ReadAllBytes("Images/default.jpeg"));
+            string projectPath = @"C:\Users\PATRICK\Source\Repos\SAE_2A_Anglais2\Project";
+            string imagePath = Path.Combine(projectPath, "adminBlazor", "Images", "default.jpeg");
+
+            var defaultImage = Convert.ToBase64String(System.IO.File.ReadAllBytes(imagePath));
 
             var imageTranslation = new Dictionary<string, string>
             {
@@ -333,7 +336,6 @@ namespace Minecraft.Crafting.Api.Controllers
             {
                 throw new Exception($"Unable to found the item with ID: {id}");
             }
-
             //itemOriginal.Id = item.Id;
             itemOriginal.Name = item.Name;
             itemOriginal.Surname = item.Surname;
@@ -343,6 +345,7 @@ namespace Minecraft.Crafting.Api.Controllers
             itemOriginal.Password = item.Password;
             itemOriginal.Roles = item.Roles;
             itemOriginal.Group = item.Group;
+            if(item.ImageBase64 != null)
             itemOriginal.ImageBase64 = item.ImageBase64;
 
             System.IO.File.WriteAllText("Data/users.json", JsonSerializer.Serialize(data, _jsonSerializerOptions));

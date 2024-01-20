@@ -59,7 +59,6 @@ namespace adminBlazor.Factories
 
                 item.ExtraTime = user.ExtraTime;
 
-
             if (user.Group != 0)
                 item.Group = user.Group;
 
