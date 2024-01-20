@@ -1,5 +1,6 @@
 ﻿@page "/editVoc/{Id:int}"
 @using adminBlazor.Models
+@attribute [Authorize(Roles = "teacher")]
 
 
 <h3>Edit</h3>

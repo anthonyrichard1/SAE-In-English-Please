@@ -5,7 +5,9 @@
     <a href="/list">@Localizer["Users"]</a>
     </AuthorizeView>
     <a href="/account">@Localizer["My account"]</a>
+        <AuthorizeView Roles="teacher">
     <a href="/voc">@Localizer["Vocabulary Lists"]</a>
+        </AuthorizeView>
     <a href="/config">@Localizer["Config"]</a>
 </div>
 

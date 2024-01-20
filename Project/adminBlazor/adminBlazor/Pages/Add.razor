@@ -1,5 +1,5 @@
 ﻿@page "/add"
-
+@attribute [Authorize(Roles = "admin")]
 <h3>Add</h3>
 
 <EditForm Model="@user" OnValidSubmit="@HandleValidSubmit">

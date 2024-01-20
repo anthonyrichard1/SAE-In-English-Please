@@ -1,6 +1,6 @@
 ﻿@page "/editUser/{Id:int}"
 @using adminBlazor.Models
-
+@attribute [Authorize(Roles = "admin")]
 
 <h3>Edit</h3>
 <h4>User id : @Id</h4>
