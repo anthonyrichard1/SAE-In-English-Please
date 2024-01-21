@@ -20,12 +20,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
-
+builder.Services.AddBlazoredModal();
 builder.Services.AddRazorPages();
     builder.Services.AddServerSideBlazor();
-
+builder.Services.AddScoped<IDataService, DataLocalService>();
 builder.Services.AddScoped<IDataService, DataApiService>();
-//builder.Services.AddScoped<IDataService, DataLocalService>();
+
 
 builder.Services.AddScoped<IVocListService, VocListLocalService>();
 
@@ -38,7 +38,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddHttpClient();
 builder.Services.AddBlazoredLocalStorage();
-builder.Services.AddBlazoredModal();
+
 
 
 // Add the controller of the app

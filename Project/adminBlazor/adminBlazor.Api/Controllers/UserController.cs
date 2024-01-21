@@ -146,33 +146,7 @@ namespace Minecraft.Crafting.Api.Controllers
             return Task.FromResult(item);
         }
 
-        /// <summary>
-        /// Gets the item by name.
-        /// </summary>
-        /// <param name="name">The name.</param>
-        /// <returns>
-        /// The item.
-        /// </returns>
-        [HttpGet]
-        [Route("by-name/{name}")]
-        public Task<User> GetByName(string name)
-        {
-            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/users.json"), _jsonSerializerOptions);
-
-            if (data == null)
-            {
-                throw new Exception("Unable to get the users.");
-            }
-
-            var user = data.FirstOrDefault(w => w.Name.ToLowerInvariant() == name.ToLowerInvariant());
-
-            if (user == null)
-            {
-                throw new Exception($"Unable to found the users with name: {name}");
-            }
-
-            return Task.FromResult(user);
-        }
+   
 
 
         /// <summary>
@@ -195,86 +169,6 @@ namespace Minecraft.Crafting.Api.Controllers
             return Task.FromResult(data.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList());
         }
 
-        /// <summary>
-        /// Resets the users.
-        /// </summary>
-        /// <returns>The async task.</returns>
-        [HttpGet]
-        [Route("reset-users")]
-        public Task ResetUsers()
-        {
-            if (!System.IO.File.Exists("Data/users.json"))
-            {
-                System.IO.File.Delete("Data/users.json");
-            }
-
-            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/users-original.json"), _jsonSerializerOptions);
-
-            if (data == null)
-            {
-                throw new Exception("Unable to get the users.");
-            }
-
-            string projectPath = @"C:\Users\PATRICK\Source\Repos\SAE_2A_Anglais2\Project";
-            string imagePath = Path.Combine(projectPath, "adminBlazor", "Images", "default.jpeg");
-
-            var defaultImage = Convert.ToBase64String(System.IO.File.ReadAllBytes(imagePath));
-
-            var imageTranslation = new Dictionary<string, string>
-            {
-                { "stone_slab", "smooth_stone_slab_side" },
-                { "sticky_piston", "piston_top_sticky" },
-                { "mob_spawner", "spawner" },
-                { "chest", "chest_minecart" },
-                { "stone_stairs", "stairs" },
-            };
-
-            foreach (var item in data)
-            {
-                var imageFilepath = defaultImage;
-
-                if (System.IO.File.Exists($"Images/{item.Name}.png"))
-                {
-                    imageFilepath = Convert.ToBase64String(System.IO.File.ReadAllBytes($"Images/{item.Name}.png"));
-                }
-
-                if (imageFilepath == defaultImage && System.IO.File.Exists($"Images/{item.Name}_top.png"))
-                {
-                    imageFilepath = Convert.ToBase64String(System.IO.File.ReadAllBytes($"Images/{item.Name}_top.png"));
-                }
-
-                if (imageFilepath == defaultImage && System.IO.File.Exists($"Images/{item.Name}_front.png"))
-                {
-                    imageFilepath = Convert.ToBase64String(System.IO.File.ReadAllBytes($"Images/{item.Name}_front.png"));
-                }
-
-                if (imageFilepath == defaultImage && System.IO.File.Exists($"Images/white_{item.Name}.png"))
-                {
-                    imageFilepath = Convert.ToBase64String(System.IO.File.ReadAllBytes($"Images/white_{item.Name}.png"));
-                }
-
-                if (imageFilepath == defaultImage && System.IO.File.Exists($"Images/oak_{item.Name}.png"))
-                {
-                    imageFilepath = Convert.ToBase64String(System.IO.File.ReadAllBytes($"Images/oak_{item.Name}.png"));
-                }
-
-                if (imageFilepath == defaultImage && System.IO.File.Exists($"Images/{item.Name.ToLower().Replace(" ", "_")}.png"))
-                {
-                    imageFilepath = Convert.ToBase64String(System.IO.File.ReadAllBytes($"Images/{item.Name.ToLower().Replace(" ", "_")}.png"));
-                }
-
-                if (imageFilepath == defaultImage && imageTranslation.ContainsKey(item.Name))
-                {
-                    imageFilepath = Convert.ToBase64String(System.IO.File.ReadAllBytes($"Images/{imageTranslation[item.Name]}.png"));
-                }
-
-                item.ImageBase64 = imageFilepath;
-            }
-
-            System.IO.File.WriteAllText("Data/users.json", JsonSerializer.Serialize(data, _jsonSerializerOptions));
-
-            return Task.FromResult(data);
-        }
 
 
         /// <summary>
