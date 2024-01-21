@@ -1,7 +1,6 @@
 ﻿using adminBlazor.Factories;
 using adminBlazor.Models;
 using adminBlazor.Services;
-using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Hosting;

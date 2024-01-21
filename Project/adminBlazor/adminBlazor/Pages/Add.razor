@@ -27,20 +27,7 @@
             <ValidationMessage For="@(() => user.Email)" />
         </label>
     </p>
-    @*
-    <p>
-     Roles categories:
-        <div>
-            @foreach (var item in roles)
-            {
-                <label>
-                    <input type="checkbox" @onchange="@(e => RolesCategoriesChange(item, e.Value))" 
-                    checked="@user.Roles.Contains(item)" />@item
-                </label>
-            }
-        </div>
-    </p>
-    *@
+
 
 <p>roles
     <div>

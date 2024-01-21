@@ -1,10 +1,9 @@
 ﻿
 <div class="navbar">
-    <a href="http://localhost/SAE_2A_Anglais/Project/php/">@Localizer["Home"]</a>
+    <a href="/">@Localizer["Home"]</a>
     <AuthorizeView Roles="admin">
     <a href="/list">@Localizer["Users"]</a>
     </AuthorizeView>
-    <a href="/account">@Localizer["My account"]</a>
         <AuthorizeView Roles="teacher">
     <a href="/voc">@Localizer["Vocabulary Lists"]</a>
         </AuthorizeView>

@@ -25,10 +25,7 @@ namespace adminBlazor.Services
             _webHostEnvironment = webHostEnvironment;
             _navigationManager = navigationManager;
         }
-        public VocListLocalService(ILocalStorageService localStorage)
-        {
-            _localStorage = localStorage; // Assure-toi que LocalStorage est initialisé correctement ici
-        }
+
 
         public async Task Add(VocabularyListModel model)
         {

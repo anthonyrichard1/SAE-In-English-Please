@@ -21,7 +21,7 @@ namespace adminBlazor.Services
             var item = UserFactory.Create(model);
 
             // Save the data
-             await _http.PostAsJsonAsync("https://localhost:7234/api/User/", item);
+            await _http.PostAsJsonAsync("https://localhost:7234/api/User/", item);
         }
 
         public async Task<int> Count()

@@ -11,23 +11,20 @@ namespace adminBlazor.Pages
     {
         [Inject]
         public NavigationManager NavigationManager { get; set; }
-        [Inject]
-        public ILocalStorageService LocalStorage { get; set; }
+
         [Inject]
         public IDataService DataService { get; set; }
 
-        [Inject]
-        public IWebHostEnvironment WebHostEnvironment { get; set; }
 
 
         /// <summary>
-        /// The default enchant categories.
+        /// The default roles categories.
         /// </summary>
         private List<string> roles = new List<string>() { "admin","teacher", "student" };
 
 
         /// <summary>
-        /// The current item model
+        /// The current user model
         /// </summary>
         private Models.UserModel user = new Models.UserModel()
         {

@@ -34,7 +34,7 @@ namespace Minecraft.Crafting.Api.Controllers
         /// <param name="item">The item.</param>
         /// <returns>The async task.</returns>
         [HttpPost]
-        [Route("add")]
+        [Route("")]
         public Task Add(User item)
         {
             var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/users.json"), _jsonSerializerOptions);
@@ -174,29 +174,6 @@ namespace Minecraft.Crafting.Api.Controllers
             return Task.FromResult(user);
         }
 
-        /// <summary>
-        /// Gets the recipes.
-        /// </summary>
-        /// <returns>The recipes.</returns>
-/*        [HttpGet]
-        [Route("recipe")]
-        public Task<List<Recipe>> GetRecipe()
-        {
-            if (!System.IO.File.Exists("Data/items.json"))
-            {
-                ResetRecipes();
-            }
-
-            var data = JsonSerializer.Deserialize<List<Recipe>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
-
-            if (data == null)
-            {
-                throw new Exception("Unable to get the recipes.");
-            }
-
-            return Task.FromResult(data);
-        }
-*/
 
         /// <summary>
         /// Get the users with pagination.
@@ -299,24 +276,6 @@ namespace Minecraft.Crafting.Api.Controllers
             return Task.FromResult(data);
         }
 
-        /// <summary>
-        /// Resets the recipes.
-        /// </summary>
-        /// <returns>The async task.</returns>
-/*        [HttpGet]
-        [Route("reset-recipes")]
-        public Task ResetRecipes()
-        {
-            if (!System.IO.File.Exists("Data/items.json"))
-            {
-                System.IO.File.Delete("Data/items.json");
-            }
-
-            ConvertRecipes();
-
-            return Task.CompletedTask;
-        }
-*/
 
         /// <summary>
         /// Updates the specified identifier.
@@ -345,7 +304,6 @@ namespace Minecraft.Crafting.Api.Controllers
             itemOriginal.Password = item.Password;
             itemOriginal.Roles = item.Roles;
             itemOriginal.Group = item.Group;
-            if(item.ImageBase64 != null)
             itemOriginal.ImageBase64 = item.ImageBase64;
 
             System.IO.File.WriteAllText("Data/users.json", JsonSerializer.Serialize(data, _jsonSerializerOptions));
@@ -361,99 +319,10 @@ namespace Minecraft.Crafting.Api.Controllers
         /// <param name="line">The line.</param>
         /// <param name="row">The row.</param>
         /// <returns>The name of the item.</returns>
-        private static string GetItemName(List<User> users, InShape[][] inShape, int line, int row)
-        {
-            if (inShape.Length < line + 1)
-            {
-                return null;
-            }
 
-            if (inShape[line].Length < row + 1)
-            {
-                return null;
-            }
 
-            var id = inShape[line][row].Integer ?? inShape[line][row].IngredientClass?.Id;
 
-            if (id == null)
-            {
-                return null;
-            }
 
-            return GetItemName(users, id.Value);
-        }
 
-        /// <summary>
-        /// Gets the name of the user.
-        /// </summary>
-        /// <param name="users">The users.</param>
-        /// <param name="id">The identifier.</param>
-        /// <returns>The name of the user.</returns>
-        private static string GetItemName(List<User> users, long id)
-        {
-            var user = users.FirstOrDefault(w => w.Id == id);
-            return user?.Name;
-        }
-
-        /// <summary>
-        /// Converts the recipes.
-        /// </summary>
- /*       private void ConvertRecipes()
-        {
-            var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/items.json"), _jsonSerializerOptions);
-
-            if (data == null)
-            {
-                return;
-            }
-
-            var recipes = Recipes.FromJson(System.IO.File.ReadAllText("Data/items.json"));
-
-            var items = new List<Recipe>();
-
-            foreach (var recipe in recipes.SelectMany(s => s.Value))
-            {
-                if (recipe.InShape == null)
-                {
-                    continue;
-                }
-
-                var giveItem = data.FirstOrDefault(w => w.Id == recipe.Result.Id);
-
-                if (giveItem == null)
-                {
-                    continue;
-                }
-
-                items.Add(new Recipe
-                {
-                    Give = giveItem,
-                    Have = new List<List<string>>
-                    {
-                        new()
-                        {
-                            GetItemName(data, recipe.InShape, 0, 0),
-                            GetItemName(data, recipe.InShape, 0, 1),
-                            GetItemName(data, recipe.InShape, 0, 2)
-                        },
-                        new()
-                        {
-                            GetItemName(data, recipe.InShape, 1, 0),
-                            GetItemName(data, recipe.InShape, 1, 1),
-                            GetItemName(data, recipe.InShape, 1, 2)
-                        },
-                        new()
-                        {
-                            GetItemName(data, recipe.InShape, 2, 0),
-                            GetItemName(data, recipe.InShape, 2, 1),
-                            GetItemName(data, recipe.InShape, 2, 2)
-                        }
-                    }
-                });
-            }
-
-            System.IO.File.WriteAllText("Data/items.json", JsonSerializer.Serialize(items, _jsonSerializerOptions));
-        }
- */
     }
 }

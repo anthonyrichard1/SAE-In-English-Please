@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using adminBlazor.Data;
 using Blazorise;
 using Blazorise.Bootstrap;
 using Blazorise.Icons.FontAwesome;
@@ -24,10 +23,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
     builder.Services.AddServerSideBlazor();
-    builder.Services.AddSingleton<WeatherForecastService>();
 
 builder.Services.AddScoped<IDataService, DataApiService>();
-builder.Services.AddScoped<IDataService, DataLocalService>();
+//builder.Services.AddScoped<IDataService, DataLocalService>();
 
 
 

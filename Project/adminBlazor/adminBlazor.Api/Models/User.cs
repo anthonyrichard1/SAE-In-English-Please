@@ -18,6 +18,9 @@ namespace Minecraft.Crafting.Api.Models
         /// </summary>
         public class User
         {
+            public User() {
+            Roles = new List<string>();
+        }
             /// <summary>
             /// Obtient ou définit l'identifiant.
             /// </summary>
