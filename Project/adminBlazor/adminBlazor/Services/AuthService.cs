@@ -9,6 +9,12 @@
     public class AuthService : IAuthService
     {
         private static readonly List<AppUser> CurrentUser;
+        private readonly ILogger<AuthService> _logger;
+
+        public AuthService(ILogger<AuthService> logger)
+        {
+            _logger = logger;
+        }
 
         static AuthService()
         {
@@ -25,6 +31,7 @@
 
             if (user == null)
             {
+                _logger.LogWarning("Authentication failed, field invalid.");
                 throw new Exception("User name or password invalid !");
             }
 
@@ -45,13 +52,17 @@
 
             if (user == null)
             {
+                _logger.LogWarning("Authentication : login failed, field invalid.");
                 throw new Exception("User name or password invalid !");
             }
+            
+            _logger.LogInformation("Authentication : login success.");
         }
 
         public void Register(RegisterRequest registerRequest)
         {
             CurrentUser.Add(new AppUser { UserName = registerRequest.UserName, Password = registerRequest.Password, Roles = new List<string> { "guest" } });
+            _logger.LogInformation("Authentication : register success.");
         }
     }
 }

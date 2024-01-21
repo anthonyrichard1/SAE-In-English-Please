@@ -27,8 +27,6 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IDataService, DataApiService>();
 //builder.Services.AddScoped<IDataService, DataLocalService>();
 
-
-
 builder.Services.AddScoped<IVocListService, VocListLocalService>();
 
 builder.Services.AddOptions();
@@ -39,67 +37,67 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 
 
 builder.Services.AddHttpClient();
-    builder.Services.AddBlazoredLocalStorage();
-    builder.Services.AddBlazoredModal();
+builder.Services.AddBlazoredLocalStorage();
+builder.Services.AddBlazoredModal();
 
 
 // Add the controller of the app
 builder.Services.AddControllers();
 
-    // Add the localization to the app and specify the resources path
-    builder.Services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
+// Add the localization to the app and specify the resources path
+builder.Services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
 
-    // Configure the localtization
-    builder.Services.Configure<RequestLocalizationOptions>(options =>
-    {
-        // Set the default culture of the web site
-        options.DefaultRequestCulture = new RequestCulture(new CultureInfo("en-US"));
+// Configure the localization
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    // Set the default culture of the web site
+    options.DefaultRequestCulture = new RequestCulture(new CultureInfo("en-US"));
 
-        // Declare the supported culture
-        options.SupportedCultures = new List<CultureInfo> { new CultureInfo("en-US"), new CultureInfo("fr-FR") };
-        options.SupportedUICultures = new List<CultureInfo> { new CultureInfo("en-US"), new CultureInfo("fr-FR") };
-    });
+    // Declare the supported culture
+    options.SupportedCultures = new List<CultureInfo> { new CultureInfo("en-US"), new CultureInfo("fr-FR") };
+    options.SupportedUICultures = new List<CultureInfo> { new CultureInfo("en-US"), new CultureInfo("fr-FR") };
+});
 
-
-    builder.Services
-       .AddBlazorise()
-       .AddBootstrapProviders()
-       .AddFontAwesomeIcons();
+builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
 
 
-    var app = builder.Build();
+builder.Services
+    .AddBlazorise()
+    .AddBootstrapProviders()
+    .AddFontAwesomeIcons();
 
-    // Configure the HTTP request pipeline.
-    if (!app.Environment.IsDevelopment())
-    {
-        app.UseExceptionHandler("/Error");
-        // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-        app.UseHsts();
-    }
+var app = builder.Build();
 
-    app.UseHttpsRedirection();
+// Configure the HTTP request pipeline.
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error");
+    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+    app.UseHsts();
+}
+    
+app.UseHttpsRedirection();
+    
+app.UseStaticFiles();
+    
+app.UseRouting();
 
-    app.UseStaticFiles();
+// Get the current localization options
+var options = ((IApplicationBuilder)app).ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
 
-    app.UseRouting();
-
-    // Get the current localization options
-    var options = ((IApplicationBuilder)app).ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
-
-    if (options?.Value != null)
-    {
-        // use the default localization
-        app.UseRequestLocalization(options.Value);
-    }
+if (options?.Value != null) 
+{ 
+    // use the default localization
+    app.UseRequestLocalization(options.Value);
+}
 
     // Add the controller to the endpoint
-    app.UseEndpoints(endpoints =>
-    {
-        endpoints.MapControllers();
-    });
+app.UseEndpoints(endpoints => 
+{ 
+    endpoints.MapControllers();
+});
 
-    app.MapBlazorHub();
-    app.MapFallbackToPage("/_Host");
+app.MapBlazorHub(); 
+app.MapFallbackToPage("/_Host");
 
-    app.Run();
-
+app.Run();
