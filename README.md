@@ -49,15 +49,13 @@ Switch branch
   git switch blazor
 ```
 
-Choose Project/adminBlazor.sln in Visual Studio.\
-Launch and enjoy the admin app.
-
-
+Choose Project/adminBlazor.sln in Visual Studio or Rider.\
+Edit configuration and create a multi-launch with adminBlazor and adminBlazor.Api.\
+Launch it and enjoy the admin app.
 
 ## Authors
 
-- [@anthony.richard](https://codefirst.iut.uca.fr/git/anthony.richard)
-- [@patrick.brugiere](https://codefirst.iut.uca.fr/git/patrick.brugiere)
-- [@lucie.goigoux](https://codefirst.iut.uca.fr/git/lucie.goigoux2)
-- [@antoine.jourdain](https://codefirst.iut.uca.fr/git/antoine.jourdain)
-
+- [Anthony Richard](https://codefirst.iut.uca.fr/git/anthony.richard)
+- [Patrick Brugière](https://codefirst.iut.uca.fr/git/patrick.brugiere)
+- [Lucie Goigoux](https://codefirst.iut.uca.fr/git/lucie.goigoux2)
+- [Antoine Jourdain](https://codefirst.iut.uca.fr/git/antoine.jourdain)
