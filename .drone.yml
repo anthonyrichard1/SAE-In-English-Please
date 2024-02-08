@@ -96,7 +96,7 @@ steps:
     image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
     environment:
         IMAGENAME: hub.codefirst.iut.uca.fr/antoine.jourdain/sae_2a_anglais:latest
-        CONTAINERNAME: in-english-please/login
+        CONTAINERNAME: in-english-please
         COMMAND: create
         OVERWRITE: true
     depends_on: [ docker-build-app ]
