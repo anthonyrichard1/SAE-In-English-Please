@@ -48,6 +48,7 @@ steps:
     when:
       branch:
         - blazor
+        - blazor-ci
     depends_on: [ build ]
 
   - name: docker-build-api
@@ -64,6 +65,7 @@ steps:
     when:
       branch:
         - blazor
+        - blazor-ci
 
   - name: deploy-container-api
     image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
@@ -76,6 +78,7 @@ steps:
     when:
       branch:
         - blazor
+        - blazor-ci
 
   - name: docker-build-app
     image: plugins/docker
@@ -91,6 +94,7 @@ steps:
     when:
       branch:
         - blazor
+        - blazor-ci
 
   - name: deploy-container-app
     image: hub.codefirst.iut.uca.fr/thomas.bellembois/codefirst-dockerproxy-clientdrone:latest
@@ -103,6 +107,7 @@ steps:
     when:
       branch:
         - blazor
+        - blazor-ci
 
 volumes:
 - name: docs
