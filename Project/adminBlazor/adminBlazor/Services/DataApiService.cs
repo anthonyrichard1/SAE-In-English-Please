@@ -24,24 +24,24 @@ namespace adminBlazor.Services
             var item = UserFactory.Create(model);
 
             // Save the data
-            await _http.PostAsJsonAsync("https://localhost:7234/api/User/", item);
+            await _http.PostAsJsonAsync("http://host.docker.internal:7234/api/User/", item);
         }
 
         public async Task<int> Count()
         {
-            return await _http.GetFromJsonAsync<int>("https://localhost:7234/api/User/count");
+            return await _http.GetFromJsonAsync<int>("http://host.docker.internal:7234/api/User/count");
         }
 
         public async Task<List<User>> List(int currentPage, int pageSize)
         {
             _logger.LogInformation("User API : call of method LIST.");
-            return await _http.GetFromJsonAsync<List<User>>($"https://localhost:7234/api/User/?currentPage={currentPage}&pageSize={pageSize}");
+            return await _http.GetFromJsonAsync<List<User>>($"http://host.docker.internal:7234/api/User/?currentPage={currentPage}&pageSize={pageSize}");
         }
 
         public async Task<User> GetById(int id)
         {
             _logger.LogInformation("User API : call of method GetByID.");
-            return await _http.GetFromJsonAsync<User>($"https://localhost:7234/api/User/{id}");
+            return await _http.GetFromJsonAsync<User>($"http://host.docker.internal:7234/api/User/{id}");
         }
 
         public async Task Update(int id, UserModel model)
@@ -51,18 +51,18 @@ namespace adminBlazor.Services
 
             _logger.LogInformation("User API : call of method UPDATE on User ID : {Id}.", id);
 
-             await _http.PutAsJsonAsync($"https://localhost:7234/api/User/{id}", item);
+             await _http.PutAsJsonAsync($"http://host.docker.internal:7234/api/User/{id}", item);
         }
 
         public async Task Delete(int id)
         {
             _logger.LogInformation("User API : call of method DELETE on User ID : {Id}.", id);
-            await _http.DeleteAsync($"https://localhost:7234/api/User/{id}");
+            await _http.DeleteAsync($"http://host.docker.internal:7234/api/User/{id}");
         }
 
          public async Task<List<CraftingRecipe>> GetRecipes()
          {
-            return await _http.GetFromJsonAsync<List<CraftingRecipe>>("https://localhost:7234/api/User/recipe");
+            return await _http.GetFromJsonAsync<List<CraftingRecipe>>("http://host.docker.internal:7234/api/User/recipe");
          }
     }
 }
