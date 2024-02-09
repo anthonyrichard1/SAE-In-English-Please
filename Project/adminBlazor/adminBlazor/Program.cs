@@ -12,6 +12,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
 using adminBlazor.Models;
 using adminBlazor;
+using Blazored.SessionStorage;
 using Microsoft.AspNetCore.Components.Authorization;
 
 
@@ -65,6 +66,8 @@ builder.Services
     .AddBlazorise()
     .AddBootstrapProviders()
     .AddFontAwesomeIcons();
+
+builder.Services.AddBlazoredSessionStorage();
 
 var app = builder.Build();
 

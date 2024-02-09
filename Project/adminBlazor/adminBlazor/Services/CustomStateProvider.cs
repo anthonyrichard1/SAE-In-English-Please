@@ -1,5 +1,4 @@
-﻿
-namespace adminBlazor.Services
+﻿namespace adminBlazor.Services
 {
     using adminBlazor.Models;
     using Microsoft.AspNetCore.Components.Authorization;
@@ -8,27 +7,31 @@ namespace adminBlazor.Services
     using System.Net.Http;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using Blazored.SessionStorage;
 
 
     public class CustomStateProvider : AuthenticationStateProvider
     {
         private readonly IAuthService _authService;
-        private CurrentUser _currentUser;
+        private readonly ISessionStorageService _sessionStorage;
+        private CurrentUser? _currentUser;
 
-        public CustomStateProvider(IAuthService authService)
+        public CustomStateProvider(IAuthService authService, ISessionStorageService sessionStorage)
         {
             this._authService = authService;
+            this._sessionStorage = sessionStorage;
         }
 
         public override async Task<AuthenticationState> GetAuthenticationStateAsync()
         {
+            await GetCurrentUser();
             var identity = new ClaimsIdentity();
             try
             {
-                var userInfo = GetCurrentUser();
-                if (userInfo.IsAuthenticated)
+                if (_currentUser?.IsAuthenticated == true)
                 {
-                    var claims = new[] { new Claim(ClaimTypes.Name, _currentUser.UserName) }.Concat(_currentUser.Claims.Select(c => new Claim(c.Key, c.Value)));
+                    var claims = new[] { new Claim(ClaimTypes.Name, _currentUser.UserName) }
+                        .Concat(_currentUser.Claims.Select(c => new Claim(c.Key, c.Value)));
                     identity = new ClaimsIdentity(claims, "Server authentication");
                 }
             }
@@ -47,12 +50,15 @@ namespace adminBlazor.Services
             // No error - Login the user
             var user = _authService.GetUser(loginParameters.UserName);
             _currentUser = user;
+            
+            await _sessionStorage.SetItemAsync("currentUser", _currentUser);
 
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
         }
 
         public async Task Logout()
         {
+            await _sessionStorage.RemoveItemAsync("currentUser");
             _currentUser = null;
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
         }
@@ -68,14 +74,11 @@ namespace adminBlazor.Services
             NotifyAuthenticationStateChanged(GetAuthenticationStateAsync());
         }
 
-        private CurrentUser GetCurrentUser()
+        private async Task GetCurrentUser()
         {
-            if (_currentUser != null && _currentUser.IsAuthenticated)
-            {
-                return _currentUser;
-            }
-
-            return new CurrentUser();
+            _currentUser = await _sessionStorage.GetItemAsync<CurrentUser>("currentUser");
+            if (_currentUser != null && _currentUser.IsAuthenticated){} //user is authenticate
+            else { _currentUser = new CurrentUser(); }
         }
     }
 }
