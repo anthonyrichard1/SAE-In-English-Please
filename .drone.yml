@@ -74,7 +74,7 @@ steps:
         CONTAINERNAME: api-in-english-please
         COMMAND: create
         OVERWRITE: true
-        CODEFIRST_CLIENTDRONE_ENV_BASE_PATH: /containers/antoinejourdain-api-in-english-please
+        CODEFIRST_CLIENTDRONE_ENV_BASE_PATH: /containers/antoinejourdain-api-in-english-please/
     depends_on: [ docker-build-api ]
     when:
       branch:
@@ -104,7 +104,7 @@ steps:
         CONTAINERNAME: in-english-please
         COMMAND: create
         OVERWRITE: true
-        CODEFIRST_CLIENTDRONE_ENV_BASE_PATH: /containers/antoinejourdain-in-english-please
+        CODEFIRST_CLIENTDRONE_ENV_BASE_PATH: /containers/antoinejourdain-in-english-please/
     depends_on: [ docker-build-app ]
     when:
       branch:
