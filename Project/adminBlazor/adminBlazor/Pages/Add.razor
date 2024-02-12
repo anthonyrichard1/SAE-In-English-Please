@@ -1,5 +1,6 @@
 ﻿@page "/add"
 @attribute [Authorize(Roles = "admin")]
+@using adminBlazor.Models
 <h3>Add</h3>
 
 <EditForm Model="@user" OnValidSubmit="@HandleValidSubmit">

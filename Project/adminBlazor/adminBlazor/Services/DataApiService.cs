@@ -1,6 +1,7 @@
 ﻿using adminBlazor.Components;
 using adminBlazor.Factories;
 using adminBlazor.Models;
+using Microsoft.AspNetCore.Http.HttpResults;
 using System.Reflection.Metadata.Ecma335;
 
 namespace adminBlazor.Services
@@ -24,7 +25,7 @@ namespace adminBlazor.Services
             var item = UserFactory.Create(model);
 
             // Save the data
-            await _http.PostAsJsonAsync("https://localhost:7234/api/User/", item);
+             await _http.PostAsJsonAsync("https://localhost:7234/api/User/add", item);
         }
 
         public async Task<int> Count()

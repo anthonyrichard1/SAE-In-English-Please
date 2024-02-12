@@ -34,7 +34,7 @@ namespace Minecraft.Crafting.Api.Controllers
         /// <param name="item">The item.</param>
         /// <returns>The async task.</returns>
         [HttpPost]
-        [Route("")]
+        [Route("add")]
         public Task Add(User item)
         {
             var data = JsonSerializer.Deserialize<List<User>>(System.IO.File.ReadAllText("Data/users.json"), _jsonSerializerOptions);
@@ -46,6 +46,11 @@ namespace Minecraft.Crafting.Api.Controllers
 
             // Simulate the Id
             item.Id = data.Max(s => s.Id) + 1;
+            if(item.ImageBase64 == "string")
+                item.ImageBase64 = null;
+            if (item.Roles.FirstOrDefault() == "string")
+                item.Roles.Add("Student");
+
 
             data.Add(item);
 
