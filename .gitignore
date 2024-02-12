@@ -99,3 +99,4 @@ fabric.properties
 .idea/codestream.xml
 .idea/**/azureSettings.xml
 /.vs
+/Project/adminBlazor/.vs
