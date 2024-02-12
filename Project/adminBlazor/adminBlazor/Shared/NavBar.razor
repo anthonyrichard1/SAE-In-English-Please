@@ -1,0 +1,23 @@
+﻿
+<div class="navbar">
+    <a href="/">@Localizer["Home"]</a>
+    <AuthorizeView Roles="admin">
+    <a href="/list">@Localizer["Users"]</a>
+    </AuthorizeView>
+        <AuthorizeView Roles="teacher">
+    <a href="/voc">@Localizer["Vocabulary Lists"]</a>
+        </AuthorizeView>
+    <a href="/config">@Localizer["Config"]</a>
+</div>
+
+
+@code {
+    private bool isNavMenuVisible = false;
+
+    private string navMenuStyle => isNavMenuVisible ? "display: flex;" : "display: show;";
+
+    private void ToggleNavMenu()
+    {
+        isNavMenuVisible = !isNavMenuVisible;
+    }
+}

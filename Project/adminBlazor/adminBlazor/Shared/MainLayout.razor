@@ -1,0 +1,25 @@
+﻿@inherits LayoutComponentBase
+
+<PageTitle>Admin</PageTitle>
+
+<div class="page">
+    <div class="navbar">
+        <NavBar />
+        <div class="px-4">
+            <CultureSelector />
+        </div>
+
+            <button type="button" class="btn custom-button ml-md-auto" @onclick="@LogoutClick">Logout</button>
+        </div>
+
+
+
+    <main>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+

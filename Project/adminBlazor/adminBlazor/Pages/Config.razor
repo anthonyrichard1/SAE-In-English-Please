@@ -1,0 +1,26 @@
+﻿@page "/config"
+
+<h3>Config</h3>
+
+@if (creatorOptions != null)
+{
+    <div>
+        <div>Logging:LogLevel:Default: @Configuration["Logging:LogLevel:Default"]</div>
+        <div>Logging:LogLevel:Default: @Configuration["Logging:LogLevel:Microsoft.AspNetCore"]</div>
+  
+        <h4>Noms des créateurs</h4>
+        @if (creatorOptions.Name != null)
+        {
+            @foreach (var creator in creatorOptions.Name)
+            {
+                <div>@creator</div>
+            }
+        }
+        else
+        {
+            <div>No creators found</div>
+        }
+    </div>
+        
+      
+}

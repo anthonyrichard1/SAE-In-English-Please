@@ -1,0 +1,69 @@
+﻿@page "/list"
+@attribute [Authorize(Roles = "admin")]
+@using adminBlazor.Models
+
+<!--<script src="_framework/blazor.server.js"></script>!-->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+<link href="_content/Blazorise/blazorise.css" rel="stylesheet" />
+<link href="_content/Blazorise.Bootstrap/blazorise.bootstrap.css" rel="stylesheet" />
+<h3>List</h3>
+
+<div>
+    <NavLink class="btn btn-primary" href="Add" Match="NavLinkMatch.All">
+        <i class="fa fa-plus"></i> Ajouter
+    </NavLink>
+</div>
+
+<DataGrid TItem="User"
+          Data="@_users"
+          ReadData="@OnReadData"
+          TotalItems="@totalUser"
+          PageSize="10"
+          ShowPager
+          Responsive>
+        <DataGridColumn TItem="User" Field="@nameof(User.Id)" Caption="Image">
+        <DisplayTemplate>
+            @if (!string.IsNullOrWhiteSpace(context.ImageBase64))
+            {
+                <img src="@($"data:image/png;base64, {context.ImageBase64}")" class="img-thumbnail" style="min-width: 50px; max-width: 150px" />
+            }
+            else
+            {
+                <img src="images/default.jpeg" class="img-thumbnail" style="max-width: 150px" />
+            }
+        </DisplayTemplate>
+    </DataGridColumn>
+       <!-- <DataGridColumn TItem="User" Field="@nameof(User.Password)" Caption="Password" /> -->
+    <DataGridColumn TItem="User" Field="@nameof(User.Name)" Caption="Name" />
+        <DataGridColumn TItem="User" Field="@nameof(User.Email)" Caption="Email" />
+        <DataGridColumn TItem="User" Field="@nameof(User.Surname)" Caption="Surname" />
+        <DataGridColumn TItem="User" Field="@nameof(User.Nickname)" Caption="Nickname" />
+        <!--<DataGridColumn TItem="User" Field="@nameof(User.Image)" Caption="Image" /> -->
+        <DataGridColumn TItem="User" Field="@nameof(User.ExtraTime)" Caption="Extra Time" />
+        <DataGridColumn TItem="User" Field="@nameof(User.Group)" Caption="Group" />
+    <DataGridColumn TItem="User" Field="@nameof(User.Roles)" Caption="Roles">
+        <DisplayTemplate>
+            @if (context is User user)
+            {
+                @if (user.Roles != null && user.Roles.Any())
+                {
+                    @string.Join(", ", user.Roles)
+                }
+                else
+                {
+                    <span>Aucun rôle</span>
+                }
+            }
+        </DisplayTemplate>
+    </DataGridColumn>
+    <DataGridColumn TItem="User" Field="@nameof(User.Id)" Caption="Modifier">
+        <DisplayTemplate>
+            <a href="EditUser/@(context.Id)" class="btn btn-primary"><i class="fa fa-edit"></i> Editer</a>
+            <button type="button" class="btn btn-primary" @onclick="() => OnDelete(context.Id)"><i class="fa fa-trash"></i> Supprimer</button>
+        </DisplayTemplate>
+    </DataGridColumn>
+    </DataGrid>
+
+

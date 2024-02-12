@@ -1,0 +1,22 @@
+﻿body {
+    margin-right: 0;
+    font-family: Arial, sans-serif;
+    margin-top:  20px;
+}
+
+.navbar {
+    background-color: #7464a1;
+    padding: 15px;
+    color: #fff; 
+
+}
+
+    .navbar a {
+        color: #fff; 
+        text-decoration: none;
+        margin: 0 15px;
+    }
+
+    .navbar a:hover {
+        color: #463c61;
+    }

@@ -1,0 +1,93 @@
+﻿@page "/editUser/{Id:int}"
+@attribute [Authorize(Roles = "admin")]
+@using adminBlazor.Models
+
+
+<h3>Edit</h3>
+<h4>User id : @Id</h4>
+<EditForm Model="@user" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <p>
+        <label for="name">
+            Name:
+            <InputText id="name" @bind-Value="user.Name"  />
+            <ValidationMessage For="@(() => user.Name)" />
+        </label>
+    </p>
+    <p>
+        <label for="password">
+            Password:
+            <InputText id="password" @bind-Value="user.Password" type="password" />
+            <ValidationMessage For="@(() => user.Password)" />
+        </label>
+    </p>
+    <p>
+        <label for="max-durability">
+            Email:
+            <InputText id="max-durability" @bind-Value="user.Email" />
+            <ValidationMessage For="@(() => user.Email)" />
+        </label>
+    </p>
+
+    <p>
+        roles
+        <div>
+            @foreach (var role in roles)
+            {
+                var currentItem = role; // Capturer la variable locale pour éviter les problèmes de fermeture
+
+                    <label>
+                        <input type="checkbox" @onchange="@(e => RolesCategoriesChange(role, e.Value))" checked="@(user.Roles.Contains(currentItem) ? "checked" : null)" />
+                    @currentItem
+                    <ValidationMessage For="@(() => user.Roles)" />
+                </label>
+                <br />
+            }
+        </div>
+    </p>
+    <p>
+        <label>
+            Nickname
+            <InputText @bind-Value="user.Nickname" />
+            <ValidationMessage For="@(() => user.Nickname)" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Surname
+            <InputText @bind-Value="user.Surname" />
+            <ValidationMessage For="@(() => user.Surname)" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Image
+            <InputFile OnChange="@LoadImage" accept=".png, .jpeg" />
+            <ValidationMessage For="@(() => user.Image)" />
+        </label>
+    </p>
+    <p>
+    <label>
+        Current Item image:
+        <img src="data:image/png;base64, @(user.ImageBase64)" class="img-thumbnail" style="min-width: 50px; max-width: 150px"/>
+    </label>
+</p>
+    <p>
+        <label>
+            ExtraTime
+            <InputCheckbox @bind-Value="user.ExtraTime" />
+            <ValidationMessage For="@(() => user.ExtraTime)" />
+        </label>
+    </p>
+    <p>
+        <label>
+            Group
+            <InputNumber @bind-Value="user.Group" />
+            <ValidationMessage For="@(() => user.Group)" />
+        </label>
+    </p>
+
+    <button type="submit">Submit</button>
+</EditForm>
