@@ -10,9 +10,11 @@ namespace adminBlazor.Models
 
         public string Name { get; set; }
 
-        public string Image { get; set; }
+        public byte[] Image { get; set; }
 
         public int? Aut { get; set; }
+        
+        public string ImageBase64 { get; set; }
     }
 }
 

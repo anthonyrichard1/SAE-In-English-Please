@@ -9,14 +9,15 @@ namespace adminBlazor.Factories
 {
     public static class VocListFactory
     {
-        public static VocabularyListModel ToModel(VocabularyList voc)
+        public static VocabularyListModel ToModel(VocabularyList voc, byte[] imageContent)
         {
             return new VocabularyListModel
             {
                 Id = voc.Id,
                 Name = voc.Name,
                 Image = voc.Image,
-                Aut = voc.Aut
+                Aut = voc.Aut,
+                ImageBase64 = string.IsNullOrWhiteSpace(voc.ImageBase64) ? Convert.ToBase64String(imageContent) : voc.ImageBase64
             };
         }
 
@@ -27,7 +28,8 @@ namespace adminBlazor.Factories
                 Id = voc.Id,
                 Name = voc.Name,
                 Image = voc.Image,
-                Aut = voc.Aut
+                Aut = voc.Aut,
+                ImageBase64 = voc.Image != null ? Convert.ToBase64String(voc.Image) : null
             };
         }
         public static void Update(VocabularyList item, VocabularyListModel voc)
@@ -35,8 +37,8 @@ namespace adminBlazor.Factories
             if (!string.IsNullOrEmpty(voc.Name))
                 item.Name = voc.Name;
 
-            if (!string.IsNullOrEmpty(voc.Image))
-                item.Image = voc.Image;
+            if (voc.ImageBase64 != null && voc.Image != null)
+                item.ImageBase64 = Convert.ToBase64String(voc.Image);
         }
 
     }

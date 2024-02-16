@@ -3,6 +3,7 @@ using adminBlazor.Models;
 using adminBlazor.Services;
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Hosting;
 
 
@@ -32,13 +33,25 @@ namespace adminBlazor.Pages
 
             NavigationManager.NavigateTo("list");
         }
+        
+        private async Task LoadImage(InputFileChangeEventArgs e)
+        {
+            // Set the content of the image to the model
+            using (var memoryStream = new MemoryStream())
+            {
+                await e.File.OpenReadStream().CopyToAsync(memoryStream);
+                voc.Image = memoryStream.ToArray();
+            }
+        }
 
 
         protected async Task OnInitializedAsync()
         {
             var item = await VocListService.GetById(Id);
 
-            voc = VocListFactory.ToModel(item);
+            var fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/default.jpeg");
+
+            voc = VocListFactory.ToModel(item,fileContent);
         }
     }
 }
