@@ -18,9 +18,20 @@
           ShowPager
           Responsive>
 
+    <DataGridColumn TItem="VocabularyList" Field="@nameof(VocabularyList.Id)" Caption="Image">
+        <DisplayTemplate>
+            @if (!string.IsNullOrWhiteSpace(context.ImageBase64))
+            {
+                <img src="@($"data:image/png;base64, {context.ImageBase64}")" class="img-thumbnail" style="min-width: 50px; max-width: 150px" />
+            }
+            else
+            {
+                <img src="images/default.jpeg" class="img-thumbnail" style="max-width: 150px" />
+            }
+        </DisplayTemplate>
+    </DataGridColumn>
     <DataGridColumn TItem="VocabularyList" Field="@nameof(VocabularyList.Id)" Caption="id" />
     <DataGridColumn TItem="VocabularyList" Field="@nameof(VocabularyList.Name)" Caption="Name" />
-    <DataGridColumn TItem="VocabularyList" Field="@nameof(VocabularyList.Image)" Caption="Image" />
     <DataGridColumn TItem="VocabularyList" Field="@nameof(VocabularyList.Aut)" Caption="Author ID">
         <DisplayTemplate>
             @if (context is VocabularyList voc)

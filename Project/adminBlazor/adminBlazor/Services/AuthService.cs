@@ -20,8 +20,8 @@
         {
             CurrentUser = new List<AppUser>
             {
-                new AppUser { UserName = "Admin", Password = "123456", Roles = new List<string> { "admin" } },
-                new AppUser{ UserName ="Teacher1", Password = "123456", Roles = new List<string>{ "teacher" } }
+                new AppUser { UserName = "Admin", Password = "1", Roles = new List<string> { "admin" } },
+                new AppUser{ UserName = "Teacher", Password = "1", Roles = new List<string>{ "teacher" } }
             };
         }
 

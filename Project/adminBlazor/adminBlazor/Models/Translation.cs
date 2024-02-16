@@ -3,10 +3,9 @@ namespace adminBlazor.Models
 {
 	public class Translation
 	{
-        private int id;
-		private string word1;
-		private string word2;
-		private int listVoc;
+		private int Id { get; set; }
+		private string FirstWord { get; set; }
+		private string SecondWord { get; set; }
 	}
 }
 
