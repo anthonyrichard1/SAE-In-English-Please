@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class PracticeEntity
+    public class VocabularyTranslateEntity
     {
+        public string Word { get; set; }
+        public string Translation { get; set; }
     }
 }

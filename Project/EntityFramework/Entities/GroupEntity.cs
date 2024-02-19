@@ -1,4 +1,6 @@
-﻿namespace Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Entities
 {
     public class GroupEntity
     {
@@ -6,6 +8,9 @@
         public int Num { get; set; }
         public int year { get; set; }
         public string sector { get; set; }
+        public ICollection<UserEntity> Users { get; set; } = new List<UserEntity>();
+
+        public ICollection<VocabularyListEntity> VocabularyList { get; set; } = new List<VocabularyListEntity>();
 
     }
 }

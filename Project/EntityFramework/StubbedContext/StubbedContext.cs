@@ -10,6 +10,16 @@ namespace StubbedContextLib
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<VocabularyEntity>()
+            .HasMany(al => al.translations)
+            .WithMany(ar => ar.Words).UsingEntity<VocabularyTranslateEntity>();
+
+            modelBuilder.Entity<VocabularyListEntity>()
+                .HasMany(u => u.Groups)
+                .WithMany(g => g.VocabularyList)
+                .UsingEntity<VocabularyListGroup>();
+
             modelBuilder.Entity<UserEntity>().HasData(
             new UserEntity
             {

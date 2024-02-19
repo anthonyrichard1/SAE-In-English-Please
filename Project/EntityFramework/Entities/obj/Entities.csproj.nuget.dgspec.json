@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Brugiere\\source\\repos\\SAE_2A_Anglais3\\Project\\EntityFramework\\Entities\\Entities.csproj": {}
+    "C:\\Users\\Brugiere\\Source\\Repos\\SAE_2A_Anglais\\Project\\EntityFramework\\Entities\\Entities.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Brugiere\\source\\repos\\SAE_2A_Anglais3\\Project\\EntityFramework\\Entities\\Entities.csproj": {
+    "C:\\Users\\Brugiere\\Source\\Repos\\SAE_2A_Anglais\\Project\\EntityFramework\\Entities\\Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Brugiere\\source\\repos\\SAE_2A_Anglais3\\Project\\EntityFramework\\Entities\\Entities.csproj",
+        "projectUniqueName": "C:\\Users\\Brugiere\\Source\\Repos\\SAE_2A_Anglais\\Project\\EntityFramework\\Entities\\Entities.csproj",
         "projectName": "Entities",
-        "projectPath": "C:\\Users\\Brugiere\\source\\repos\\SAE_2A_Anglais3\\Project\\EntityFramework\\Entities\\Entities.csproj",
+        "projectPath": "C:\\Users\\Brugiere\\Source\\Repos\\SAE_2A_Anglais\\Project\\EntityFramework\\Entities\\Entities.csproj",
         "packagesPath": "C:\\Users\\Brugiere\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Brugiere\\source\\repos\\SAE_2A_Anglais3\\Project\\EntityFramework\\Entities\\obj\\",
+        "outputPath": "C:\\Users\\Brugiere\\Source\\Repos\\SAE_2A_Anglais\\Project\\EntityFramework\\Entities\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

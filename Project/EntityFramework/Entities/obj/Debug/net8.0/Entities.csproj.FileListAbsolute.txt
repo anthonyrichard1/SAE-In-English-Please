@@ -12,3 +12,17 @@ C:\Users\Brugiere\source\repos\SAE_2A_Anglais3\Project\EntityFramework\Entities\
 C:\Users\Brugiere\source\repos\SAE_2A_Anglais3\Project\EntityFramework\Entities\obj\Debug\net8.0\Entities.pdb
 C:\Users\Brugiere\source\repos\SAE_2A_Anglais3\Project\EntityFramework\Entities\obj\Debug\net8.0\Entities.genruntimeconfig.cache
 C:\Users\Brugiere\source\repos\SAE_2A_Anglais3\Project\EntityFramework\Entities\obj\Debug\net8.0\ref\Entities.dll
+C:\Users\Brugiere\Source\Repos\SAE_2A_Anglais\Project\EntityFramework\Entities\bin\Debug\net8.0\Entities.deps.json
+C:\Users\Brugiere\Source\Repos\SAE_2A_Anglais\Project\EntityFramework\Entities\bin\Debug\net8.0\Entities.runtimeconfig.json
+C:\Users\Brugiere\Source\Repos\SAE_2A_Anglais\Project\EntityFramework\Entities\bin\Debug\net8.0\Entities.dll
+C:\Users\Brugiere\Source\Repos\SAE_2A_Anglais\Project\EntityFramework\Entities\bin\Debug\net8.0\Entities.pdb
+C:\Users\Brugiere\Source\Repos\SAE_2A_Anglais\Project\EntityFramework\Entities\obj\Debug\net8.0\Entities.csproj.AssemblyReference.cache
+C:\Users\Brugiere\Source\Repos\SAE_2A_Anglais\Project\EntityFramework\Entities\obj\Debug\net8.0\Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Brugiere\Source\Repos\SAE_2A_Anglais\Project\EntityFramework\Entities\obj\Debug\net8.0\Entities.AssemblyInfoInputs.cache
+C:\Users\Brugiere\Source\Repos\SAE_2A_Anglais\Project\EntityFramework\Entities\obj\Debug\net8.0\Entities.AssemblyInfo.cs
+C:\Users\Brugiere\Source\Repos\SAE_2A_Anglais\Project\EntityFramework\Entities\obj\Debug\net8.0\Entities.csproj.CoreCompileInputs.cache
+C:\Users\Brugiere\Source\Repos\SAE_2A_Anglais\Project\EntityFramework\Entities\obj\Debug\net8.0\Entities.dll
+C:\Users\Brugiere\Source\Repos\SAE_2A_Anglais\Project\EntityFramework\Entities\obj\Debug\net8.0\refint\Entities.dll
+C:\Users\Brugiere\Source\Repos\SAE_2A_Anglais\Project\EntityFramework\Entities\obj\Debug\net8.0\Entities.pdb
+C:\Users\Brugiere\Source\Repos\SAE_2A_Anglais\Project\EntityFramework\Entities\obj\Debug\net8.0\Entities.genruntimeconfig.cache
+C:\Users\Brugiere\Source\Repos\SAE_2A_Anglais\Project\EntityFramework\Entities\obj\Debug\net8.0\ref\Entities.dll

@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = StubbedContext
-build_property.ProjectDir = C:\Users\Brugiere\source\repos\SAE_2A_Anglais3\Project\EntityFramework\StubbedContext\
+build_property.ProjectDir = C:\Users\Brugiere\Source\Repos\SAE_2A_Anglais\Project\EntityFramework\StubbedContext\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

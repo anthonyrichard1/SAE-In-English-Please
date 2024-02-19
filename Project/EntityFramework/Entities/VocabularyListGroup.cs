@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Entities
 {
-    public class BeEntity
+    public class VocabularyListGroup
     {
-        public int Id { get; set; }
-        public int RoleId { get; set; }
-
+        public long GroupId { get; set; }
+        public long VocabularyListId { get; set; }
     }
 }
