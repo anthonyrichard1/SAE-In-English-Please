@@ -22,5 +22,13 @@ namespace Entities
         public RoleEntity? Role { get; set; } = null!;
         public Boolean ExtraTime { get; set; }
         public ICollection<VocabularyListEntity> VocabularyList { get; set; } = new List<VocabularyListEntity>();
+
+
+        public string toString()
+        {
+            return "Id: " + Id + " Password: " + Password + " Email: " + Email + " Name: " + Name + " UserName: " + UserName + " NickName: " + NickName + " GroupId: " + GroupId + " RoleId: " + RoleId + " ExtraTime: " + ExtraTime;
+        }
     }
+
+
 }

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("DbContextLib")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3ea94dc8442f9d0e48e8fb70f0954cb0d4a78aea")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+faae69f8b66a38c8db201a3a1ded5f721c8d9291")]
 [assembly: System.Reflection.AssemblyProductAttribute("DbContextLib")]
 [assembly: System.Reflection.AssemblyTitleAttribute("DbContextLib")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

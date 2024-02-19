@@ -100,3 +100,5 @@ fabric.properties
 .idea/**/azureSettings.xml
 /.vs
 /Project/adminBlazor/.vs
+/Project/EntityFramework/**/bin/
+/Project/EntityFramework/**/obj/

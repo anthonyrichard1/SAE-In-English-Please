@@ -18,6 +18,6 @@ namespace Entities
         public UserEntity User { get; set; } = null!;
 
         public ICollection<TranslateEntity> translation { get; set; } = new List<TranslateEntity>();
-        public ICollection<GroupEntity> Groups { get; } = new List<GroupEntity>();
+        public ICollection<GroupEntity> Groups { get; set; } = new List<GroupEntity>();
     }
 }
