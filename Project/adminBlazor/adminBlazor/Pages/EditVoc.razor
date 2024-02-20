@@ -15,6 +15,14 @@
             <InputText id="name" @bind-Value="voc.Name" />
             <ValidationMessage For="@(() => voc.Name)" />
         </label>
+
+    </p>
+    <p>
+        <label>
+            Author
+            <InputNumber @bind-Value="voc.Aut" />
+            <ValidationMessage For="@(() => voc.Aut)" />
+        </label>
     </p>
 
     <button type="submit">Submit</button>

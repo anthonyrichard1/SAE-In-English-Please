@@ -39,6 +39,9 @@ namespace adminBlazor.Factories
 
             if (voc.ImageBase64 != null && voc.Image != null)
                 item.ImageBase64 = Convert.ToBase64String(voc.Image);
+
+            if (voc.Aut != null)
+                item.Aut = voc.Aut;
         }
 
     }
