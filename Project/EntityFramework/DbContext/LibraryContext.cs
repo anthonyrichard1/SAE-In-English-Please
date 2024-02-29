@@ -20,6 +20,9 @@ namespace DbContextLib
         public LibraryContext(DbContextOptions<LibraryContext> options): base(options)
         {
         }
+        public LibraryContext()
+        {
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

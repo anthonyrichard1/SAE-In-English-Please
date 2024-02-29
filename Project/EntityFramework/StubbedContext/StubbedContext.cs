@@ -87,9 +87,19 @@ namespace StubbedContextLib
                     name = "English"
                 }
                 );
+            modelBuilder.Entity<GroupEntity>().HasData(
+                new GroupEntity
+                {
+                    Id= 1,
+                    Num = 1,
+                    sector = "informatics",
+                    year = 1,
+                    VocabularyList = null
+
+                });
             }
 
-
+        public StubbedContext() { } 
 
         public StubbedContext(DbContextOptions<LibraryContext> options) : base(options)
         {

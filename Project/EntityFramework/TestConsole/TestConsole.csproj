@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StubbedContext\StubbedContext.csproj" />
+    <ProjectReference Include="..\StubbedContext\StubbedContextLib.csproj" />
   </ItemGroup>
 
 </Project>

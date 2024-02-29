@@ -4,6 +4,7 @@ namespace Entities
 {
     public class GroupEntity
     {
+        [Key]
         public int Id { get; set; }
         public int Num { get; set; }
         public int year { get; set; }

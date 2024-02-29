@@ -5,9 +5,8 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using StubbedContextLib;
 
+
 Console.WriteLine("Hello, World!");
-
-
 
 
 var connection = new SqliteConnection("DataSource=:memory:");
