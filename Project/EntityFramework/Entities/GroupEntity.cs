@@ -13,5 +13,11 @@ namespace Entities
 
         public ICollection<VocabularyListEntity> VocabularyList { get; set; } = new List<VocabularyListEntity>();
 
+        public string toString()
+        {
+            return "Id: " + Id + " Num: " + Num + " year: " + year + " sector: " + sector;
+        }
+
     }
+
 }

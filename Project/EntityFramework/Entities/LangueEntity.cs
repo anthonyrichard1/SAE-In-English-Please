@@ -13,5 +13,6 @@ namespace Entities
         public string name {  get; set; }
 
         public ICollection<VocabularyEntity> vocabularys { get; set; } = new List<VocabularyEntity>();
+
     }
 }

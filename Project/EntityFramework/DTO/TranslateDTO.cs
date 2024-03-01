@@ -5,23 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities
+namespace Modele
 {
-    public class TranslateEntity
+    public class TranslateDTO
     {
         public int Id { get; set; }
 
         [ForeignKey(nameof(WordsId))]
         public string WordsId { get; set; }
-        public ICollection<VocabularyEntity> Words { get; set; } = new List<VocabularyEntity>();
+      //  public ICollection<VocabularyEntity> Words { get; set; } = new List<VocabularyEntity>();
 
         [ForeignKey(nameof(VocabularyListVocId))]
         public long VocabularyListVocId { get; set; }
-        public VocabularyListEntity VocabularyListVoc { get; set; } = null!;
-
-        public string toString()
-        {
-            return Id + "" + WordsId ;
-        }
+       // public VocabularyListEntity VocabularyListVoc { get; set; } = null!;
     }
 }
