@@ -10,6 +10,48 @@ namespace TU
     public class GroupTU
     {
         [TestMethod]
+        public async Task TestGetGroups()
+        {
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+            var options = new DbContextOptionsBuilder<LibraryContext>()
+                                .UseSqlite(connection)
+                                .Options;
+            using (var context = new StubbedContext(options))
+            {
+                context.Database.EnsureCreated();
+
+                var groups = await context.Groups.ToListAsync();
+                Assert.IsNotNull(groups);
+                Assert.AreEqual(1, groups.Count);
+                Assert.AreEqual("informatics", groups[0].sector);
+            }
+        }
+
+        [TestMethod]
+        public async Task TestGetGroup() {             
+            var connection = new SqliteConnection("DataSource=:memory:");
+                   connection.Open();
+                   var options = new DbContextOptionsBuilder<LibraryContext>()
+                                               .UseSqlite(connection)
+                                                                              .Options;
+                   using (var context = new StubbedContext(options))
+            {
+                context.Database.EnsureCreated();
+
+                var newBook = new GroupEntity { Id = 2, year = 2, sector = "medecin" };
+                await context.Groups.AddAsync(newBook);
+                await context.SaveChangesAsync();
+
+                var group1 = await context.Groups.FirstOrDefaultAsync(b => b.sector == "medecin");
+                Assert.IsNotNull(group1);
+                Assert.AreEqual("medecin", group1.sector);
+                Assert.AreEqual(2, group1.year);
+                Assert.AreEqual(2, group1.Id);
+            }
+        }
+
+        [TestMethod]
         public async Task TestAddGroup()
         {
             var connection = new SqliteConnection("DataSource=:memory:");

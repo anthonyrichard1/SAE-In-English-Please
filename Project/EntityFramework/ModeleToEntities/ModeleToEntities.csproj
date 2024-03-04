@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Entities\Entities.csproj" />
+    <ProjectReference Include="..\Modele\Modele.csproj" />
+    <ProjectReference Include="..\StubbedContext\StubbedContextLib.csproj" />
+  </ItemGroup>
+
 </Project>

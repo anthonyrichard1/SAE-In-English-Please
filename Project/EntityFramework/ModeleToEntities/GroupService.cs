@@ -1,14 +1,14 @@
-﻿using DbContextLib;
-using Entities;
+﻿using Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using StubbedContextLib;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StubbedContextLib
+namespace ModeleToEntities
 {
     public class GroupService : IService<GroupEntity>
     {
@@ -37,7 +37,7 @@ namespace StubbedContextLib
             return group;
         }
 
-        public async Task<GroupEntity> GetGroup(int id)
+        public async Task<GroupEntity> GetById(int id)
         {
             var group = await _context.Groups.FindAsync(id);
             if (group == null)
@@ -47,7 +47,7 @@ namespace StubbedContextLib
             return group;
         }
 
-        public async Task<IEnumerable<GroupEntity>> GetGroups()
+        public async Task<IEnumerable<GroupEntity>> Gets()
         {
             var groups = await _context.Groups.ToListAsync();
             return groups;

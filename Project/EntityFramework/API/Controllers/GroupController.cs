@@ -1,5 +1,6 @@
 ﻿using Entities;
 using Microsoft.AspNetCore.Mvc;
+using ModeleToEntities;
 using StubbedContextLib;
 
 namespace API.Controllers
@@ -21,7 +22,7 @@ namespace API.Controllers
         public async Task<ActionResult<IEnumerable<GroupEntity>>> GetGroups()
         {
             _logger.LogInformation("Getting groups ");
-            var groups = await _groupService.GetGroups();
+            var groups = await _groupService.Gets();
             return Ok(groups);
         }
 
@@ -29,7 +30,7 @@ namespace API.Controllers
         public async Task<ActionResult<GroupEntity>> GetGroup(int id)
         {
             _logger.LogInformation("Getting a group with id {id}",id);
-            var group = await _groupService.GetGroup(id);
+            var group = await _groupService.GetById(id);
             return Ok(group);
         }
 
@@ -45,7 +46,7 @@ namespace API.Controllers
         public async Task<ActionResult<GroupEntity>> AddGroup([FromQuery]GroupEntity group)
         {
             _logger.LogInformation("Adding a group with id : {id}",group.Id);
-            group.Id = _groupService.GetGroups().Result.Count() + 1;
+            group.Id = _groupService.Gets().Result.Count() + 1;
             var newGroup = await _groupService.AddGroup(group);
             return Ok(newGroup);
         }
