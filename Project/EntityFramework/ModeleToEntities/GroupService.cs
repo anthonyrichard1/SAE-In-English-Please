@@ -19,14 +19,14 @@ namespace ModeleToEntities
 
         }
 
-        public async Task<GroupEntity> AddGroup(GroupEntity group)
+        public async Task<GroupEntity> Add(GroupEntity group)
         {
             _context.Groups.Add(group);
             await _context.SaveChangesAsync();
             return group;
         }
 
-        public async Task<GroupEntity> DeleteGroup(int id)
+        public async Task<GroupEntity> Delete(int id)
         {
             var group = await _context.Groups.FindAsync(id);
             if (group != null)
@@ -53,7 +53,7 @@ namespace ModeleToEntities
             return groups;
         }
 
-        public async Task<GroupEntity> UpdateGroup(GroupEntity group)
+        public async Task<GroupEntity> Update(GroupEntity group)
         {
             var groupToUpdate = await _context.Groups.FindAsync(group.Id);
             if (groupToUpdate == null)

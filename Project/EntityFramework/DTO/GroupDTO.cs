@@ -1,4 +1,4 @@
-﻿namespace Modele
+﻿namespace DTO
 {
     public class GroupDTO
     {

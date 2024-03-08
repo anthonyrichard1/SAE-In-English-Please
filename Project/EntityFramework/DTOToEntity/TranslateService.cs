@@ -1,0 +1,72 @@
+﻿using DTO;
+using Microsoft.EntityFrameworkCore;
+using StubbedContextLib;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DTOToEntity
+{
+    public class TranslateService : IService<TranslateDTO>
+    {
+        private readonly StubbedContext _context = new StubbedContext();
+        public async Task<TranslateDTO> Add(TranslateDTO translate)
+        {
+            var translateEntity = translate.ToEntity();
+            _context.Translates.Add(translateEntity);
+            await _context.SaveChangesAsync();
+            return translateEntity.ToDTO();
+
+        }
+
+        public async Task<TranslateDTO> Delete(object id)
+        {
+            var translate = await _context.Translates.FirstOrDefaultAsync(t => t.Id == (int)id);
+            if (translate != null)
+            {
+                _context.Translates.Remove(translate);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                throw new Exception("Translate not found");
+            }
+            return translate.ToDTO();
+        }
+
+        public async Task<TranslateDTO> GetById(object id)
+        {
+            var translate = await _context.Translates.FirstOrDefaultAsync(t => t.Id == (int)id);
+            if (translate == null)
+            {
+                throw new Exception("Translate not found");
+            }
+            return translate.ToDTO();
+        }
+
+        public async Task<IEnumerable<TranslateDTO>> Gets()
+        {
+            var translates = await _context.Translates.ToListAsync();
+            if(translates == null)
+            {
+                throw new Exception("No translates found");
+            }
+            return translates.Select(t => t.ToDTO());
+        }
+
+        public async Task<TranslateDTO> Update(TranslateDTO translate)
+        {
+            var translateEntity = await _context.Translates.FirstOrDefaultAsync(t => t.Id == translate.Id);
+            if (translateEntity == null)
+            {
+                throw new Exception("Translate not found");
+            }
+            translateEntity = translate.ToEntity();
+            _context.Translates.Update(translateEntity);
+            await _context.SaveChangesAsync();
+            return translateEntity.ToDTO();
+        }
+    }
+}

@@ -5,14 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele
+namespace DTO
 {
     public class VocabularyDTO
     {
         public string word { get; set; }
-        //public ICollection<TranslateEntity> translations { get; } = new List<TranslateEntity>();
+        public ICollection<TranslateDTO> translations { get; set; } = new List<TranslateDTO>();
 
         public string LangueName { get; set; }
-        //public LangueEntity? Langue { get; set; } = null!;
+        public LangueDTO? Langue { get; set; } = null!;
     }
 }

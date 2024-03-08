@@ -54,7 +54,7 @@ namespace StubbedContextLib.Migrations
 
                     b.HasKey("name");
 
-                    b.ToTable("Langue");
+                    b.ToTable("Langues");
 
                     b.HasData(
                         new
@@ -250,7 +250,7 @@ namespace StubbedContextLib.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("vocabularyListEntities");
+                    b.ToTable("VocabularyLists");
                 });
 
             modelBuilder.Entity("Entities.VocabularyListGroup", b =>

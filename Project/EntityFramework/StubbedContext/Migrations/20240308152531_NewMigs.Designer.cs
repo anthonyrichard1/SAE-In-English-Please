@@ -11,8 +11,8 @@ using StubbedContextLib;
 namespace StubbedContextLib.Migrations
 {
     [DbContext(typeof(StubbedContext))]
-    [Migration("20240229111903_FirstMig")]
-    partial class FirstMig
+    [Migration("20240308152531_NewMigs")]
+    partial class NewMigs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,7 +57,7 @@ namespace StubbedContextLib.Migrations
 
                     b.HasKey("name");
 
-                    b.ToTable("Langue");
+                    b.ToTable("Langues");
 
                     b.HasData(
                         new
@@ -253,7 +253,7 @@ namespace StubbedContextLib.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("vocabularyListEntities");
+                    b.ToTable("VocabularyLists");
                 });
 
             modelBuilder.Entity("Entities.VocabularyListGroup", b =>

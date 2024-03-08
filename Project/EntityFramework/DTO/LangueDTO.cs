@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modele
+namespace DTO
 {
     public class LangueDTO
     {
         public string name { get; set; }
 
-   //     public ICollection<VocabularyEntity> vocabularys { get; set; } = new List<VocabularyEntity>();
+        public ICollection<VocabularyDTO> vocabularys { get; set; } = new List<VocabularyDTO>();
     }
 }

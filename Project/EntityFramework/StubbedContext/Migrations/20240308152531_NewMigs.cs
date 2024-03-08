@@ -7,7 +7,7 @@
 namespace StubbedContextLib.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstMig : Migration
+    public partial class NewMigs : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -28,14 +28,14 @@ namespace StubbedContextLib.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Langue",
+                name: "Langues",
                 columns: table => new
                 {
                     name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Langue", x => x.name);
+                    table.PrimaryKey("PK_Langues", x => x.name);
                 });
 
             migrationBuilder.CreateTable(
@@ -62,9 +62,9 @@ namespace StubbedContextLib.Migrations
                 {
                     table.PrimaryKey("PK_Vocabularys", x => x.word);
                     table.ForeignKey(
-                        name: "FK_Vocabularys_Langue_LangueName",
+                        name: "FK_Vocabularys_Langues_LangueName",
                         column: x => x.LangueName,
-                        principalTable: "Langue",
+                        principalTable: "Langues",
                         principalColumn: "name",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -103,7 +103,7 @@ namespace StubbedContextLib.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "vocabularyListEntities",
+                name: "VocabularyLists",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -114,9 +114,9 @@ namespace StubbedContextLib.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_vocabularyListEntities", x => x.Id);
+                    table.PrimaryKey("PK_VocabularyLists", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_vocabularyListEntities_Users_UserId",
+                        name: "FK_VocabularyLists_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -137,9 +137,9 @@ namespace StubbedContextLib.Migrations
                 {
                     table.PrimaryKey("PK_Translates", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Translates_vocabularyListEntities_VocabularyListVocId1",
+                        name: "FK_Translates_VocabularyLists_VocabularyListVocId1",
                         column: x => x.VocabularyListVocId1,
-                        principalTable: "vocabularyListEntities",
+                        principalTable: "VocabularyLists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -163,9 +163,9 @@ namespace StubbedContextLib.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_VocabularyListGroup_vocabularyListEntities_VocabularyListId1",
+                        name: "FK_VocabularyListGroup_VocabularyLists_VocabularyListId1",
                         column: x => x.VocabularyListId1,
-                        principalTable: "vocabularyListEntities",
+                        principalTable: "VocabularyLists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -202,7 +202,7 @@ namespace StubbedContextLib.Migrations
                 values: new object[] { 1, 1, "informatics", 1 });
 
             migrationBuilder.InsertData(
-                table: "Langue",
+                table: "Langues",
                 column: "name",
                 values: new object[]
                 {
@@ -246,14 +246,14 @@ namespace StubbedContextLib.Migrations
                 column: "RoleId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_vocabularyListEntities_UserId",
-                table: "vocabularyListEntities",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_VocabularyListGroup_VocabularyListId1",
                 table: "VocabularyListGroup",
                 column: "VocabularyListId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_VocabularyLists_UserId",
+                table: "VocabularyLists",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Vocabularys_LangueName",
@@ -282,10 +282,10 @@ namespace StubbedContextLib.Migrations
                 name: "Vocabularys");
 
             migrationBuilder.DropTable(
-                name: "vocabularyListEntities");
+                name: "VocabularyLists");
 
             migrationBuilder.DropTable(
-                name: "Langue");
+                name: "Langues");
 
             migrationBuilder.DropTable(
                 name: "Users");

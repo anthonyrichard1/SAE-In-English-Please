@@ -1,6 +1,7 @@
-﻿using Entities;
+﻿using DTO;
+using DTOToEntity;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
-using ModeleToEntities;
 using StubbedContextLib;
 
 namespace API.Controllers
@@ -9,45 +10,45 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class GroupController : ControllerBase
     {
-        private readonly IService<GroupEntity> _groupService;
+        private readonly IService<GroupDTO> _service;
         private readonly ILogger<GroupController> _logger;
 
-        public GroupController(IService<GroupEntity> groupService, ILogger<GroupController> logger)
+        public GroupController(IService<GroupDTO> groupService, ILogger<GroupController> logger)
         {
-            _groupService = groupService;
+            _service = groupService;
             _logger = logger;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GroupEntity>>> GetGroups()
+        public async Task<ActionResult<IEnumerable<GroupDTO>>> GetGroups()
         {
             _logger.LogInformation("Getting groups ");
-            var groups = await _groupService.Gets();
+            var groups = await _service.Gets();
             return Ok(groups);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GroupEntity>> GetGroup(int id)
+        public async Task<ActionResult<GroupDTO>> GetGroup(int id)
         {
             _logger.LogInformation("Getting a group with id {id}",id);
-            var group = await _groupService.GetById(id);
+            var group = await _service.GetById(id);
             return Ok(group);
         }
 
         [HttpPut]
-        public async Task<ActionResult<GroupEntity>> UpdateGroup([FromQuery]GroupEntity group)
+        public async Task<ActionResult<GroupDTO>> UpdateGroup([FromQuery]GroupDTO group)
         {
             _logger.LogInformation("Updating a group with id : {id}",group.Id);
-            var updatedGroup = await _groupService.UpdateGroup(group);
+            var updatedGroup = await _service.Update(group);
             return Ok(updatedGroup);
         }
 
         [HttpPost]
-        public async Task<ActionResult<GroupEntity>> AddGroup([FromQuery]GroupEntity group)
+        public async Task<ActionResult<GroupDTO>> AddGroup([FromQuery]GroupDTO group)
         {
             _logger.LogInformation("Adding a group with id : {id}",group.Id);
-            group.Id = _groupService.Gets().Result.Count() + 1;
-            var newGroup = await _groupService.AddGroup(group);
+            group.Id = _service.Gets().Result.Count() + 1;
+            var newGroup = await _service.Add(group);
             return Ok(newGroup);
         }
 
@@ -55,7 +56,7 @@ namespace API.Controllers
         public async Task<ActionResult<GroupEntity>> DeleteGroup(int id)
         {
             _logger.LogInformation("Deleting a group with id : {id}",id);
-            var group = await _groupService.DeleteGroup(id);
+            var group = await _service.Delete(id);
             return Ok(group);
         }
 
