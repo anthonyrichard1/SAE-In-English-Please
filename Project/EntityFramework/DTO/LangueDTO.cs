@@ -10,6 +10,6 @@ namespace DTO
     {
         public string name { get; set; }
 
-        public ICollection<VocabularyDTO> vocabularys { get; set; } = new List<VocabularyDTO>();
+        //public ICollection<VocabularyDTO> vocabularys { get; set; } = new List<VocabularyDTO>();
     }
 }

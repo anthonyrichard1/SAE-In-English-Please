@@ -16,10 +16,10 @@ namespace DTO
         public string NickName { get; set; }
         public string? image { get; set; } = null;
         public long GroupId { get; set; }
-        public GroupDTO? Group { get; set; } = null;
+        //public GroupDTO? Group { get; set; } = null;
         public long RoleId { get; set; }
         public RoleDTO? Role { get; set; } = null!;
         public Boolean ExtraTime { get; set; }
-        public ICollection<VocabularyListDTO> VocabularyList { get; set; } = new List<VocabularyListDTO>();
+        //public ICollection<VocabularyListDTO> VocabularyList { get; set; } = new List<VocabularyListDTO>();
     }
 }

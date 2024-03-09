@@ -10,6 +10,6 @@ namespace DTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public ICollection<UserDTO> Users { get; set; } = new List<UserDTO>();
+        //public ICollection<UserDTO> Users { get; set; } = new List<UserDTO>();
     }
 }

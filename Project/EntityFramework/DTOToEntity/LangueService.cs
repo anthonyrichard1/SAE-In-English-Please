@@ -61,7 +61,7 @@ namespace DTOToEntity
             {
                 throw new Exception("Langue not found");
             }
-            langueToUpdate.vocabularys = (ICollection<VocabularyEntity>)langue.vocabularys.Select(v => v.ToEntity());
+            //langueToUpdate.vocabularys = (ICollection<VocabularyEntity>)langue.vocabularys.Select(v => v.ToEntity());
             return langueToUpdate.ToDTO();
         }
     }

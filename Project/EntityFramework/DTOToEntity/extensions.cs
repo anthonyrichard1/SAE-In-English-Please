@@ -16,21 +16,26 @@ namespace DTOToEntity
                 Num = group.Num,
                 year = group.year,
                 sector = group.sector,
-                Users = group.Users.Select(u => u.ToEntity()).ToList(),
-                VocabularyList = group.VocabularyList.Select(v => v.ToEntity()).ToList()
+                //Users = group.Users.Select(u => u.ToEntity()).ToList(),
+                //VocabularyList = group.VocabularyList.Select(v => v.ToEntity()).ToList()
 
             };
         }
         public static GroupDTO ToDTO(this GroupEntity group)
         {
+            if (group == null)
+            {
+                return null;
+            }
+
             return new GroupDTO
             {
                 Id = group.Id,
                 Num = group.Num,
                 year = group.year,
                 sector = group.sector,
-                Users = group.Users.Select(u => u.ToDTO()).ToList(),
-                VocabularyList = group.VocabularyList.Select(v => v.ToDTO()).ToList()
+                //Users = group.Users.Select(u => u.ToDTO()).ToList(),
+                //VocabularyList = group.VocabularyList.Select(v => v.ToDTO()).ToList()
             };
         }
         public static LangueEntity ToEntity(this LangueDTO langue)
@@ -38,7 +43,7 @@ namespace DTOToEntity
             return new LangueEntity
             {
                 name = langue.name,
-                vocabularys = langue.vocabularys.Select(v => v.ToEntity()).ToList()
+                //vocabularys = langue.vocabularys.Select(v => v.ToEntity()).ToList()
             };
         }
         public static LangueDTO ToDTO(this LangueEntity langue)
@@ -46,7 +51,7 @@ namespace DTOToEntity
             return new LangueDTO
             {
                 name = langue.name,
-                vocabularys = langue.vocabularys.Select(v => v.ToDTO()).ToList()
+                //vocabularys = langue.vocabularys.Select(v => v.ToDTO()).ToList()
             };
         }
 
@@ -56,72 +61,107 @@ namespace DTOToEntity
             {
                 Id = role.Id,
                 Name = role.Name,
-                Users = role.Users.Select(u => u.ToEntity()).ToList()
+                //Users = role.Users.Select(u => u.ToEntity()).ToList()
             };
         }
         public static RoleDTO ToDTO(this RoleEntity role)
         {
+            if(role == null)
+            {
+                return null;
+            }
             return new RoleDTO
             {
                 Id = role.Id,
                 Name = role.Name,
-                Users = role.Users.Select(u => u.ToDTO()).ToList()
+                //Users = role.Users.Select(u => u.ToDTO()).ToList()
             };
         }
         public static TranslateEntity ToEntity(this TranslateDTO translate)
         {
+            if(translate == null)
+            {
+                return null;
+            }
             return new TranslateEntity
             {
                 Id = translate.Id,
                 WordsId = translate.WordsId,
-                Words = translate.Words.Select(w => w.ToEntity()).ToList(),
-                VocabularyListVoc = translate.VocabularyListVoc.ToEntity(),
+                //Words = translate.Words.Select(w => w.ToEntity()).ToList(),
+                //VocabularyListVoc = translate.VocabularyListVoc.ToEntity(),
                 VocabularyListVocId = translate.VocabularyListVocId,
             };
         }
         public static TranslateDTO ToDTO(this TranslateEntity translate)
         {
+            if(translate == null)
+            {
+                return null;
+            }
             return new TranslateDTO
             {
                 Id = translate.Id,
                 WordsId = translate.WordsId,
-                Words = translate.Words.Select(w => w.ToDTO()).ToList(),
-                VocabularyListVoc = translate.VocabularyListVoc.ToDTO(),
+                //Words = translate.Words.Select(w => w.ToDTO()).ToList(),
+                //VocabularyListVoc = translate.VocabularyListVoc.ToDTO(),
                 VocabularyListVocId = translate.VocabularyListVocId,
             };
         }
         public static UserEntity ToEntity(this UserDTO user)
         {
+            if(user == null)
+            {
+                return null;
+            }
             return new UserEntity
             {
                 Id = user.Id,
                 Name = user.Name,
                 Email = user.Email,
+                UserName = user.UserName,
+                NickName = user.NickName,
+                image = user.image,
                 Password = user.Password,
-                Group = user.Group.ToEntity(),
-                Role = user.Role.ToEntity()
+                GroupId = user.GroupId,
+                RoleId = user.RoleId,
+                //Group = user.Group.ToEntity(),
+                //Role = user.Role.ToEntity()
             };
         }
         public static UserDTO ToDTO(this UserEntity user)
         {
+            if(user == null)
+            {
+                return null;
+            }
             return new UserDTO
             {
                 Id = user.Id,
                 Name = user.Name,
                 Email = user.Email,
+                UserName = user.UserName,
+                NickName = user.NickName,
+                image = user.image,
                 Password = user.Password,
-                Group = user.Group.ToDTO(),
-                Role = user.Role.ToDTO()
+                GroupId = user.GroupId,
+                RoleId = user.RoleId,
+                //Group = user.Group.ToDTO(),
+                //Role = user.Role.ToDTO()
             };
         }
         public static VocabularyEntity ToEntity(this VocabularyDTO vocabulary)
         {
+            if(vocabulary == null)
+            {
+                return null;
+            }
             return new VocabularyEntity
             {
                 word = vocabulary.word,
-                translations = vocabulary.translations.Select(t => t.ToEntity()).ToList(),
+                //translations = vocabulary.translations.Select(t => t.ToEntity()).ToList(),
                 LangueName = vocabulary.LangueName,
-                Langue = vocabulary.Langue.ToEntity()
+              
+                //Langue = vocabulary.Langue.ToEntity()
             };
         }
         public static VocabularyDTO ToDTO(this VocabularyEntity vocabulary)
@@ -129,9 +169,9 @@ namespace DTOToEntity
             return new VocabularyDTO
             {
                 word = vocabulary.word,
-                translations = vocabulary.translations.Select(t => t.ToDTO()).ToList(),
+                //translations = vocabulary.translations.Select(t => t.ToDTO()).ToList(),
                 LangueName = vocabulary.LangueName,
-                Langue = vocabulary.Langue.ToDTO()
+                //Langue = vocabulary.Langue.ToDTO()
             };
         }
         public static VocabularyListEntity ToEntity(this VocabularyListDTO vocabularyList)
@@ -142,8 +182,8 @@ namespace DTOToEntity
                 Name = vocabularyList.Name,
                 Image = vocabularyList.Image,
                 UserId = vocabularyList.UserId,
-                translation = vocabularyList.translation.Select(t => t.ToEntity()).ToList(),
-                Groups = vocabularyList.Groups.Select(g => g.ToEntity()).ToList()
+                //translation = vocabularyList.translation.Select(t => t.ToEntity()).ToList(),
+                //Groups = vocabularyList.Groups.Select(g => g.ToEntity()).ToList()
             };
         }
         public static VocabularyListDTO ToDTO(this VocabularyListEntity vocabularyList)
@@ -154,8 +194,8 @@ namespace DTOToEntity
                 Name = vocabularyList.Name,
                 Image = vocabularyList.Image,
                 UserId = vocabularyList.UserId,
-                translation = vocabularyList.translation.Select(t => t.ToDTO()).ToList(),
-                Groups = vocabularyList.Groups.Select(g => g.ToDTO()).ToList()
+                //translation = vocabularyList.translation.Select(t => t.ToDTO()).ToList(),
+                //Groups = vocabularyList.Groups.Select(g => g.ToDTO()).ToList()
             };
         }
 

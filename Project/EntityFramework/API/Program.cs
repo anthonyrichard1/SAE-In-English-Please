@@ -21,6 +21,7 @@ builder.Services.AddScoped<IService<GroupDTO>,GroupService>();
 builder.Services.AddScoped<IService<LangueDTO>,LangueService>();
 builder.Services.AddScoped<IService<RoleDTO>,RoleService>();
 builder.Services.AddScoped<IService<TranslateDTO>,TranslateService>();
+builder.Services.AddScoped<IService<UserDTO>, UserService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

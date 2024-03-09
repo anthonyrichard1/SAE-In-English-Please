@@ -13,10 +13,10 @@ namespace DTO
 
         [ForeignKey(nameof(WordsId))]
         public string WordsId { get; set; }
-       public ICollection<VocabularyDTO> Words { get; set; } = new List<VocabularyDTO>();
+       //public ICollection<VocabularyDTO> Words { get; set; } = new List<VocabularyDTO>();
 
         [ForeignKey(nameof(VocabularyListVocId))]
         public long VocabularyListVocId { get; set; }
-        public VocabularyListDTO VocabularyListVoc { get; set; } = null!;
+        //public VocabularyListDTO VocabularyListVoc { get; set; } = null!;
     }
 }

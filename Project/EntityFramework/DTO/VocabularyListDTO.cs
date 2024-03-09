@@ -16,7 +16,7 @@ namespace DTO
         public long UserId { get; set; }
         public UserDTO User { get; set; } = null!;
 
-        public ICollection<TranslateDTO> translation { get; set; } = new List<TranslateDTO>();
-        public ICollection<GroupDTO> Groups { get; set; } = new List<GroupDTO>();
+        //public ICollection<TranslateDTO> translation { get; set; } = new List<TranslateDTO>();
+        //public ICollection<GroupDTO> Groups { get; set; } = new List<GroupDTO>();
     }
 }
