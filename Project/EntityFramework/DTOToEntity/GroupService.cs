@@ -15,12 +15,12 @@ namespace DTOToEntity
     {
         private readonly StubbedContext context = new StubbedContext();
 
-        public GroupService()
-        {
-            //this.context = context;
-        }
         public async Task<GroupDTO> Add(GroupDTO group)
         {
+            if(group == null)
+            {
+                throw new ArgumentNullException();
+            }
           var groupEntity = group.ToEntity();
             var res = context.Groups.Add(groupEntity);
             await context.SaveChangesAsync();
@@ -52,10 +52,10 @@ namespace DTOToEntity
             return group.ToDTO();
         }
 
-        public async Task<IEnumerable<GroupDTO>> Gets()
+        public async Task<PageResponse<GroupDTO>> Gets(int index, int count)
         {
-            IEnumerable<GroupEntity> groups = await context.Groups.ToListAsync();
-            return groups.ToList().Select(g => g.ToDTO());
+            IEnumerable<GroupEntity> groups = await context.Groups.Skip(index).Take(count).ToListAsync();
+            return new PageResponse<GroupDTO>(groups.ToList().Select(g => g.ToDTO()), context.Groups.Count());
         }
 
         public async Task<GroupDTO> Update(GroupDTO group)

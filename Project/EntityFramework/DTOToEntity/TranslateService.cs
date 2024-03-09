@@ -46,14 +46,14 @@ namespace DTOToEntity
             return translate.ToDTO();
         }
 
-        public async Task<IEnumerable<TranslateDTO>> Gets()
+        public async Task<PageResponse<TranslateDTO>> Gets(int index, int count)
         {
-            var translates = await _context.Translates.ToListAsync();
+            var translates = await _context.Translates.Skip(index).Take(count).ToListAsync();
             if(translates == null)
             {
                 throw new Exception("No translates found");
             }
-            return translates.Select(t => t.ToDTO());
+            return new PageResponse<TranslateDTO>( translates.Select(t => t.ToDTO()), _context.Translates.Count());
         }
 
         public async Task<TranslateDTO> Update(TranslateDTO translate)

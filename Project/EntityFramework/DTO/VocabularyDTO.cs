@@ -13,6 +13,6 @@ namespace DTO
         //public ICollection<TranslateDTO> translations { get; set; } = new List<TranslateDTO>();
 
         public string LangueName { get; set; }
-        public LangueDTO? Langue { get; set; } = null!;
+        //public LangueDTO? Langue { get; set; } = null!;
     }
 }

@@ -47,10 +47,10 @@ namespace DTOToEntity
             return user.ToDTO();
         }
 
-        public async Task<IEnumerable<UserDTO>> Gets()
+        public async Task<PageResponse<UserDTO>> Gets(int index, int count)
         {
-            var users = await _context.Users.ToListAsync();
-            return users.Select(u => u.ToDTO());
+            var users = await _context.Users.Skip(index).Take(count).ToListAsync();
+            return new PageResponse<UserDTO>( users.Select(u => u.ToDTO()),_context.Users.Count());
         }
 
         public async Task<UserDTO> Update(UserDTO user)

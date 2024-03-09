@@ -9,7 +9,7 @@ namespace DTOToEntity
 {
     public interface IService<T>
     {
-        Task<IEnumerable<T>> Gets();
+        Task<PageResponse<T>> Gets(int index, int count);
         Task<T> GetById(object id);
         Task<T> Add( T group);
         Task<T> Delete(object id);

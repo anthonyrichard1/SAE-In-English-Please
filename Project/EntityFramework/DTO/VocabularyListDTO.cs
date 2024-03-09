@@ -14,7 +14,7 @@ namespace DTO
         public string Image { get; set; }
 
         public long UserId { get; set; }
-        public UserDTO User { get; set; } = null!;
+        //public UserDTO User { get; set; } = null!;
 
         //public ICollection<TranslateDTO> translation { get; set; } = new List<TranslateDTO>();
         //public ICollection<GroupDTO> Groups { get; set; } = new List<GroupDTO>();

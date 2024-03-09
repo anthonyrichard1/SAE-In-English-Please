@@ -18,7 +18,7 @@ namespace DTO
         public long GroupId { get; set; }
         //public GroupDTO? Group { get; set; } = null;
         public long RoleId { get; set; }
-        public RoleDTO? Role { get; set; } = null!;
+        //public RoleDTO? Role { get; set; } = null!;
         public Boolean ExtraTime { get; set; }
         //public ICollection<VocabularyListDTO> VocabularyList { get; set; } = new List<VocabularyListDTO>();
     }

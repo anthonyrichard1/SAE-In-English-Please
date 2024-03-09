@@ -21,7 +21,7 @@ namespace TU
             {
                 context.Database.EnsureCreated();
 
-                var newLangue = new LangueEntity { name = "français" , vocabularys=null };
+                var newLangue = new LangueEntity { name = "français" };
                 await context.Langues.AddAsync(newLangue);
                 await context.SaveChangesAsync();
 

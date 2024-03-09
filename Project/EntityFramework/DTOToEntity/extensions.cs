@@ -3,18 +3,15 @@ using Entities;
 
 namespace DTOToEntity
 {
-    public static class extensions
+    public static class Extensions
     {
-
-
-
         public static GroupEntity ToEntity( this GroupDTO group)
         {
             return new GroupEntity
             {
                 Id = group.Id,
                 Num = group.Num,
-                year = group.year,
+                year = group.Year,
                 sector = group.sector,
                 //Users = group.Users.Select(u => u.ToEntity()).ToList(),
                 //VocabularyList = group.VocabularyList.Select(v => v.ToEntity()).ToList()
@@ -23,16 +20,11 @@ namespace DTOToEntity
         }
         public static GroupDTO ToDTO(this GroupEntity group)
         {
-            if (group == null)
-            {
-                return null;
-            }
-
             return new GroupDTO
             {
                 Id = group.Id,
                 Num = group.Num,
-                year = group.year,
+                Year = group.year,
                 sector = group.sector,
                 //Users = group.Users.Select(u => u.ToDTO()).ToList(),
                 //VocabularyList = group.VocabularyList.Select(v => v.ToDTO()).ToList()
@@ -66,10 +58,6 @@ namespace DTOToEntity
         }
         public static RoleDTO ToDTO(this RoleEntity role)
         {
-            if(role == null)
-            {
-                return null;
-            }
             return new RoleDTO
             {
                 Id = role.Id,
@@ -79,10 +67,6 @@ namespace DTOToEntity
         }
         public static TranslateEntity ToEntity(this TranslateDTO translate)
         {
-            if(translate == null)
-            {
-                return null;
-            }
             return new TranslateEntity
             {
                 Id = translate.Id,
@@ -94,10 +78,6 @@ namespace DTOToEntity
         }
         public static TranslateDTO ToDTO(this TranslateEntity translate)
         {
-            if(translate == null)
-            {
-                return null;
-            }
             return new TranslateDTO
             {
                 Id = translate.Id,
@@ -109,10 +89,6 @@ namespace DTOToEntity
         }
         public static UserEntity ToEntity(this UserDTO user)
         {
-            if(user == null)
-            {
-                return null;
-            }
             return new UserEntity
             {
                 Id = user.Id,
@@ -130,10 +106,6 @@ namespace DTOToEntity
         }
         public static UserDTO ToDTO(this UserEntity user)
         {
-            if(user == null)
-            {
-                return null;
-            }
             return new UserDTO
             {
                 Id = user.Id,
@@ -151,10 +123,6 @@ namespace DTOToEntity
         }
         public static VocabularyEntity ToEntity(this VocabularyDTO vocabulary)
         {
-            if(vocabulary == null)
-            {
-                return null;
-            }
             return new VocabularyEntity
             {
                 word = vocabulary.word,
@@ -198,9 +166,5 @@ namespace DTOToEntity
                 //Groups = vocabularyList.Groups.Select(g => g.ToDTO()).ToList()
             };
         }
-
-       
-
-
     }
 }

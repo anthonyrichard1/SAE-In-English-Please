@@ -47,10 +47,10 @@ namespace DTOToEntity
             return role.ToDTO();
         }
 
-        public async Task<IEnumerable<RoleDTO>> Gets()
+        public async Task<PageResponse<RoleDTO>> Gets(int index, int count)
         {
-           IEnumerable<RoleEntity> roles = await _context.Roles.ToListAsync();
-            return roles.ToList().Select(r => r.ToDTO());
+           IEnumerable<RoleEntity> roles = await _context.Roles.Skip(index).Take(count).ToListAsync();
+            return new PageResponse<RoleDTO>(roles.ToList().Select(r => r.ToDTO()), _context.Roles.Count());
         }
 
         public async Task<RoleDTO> Update(RoleDTO role)

@@ -20,51 +20,104 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LangueDTO>>> GetLangues()
+        public async Task<ActionResult<IEnumerable<LangueDTO>>> GetLangues(int index, int count)
         {
+            try { 
             _logger.LogInformation("Getting langues ");
-            var groups = await _service.Gets();
+            var groups = await _service.Gets(index,count);
             return Ok(groups);
+                }
+            catch (Exception ex)
+            {
+                // Journaliser l'exception
+                _logger.LogError(ex, "Une erreur s'est produite lors de la récupération des langues.");
+
+                // Retourner une réponse d'erreur
+                return StatusCode(400, ex.Message);
+            }
         }
 
         [HttpGet("{name}")]
         public async Task<ActionResult<LangueDTO>> GetLangue(string name)
         {
+            try { 
             _logger.LogInformation("Getting a langue with name {name}",name);
             var group = await _service.GetById(name);
             return Ok(group);
+                }
+            catch (Exception ex)
+            {
+                // Journaliser l'exception
+                _logger.LogError(ex, "Une erreur s'est produite lors de la récupération de la langue avec le nom {name}.", name);
+
+                // Retourner une réponse d'erreur
+                return StatusCode(400, ex.Message);
+            }
         }
 
         [HttpPut]
         public async Task<ActionResult<LangueDTO>> UpdateLangue([FromQuery]LangueDTO langue)
         {
-            _logger.LogInformation("Updating a langue with name : {name}",langue.name);
-            var updatedGroup = await _service.Update(langue);
-            return Ok(updatedGroup);
+            try
+            {
+                _logger.LogInformation("Updating a langue with name : {name}", langue.name);
+                var updatedGroup = await _service.Update(langue);
+                return Ok(updatedGroup);
+            }
+            catch (Exception ex)
+            {
+                // Journaliser l'exception
+                _logger.LogError(ex, "Une erreur s'est produite lors de la mise à jour de la langue avec le nom {name}.", langue.name);
+
+                // Retourner une réponse d'erreur
+                return StatusCode(400, ex.Message);
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult<LangueDTO>> AddLangue([FromQuery]LangueDTO langue)
         {
-            _logger.LogInformation("Adding a langue with name : {name}",langue.name);
-            if(langue.name == null)
+            try
             {
-                return BadRequest("Name is required");
+                _logger.LogInformation("Adding a langue with name : {name}", langue.name);
+                if (langue.name == null)
+                {
+                    return BadRequest("Name is required");
+                }
+                if (_service.GetById(langue.name) != null)
+                {
+                    return BadRequest("Name already exists");
+                }
+                var newGroup = await _service.Add(langue);
+                return Ok(newGroup);
             }
-            if(_service.Gets().Result.Any(l => l.name == langue.name))
+            catch (Exception ex)
             {
-                return BadRequest("Name already exists");
+                // Journaliser l'exception
+                _logger.LogError(ex, "Une erreur s'est produite lors de l'ajout de la langue avec le nom {name}.", langue.name);
+
+                // Retourner une réponse d'erreur
+                return StatusCode(400, ex.Message);
             }
-            var newGroup = await _service.Add(langue);
-            return Ok(newGroup);
         }
 
         [HttpDelete("{name}")]
         public async Task<ActionResult<LangueDTO>> DeleteLangue(string name)
         {
-            _logger.LogInformation("Deleting a langue with name : {name}",name);
-            var group = await _service.Delete(name);
-            return Ok(group);
+            try
+            {
+                _logger.LogInformation("Deleting a langue with name : {name}", name);
+                var group = await _service.Delete(name);
+                return Ok(group);
+            }
+            catch (Exception ex)
+            {
+                // Journaliser l'exception
+                _logger.LogError(ex, "Une erreur s'est produite lors de la suppression de la langue avec le nom {name}.", name);
+
+                // Retourner une réponse d'erreur
+                return StatusCode(400, ex.Message);
+            }
         }
 
     }
