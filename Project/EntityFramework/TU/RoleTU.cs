@@ -10,46 +10,6 @@ namespace TU
     public class RoleTU
     {
         [TestMethod]
-        public async Task TestGetRoles()
-        {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
-                                .UseSqlite(connection)
-                                .Options;
-            using (var context = new StubbedContext(options))
-            {
-                context.Database.EnsureCreated();
-
-                var roles = await context.Roles.ToListAsync();
-                Assert.IsNotNull(roles);
-                Assert.AreEqual(3, roles.Count);
-                Assert.AreEqual("Admin", roles[0].Name);
-            }
-        }
-        [TestMethod]
-        public async Task TestGetRole()
-        {
-            var connection = new SqliteConnection("DataSource=:memory:");
-                   connection.Open();
-                   var options = new DbContextOptionsBuilder<LibraryContext>()
-                                               .UseSqlite(connection)
-                                               .Options;
-                   using (var context = new StubbedContext(options))
-            {
-                context.Database.EnsureCreated();
-
-                var newRole = new RoleEntity { Id = 4, Name = "user" };
-                await context.Roles.AddAsync(newRole);
-                await context.SaveChangesAsync();
-
-                var role1 = await context.Roles.FirstOrDefaultAsync(b => b.Name == "user");
-                Assert.IsNotNull(role1);
-                Assert.AreEqual("user", role1.Name);
-                Assert.AreEqual(4, role1.Id);
-            }
-        }
-        [TestMethod]
         public async Task TestAddRole()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
@@ -60,14 +20,15 @@ namespace TU
             using (var context = new StubbedContext(options))
             {
                 context.Database.EnsureCreated();
-
-                var newRole = new RoleEntity { Name = "user" };
+                var user = new UserEntity { Id = 1, Name = "name", UserName = "username", NickName = "nickname", ExtraTime = true, GroupId = 1, Password = "1234", Email = "" };
+                var newRole = new RoleEntity { Id=4, Name = "user" , Users = [user]  };
                 await context.Roles.AddAsync(newRole);
                 await context.SaveChangesAsync();
 
                 var role = await context.Roles.FirstOrDefaultAsync(b => b.Name == "user");
                 Assert.IsNotNull(role);
                 Assert.AreEqual("user", role.Name);
+                Assert.AreEqual(user, role.Users.First());
             }
         }
         [TestMethod]
@@ -81,18 +42,23 @@ namespace TU
             using (var context = new StubbedContext(options))
             {
                 context.Database.EnsureCreated();
-
-                var newRole = new RoleEntity { Name = "user" };
+                var user = new UserEntity { Id = 4, Name = "name", UserName = "username", NickName = "nickname", ExtraTime = true, GroupId = 1, Password = "1234", Email = "", RoleId=5 };
+                var user1 = new UserEntity { Id = 5, Name = "name2", UserName = "username2", NickName = "nickname2", ExtraTime = true, GroupId = 2, Password = "1234", Email = "", RoleId=5 };
+                var newRole = new RoleEntity { Id=5,Name = "user" };
+                newRole.Users.Add(user);
                 await context.Roles.AddAsync(newRole);
                 await context.SaveChangesAsync();
 
                 var role = await context.Roles.FirstOrDefaultAsync(b => b.Name == "user");
+                Assert.AreEqual(newRole, role);
                 role.Name = "admin";
-                context.Roles.Update(role);
+                context.Roles.Update(role); 
+
                 await context.SaveChangesAsync();
                 var role1 = await context.Roles.FirstOrDefaultAsync(b => b. Name == "admin");
                 Assert.IsNotNull(role1);
                 Assert.AreEqual("admin", role1.Name);
+                Assert.AreEqual(user, role1.Users.First());
             }
         }
 

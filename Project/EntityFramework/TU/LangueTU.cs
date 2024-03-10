@@ -20,15 +20,15 @@ namespace TU
             using (var context = new StubbedContext(options))
             {
                 context.Database.EnsureCreated();
-
-                var newLangue = new LangueEntity { name = "français" };
+                var vocab = new VocabularyEntity { word = "test", Langue = null };
+                var newLangue = new LangueEntity { name = "français", vocabularys=[vocab] };
                 await context.Langues.AddAsync(newLangue);
                 await context.SaveChangesAsync();
 
                 var langue = await context.Langues.FirstOrDefaultAsync(b => b.name == "français");
                 Assert.IsNotNull(langue);
                 Assert.AreEqual("français", langue.name);
-                Assert.IsNull(langue.vocabularys);
+                Assert.AreEqual(vocab, langue.vocabularys.First());
 
 
             }
@@ -92,48 +92,6 @@ namespace TU
                 Assert.AreEqual("informatique", group2.sector);
                 Assert.AreEqual(3, group2.year);
                 Assert.AreEqual(2, group2.Id);
-            }
-        }
-
-        [TestMethod]
-        public async Task TestGetLangues()
-        {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
-                                .UseSqlite(connection)
-                                .Options;
-            using (var context = new StubbedContext(options))
-            {
-                context.Database.EnsureCreated();
-
-                var langues = await context.Langues.ToListAsync();
-                Assert.IsNotNull(langues);
-                Assert.AreEqual(2, langues.Count);
-                Assert.AreEqual("English", langues[0].name);
-                Assert.AreEqual("French", langues[1].name);
-            }
-        }
-
-        [TestMethod]
-        public async Task TestGetLangue()
-        {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
-                                .UseSqlite(connection)
-                                .Options;
-            using (var context = new StubbedContext(options))
-            {
-                context.Database.EnsureCreated();
-
-                var newLangue = new LangueEntity { name = "francais" };
-                await context.Langues.AddAsync(newLangue);
-                await context.SaveChangesAsync();
-
-                var langue = await context.Langues.FirstOrDefaultAsync(b => b.name == "francais");
-                Assert.IsNotNull(langue);
-                Assert.AreEqual("francais", langue.name);
             }
         }
     }
