@@ -1,17 +1,19 @@
-﻿using DTO;
+﻿
+using DTO;
 using DTOToEntity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
     public class VocabularyListController : ControllerBase
     {
-        private readonly IService<VocabularyListDTO> _service;
+        private readonly IVocabularyListService _service;
         private readonly ILogger<VocabularyListController> _logger;
 
-        public VocabularyListController(IService<VocabularyListDTO> vocService, ILogger<VocabularyListController> logger)
+        public VocabularyListController(IVocabularyListService vocService, ILogger<VocabularyListController> logger)
         {
             _service = vocService;
             _logger = logger;
@@ -109,6 +111,25 @@ namespace API.Controllers
             {
                 // Journaliser l'exception
                 _logger.LogError(ex, "Une erreur s'est produite lors de l'ajout du VocabularyList avec l'ID {id}.", VocabularyList.Id);
+
+                // Retourner une réponse d'erreur
+                return StatusCode(400, ex.Message);
+            }
+        }
+
+        [HttpGet("user/{user}")]
+        public async Task<ActionResult<IEnumerable<VocabularyListDTO>>> GetVocabularyListsByUser(int index, int count, int user)
+        {
+            try
+            {
+                _logger.LogInformation("Getting VocabularyLists by user {user}", user);
+                var VocabularyLists = await _service.GetByUser(index, count, user);
+                return Ok(VocabularyLists);
+            }
+            catch (Exception ex)
+            {
+                // Journaliser l'exception
+                _logger.LogError(ex, "Une erreur s'est produite lors de la récupération des VocabularyLists.");
 
                 // Retourner une réponse d'erreur
                 return StatusCode(400, ex.Message);

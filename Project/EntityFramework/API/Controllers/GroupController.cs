@@ -7,26 +7,27 @@ using StubbedContextLib;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
     public class GroupController : ControllerBase
     {
-        private readonly IService<GroupDTO> _service;
+        private readonly IGroupService _service;
         private readonly ILogger<GroupController> _logger;
 
-        public GroupController(IService<GroupDTO> groupService, ILogger<GroupController> logger)
+        public GroupController(IGroupService groupService, ILogger<GroupController> logger)
         {
             _service = groupService;
             _logger = logger;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<GroupDTO>>> GetGroups(int index, int count)
+        public async Task<ActionResult<PageResponse<GroupDTO>>> GetGroups(int index, int count)
         {
             try
             {
                 _logger.LogInformation("Getting groups ");
                 var groups = await _service.Gets(index, count);
-                return Ok(groups);
+                return groups;
             }
             catch (Exception ex)
             {
@@ -120,6 +121,64 @@ namespace API.Controllers
                 return StatusCode(400,ex.Message);
             }
         }
+
+        [HttpGet("/num/{num}")]
+        public async Task<ActionResult<PageResponse<GroupDTO>>> GetGroupsByNum(int index, int count, int num)
+        {
+            try
+            {
+                _logger.LogInformation("Getting groups by num : {num}", num);
+                var groups = await _service.GetByNum(index, count, num);
+                return Ok(groups);
+            }
+            catch (Exception ex)
+            {
+                // Journaliser l'exception
+                _logger.LogError(ex, "Une erreur s'est produite lors de la récupération des groupes avec le numéro {num}.", num);
+
+                // Retourner une réponse d'erreur
+                return StatusCode(400,ex.Message);
+            }
+        }
+
+        [HttpGet("/sector/{sector}")]
+        public async Task<ActionResult<PageResponse<GroupDTO>>> GetGroupsBySector(int index, int count, string sector)
+        {
+            try
+            {
+                _logger.LogInformation("Getting groups by sector : {sector}", sector);
+                var groups = await _service.GetBySector(index, count, sector);
+                return Ok(groups);
+            }
+            catch (Exception ex)
+            {
+                // Journaliser l'exception
+                _logger.LogError(ex, "Une erreur s'est produite lors de la récupération des groupes avec le secteur {sector}.", sector);
+
+                // Retourner une réponse d'erreur
+                return StatusCode(400,ex.Message);
+            }
+        }
+
+        [HttpGet("/year/{year}")]
+        public async Task<ActionResult<PageResponse<GroupDTO>>> GetGroupsByYear(int index, int count, int year)
+        {
+            try
+            {
+                _logger.LogInformation("Getting groups by year : {year}", year);
+                var groups = await _service.GetByYear(index, count, year);
+                return Ok(groups);
+            }
+            catch (Exception ex)
+            {
+                // Journaliser l'exception
+                _logger.LogError(ex, "Une erreur s'est produite lors de la récupération des groupes avec l'année {year}.", year);
+
+                // Retourner une réponse d'erreur
+                return StatusCode(400,ex.Message);
+            }
+        }
+
 
     }
 }

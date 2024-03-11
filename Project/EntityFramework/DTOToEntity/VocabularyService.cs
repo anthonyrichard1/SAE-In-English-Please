@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DTOToEntity
 {
-    public class VocabularyService : IService<VocabularyDTO>
+    public class VocabularyService : IVocabularyService
     {
         private readonly StubbedContext _context = new StubbedContext();
         public async Task<VocabularyDTO> Add(VocabularyDTO vocabulary)
@@ -45,6 +45,13 @@ namespace DTOToEntity
                 throw new Exception("Vocabulary not found");
             }
             return vocabulary.ToDTO();
+        }
+
+        public async Task<PageResponse<VocabularyDTO>> GetByLangue(int index, int count, string langue)
+        {
+            var vocabularies = _context.Vocabularys.Where(v => v.LangueName == langue).Skip(index).Take(count);
+            return new PageResponse<VocabularyDTO>(vocabularies.ToList().Select(v => v.ToDTO()), _context.Vocabularys.Count());
+
         }
 
         public async Task<PageResponse<VocabularyDTO>> Gets(int index, int count)

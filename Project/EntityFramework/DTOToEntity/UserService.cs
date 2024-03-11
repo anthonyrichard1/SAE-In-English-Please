@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DTOToEntity
 {
-    public class UserService : IService<UserDTO>
+    public class UserService : IUserService
     {
         private StubbedContext _context = new StubbedContext();
         public async Task<UserDTO> Add(UserDTO user)
@@ -37,6 +37,12 @@ namespace DTOToEntity
             return user.ToDTO();
         }
 
+        public async Task<PageResponse<UserDTO>> GetByGroup(int index, int count, int group)
+        {
+            var users = _context.Users.Where(u => u.GroupId == group).Skip(index).Take(count);
+            return new PageResponse<UserDTO>(users.Select(u => u.ToDTO()), _context.Users.Count());
+        }
+
         public async Task<UserDTO> GetById(object id)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == (int)id);
@@ -45,6 +51,12 @@ namespace DTOToEntity
                 throw new Exception("User not found");
             }
             return user.ToDTO();
+        }
+
+        public async Task<PageResponse<UserDTO>> GetByRole(int index, int count, string role)
+        {
+            var users = _context.Users.Where(u => u.Role.Name == role).Skip(index).Take(count);
+            return new PageResponse<UserDTO>(users.Select(u => u.ToDTO()), _context.Users.Count());
         }
 
         public async Task<PageResponse<UserDTO>> Gets(int index, int count)

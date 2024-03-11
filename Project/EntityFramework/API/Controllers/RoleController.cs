@@ -1,11 +1,13 @@
-﻿using DTO;
+﻿
+using DTO;
 using DTOToEntity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
     public class RoleController : ControllerBase
     {
         private readonly IService<RoleDTO> _service;

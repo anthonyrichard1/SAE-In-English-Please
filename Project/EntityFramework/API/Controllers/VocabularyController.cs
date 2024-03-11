@@ -1,17 +1,19 @@
-﻿using DTO;
+﻿
+using DTO;
 using DTOToEntity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
     public class VocabularyController : ControllerBase
     {
-        private readonly IService<VocabularyDTO> _service;
+        private readonly IVocabularyService _service;
         private readonly ILogger<VocabularyController> _logger;
 
-        public VocabularyController(IService<VocabularyDTO> vocService, ILogger<VocabularyController> logger)
+        public VocabularyController(IVocabularyService vocService, ILogger<VocabularyController> logger)
         {
             _service = vocService;
             _logger = logger;
@@ -108,6 +110,25 @@ namespace API.Controllers
             {
                 // Journaliser l'exception
                 _logger.LogError(ex, "Une erreur s'est produite lors de l'ajout du vocabulaire avec l'ID {word}.", vocabulary.word);
+
+                // Retourner une réponse d'erreur
+                return StatusCode(400, ex.Message);
+            }
+        }
+
+        [HttpGet("langue/{langue}")]
+        public async Task<ActionResult<PageResponse<VocabularyDTO>>> GetByLangue(string langue, int index, int count)
+        {
+            try
+            {
+                _logger.LogInformation("Getting vocabularies by langue {langue}",langue);
+                var vocabularies = await _service.GetByLangue(index, count, langue);
+                return Ok(vocabularies);
+            }
+            catch (Exception ex)
+            {
+                // Journaliser l'exception
+                _logger.LogError(ex, "Une erreur s'est produite lors de la récupération des vocabulaires par langue {langue}.",langue);
 
                 // Retourner une réponse d'erreur
                 return StatusCode(400, ex.Message);

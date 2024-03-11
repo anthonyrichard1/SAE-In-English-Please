@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DTOToEntity
 {
-    public class VocabularyListService : IService<VocabularyListDTO>
+    public class VocabularyListService : IVocabularyListService
     {
         private StubbedContext _context = new StubbedContext();
         public async Task<VocabularyListDTO> Add(VocabularyListDTO group)
@@ -43,6 +43,13 @@ namespace DTOToEntity
                 throw new Exception("Group not found");
             }
             return group.ToDTO();
+        }
+
+        public async Task<PageResponse<VocabularyListDTO>> GetByUser(int index, int count, int user)
+        {
+            var groups = _context.VocabularyLists.Where(g => g.UserId == user).Skip(index).Take(count);
+            return new PageResponse<VocabularyListDTO>(groups.Select(g => g.ToDTO()), _context.VocabularyLists.Count());
+
         }
 
         public async Task<PageResponse<VocabularyListDTO>> Gets(int index, int count)

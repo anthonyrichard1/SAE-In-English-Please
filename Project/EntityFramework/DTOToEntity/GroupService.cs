@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DTOToEntity
 {
-    public class GroupService : IService<GroupDTO>
+    public class GroupService : IGroupService
     {
         private readonly StubbedContext context = new StubbedContext();
 
@@ -50,6 +50,24 @@ namespace DTOToEntity
                 throw new Exception("Group not found");
             }
             return group.ToDTO();
+        }
+
+        public async Task<PageResponse<GroupDTO>> GetByNum(int index, int count, int num)
+        {
+            var  groups = context.Groups.Where(g => g.Num == num).Skip(index).Take(count);
+            return new PageResponse<GroupDTO>(groups.ToList().Select(g => g.ToDTO()), context.Groups.Count());
+        }
+
+        public async Task<PageResponse<GroupDTO>> GetBySector(int index, int count, string sector)
+        {
+            var groups = context.Groups.Where(g => g.sector == sector).Skip(index).Take(count);
+            return new PageResponse<GroupDTO>(groups.ToList().Select(g => g.ToDTO()), context.Groups.Count());
+        }
+
+        public async Task<PageResponse<GroupDTO>> GetByYear(int index, int count, int year)
+        {
+            var groups = context.Groups.Where(g => g.year == year).Skip(index).Take(count);
+            return new PageResponse<GroupDTO>(groups.ToList().Select(g => g.ToDTO()), context.Groups.Count());
         }
 
         public async Task<PageResponse<GroupDTO>> Gets(int index, int count)

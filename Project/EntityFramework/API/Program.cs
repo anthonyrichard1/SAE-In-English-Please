@@ -9,6 +9,7 @@ using Entities;
 using DTOToEntity;
 using DTO;
 using System;
+using Microsoft.AspNetCore.Mvc;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,13 +18,20 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IService<GroupDTO>,GroupService>();
+builder.Services.AddApiVersioning(o =>
+{
+    o.DefaultApiVersion = new ApiVersion(1, 1);
+    o.AssumeDefaultVersionWhenUnspecified = true;
+    o.ReportApiVersions = true;
+});
+
+builder.Services.AddScoped<IGroupService,GroupService>();
 builder.Services.AddScoped<IService<LangueDTO>,LangueService>();
 builder.Services.AddScoped<IService<RoleDTO>,RoleService>();
 builder.Services.AddScoped<IService<TranslateDTO>,TranslateService>();
-builder.Services.AddScoped<IService<UserDTO>, UserService>();
-builder.Services.AddScoped<IService<VocabularyDTO>, VocabularyService>();
-builder.Services.AddScoped<IService<VocabularyListDTO>, VocabularyListService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IVocabularyService, VocabularyService>();
+builder.Services.AddScoped<IVocabularyListService, VocabularyListService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

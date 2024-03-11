@@ -1,17 +1,19 @@
-﻿using DTO;
+﻿
+using DTO;
 using DTOToEntity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
+    [ApiVersion("1.0")]
     public class UserController : ControllerBase
     {
-        private readonly IService<UserDTO> _service;
+        private readonly IUserService _service;
         private readonly ILogger<UserController> _logger;
 
-        public UserController(IService<UserDTO> userService, ILogger<UserController> logger)
+        public UserController(IUserService userService, ILogger<UserController> logger)
         {
             _service = userService;
             _logger = logger;
@@ -112,5 +114,44 @@ namespace API.Controllers
                 return StatusCode(400, ex.Message);
             }
         }
+
+        [HttpGet("group/{group}")]
+        public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsersByGroup(int index, int count, int group)
+        {
+            try
+            {
+                _logger.LogInformation("Getting Users by group");
+                var users = await _service.GetByGroup(index, count, group);
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                // Journaliser l'exception
+                _logger.LogError(ex, "Une erreur s'est produite lors de la récupération des utilisateurs par groupe.");
+
+                // Retourner une réponse d'erreur
+                return StatusCode(400, ex.Message);
+            }
+        }
+
+        [HttpGet("role/{role}")]
+        public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsersByRole(int index, int count, string role)
+        {
+            try
+            {
+                _logger.LogInformation("Getting Users by role");
+                var users = await _service.GetByRole(index, count, role);
+                return Ok(users);
+            }
+            catch (Exception ex)
+            {
+                // Journaliser l'exception
+                _logger.LogError(ex, "Une erreur s'est produite lors de la récupération des utilisateurs par rôle.");
+
+                // Retourner une réponse d'erreur
+                return StatusCode(400, ex.Message);
+            }
+        }
+
     }
 }
