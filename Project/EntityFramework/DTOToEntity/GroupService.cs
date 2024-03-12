@@ -13,8 +13,18 @@ namespace DTOToEntity
 {
     public class GroupService : IGroupService
     {
+
         private readonly StubbedContext context = new StubbedContext();
 
+        public GroupService()
+        {
+
+        }
+
+        public GroupService(StubbedContext context)
+        {
+            this.context = context;
+        }
         public async Task<GroupDTO> Add(GroupDTO group)
         {
             if(group == null)

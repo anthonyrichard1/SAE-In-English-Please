@@ -29,6 +29,7 @@ namespace API.Controllers
                 var groups = await _service.Gets(index, count);
                 return groups;
             }
+            
             catch (Exception ex)
             {
                 // Journaliser l'exception
@@ -37,6 +38,7 @@ namespace API.Controllers
                 // Retourner une réponse d'erreur
                 return StatusCode(400, ex.Message);
             }
+            
         }
 
         [HttpGet("{id}")]
@@ -52,7 +54,7 @@ namespace API.Controllers
                     return NotFound();
                 }
 
-                return Ok(group);
+                return group;
             }
             catch (Exception ex)
             {
@@ -65,13 +67,13 @@ namespace API.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<GroupDTO>> UpdateGroup([FromQuery]GroupDTO group)
+        public async Task<ActionResult<GroupDTO>> UpdateGroup([FromBody]GroupDTO group)
         {
             try
             {
                 _logger.LogInformation("Updating a group with id : {id}", group.Id);
                 var updatedGroup = await _service.Update(group);
-                return Ok(updatedGroup);
+                return updatedGroup;
             }
             catch (Exception ex)
             {
@@ -91,7 +93,7 @@ namespace API.Controllers
                 _logger.LogInformation("Adding a group with id : {id}", group.Id);
                 group.Id = _service.Gets(0, 0).Result.TotalCount + 1;
                 var newGroup = await _service.Add(group);
-                return Ok(newGroup);
+                return newGroup;
             }
             catch (Exception ex)
             {
@@ -104,13 +106,13 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<GroupEntity>> DeleteGroup(int id)
+        public async Task<ActionResult<GroupDTO>> DeleteGroup(int id)
         {
             try
             {
                 _logger.LogInformation("Deleting a group with id : {id}", id);
                 var group = await _service.Delete(id);
-                return Ok(group);
+                return group;
             }
             catch (Exception ex)
             {
@@ -129,7 +131,7 @@ namespace API.Controllers
             {
                 _logger.LogInformation("Getting groups by num : {num}", num);
                 var groups = await _service.GetByNum(index, count, num);
-                return Ok(groups);
+                return groups;
             }
             catch (Exception ex)
             {
@@ -148,7 +150,7 @@ namespace API.Controllers
             {
                 _logger.LogInformation("Getting groups by sector : {sector}", sector);
                 var groups = await _service.GetBySector(index, count, sector);
-                return Ok(groups);
+                return groups;
             }
             catch (Exception ex)
             {
@@ -167,7 +169,7 @@ namespace API.Controllers
             {
                 _logger.LogInformation("Getting groups by year : {year}", year);
                 var groups = await _service.GetByYear(index, count, year);
-                return Ok(groups);
+                return groups;
             }
             catch (Exception ex)
             {

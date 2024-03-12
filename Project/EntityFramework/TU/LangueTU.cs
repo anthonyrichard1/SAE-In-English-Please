@@ -1,14 +1,23 @@
+using API.Controllers;
 using DbContextLib;
+using DTOToEntity;
 using Entities;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Logging;
 using StubbedContextLib;
+using DTO;
 
 namespace TU
 {
     [TestClass]
     public class LangueTU
     {
+        private static ILogger<LangueController> _logger = new NullLogger<LangueController>();
+        private static IService<LangueDTO> _langueService = new LangueService();
+        private LangueController _controller = new LangueController(_langueService,_logger);
+
         [TestMethod]
         public async Task TestAddLangue()
         {
@@ -21,14 +30,12 @@ namespace TU
             {
                 context.Database.EnsureCreated();
                 var vocab = new VocabularyEntity { word = "test", Langue = null };
-                var newLangue = new LangueEntity { name = "français", vocabularys=[vocab] };
-                await context.Langues.AddAsync(newLangue);
-                await context.SaveChangesAsync();
+                var newLangue = new LangueDTO { name = "français" };
 
-                var langue = await context.Langues.FirstOrDefaultAsync(b => b.name == "français");
-                Assert.IsNotNull(langue);
-                Assert.AreEqual("français", langue.name);
-                Assert.AreEqual(vocab, langue.vocabularys.First());
+                var res = await _controller.AddLangue(newLangue);
+                Assert.IsNotNull(res);
+                Assert.AreEqual("français", res.Value.name);
+
 
 
             }
