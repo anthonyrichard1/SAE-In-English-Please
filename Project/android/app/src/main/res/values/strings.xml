@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">SAE_2A</string>
+    <string name="created_by">Created by\u0020</string>
+    <string name="liste_voc">List of vocabulary :</string>
+    <string name="unknown">Unknown</string>
 </resources>
