@@ -54,10 +54,9 @@ namespace adminBlazor.Pages
         {
             var item = await DataService.GetById(Id);
 
-               var fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/default.jpeg");
+            var fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/default.jpeg");
 
             // Set the model with the item
-
             user = UserFactory.ToModel(item,fileContent);
         }
 

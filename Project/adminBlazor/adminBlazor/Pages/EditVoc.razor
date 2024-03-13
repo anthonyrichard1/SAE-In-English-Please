@@ -5,17 +5,23 @@
 
 <h3>Edit</h3>
 <h4>Voc id : @Id</h4>
-<EditForm Model="@voc" OnValidSubmit="@HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+@if (voc != null)
+{
+    <EditForm Model="@voc" OnValidSubmit="@HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-    <p>
-        <label for="name">
-            Name:
-            <InputText id="name" @bind-Value="voc.Name" />
-            <ValidationMessage For="@(() => voc.Name)" />
-        </label>
-    </p>
+        <p>
+            <label for="nom">
+                Name :
+                <InputText id="nom" @bind-Value="voc.Name" />
+            </label>
+        </p>
 
-    <button type="submit">Submit</button>
-</EditForm>
+        <button type="submit">Submit</button>
+    </EditForm>
+}
+else
+{
+    <p>Loading...</p>
+}

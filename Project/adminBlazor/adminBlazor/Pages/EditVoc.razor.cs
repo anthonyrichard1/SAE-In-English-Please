@@ -50,7 +50,7 @@ namespace adminBlazor.Pages
             var item = await VocListService.GetById(Id);
 
             var fileContent = await File.ReadAllBytesAsync($"{WebHostEnvironment.WebRootPath}/images/default.jpeg");
-
+            
             voc = VocListFactory.ToModel(item,fileContent);
         }
     }
