@@ -21,12 +21,12 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<LangueDTO>>> GetLangues(int index, int count)
+        public async Task<ActionResult<PageResponse<LangueDTO>>> GetLangues(int index, int count)
         {
             try { 
             _logger.LogInformation("Getting langues ");
             var groups = await _service.Gets(index,count);
-            return Ok(groups);
+            return groups;
                 }
             catch (Exception ex)
             {
@@ -44,7 +44,7 @@ namespace API.Controllers
             try { 
             _logger.LogInformation("Getting a langue with name {name}",name);
             var group = await _service.GetById(name);
-            return Ok(group);
+            return group;
                 }
             catch (Exception ex)
             {
@@ -55,7 +55,8 @@ namespace API.Controllers
                 return StatusCode(400, ex.Message);
             }
         }
-
+        //On ne peut pas changer la langue car son nom est son Id
+        /*
         [HttpPut]
         public async Task<ActionResult<LangueDTO>> UpdateLangue([FromQuery]LangueDTO langue)
         {
@@ -63,7 +64,7 @@ namespace API.Controllers
             {
                 _logger.LogInformation("Updating a langue with name : {name}", langue.name);
                 var updatedGroup = await _service.Update(langue);
-                return Ok(updatedGroup);
+                return updatedGroup;
             }
             catch (Exception ex)
             {
@@ -73,7 +74,7 @@ namespace API.Controllers
                 // Retourner une réponse d'erreur
                 return StatusCode(400, ex.Message);
             }
-        }
+        }*/
 
         [HttpPost]
         public async Task<ActionResult<LangueDTO>> AddLangue([FromQuery]LangueDTO langue)
@@ -81,16 +82,8 @@ namespace API.Controllers
             try
             {
                 _logger.LogInformation("Adding a langue with name : {name}", langue.name);
-                if (langue.name == null)
-                {
-                    return BadRequest("Name is required");
-                }
-                if (_service.GetById(langue.name) != null)
-                {
-                    return BadRequest("Name already exists");
-                }
                 var newGroup = await _service.Add(langue);
-                return Ok(newGroup);
+                return newGroup;
             }
             catch (Exception ex)
             {
@@ -109,7 +102,7 @@ namespace API.Controllers
             {
                 _logger.LogInformation("Deleting a langue with name : {name}", name);
                 var group = await _service.Delete(name);
-                return Ok(group);
+                return group;
             }
             catch (Exception ex)
             {

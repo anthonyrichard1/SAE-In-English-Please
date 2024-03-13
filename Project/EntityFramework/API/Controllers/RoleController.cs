@@ -20,13 +20,13 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RoleDTO>>> GetRoles(int index, int count)
+        public async Task<ActionResult<PageResponse<RoleDTO>>> GetRoles(int index, int count)
         {
             try
             {
                 _logger.LogInformation("Getting Roles ");
                 var groups = await _service.Gets(index, count);
-                return Ok(groups);
+                return groups;
             }
             catch (Exception ex)
             {
@@ -45,7 +45,7 @@ namespace API.Controllers
             {
                 _logger.LogInformation("Getting a role with id {id}", id);
                 var group = await _service.GetById(id);
-                return Ok(group);
+                return group;
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace API.Controllers
             try { 
             _logger.LogInformation("Updating a role with id : {id}", role.Id);
             var updatedGroup = await _service.Update(role);
-            return Ok(updatedGroup);
+            return updatedGroup;
             }
             catch (Exception ex)
             {
@@ -83,7 +83,7 @@ namespace API.Controllers
                 _logger.LogInformation("Adding a role with id : {id}", role.Id);
                 role.Id = _service.Gets(0, 0).Result.TotalCount + 1;
                 var newGroup = await _service.Add(role);
-                return Ok(newGroup);
+                return newGroup;
             }
             catch (Exception ex)
             {
@@ -101,7 +101,7 @@ namespace API.Controllers
             try { 
             _logger.LogInformation("Deleting a role with id : {id}", id);
             var group = await _service.Delete(id);
-            return Ok(group);
+            return group;
             }
             catch (Exception ex)
             {

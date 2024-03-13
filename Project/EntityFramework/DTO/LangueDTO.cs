@@ -8,7 +8,8 @@ namespace DTO
 {
     public class LangueDTO
     {
-        public string name { get; set; }
+        public string 
+            name { get; set; }
 
         //public ICollection<VocabularyDTO> vocabularys { get; set; } = new List<VocabularyDTO>();
     }

@@ -10,6 +10,7 @@ using DTOToEntity;
 using DTO;
 using System;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -24,8 +25,7 @@ builder.Services.AddApiVersioning(o =>
     o.AssumeDefaultVersionWhenUnspecified = true;
     o.ReportApiVersions = true;
 });
-
-builder.Services.AddScoped<IGroupService,GroupService>();
+builder.Services.AddScoped<IGroupService, GroupService>();
 builder.Services.AddScoped<IService<LangueDTO>,LangueService>();
 builder.Services.AddScoped<IService<RoleDTO>,RoleService>();
 builder.Services.AddScoped<IService<TranslateDTO>,TranslateService>();
@@ -33,7 +33,6 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IVocabularyService, VocabularyService>();
 builder.Services.AddScoped<IVocabularyListService, VocabularyListService>();
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

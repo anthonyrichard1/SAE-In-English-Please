@@ -13,6 +13,12 @@ namespace DTOToEntity
     public class RoleService : IService<RoleDTO>
     {
         private readonly StubbedContext _context = new StubbedContext();
+
+        public RoleService() { }
+        public RoleService(StubbedContext context)
+        {
+            _context = context;
+        }
         public async Task<RoleDTO> Add(RoleDTO role)
         {
             var roleEntity = role.ToEntity();
@@ -32,9 +38,9 @@ namespace DTOToEntity
             {
                 throw new Exception("Role not found");
             }
-            _context.Roles.Remove(role);
+            var res = _context.Roles.Remove(role);
             await _context.SaveChangesAsync();
-            return role.ToDTO();
+            return res.Entity.ToDTO();
         }
 
         public async Task<RoleDTO> GetById(object id)
@@ -55,13 +61,16 @@ namespace DTOToEntity
 
         public async Task<RoleDTO> Update(RoleDTO role)
         {
-            RoleEntity? roleEntity = await _context.Roles.FirstOrDefaultAsync(r => r.Id == role.Id);
             if (role == null)
             {
-                throw new Exception("Role not found");
+                throw new ArgumentNullException();
             }
-            roleEntity= role.ToEntity();
-            _context.Roles.Update(roleEntity);
+            var roleEntity = await _context.Roles.FindAsync(role.Id);
+            if (roleEntity != null)
+            {
+                throw new Exception("role not found");
+            }
+            roleEntity.Name = role.Name;
             await _context.SaveChangesAsync();
             return roleEntity.ToDTO();
         }

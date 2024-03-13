@@ -14,6 +14,11 @@ namespace DTOToEntity
     {
         private readonly StubbedContext _context = new StubbedContext();
         public LangueService() { }
+
+        public LangueService(StubbedContext context)
+        {
+            this._context = context;
+        }
         public async Task<LangueDTO> Add(LangueDTO langue)
         {
             var langueEntity = langue.ToEntity();

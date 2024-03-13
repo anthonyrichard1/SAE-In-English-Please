@@ -2,13 +2,11 @@ using DbContextLib;
 using Entities;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Logging;
 using StubbedContextLib;
 using API.Controllers;
 using DTOToEntity;
 using DTO;
-using Microsoft.AspNetCore.Mvc;
 using Moq;
 
 namespace TU
@@ -16,9 +14,6 @@ namespace TU
     [TestClass]
     public class GroupTU
     {
-        private static ILogger<GroupController> _logger = new NullLogger<GroupController>();
-        private static IGroupService _booksService = new GroupService();
-        private GroupController _controller = new GroupController(_booksService, _logger);
 
 
 
@@ -156,12 +151,12 @@ namespace TU
             {
                 context.Database.EnsureCreated();
                 GroupEntity g1 = new GroupEntity { Id = 4, Num = 4, sector = "sect3", year = 2020 };
+                GroupDTO updatedGroupDTO = new GroupDTO { Id = 4, Num = 2, sector = "sect4", Year = 2021 };
                 await context.Groups.AddAsync(g1);
                 await context.SaveChangesAsync();
 
                 var mockLogger = new Mock<ILogger<GroupController>>();
                 var controller = new GroupController(new GroupService(context), mockLogger.Object);
-                var updatedGroupDTO = new GroupDTO { Id = 4, Num = 2, sector = "sect4", Year = 2021 };
 
                 var result = await controller.UpdateGroup(updatedGroupDTO);
 

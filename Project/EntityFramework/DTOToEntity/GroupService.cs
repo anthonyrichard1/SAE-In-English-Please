@@ -88,10 +88,22 @@ namespace DTOToEntity
 
         public async Task<GroupDTO> Update(GroupDTO group)
         {
-            var groupEntity = group.ToEntity();
-            var res = context.Groups.Update(groupEntity);
+            if(group == null)
+            {
+                throw new ArgumentNullException();
+            }
+            var existingGroup = await context.Groups.FindAsync(group.Id);
+            if (existingGroup == null)
+            {
+                throw new Exception("Group not found");
+            }
+            existingGroup.year = group.Year;
+            existingGroup.sector = group.sector;
+            existingGroup.Num = group.Num;
             await context.SaveChangesAsync();
-            return res.Entity.ToDTO();
+            return existingGroup.ToDTO();
         }
     }
+
+
 }
