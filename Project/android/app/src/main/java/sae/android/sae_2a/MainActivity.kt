@@ -42,5 +42,6 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 fun GreetingPreview() {
     SAE_2ATheme {
         Greeting("Android")
+
     }
 }
