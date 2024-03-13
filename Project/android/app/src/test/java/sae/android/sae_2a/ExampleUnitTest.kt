@@ -1,4 +1,4 @@
-package com.example.myapplication
+package sae.android.sae_2a
 
 import org.junit.Test
 
