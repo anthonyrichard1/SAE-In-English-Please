@@ -11,12 +11,30 @@
         <DataAnnotationsValidator />
         <ValidationSummary />
 
+<<<<<<< HEAD
         <p>
             <label for="nom">
                 Name :
                 <InputText id="nom" @bind-Value="voc.Name" />
             </label>
         </p>
+=======
+    <p>
+        <label for="name">
+            Name:
+            <InputText id="name" @bind-Value="voc.Name" />
+            <ValidationMessage For="@(() => voc.Name)" />
+        </label>
+
+    </p>
+    <p>
+        <label>
+            Author
+            <InputNumber @bind-Value="voc.Aut" />
+            <ValidationMessage For="@(() => voc.Aut)" />
+        </label>
+    </p>
+>>>>>>> e13ce594471ea79c152b246fc51c65544632624d
 
         <button type="submit">Submit</button>
     </EditForm>

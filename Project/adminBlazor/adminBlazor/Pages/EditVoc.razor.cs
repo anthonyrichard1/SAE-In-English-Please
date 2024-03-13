@@ -31,7 +31,7 @@ namespace adminBlazor.Pages
         {
             await VocListService.Update(Id, voc);
 
-            NavigationManager.NavigateTo("list");
+            NavigationManager.NavigateTo("voc");
         }
         
         private async Task LoadImage(InputFileChangeEventArgs e)
