@@ -20,6 +20,7 @@ namespace StubbedContextLib
                 .WithMany(g => g.VocabularyList)
                 .UsingEntity<VocabularyListGroup>();
 
+
             modelBuilder.Entity<UserEntity>().HasData(
             new UserEntity
             {
@@ -31,7 +32,8 @@ namespace StubbedContextLib
                 ExtraTime = true,
                 GroupId = 1,
                 Password = "1234",
-                Email = ""
+                Email = "",
+                RoleId = 1
 
             },
             new UserEntity
@@ -41,9 +43,10 @@ namespace StubbedContextLib
                 UserName = "username2",
                 NickName = "nickname2",
                 ExtraTime = true,
-                GroupId = 2,
+                GroupId = 1,
                 Password = "1234",
-                Email = ""
+                Email = "",
+                RoleId = 2
             },
             new UserEntity
             {
@@ -52,9 +55,10 @@ namespace StubbedContextLib
                 UserName = "username3",
                 NickName = "nickname3",
                 ExtraTime = true,
-                GroupId = 3,
+                GroupId = 1,
                 Password = "1234",
-                Email = ""
+                Email = "",
+                RoleId = 3,
             }
             );
 
@@ -96,6 +100,28 @@ namespace StubbedContextLib
                     year = 1,
                     VocabularyList = null
 
+                });
+            modelBuilder.Entity<TranslateEntity>().HasData(
+                new TranslateEntity
+                               {
+                    Id = 1,
+                    WordsId = "1",
+                    VocabularyListVocId = 1,
+                    VocabularyListVoc = null
+                });
+            modelBuilder.Entity<VocabularyEntity>().HasData(
+                new VocabularyEntity
+                {
+                    LangueName = "French",
+                    word = "Bonjour"
+                });
+            modelBuilder.Entity<VocabularyListEntity>().HasData(
+                new VocabularyListEntity
+                {
+                    Id = 1,
+                    Name = "Liste1",
+                    UserId = 1,
+                    Image = "image1",
                 });
 
         }

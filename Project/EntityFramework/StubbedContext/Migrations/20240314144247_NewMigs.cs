@@ -16,7 +16,7 @@ namespace StubbedContextLib.Migrations
                 name: "Groups",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Num = table.Column<int>(type: "INTEGER", nullable: false),
                     year = table.Column<int>(type: "INTEGER", nullable: false),
@@ -42,7 +42,7 @@ namespace StubbedContextLib.Migrations
                 name: "Roles",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
@@ -82,31 +82,31 @@ namespace StubbedContextLib.Migrations
                     NickName = table.Column<string>(type: "TEXT", nullable: false),
                     image = table.Column<string>(type: "TEXT", nullable: true),
                     GroupId = table.Column<long>(type: "INTEGER", nullable: false),
-                    GroupId1 = table.Column<int>(type: "INTEGER", nullable: true),
                     RoleId = table.Column<long>(type: "INTEGER", nullable: false),
-                    RoleId1 = table.Column<int>(type: "INTEGER", nullable: true),
                     ExtraTime = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Groups_GroupId1",
-                        column: x => x.GroupId1,
+                        name: "FK_Users_Groups_GroupId",
+                        column: x => x.GroupId,
                         principalTable: "Groups",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Users_Roles_RoleId1",
-                        column: x => x.RoleId1,
+                        name: "FK_Users_Roles_RoleId",
+                        column: x => x.RoleId,
                         principalTable: "Roles",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "VocabularyLists",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Image = table.Column<string>(type: "TEXT", nullable: false),
@@ -127,18 +127,17 @@ namespace StubbedContextLib.Migrations
                 name: "Translates",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<long>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     WordsId = table.Column<string>(type: "TEXT", nullable: false),
-                    VocabularyListVocId = table.Column<long>(type: "INTEGER", nullable: false),
-                    VocabularyListVocId1 = table.Column<int>(type: "INTEGER", nullable: false)
+                    VocabularyListVocId = table.Column<long>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Translates", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Translates_VocabularyLists_VocabularyListVocId1",
-                        column: x => x.VocabularyListVocId1,
+                        name: "FK_Translates_VocabularyLists_VocabularyListVocId",
+                        column: x => x.VocabularyListVocId,
                         principalTable: "VocabularyLists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -148,14 +147,13 @@ namespace StubbedContextLib.Migrations
                 name: "VocabularyListGroup",
                 columns: table => new
                 {
-                    GroupsId = table.Column<int>(type: "INTEGER", nullable: false),
-                    VocabularyListId1 = table.Column<int>(type: "INTEGER", nullable: false),
-                    GroupId = table.Column<long>(type: "INTEGER", nullable: false),
-                    VocabularyListId = table.Column<long>(type: "INTEGER", nullable: false)
+                    VocabularyListId = table.Column<long>(type: "INTEGER", nullable: false),
+                    GroupsId = table.Column<long>(type: "INTEGER", nullable: false),
+                    GroupId = table.Column<long>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VocabularyListGroup", x => new { x.GroupsId, x.VocabularyListId1 });
+                    table.PrimaryKey("PK_VocabularyListGroup", x => new { x.GroupsId, x.VocabularyListId });
                     table.ForeignKey(
                         name: "FK_VocabularyListGroup_Groups_GroupsId",
                         column: x => x.GroupsId,
@@ -163,8 +161,8 @@ namespace StubbedContextLib.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_VocabularyListGroup_VocabularyLists_VocabularyListId1",
-                        column: x => x.VocabularyListId1,
+                        name: "FK_VocabularyListGroup_VocabularyLists_VocabularyListId",
+                        column: x => x.VocabularyListId,
                         principalTable: "VocabularyLists",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -175,7 +173,7 @@ namespace StubbedContextLib.Migrations
                 columns: table => new
                 {
                     Wordsword = table.Column<string>(type: "TEXT", nullable: false),
-                    translationsId = table.Column<int>(type: "INTEGER", nullable: false),
+                    translationsId = table.Column<long>(type: "INTEGER", nullable: false),
                     Word = table.Column<string>(type: "TEXT", nullable: false),
                     Translation = table.Column<string>(type: "TEXT", nullable: false)
                 },
@@ -199,7 +197,7 @@ namespace StubbedContextLib.Migrations
             migrationBuilder.InsertData(
                 table: "Groups",
                 columns: new[] { "Id", "Num", "sector", "year" },
-                values: new object[] { 1, 1, "informatics", 1 });
+                values: new object[] { 1L, 1, "informatics", 1 });
 
             migrationBuilder.InsertData(
                 table: "Langues",
@@ -215,40 +213,55 @@ namespace StubbedContextLib.Migrations
                 columns: new[] { "Id", "Name" },
                 values: new object[,]
                 {
-                    { 1, "Admin" },
-                    { 2, "Teacher" },
-                    { 3, "Student" }
+                    { 1L, "Admin" },
+                    { 2L, "Teacher" },
+                    { 3L, "Student" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "Id", "Email", "ExtraTime", "GroupId", "GroupId1", "Name", "NickName", "Password", "RoleId", "RoleId1", "UserName", "image" },
+                columns: new[] { "Id", "Email", "ExtraTime", "GroupId", "Name", "NickName", "Password", "RoleId", "UserName", "image" },
                 values: new object[,]
                 {
-                    { 1L, "", true, 1L, null, "name", "nickname", "1234", 0L, null, "username", null },
-                    { 2L, "", true, 2L, null, "name2", "nickname2", "1234", 0L, null, "username2", null },
-                    { 3L, "", true, 3L, null, "name3", "nickname3", "1234", 0L, null, "username3", null }
+                    { 1L, "", true, 1L, "name", "nickname", "1234", 1L, "username", null },
+                    { 2L, "", true, 1L, "name2", "nickname2", "1234", 2L, "username2", null },
+                    { 3L, "", true, 1L, "name3", "nickname3", "1234", 3L, "username3", null }
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Translates_VocabularyListVocId1",
+            migrationBuilder.InsertData(
+                table: "Vocabularys",
+                columns: new[] { "word", "LangueName" },
+                values: new object[] { "Bonjour", "French" });
+
+            migrationBuilder.InsertData(
+                table: "VocabularyLists",
+                columns: new[] { "Id", "Image", "Name", "UserId" },
+                values: new object[] { 1L, "image1", "Liste1", 1L });
+
+            migrationBuilder.InsertData(
                 table: "Translates",
-                column: "VocabularyListVocId1");
+                columns: new[] { "Id", "VocabularyListVocId", "WordsId" },
+                values: new object[] { 1L, 1L, "1" });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_GroupId1",
+                name: "IX_Translates_VocabularyListVocId",
+                table: "Translates",
+                column: "VocabularyListVocId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_GroupId",
                 table: "Users",
-                column: "GroupId1");
+                column: "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_RoleId1",
+                name: "IX_Users_RoleId",
                 table: "Users",
-                column: "RoleId1");
+                column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VocabularyListGroup_VocabularyListId1",
+                name: "IX_VocabularyListGroup_VocabularyListId",
                 table: "VocabularyListGroup",
-                column: "VocabularyListId1");
+                column: "VocabularyListId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_VocabularyLists_UserId",

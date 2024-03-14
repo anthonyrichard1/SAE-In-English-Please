@@ -20,13 +20,13 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsers(int index,int count)
+        public async Task<ActionResult<PageResponse<UserDTO>>> GetUsers(int index,int count)
         {
             try
             {
                 _logger.LogInformation("Getting Users ");
                 var users = await _service.Gets(index, count);
-                return Ok(users);
+                return users;
             }
             catch (Exception ex)
             {
@@ -46,7 +46,7 @@ namespace API.Controllers
                 _logger.LogInformation("Adding a user with id : {id}", user.Id);
                 user.Id = _service.Gets(0, 0).Result.TotalCount + 1;
                 var newUser = await _service.Add(user);
-                return Ok(newUser);
+                return newUser;
             }
             catch (Exception ex)
             {
@@ -59,13 +59,13 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<UserDTO>> DeleteUser(int id)
+        public async Task<ActionResult<UserDTO>> DeleteUser(long id)
         {
             try
             {
                 _logger.LogInformation("Deleting a user with id : {id}", id);
                 var user = await _service.Delete(id);
-                return Ok(user);
+                return user;
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@ namespace API.Controllers
             {
                 _logger.LogInformation("Updating a user with id : {id}", user.Id);
                 var updatedUser = await _service.Update(user);
-                return Ok(updatedUser);
+                return updatedUser;
             }
             catch (Exception ex)
             {
@@ -97,13 +97,13 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserDTO>> GetUser(int id)
+        public async Task<ActionResult<UserDTO>> GetUser(long id)
         {
             try
             {
                 _logger.LogInformation("Getting a user with id {id}", id);
                 var user = await _service.GetById(id);
-                return Ok(user);
+                return user;
             }
             catch (Exception ex)
             {
@@ -116,13 +116,13 @@ namespace API.Controllers
         }
 
         [HttpGet("group/{group}")]
-        public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsersByGroup(int index, int count, int group)
+        public async Task<ActionResult<PageResponse<UserDTO>>> GetUsersByGroup(int index, int count, int group)
         {
             try
             {
                 _logger.LogInformation("Getting Users by group");
                 var users = await _service.GetByGroup(index, count, group);
-                return Ok(users);
+                return users;
             }
             catch (Exception ex)
             {
@@ -135,13 +135,13 @@ namespace API.Controllers
         }
 
         [HttpGet("role/{role}")]
-        public async Task<ActionResult<IEnumerable<UserDTO>>> GetUsersByRole(int index, int count, string role)
+        public async Task<ActionResult<PageResponse<UserDTO>>> GetUsersByRole(int index, int count, string role)
         {
             try
             {
                 _logger.LogInformation("Getting Users by role");
                 var users = await _service.GetByRole(index, count, role);
-                return Ok(users);
+                return users;
             }
             catch (Exception ex)
             {

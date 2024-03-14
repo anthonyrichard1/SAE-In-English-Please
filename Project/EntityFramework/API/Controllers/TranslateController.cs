@@ -20,13 +20,13 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TranslateDTO>>> GetTranslates(int index, int count)
+        public async Task<ActionResult<PageResponse<TranslateDTO>>> GetTranslates(int index, int count)
         {
             try
             {
                 _logger.LogInformation("Getting Translates ");
                 var Translates = await _service.Gets(index, count);
-                return Ok(Translates);
+                return Translates;
             }
             catch (Exception ex)
             {
@@ -43,7 +43,7 @@ namespace API.Controllers
             try {
             _logger.LogInformation("Getting a Translate with id {id}", id);
             var Translate = await _service.GetById(id);
-            return Ok(Translate);
+            return Translate;
             }
             catch (Exception ex)
             {
@@ -61,7 +61,7 @@ namespace API.Controllers
             try { 
             _logger.LogInformation("Updating a Translate with id : {id}", Translate.Id);
             var updatedTranslate = await _service.Update(Translate);
-            return Ok(updatedTranslate);
+            return updatedTranslate;
             }
             catch (Exception ex)
             {
@@ -79,7 +79,7 @@ namespace API.Controllers
             try { 
             _logger.LogInformation("Deleting a Translate with id : {id}", id);
             var Translate = await _service.Delete(id);
-            return Ok(Translate);
+            return Translate;
             }
             catch (Exception ex)
             {
@@ -92,13 +92,13 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<TranslateDTO>> AddTranslate([FromQuery] TranslateDTO Translate)
+        public async Task<ActionResult<TranslateDTO>> AddTranslate([FromBody] TranslateDTO Translate)
         {
             try { 
             _logger.LogInformation("Adding a Translate with id : {id}", Translate.Id);
             Translate.Id = _service.Gets(0,0).Result.TotalCount + 1;
             var newTranslate = await _service.Add(Translate);
-            return Ok(newTranslate);
+            return newTranslate;
             }
             catch (Exception ex)
             {

@@ -57,24 +57,6 @@ namespace API.Controllers
             }
         }
 
-        [HttpPut]
-        public async Task<ActionResult<RoleDTO>> UpdateRole([FromQuery] RoleDTO role)
-        {
-            try { 
-            _logger.LogInformation("Updating a role with id : {id}", role.Id);
-            var updatedGroup = await _service.Update(role);
-            return updatedGroup;
-            }
-            catch (Exception ex)
-            {
-                // Journaliser l'exception
-                _logger.LogError(ex, "Une erreur s'est produite lors de la mise à jour du role avec l'ID {id}.", role.Id);
-
-                // Retourner une réponse d'erreur
-                return StatusCode(400, ex.Message);
-            }
-        }
-
         [HttpPost]
         public async Task<ActionResult<RoleDTO>> AddRole([FromQuery] RoleDTO role)
         {

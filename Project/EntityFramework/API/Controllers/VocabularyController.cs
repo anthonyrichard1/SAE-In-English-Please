@@ -20,13 +20,13 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<VocabularyDTO>>> GetVocabularies(int index, int count)
+        public async Task<ActionResult<PageResponse<VocabularyDTO>>> GetVocabularies(int index, int count)
         {
             try
             {
                 _logger.LogInformation("Getting vocabularies ");
                 var vocabularies = await _service.Gets(index, count);
-                return Ok(vocabularies);
+                return vocabularies;
             }
             catch (Exception ex)
             {
@@ -46,7 +46,7 @@ namespace API.Controllers
             {
                 _logger.LogInformation("Getting a vocabulary with id {id}", word);
                 var vocabulary = await _service.GetById(word);
-                return Ok(vocabulary);
+                return vocabulary;
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace API.Controllers
             {
                 _logger.LogInformation("Updating a vocabulary with word : {word}", vocabulary.word);
                 var updatedVocabulary = await _service.Update(vocabulary);
-                return Ok(updatedVocabulary);
+                return updatedVocabulary;
             }
             catch (Exception ex)
             {
@@ -84,7 +84,7 @@ namespace API.Controllers
             {
                 _logger.LogInformation("Deleting a vocabulary with word : {word}", word);
                 var vocabulary = await _service.Delete(word);
-                return Ok(vocabulary);
+                return vocabulary;
             }
             catch (Exception ex)
             {
@@ -104,7 +104,7 @@ namespace API.Controllers
             {
                 _logger.LogInformation("Adding a vocabulary with word : {word}", vocabulary.word);
                 var newVocabulary = await _service.Add(vocabulary);
-                return Ok(newVocabulary);
+                return newVocabulary;
             }
             catch (Exception ex)
             {
@@ -123,7 +123,7 @@ namespace API.Controllers
             {
                 _logger.LogInformation("Getting vocabularies by langue {langue}",langue);
                 var vocabularies = await _service.GetByLangue(index, count, langue);
-                return Ok(vocabularies);
+                return vocabularies;
             }
             catch (Exception ex)
             {

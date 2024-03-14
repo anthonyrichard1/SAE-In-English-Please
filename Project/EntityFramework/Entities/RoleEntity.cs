@@ -9,9 +9,8 @@ namespace Entities
 {
     public class RoleEntity
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
         public string Name { get; set; }
-        [ConcurrencyCheck]
         public ICollection<UserEntity> Users { get; set; } = new List<UserEntity>();
 
         public string toString()

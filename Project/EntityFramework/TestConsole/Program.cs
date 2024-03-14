@@ -36,10 +36,11 @@ using (var context = new StubbedContext(options))
         UserName = "username4",
         NickName = "nickname4",
         ExtraTime = true,
-        GroupId = 4,
+        GroupId = 1,
         Password = "12344",
         Email = "",
-        RoleId = 3
+        RoleId = 3,
+        image = "image4",
     };
 
     context.Users.Add(user1);

@@ -73,36 +73,6 @@ namespace TU
             }
         }
 
-        /*
-        [TestMethod]
-        public async Task TestUpdateLangue()
-        {
-            var connection = new SqliteConnection("DataSource=:memory:");
-            connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
-                                .UseSqlite(connection)
-                                .Options;
-
-            using (var context = new StubbedContext(options))
-            {
-                context.Database.EnsureCreated();
-                var newLangue = new LangueDTO { name = "test" };
-                await context.Langues.AddAsync(newLangue.ToEntity());
-                // Créer un mock pour le logger
-                var mockLogger = new Mock<ILogger<LangueController>>();
-
-                var controller = new LangueController(new LangueService(context), mockLogger.Object);
-                newLangue.
-
-                var result = await controller.UpdateLangue(new);
-                Assert.IsNotNull(result.Value);
-                Assert.AreEqual(newLangue.name, result.Value.name);
-                var res = await context.Langues.FirstOrDefaultAsync(l => l.name == "test");
-                Assert.IsNull(res);
-
-
-            }
-        }*/
         [TestMethod]
         public async Task TestGetById()
         {

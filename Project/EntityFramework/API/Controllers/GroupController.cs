@@ -42,7 +42,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<GroupDTO>> GetGroup(int id)
+        public async Task<ActionResult<GroupDTO>> GetGroup(long id)
         {
             try
             {
@@ -106,7 +106,7 @@ namespace API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<GroupDTO>> DeleteGroup(int id)
+        public async Task<ActionResult<GroupDTO>> DeleteGroup(long id)
         {
             try
             {

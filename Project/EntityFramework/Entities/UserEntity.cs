@@ -17,16 +17,16 @@ namespace Entities
         public string UserName { get; set; }
         public string NickName { get; set; }
         public string? image { get; set; } = null;
+
+        [ForeignKey(nameof(GroupId))]
         public long GroupId { get; set; }
 
-        [ConcurrencyCheck]
         public GroupEntity? Group { get; set; } = null;
-        public long RoleId { get; set; }
-        [ConcurrencyCheck]
-        public RoleEntity? Role { get; set; } = null!;
-        public Boolean ExtraTime { get; set; }
 
-        [ConcurrencyCheck]
+        [ForeignKey(nameof(RoleId))]
+        public long RoleId { get; set; }
+        public RoleEntity? Role { get; set; } = null;
+        public Boolean ExtraTime { get; set; }
         public ICollection<VocabularyListEntity> VocabularyList { get; set; } = new List<VocabularyListEntity>();
 
 

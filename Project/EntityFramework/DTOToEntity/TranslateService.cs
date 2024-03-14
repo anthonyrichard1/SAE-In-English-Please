@@ -12,6 +12,13 @@ namespace DTOToEntity
     public class TranslateService : IService<TranslateDTO>
     {
         private readonly StubbedContext _context = new StubbedContext();
+
+        public TranslateService() { }
+        public TranslateService(StubbedContext context)
+        {
+            _context = context;
+        }
+
         public async Task<TranslateDTO> Add(TranslateDTO translate)
         {
             var translateEntity = translate.ToEntity();
@@ -63,7 +70,8 @@ namespace DTOToEntity
             {
                 throw new Exception("Translate not found");
             }
-            translateEntity = translate.ToEntity();
+            translateEntity.WordsId = translate.WordsId;
+            translateEntity.VocabularyListVocId = translate.VocabularyListVocId;
             _context.Translates.Update(translateEntity);
             await _context.SaveChangesAsync();
             return translateEntity.ToDTO();

@@ -13,6 +13,13 @@ namespace DTOToEntity
     public class VocabularyService : IVocabularyService
     {
         private readonly StubbedContext _context = new StubbedContext();
+
+        public VocabularyService() { }
+
+        public VocabularyService(StubbedContext context)
+        {
+            _context = context;
+        }
         public async Task<VocabularyDTO> Add(VocabularyDTO vocabulary)
         {
            var vocabularyEntity = vocabulary.ToEntity();
@@ -72,7 +79,7 @@ namespace DTOToEntity
             {
                 throw new Exception("vocabulary not found");
             }
-            _context.Vocabularys.Update(vocabularyEntity);
+           VocabToUpdate.LangueName = vocabularyEntity.LangueName;
             await _context.SaveChangesAsync();
             return vocabularyEntity.ToDTO();
         }

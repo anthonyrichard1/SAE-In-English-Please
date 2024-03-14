@@ -100,6 +100,7 @@ namespace DTOToEntity
                 Password = user.Password,
                 GroupId = user.GroupId,
                 RoleId = user.RoleId,
+                ExtraTime = user.ExtraTime
                 //Group = user.Group.ToEntity(),
                 //Role = user.Role.ToEntity()
             };
@@ -117,6 +118,7 @@ namespace DTOToEntity
                 Password = user.Password,
                 GroupId = user.GroupId,
                 RoleId = user.RoleId,
+                ExtraTime = user.ExtraTime,
                 //Group = user.Group.ToDTO(),
                 //Role = user.Role.ToDTO()
             };

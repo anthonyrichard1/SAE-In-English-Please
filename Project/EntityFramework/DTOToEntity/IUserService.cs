@@ -9,7 +9,7 @@ namespace DTOToEntity
 {
     public interface IUserService : IService<UserDTO>
     {
-        Task<PageResponse<UserDTO>> GetByGroup(int index, int count, int group);
+        Task<PageResponse<UserDTO>> GetByGroup(int index, int count, long group);
         Task<PageResponse<UserDTO>> GetByRole(int index, int count, string role);
     }
 }

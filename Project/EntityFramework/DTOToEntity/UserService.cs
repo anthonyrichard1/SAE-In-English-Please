@@ -13,21 +13,27 @@ namespace DTOToEntity
     public class UserService : IUserService
     {
         private StubbedContext _context = new StubbedContext();
+
+        public UserService() { }
+        public UserService(StubbedContext context)
+        {
+            _context = context;
+        }
         public async Task<UserDTO> Add(UserDTO user)
         {
-            UserEntity? userEntity = user.ToEntity();
+            UserEntity userEntity = user.ToEntity();
             if(userEntity == null)
             {
                 throw new Exception("User Entity is null");
             }
-            var result = await _context.Users.AddAsync(userEntity);
+            var result = _context.Users.Add(userEntity);
             await _context.SaveChangesAsync();
             return result.Entity.ToDTO();
         }
 
         public async Task<UserDTO> Delete(object id)
         {
-            UserEntity? user = await _context.Users.FirstOrDefaultAsync(u => u.Id == (int)id);
+            UserEntity? user = await _context.Users.FirstOrDefaultAsync(u => u.Id == (long)id);
             if(user == null)
             {
                 throw new Exception("User not found");
@@ -37,7 +43,7 @@ namespace DTOToEntity
             return user.ToDTO();
         }
 
-        public async Task<PageResponse<UserDTO>> GetByGroup(int index, int count, int group)
+        public async Task<PageResponse<UserDTO>> GetByGroup(int index, int count, long group)
         {
             var users = _context.Users.Where(u => u.GroupId == group).Skip(index).Take(count);
             return new PageResponse<UserDTO>(users.Select(u => u.ToDTO()), _context.Users.Count());
@@ -45,7 +51,7 @@ namespace DTOToEntity
 
         public async Task<UserDTO> GetById(object id)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == (int)id);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == (long)id);
             if(user == null)
             {
                 throw new Exception("User not found");
@@ -55,30 +61,59 @@ namespace DTOToEntity
 
         public async Task<PageResponse<UserDTO>> GetByRole(int index, int count, string role)
         {
-            var users = _context.Users.Where(u => u.Role.Name == role).Skip(index).Take(count);
+            long roleId = 0;
+            if(role == "Student")
+            {
+                role = "Student";
+                roleId = 3;
+            }
+            else if(role == "Teacher")
+            {
+                role = "Teacher";
+                roleId = 2;
+            }
+            else if(role == "Admin")
+            {
+                role = "Admin";
+                roleId = 1;
+            }
+            else
+            {
+                throw new Exception("Role not found");
+            }
+            var users = _context.Users.Where(u => u.RoleId == roleId).Skip(index).Take(count);
             return new PageResponse<UserDTO>(users.Select(u => u.ToDTO()), _context.Users.Count());
         }
 
         public async Task<PageResponse<UserDTO>> Gets(int index, int count)
         {
-            var users = await _context.Users.Skip(index).Take(count).ToListAsync();
+            IEnumerable<UserEntity> users = await _context.Users.Skip(index).Take(count).ToListAsync();
             return new PageResponse<UserDTO>( users.Select(u => u.ToDTO()),_context.Users.Count());
         }
 
         public async Task<UserDTO> Update(UserDTO user)
         {
-            var userEntity = user.ToEntity();
-            if(userEntity == null)
+            if(user == null)
             {
-                throw new Exception("User Entity is null");
+                throw new Exception("User is null");
             }
-            if(_context.Users.FirstOrDefaultAsync(u => u.Id == userEntity.Id) == null)
+            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == user.Id);
+            if(existingUser == null)
             {
                 throw new Exception("User not found");
             }
-            var result = _context.Users.Update(userEntity);
+            existingUser.image = user.image;
+            existingUser.Name = user.Name;
+            existingUser.Password = user.Password;
+            existingUser.NickName = user.NickName;
+            existingUser.Email = user.Email;
+            existingUser.RoleId = user.RoleId;
+            existingUser.GroupId = user.GroupId;
+            existingUser.UserName = user.UserName;
+            existingUser.ExtraTime = user.ExtraTime;
+
             await _context.SaveChangesAsync();
-            return result.Entity.ToDTO();
+            return existingUser.ToDTO();
         }
     }
 }

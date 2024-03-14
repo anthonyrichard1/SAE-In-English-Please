@@ -9,7 +9,7 @@ namespace DTOToEntity
     public class PageResponse<T>
     {
         public IEnumerable<T> Items { get; set; }
-        public int TotalCount { get; set; }
+        public long TotalCount { get; set; }
 
         public PageResponse(IEnumerable<T> items, int totalCount)
         {

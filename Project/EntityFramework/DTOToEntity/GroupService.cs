@@ -40,7 +40,7 @@ namespace DTOToEntity
 
         public async Task<GroupDTO> Delete(object id)
         {
-            var group = await context.Groups.FindAsync(id);
+            var group = await context.Groups.FindAsync((long)id);
             if (group != null)
             { 
                 context.Groups.Remove(group);
@@ -54,7 +54,7 @@ namespace DTOToEntity
 
         public async Task<GroupDTO> GetById(object id)
         {
-            var group = await context.Groups.FindAsync(id);
+            var group = await context.Groups.FindAsync((long)id);
             if (group == null)
             {
                 throw new Exception("Group not found");

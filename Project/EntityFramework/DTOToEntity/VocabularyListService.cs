@@ -12,6 +12,15 @@ namespace DTOToEntity
     public class VocabularyListService : IVocabularyListService
     {
         private StubbedContext _context = new StubbedContext();
+
+        public VocabularyListService()
+        {
+        }
+
+        public VocabularyListService(StubbedContext context)
+        {
+            _context = context;
+        }
         public async Task<VocabularyListDTO> Add(VocabularyListDTO group)
         {
             var groupEntity = group.ToEntity();

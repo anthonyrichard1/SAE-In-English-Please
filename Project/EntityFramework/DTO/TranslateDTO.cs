@@ -9,7 +9,7 @@ namespace DTO
 {
     public class TranslateDTO
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
 
         [ForeignKey(nameof(WordsId))]
         public string WordsId { get; set; }

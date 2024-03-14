@@ -9,7 +9,8 @@ namespace Entities
 {
     public class TranslateEntity
     {
-        public int Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
 
         [ForeignKey(nameof(WordsId))]
         public string WordsId { get; set; }
@@ -17,7 +18,7 @@ namespace Entities
 
         [ForeignKey(nameof(VocabularyListVocId))]
         public long VocabularyListVocId { get; set; }
-        public VocabularyListEntity VocabularyListVoc { get; set; } = null!;
+        public VocabularyListEntity? VocabularyListVoc { get; set; } = null!;
 
         public string toString()
         {

@@ -20,13 +20,13 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<VocabularyListDTO>>> GetVocabularyLists(int index, int count)
+        public async Task<ActionResult<PageResponse<VocabularyListDTO>>> GetVocabularyLists(int index, int count)
         {
             try
             {
                 _logger.LogInformation("Getting VocabularyLists ");
                 var VocabularyLists = await _service.Gets(index, count);
-                return Ok(VocabularyLists);
+                return VocabularyLists;
             }
             catch (Exception ex)
             {
@@ -39,13 +39,13 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<VocabularyListDTO>> GetVocabularyList(int id)
+        public async Task<ActionResult<VocabularyListDTO>> GetVocabularyList(long id)
         {
             try
             {
                 _logger.LogInformation("Getting a VocabularyList with id {id}", id);
                 var VocabularyList = await _service.GetById(id);
-                return Ok(VocabularyList);
+                return VocabularyList;
             }
             catch (Exception ex)
             {
@@ -65,7 +65,7 @@ namespace API.Controllers
             {
                 _logger.LogInformation("Updating a VocabularyList with id : {id}", VocabularyList.Id);
                 var updatedVocabularyList = await _service.Update(VocabularyList);
-                return Ok(updatedVocabularyList);
+                return updatedVocabularyList;
             }
             catch (Exception ex)
             {
@@ -79,13 +79,13 @@ namespace API.Controllers
 
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<VocabularyListDTO>> DeleteVocabularyList(int id)
+        public async Task<ActionResult<VocabularyListDTO>> DeleteVocabularyList(long id)
         {
             try
             {
                 _logger.LogInformation("Deleting a VocabularyList with id : {id}", id);
                 var VocabularyList = await _service.Delete(id);
-                return Ok(VocabularyList);
+                return VocabularyList;
             }
             catch (Exception ex)
             {
@@ -105,7 +105,7 @@ namespace API.Controllers
                 _logger.LogInformation("Adding a VocabularyList with id : {id}", VocabularyList.Id);
                 VocabularyList.Id = _service.Gets(0, 0).Result.TotalCount + 1;
                 var newVocabularyList = await _service.Add(VocabularyList);
-                return Ok(newVocabularyList);
+                return newVocabularyList;
             }
             catch (Exception ex)
             {
@@ -118,13 +118,13 @@ namespace API.Controllers
         }
 
         [HttpGet("user/{user}")]
-        public async Task<ActionResult<IEnumerable<VocabularyListDTO>>> GetVocabularyListsByUser(int index, int count, int user)
+        public async Task<ActionResult<PageResponse<VocabularyListDTO>>> GetVocabularyListsByUser(int index, int count, int user)
         {
             try
             {
                 _logger.LogInformation("Getting VocabularyLists by user {user}", user);
                 var VocabularyLists = await _service.GetByUser(index, count, user);
-                return Ok(VocabularyLists);
+                return VocabularyLists;
             }
             catch (Exception ex)
             {
