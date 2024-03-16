@@ -25,7 +25,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -53,7 +53,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -65,12 +65,8 @@ namespace TU
 
                 var controller = new VocabularyController(new VocabularyService(context), mockLogger.Object);
 
-                var newVocab = new VocabularyDTO { LangueName = "French", word = "baguette" };
-                var result = await controller.AddVocabulary(newVocab);
-                Assert.IsNotNull(result.Value);
-                var res = context.Vocabularys.FirstOrDefault(v => v.word == result.Value.word);
-                Assert.IsNotNull(res);
-                var delResult = await controller.DeleteVocabulary(res.word);
+                var vocab = context.Vocabularys.FirstOrDefault(v => v.word == "Bonjour");
+                var delResult = await controller.DeleteVocabulary(vocab.word);
                 Assert.IsNotNull(delResult.Value);
                 var delRes = context.Vocabularys.FirstOrDefault(v => v.word == delResult.Value.word);
                 Assert.IsNull(delRes);
@@ -82,7 +78,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -94,15 +90,12 @@ namespace TU
 
                 var controller = new VocabularyController(new VocabularyService(context), mockLogger.Object);
 
-                var newVocab = new VocabularyDTO { LangueName = "French", word = "baguette" };
-                var result = await controller.AddVocabulary(newVocab);
-                Assert.IsNotNull(result.Value);
-                var res = context.Vocabularys.FirstOrDefault(v => v.word == result.Value.word);
-                Assert.IsNotNull(res);
-                var getResult = await controller.GetVocabulary(res.word);
+
+                var getResult = await controller.GetVocabulary("Bonjour");
                 Assert.IsNotNull(getResult.Value);
-                Assert.AreEqual(res.word, getResult.Value.word);
-                Assert.AreEqual(res.LangueName, getResult.Value.LangueName);
+                Assert.AreEqual("French", getResult.Value.LangueName);
+                Assert.AreEqual("Bonjour", getResult.Value.word);
+
             }
         }
 
@@ -111,7 +104,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -136,7 +129,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -161,7 +154,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DbContextLib
 {
-    public class LibraryContext : DbContext
+    public class SAEContext : DbContext
     {
         // DbSet<BookEntity> est une propriété dans le contexte de base de données (DbContext) qui représente une table de livres dans la base de données.
         public DbSet<UserEntity> Users { get; set; }
@@ -14,13 +14,19 @@ namespace DbContextLib
         public DbSet<TranslateEntity> Translates { get; set; }
         public DbSet<VocabularyEntity> Vocabularys { get; set; }
         public DbSet<VocabularyListEntity> VocabularyLists { get; set; }
+
+        public DbSet<VocabularyListEntity> GroupVocabularyList { get; set; }
+        public DbSet<GroupEntity> VocsGroups { get; set; }
+        public DbSet<VocabularyEntity> Voctranslations { get; set; }
+        public DbSet<TranslateEntity> TransVoc { get; set; }
+
         //permet de créer une base de donnée (fichier .db) ici en Sqlite avec le nom Db.Books.db
 
 
-        public LibraryContext(DbContextOptions<LibraryContext> options): base(options)
+        public SAEContext(DbContextOptions<SAEContext> options): base(options)
         {
         }
-        public LibraryContext()
+        public SAEContext()
         {
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

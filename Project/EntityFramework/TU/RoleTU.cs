@@ -19,7 +19,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -49,7 +49,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -61,13 +61,12 @@ namespace TU
 
                 var controller = new RoleController(new RoleService(context), mockLogger.Object);
 
-                var newRole = new RoleDTO { Id = 4, Name = "test" };
-                await context.Roles.AddAsync(newRole.ToEntity());
-                await context.SaveChangesAsync();
-                var result = await controller.DeleteRole(4);
+                var result = await controller.DeleteRole(3);
                 Assert.IsNotNull(result.Value);
-                Assert.AreEqual(4, result.Value.Id);
-                Assert.AreEqual("test", result.Value.Name);
+                Assert.AreEqual(3, result.Value.Id);
+                Assert.AreEqual("Student", result.Value.Name);
+                var test = await context.Roles.FirstOrDefaultAsync(r => r.Id == 3);
+                Assert.IsNull(test);
             }
         }
         [TestMethod]
@@ -75,7 +74,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -87,13 +86,10 @@ namespace TU
 
                 var controller = new RoleController(new RoleService(context), mockLogger.Object);
 
-                var newRole = new RoleDTO { Id = 4, Name = "test" };
-                await context.Roles.AddAsync(newRole.ToEntity());
-                await context.SaveChangesAsync();
-                var result = await controller.GetRole(4);
+                var result = await controller.GetRole(3);
                 Assert.IsNotNull(result.Value);
-                Assert.AreEqual(4, result.Value.Id);
-                Assert.AreEqual("test", result.Value.Name);
+                Assert.AreEqual(3, result.Value.Id);
+                Assert.AreEqual("Student", result.Value.Name);
             }
         }
 
@@ -102,7 +98,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -114,14 +110,11 @@ namespace TU
 
                 var controller = new RoleController(new RoleService(context), mockLogger.Object);
 
-                var newRole = new RoleEntity { Id = 4, Name = "test" };
-                await context.Roles.AddAsync(newRole);
-                await context.SaveChangesAsync();
                 var result = await controller.GetRoles(0, 5);
                 Assert.IsNotNull(result.Value);
-                Assert.AreEqual(4, result.Value.TotalCount);
-                Assert.AreEqual(4, result.Value.Items.ToList()[3].Id);
-                Assert.AreEqual("test", result.Value.Items.ToList()[3].Name);
+                Assert.AreEqual(3, result.Value.TotalCount);
+                Assert.AreEqual(3, result.Value.Items.ToList()[2].Id);
+                Assert.AreEqual("Student", result.Value.Items.ToList()[2].Name);
             }
         }
 

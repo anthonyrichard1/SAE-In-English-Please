@@ -124,7 +124,7 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet("/num/{num}")]
+        [HttpGet("num/{num}")]
         public async Task<ActionResult<PageResponse<GroupDTO>>> GetGroupsByNum(int index, int count, int num)
         {
             try
@@ -143,7 +143,7 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet("/sector/{sector}")]
+        [HttpGet("sector/{sector}")]
         public async Task<ActionResult<PageResponse<GroupDTO>>> GetGroupsBySector(int index, int count, string sector)
         {
             try
@@ -162,7 +162,7 @@ namespace API.Controllers
             }
         }
 
-        [HttpGet("/year/{year}")]
+        [HttpGet("year/{year}")]
         public async Task<ActionResult<PageResponse<GroupDTO>>> GetGroupsByYear(int index, int count, int year)
         {
             try

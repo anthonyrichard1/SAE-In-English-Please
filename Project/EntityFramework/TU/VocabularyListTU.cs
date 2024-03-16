@@ -23,7 +23,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -55,7 +55,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -81,7 +81,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -105,7 +105,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -128,7 +128,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -158,7 +158,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -170,9 +170,15 @@ namespace TU
 
                 var controller = new VocabularyListController(new VocabularyListService(context), mockLogger.Object);
 
-                var getResult = await controller.GetVocabularyListsByUser(1, 0, 5);
+                var getResult = await controller.GetVocabularyListsByUser(0, 5, 1);
                 Assert.IsNotNull(getResult.Value);
                 Assert.AreEqual(1, getResult.Value.TotalCount);
+                Assert.AreEqual("Liste1", getResult.Value.Items.ToList()[0].Name);
+                Assert.AreEqual("image1", getResult.Value.Items.ToList()[0].Image);
+                Assert.AreEqual(1, getResult.Value.Items.ToList()[0].UserId);
+
+
+
             }
         }
     }

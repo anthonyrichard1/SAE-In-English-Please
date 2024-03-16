@@ -21,7 +21,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -48,7 +48,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -78,7 +78,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -104,7 +104,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 

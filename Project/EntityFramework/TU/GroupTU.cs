@@ -14,15 +14,12 @@ namespace TU
     [TestClass]
     public class GroupTU
     {
-
-
-
         [TestMethod]
         public async Task TestGetGroups()
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -55,7 +52,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -86,7 +83,7 @@ namespace TU
             // Créer une connexion SQLite en mémoire
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -115,7 +112,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -144,7 +141,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
             using (var context = new StubbedContext(options))
@@ -172,7 +169,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -203,7 +200,7 @@ namespace TU
             // Créer une connexion SQLite en mémoire
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -234,7 +231,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 

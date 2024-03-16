@@ -4,21 +4,12 @@ using System.Reflection.Emit;
 using Entities;
 namespace StubbedContextLib
 {
-    public class StubbedContext : LibraryContext
+    public class StubbedContext : SAEContext
     {
         //permet la création des données à ajouter dans la base de données
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<VocabularyEntity>()
-            .HasMany(al => al.translations)
-            .WithMany(ar => ar.Words).UsingEntity<VocabularyTranslateEntity>();
-
-            modelBuilder.Entity<VocabularyListEntity>()
-                .HasMany(u => u.Groups)
-                .WithMany(g => g.VocabularyList)
-                .UsingEntity<VocabularyListGroup>();
 
 
             modelBuilder.Entity<UserEntity>().HasData(
@@ -98,7 +89,6 @@ namespace StubbedContextLib
                     Num = 1,
                     sector = "informatics",
                     year = 1,
-                    VocabularyList = null
 
                 });
             modelBuilder.Entity<TranslateEntity>().HasData(
@@ -124,11 +114,13 @@ namespace StubbedContextLib
                     Image = "image1",
                 });
 
+
+
         }
 
         public StubbedContext() { }
 
-        public StubbedContext(DbContextOptions<LibraryContext> options) : base(options)
+        public StubbedContext(DbContextOptions<SAEContext> options) : base(options)
         {
         }
 

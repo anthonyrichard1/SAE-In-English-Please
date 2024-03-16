@@ -10,8 +10,8 @@ using StubbedContextLib;
 namespace StubbedContextLib.Migrations
 {
     [DbContext(typeof(StubbedContext))]
-    [Migration("20240314144247_NewMigs")]
-    partial class NewMigs
+    [Migration("20240316154336_newMigs")]
+    partial class newMigs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,7 +37,7 @@ namespace StubbedContextLib.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Groups");
+                    b.ToTable("GroupEntity");
 
                     b.HasData(
                         new
@@ -118,7 +118,7 @@ namespace StubbedContextLib.Migrations
 
                     b.HasIndex("VocabularyListVocId");
 
-                    b.ToTable("Translates");
+                    b.ToTable("TranslateEntity");
 
                     b.HasData(
                         new
@@ -227,7 +227,7 @@ namespace StubbedContextLib.Migrations
 
                     b.HasIndex("LangueName");
 
-                    b.ToTable("Vocabularys");
+                    b.ToTable("VocabularyEntity");
 
                     b.HasData(
                         new
@@ -258,7 +258,7 @@ namespace StubbedContextLib.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("VocabularyLists");
+                    b.ToTable("VocabularyListEntity");
 
                     b.HasData(
                         new
@@ -270,51 +270,40 @@ namespace StubbedContextLib.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entities.VocabularyListGroup", b =>
+            modelBuilder.Entity("GroupEntityVocabularyListEntity", b =>
                 {
-                    b.Property<long>("GroupsId")
+                    b.Property<long>("GroupVocabularyListId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("VocabularyListId")
+                    b.Property<long>("VocsGroupsId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<long>("GroupId")
-                        .HasColumnType("INTEGER");
+                    b.HasKey("GroupVocabularyListId", "VocsGroupsId");
 
-                    b.HasKey("GroupsId", "VocabularyListId");
+                    b.HasIndex("VocsGroupsId");
 
-                    b.HasIndex("VocabularyListId");
-
-                    b.ToTable("VocabularyListGroup");
+                    b.ToTable("GroupEntityVocabularyListEntity");
                 });
 
-            modelBuilder.Entity("Entities.VocabularyTranslateEntity", b =>
+            modelBuilder.Entity("TranslateEntityVocabularyEntity", b =>
                 {
-                    b.Property<string>("Wordsword")
+                    b.Property<string>("TransVocword")
                         .HasColumnType("TEXT");
 
-                    b.Property<long>("translationsId")
+                    b.Property<long>("VoctranslationsId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Translation")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.HasKey("TransVocword", "VoctranslationsId");
 
-                    b.Property<string>("Word")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.HasIndex("VoctranslationsId");
 
-                    b.HasKey("Wordsword", "translationsId");
-
-                    b.HasIndex("translationsId");
-
-                    b.ToTable("VocabularyTranslateEntity");
+                    b.ToTable("TranslateEntityVocabularyEntity");
                 });
 
             modelBuilder.Entity("Entities.TranslateEntity", b =>
                 {
                     b.HasOne("Entities.VocabularyListEntity", "VocabularyListVoc")
-                        .WithMany("translation")
+                        .WithMany("translations")
                         .HasForeignKey("VocabularyListVocId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -363,32 +352,32 @@ namespace StubbedContextLib.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Entities.VocabularyListGroup", b =>
+            modelBuilder.Entity("GroupEntityVocabularyListEntity", b =>
                 {
-                    b.HasOne("Entities.GroupEntity", null)
+                    b.HasOne("Entities.VocabularyListEntity", null)
                         .WithMany()
-                        .HasForeignKey("GroupsId")
+                        .HasForeignKey("GroupVocabularyListId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Entities.VocabularyListEntity", null)
+                    b.HasOne("Entities.GroupEntity", null)
                         .WithMany()
-                        .HasForeignKey("VocabularyListId")
+                        .HasForeignKey("VocsGroupsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Entities.VocabularyTranslateEntity", b =>
+            modelBuilder.Entity("TranslateEntityVocabularyEntity", b =>
                 {
                     b.HasOne("Entities.VocabularyEntity", null)
                         .WithMany()
-                        .HasForeignKey("Wordsword")
+                        .HasForeignKey("TransVocword")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Entities.TranslateEntity", null)
                         .WithMany()
-                        .HasForeignKey("translationsId")
+                        .HasForeignKey("VoctranslationsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -415,7 +404,7 @@ namespace StubbedContextLib.Migrations
 
             modelBuilder.Entity("Entities.VocabularyListEntity", b =>
                 {
-                    b.Navigation("translation");
+                    b.Navigation("translations");
                 });
 #pragma warning restore 612, 618
         }

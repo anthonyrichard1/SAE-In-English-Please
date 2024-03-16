@@ -25,7 +25,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -52,7 +52,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -64,23 +64,23 @@ namespace TU
 
                 var controller = new UserController(new UserService(context), mockLogger.Object);
 
-                var newUser = new UserDTO { Id = 4, Name = "test", Email = "e", ExtraTime = false, image = "img", NickName = "nick", Password = "pass", UserName = "username", GroupId = 1, RoleId = 2 };
 
-                var result = await controller.AddUser(newUser);
-
-                Assert.IsNotNull(result);
-                Assert.AreEqual(newUser.Id, result.Value.Id);
-                Assert.AreEqual(newUser.Name, result.Value.Name);
-                Assert.AreEqual(newUser.Email, result.Value.Email);
-
-                var result2 = await controller.DeleteUser(newUser.Id);
+                var result2 = await controller.DeleteUser(1);
 
                 Assert.IsNotNull(result2);
-                Assert.AreEqual(newUser.Id, result2.Value.Id);
-                Assert.AreEqual(newUser.Name, result2.Value.Name);
-                Assert.AreEqual(newUser.Email, result2.Value.Email);
+                Assert.AreEqual(1, result2.Value.Id);
+                Assert.AreEqual("name", result2.Value.Name);
+                Assert.AreEqual("", result2.Value.Email);
+                Assert.AreEqual(true, result2.Value.ExtraTime);
+                Assert.AreEqual(null, result2.Value.image);
+                Assert.AreEqual("nickname", result2.Value.NickName);
+                Assert.AreEqual("username", result2.Value.UserName);
+                Assert.AreEqual(1, result2.Value.GroupId);
+                Assert.AreEqual(1, result2.Value.RoleId);
+                Assert.AreEqual("1234", result2.Value.Password);
 
-                var res = await context.Users.FirstOrDefaultAsync(l => l.Id == newUser.Id);
+
+                var res = await context.Users.FirstOrDefaultAsync(l => l.Id == result2.Value.Id);
                 Assert.IsNull(res);
             }
         }
@@ -89,7 +89,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -101,21 +101,19 @@ namespace TU
 
                 var controller = new UserController(new UserService(context), mockLogger.Object);
 
-                var newUser = new UserDTO { Id = 100, Name = "test", Email = "e", ExtraTime = false, image = "img", NickName = "nick", Password = "pass", UserName = "username", GroupId = 1, RoleId = 2 };
-
-                var result = await controller.AddUser(newUser);
-
-                Assert.IsNotNull(result);
-                Assert.AreEqual(newUser.Id, result.Value.Id);
-                Assert.AreEqual(newUser.Name, result.Value.Name);
-                Assert.AreEqual(newUser.Email, result.Value.Email);
-
-                var result2 = await controller.GetUser(newUser.Id);
+                var result2 = await controller.GetUser(1);
 
                 Assert.IsNotNull(result2);
-                Assert.AreEqual(newUser.Id, result2.Value.Id);
-                Assert.AreEqual(newUser.Name, result2.Value.Name);
-                Assert.AreEqual(newUser.Email, result2.Value.Email);
+                Assert.AreEqual(1, result2.Value.Id);
+                Assert.AreEqual("name", result2.Value.Name);
+                Assert.AreEqual("", result2.Value.Email);
+                Assert.AreEqual(true, result2.Value.ExtraTime);
+                Assert.AreEqual(null, result2.Value.image);
+                Assert.AreEqual("nickname", result2.Value.NickName);
+                Assert.AreEqual("username", result2.Value.UserName);
+                Assert.AreEqual(1, result2.Value.GroupId);
+                Assert.AreEqual(1, result2.Value.RoleId);
+                Assert.AreEqual("1234", result2.Value.Password);
             }
         }
 
@@ -124,7 +122,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -136,16 +134,20 @@ namespace TU
 
                 var controller = new UserController(new UserService(context), mockLogger.Object);
 
-                var newUser = new UserDTO { Id = 4, Name = "test", Email = "e", ExtraTime = false, image = "img", NickName = "nick", Password = "pass", UserName = "username", GroupId = 1, RoleId = 2 };
-                context.Users.Add(newUser.ToEntity());
-                await context.SaveChangesAsync();
                 var result = await controller.GetUsers(0,5);
 
-                Assert.IsNotNull(result);
-                Assert.AreEqual(4, result.Value.TotalCount);
-                Assert.AreEqual(4, result.Value.Items.Last().Id);
-                Assert.AreEqual(newUser.Name, result.Value.Items.Last().Name);
-                Assert.AreEqual(newUser.Email, result.Value.Items.Last().Email);
+                Assert.IsNotNull(result.Value);
+                Assert.AreEqual(3, result.Value.TotalCount);
+                Assert.AreEqual(1, result.Value.Items.First().Id);
+                Assert.AreEqual("name", result.Value.Items.First().Name);
+                Assert.AreEqual("", result.Value.Items.First().Email);
+                Assert.AreEqual(true, result.Value.Items.First().ExtraTime);
+                Assert.AreEqual(null, result.Value.Items.First().image);
+                Assert.AreEqual("nickname", result.Value.Items.First().NickName);
+                Assert.AreEqual("username", result.Value.Items.First().UserName);
+                Assert.AreEqual(1, result.Value.Items.First().GroupId);
+                Assert.AreEqual(1, result.Value.Items.First().RoleId);
+                Assert.AreEqual("1234", result.Value.Items.First().Password);
             }
         }
         
@@ -154,7 +156,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -166,16 +168,20 @@ namespace TU
 
                 var controller = new UserController(new UserService(context), mockLogger.Object);
 
-                var newUser = new UserDTO { Id = 4, Name = "test", Email = "e", ExtraTime = false, image = "img", NickName = "nick", Password = "pass", UserName = "username", GroupId = 1, RoleId = 2 };
-                context.Users.Add(newUser.ToEntity());
-                context.SaveChanges();
                 var result = await controller.GetUsersByGroup(0, 5, 1);
 
-                Assert.IsNotNull(result);
-                Assert.AreEqual(4, result.Value.TotalCount);
-                Assert.AreEqual(newUser.Id, result.Value.Items.Last().Id);
-                Assert.AreEqual(newUser.Name, result.Value.Items.Last().Name);
-                Assert.AreEqual(newUser.Email, result.Value.Items.Last().Email);
+                Assert.IsNotNull(result.Value);
+                Assert.AreEqual(3, result.Value.TotalCount);
+                Assert.AreEqual(1, result.Value.Items.First().Id);
+                Assert.AreEqual("name", result.Value.Items.First().Name);
+                Assert.AreEqual("", result.Value.Items.First().Email);
+                Assert.AreEqual(true, result.Value.Items.First().ExtraTime);
+                Assert.AreEqual(null, result.Value.Items.First().image);
+                Assert.AreEqual("nickname", result.Value.Items.First().NickName);
+                Assert.AreEqual("username", result.Value.Items.First().UserName);
+                Assert.AreEqual(1, result.Value.Items.First().GroupId);
+                Assert.AreEqual(1, result.Value.Items.First().RoleId);
+                Assert.AreEqual("1234", result.Value.Items.First().Password);
             }
         }
 
@@ -184,7 +190,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 
@@ -229,7 +235,7 @@ namespace TU
         {
             var connection = new SqliteConnection("DataSource=:memory:");
             connection.Open();
-            var options = new DbContextOptionsBuilder<LibraryContext>()
+            var options = new DbContextOptionsBuilder<SAEContext>()
                                 .UseSqlite(connection)
                                 .Options;
 

@@ -43,14 +43,14 @@ namespace API.Controllers
         {
             try
             {
-                _logger.LogInformation("Getting a VocabularyList with id {id}", id);
+                _logger.LogInformation("Getting a GroupVocabularyList with id {id}", id);
                 var VocabularyList = await _service.GetById(id);
                 return VocabularyList;
             }
             catch (Exception ex)
             {
                 // Journaliser l'exception
-                _logger.LogError(ex, "Une erreur s'est produite lors de la récupération du VocabularyList avec l'ID {id}.", id);
+                _logger.LogError(ex, "Une erreur s'est produite lors de la récupération du GroupVocabularyList avec l'ID {id}.", id);
 
                 // Retourner une réponse d'erreur
                 return StatusCode(400, ex.Message);
@@ -63,14 +63,14 @@ namespace API.Controllers
         {
             try
             {
-                _logger.LogInformation("Updating a VocabularyList with id : {id}", VocabularyList.Id);
+                _logger.LogInformation("Updating a GroupVocabularyList with id : {id}", VocabularyList.Id);
                 var updatedVocabularyList = await _service.Update(VocabularyList);
                 return updatedVocabularyList;
             }
             catch (Exception ex)
             {
                 // Journaliser l'exception
-                _logger.LogError(ex, "Une erreur s'est produite lors de la mise à jour du VocabularyList avec l'ID {id}.", VocabularyList.Id);
+                _logger.LogError(ex, "Une erreur s'est produite lors de la mise à jour du GroupVocabularyList avec l'ID {id}.", VocabularyList.Id);
 
                 // Retourner une réponse d'erreur
                 return StatusCode(400, ex.Message);
@@ -83,14 +83,14 @@ namespace API.Controllers
         {
             try
             {
-                _logger.LogInformation("Deleting a VocabularyList with id : {id}", id);
+                _logger.LogInformation("Deleting a GroupVocabularyList with id : {id}", id);
                 var VocabularyList = await _service.Delete(id);
                 return VocabularyList;
             }
             catch (Exception ex)
             {
                 // Journaliser l'exception
-                _logger.LogError(ex, "Une erreur s'est produite lors de la suppression du VocabularyList avec l'ID {id}.", id);
+                _logger.LogError(ex, "Une erreur s'est produite lors de la suppression du GroupVocabularyList avec l'ID {id}.", id);
 
                 // Retourner une réponse d'erreur
                 return StatusCode(400, ex.Message);
@@ -102,7 +102,7 @@ namespace API.Controllers
         {
             try
             {
-                _logger.LogInformation("Adding a VocabularyList with id : {id}", VocabularyList.Id);
+                _logger.LogInformation("Adding a GroupVocabularyList with id : {id}", VocabularyList.Id);
                 VocabularyList.Id = _service.Gets(0, 0).Result.TotalCount + 1;
                 var newVocabularyList = await _service.Add(VocabularyList);
                 return newVocabularyList;
@@ -110,7 +110,7 @@ namespace API.Controllers
             catch (Exception ex)
             {
                 // Journaliser l'exception
-                _logger.LogError(ex, "Une erreur s'est produite lors de l'ajout du VocabularyList avec l'ID {id}.", VocabularyList.Id);
+                _logger.LogError(ex, "Une erreur s'est produite lors de l'ajout du GroupVocabularyList avec l'ID {id}.", VocabularyList.Id);
 
                 // Retourner une réponse d'erreur
                 return StatusCode(400, ex.Message);
