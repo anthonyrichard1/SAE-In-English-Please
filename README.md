@@ -23,8 +23,9 @@ Suivez les différentes instructions suivant la partie que vous souhaitez lancer
 
 Bonjour cette partie a été réalisé par Patrick Brugière seul.
 
-Le .sln se trouve dans le repertoir Project/EntityFramework
-Il est normalement précisé dans le nom de des test à quelle partie ils appartiennent
+Le .sln se trouve dans le repertoir Project/EntityFramework 
+
+Il est normalement précisé dans le nom de des tests à quelles parties ils appartiennent
 
 
 
