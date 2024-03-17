@@ -2,6 +2,7 @@
 # SAE 2A Anglais
 
 Ce projet vise à faciliter l'apprentissage de l'anglais dans le cadre d'études supérieures grâce à un site internet et une application mobile.
+
 ## Exécuter localement
 
 Clonez le projet
@@ -17,6 +18,15 @@ Allez dans le répertoire
 ```
 
 Suivez les différentes instructions suivant la partie que vous souhaitez lancer.
+
+### EF et WebAPI
+
+Bonjour cette partie a été réalisé par Patrick Brugière seul.
+
+Le .sln se trouve dans le repertoir Project/EntityFramework
+Il est normalement précisé dans le nom de des test à quelle partie ils appartiennent
+
+
 
 ### PHP
 
