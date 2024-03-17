@@ -174,6 +174,43 @@ namespace TU
             }
         }
 
+        [TestMethod]
+        public async Task TestAddTranslation()
+        {
+
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+            var options = new DbContextOptionsBuilder<SAEContext>()
+                                .UseSqlite(connection)
+                                .Options;
+
+            using (var context = new StubbedContext(options))
+            {
+                context.Database.EnsureCreated();
+
+                var mockLogger = new Mock<ILogger<VocabularyController>>();
+
+                var controller = new VocabularyController(new VocabularyService(context), mockLogger.Object);
+                var result3 = await controller.AddTranslation("Bonjour",1);
+                Assert.IsNotNull(result3.Value);
+                Assert.AreEqual(1, result3.Value.Id);
+
+                
+                var res = await context.Vocabularys.FirstOrDefaultAsync(v => v.word == "Bonjour");
+                Assert.IsNotNull(res);
+                var test = res.Voctranslations.FirstOrDefault(t => t.Id == 1);
+                Assert.IsNotNull(test);
+                Assert.AreEqual(1, test.Id);
+
+
+                var test2 = await context.Voctranslations.FirstOrDefaultAsync(t => t.Id == 1);
+                Assert.IsNotNull(test2);
+                Assert.AreEqual(1, test2.Id);
+
+
+            }
+        }
+
 
     }
 }

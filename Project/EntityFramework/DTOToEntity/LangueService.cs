@@ -55,7 +55,7 @@ namespace DTOToEntity
 
         public async Task<PageResponse<LangueDTO>> Gets(int index,int count)
         {
-            IEnumerable<LangueEntity> langues = await _context.Langues.Skip(index).Take(count).ToListAsync();
+            IEnumerable<LangueEntity> langues = await _context.Langues.Skip(index * count).Take(count).ToListAsync();
             return new PageResponse<LangueDTO>(langues.ToList().Select(l => l.ToDTO()), _context.Langues.Count());
         }
 

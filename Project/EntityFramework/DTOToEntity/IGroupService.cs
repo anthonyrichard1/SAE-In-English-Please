@@ -12,5 +12,9 @@ namespace DTOToEntity
         Task<PageResponse<GroupDTO>> GetByNum(int index, int count, int num);
         Task<PageResponse<GroupDTO>> GetBySector(int index, int count, string sector);
         Task<PageResponse<GroupDTO>> GetByYear(int index, int count, int year);
+
+        Task<UserDTO> AddUserToGroup(long idUser, long idGroup);
+
+        Task<VocabularyListDTO> AddVocabularyListToGroup(long vocabId, long groupId);
     }
 }

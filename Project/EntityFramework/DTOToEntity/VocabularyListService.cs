@@ -29,6 +29,24 @@ namespace DTOToEntity
             return groupEntity.ToDTO();
         }
 
+        public async Task<GroupDTO> AddGroupToVocabularyList(long groupId, long vocabId)
+        {
+            var group = _context.Groups.Find(groupId);
+            if (group == null)
+            {
+                throw new Exception("Group not found");
+            }
+            var vocab = _context.VocabularyLists.Find(vocabId);
+            if (vocab == null)
+            {
+                throw new Exception("Vocabulary List not found");
+            }
+            vocab.VocsGroups.Add(group);
+            await _context.SaveChangesAsync();
+            return group.ToDTO();
+
+        }
+
         public async Task<VocabularyListDTO> Delete(object id)
         {
             var group = await _context.VocabularyLists.FindAsync(id);
@@ -56,14 +74,14 @@ namespace DTOToEntity
 
         public async Task<PageResponse<VocabularyListDTO>> GetByUser(int index, int count, int user)
         {
-            var groups = _context.VocabularyLists.Where(g => g.UserId == user).Skip(index).Take(count);
+            var groups = _context.VocabularyLists.Where(g => g.UserId == user).Skip(index * count).Take(count);
             return new PageResponse<VocabularyListDTO>(groups.Select(g => g.ToDTO()), _context.VocabularyLists.Count());
 
         }
 
         public async Task<PageResponse<VocabularyListDTO>> Gets(int index, int count)
         {
-            var groups = await _context.VocabularyLists.Skip(index).Take(count).ToListAsync();
+            var groups = await _context.VocabularyLists.Skip(index * count).Take(count).ToListAsync();
             return new PageResponse<VocabularyListDTO>(groups.Select(g => g.ToDTO()), _context.VocabularyLists.Count());
         }
 

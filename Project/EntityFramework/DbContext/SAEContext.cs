@@ -17,8 +17,8 @@ namespace DbContextLib
 
         public DbSet<VocabularyListEntity> GroupVocabularyList { get; set; }
         public DbSet<GroupEntity> VocsGroups { get; set; }
-        public DbSet<VocabularyEntity> Voctranslations { get; set; }
-        public DbSet<TranslateEntity> TransVoc { get; set; }
+        public DbSet<TranslateEntity> Voctranslations { get; set; }
+        public DbSet<VocabularyEntity> TransVoc { get; set; }
 
         //permet de créer une base de donnée (fichier .db) ici en Sqlite avec le nom Db.Books.db
 

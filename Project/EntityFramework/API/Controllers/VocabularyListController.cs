@@ -1,10 +1,12 @@
 ﻿
 using DTO;
 using DTOToEntity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
@@ -130,6 +132,25 @@ namespace API.Controllers
             {
                 // Journaliser l'exception
                 _logger.LogError(ex, "Une erreur s'est produite lors de la récupération des VocabularyLists.");
+
+                // Retourner une réponse d'erreur
+                return StatusCode(400, ex.Message);
+            }
+        }
+
+        [HttpPost("AddGroup")]
+        public async Task<ActionResult<GroupDTO>> AddGroupToVocabularyList([FromQuery]long groupId, long vocabId)
+        {
+            try
+            {
+                _logger.LogInformation("Adding a group to a VocabularyList with id : {id}", vocabId);
+                var group = await _service.AddGroupToVocabularyList(groupId, vocabId);
+                return group;
+            }
+            catch (Exception ex)
+            {
+                // Journaliser l'exception
+                _logger.LogError(ex, "Une erreur s'est produite lors de l'ajout du groupe à la VocabularyList avec l'ID {id}.", vocabId);
 
                 // Retourner une réponse d'erreur
                 return StatusCode(400, ex.Message);

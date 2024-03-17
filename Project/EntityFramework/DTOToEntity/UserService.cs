@@ -45,7 +45,7 @@ namespace DTOToEntity
 
         public async Task<PageResponse<UserDTO>> GetByGroup(int index, int count, long group)
         {
-            var users = _context.Users.Where(u => u.GroupId == group).Skip(index).Take(count);
+            var users = _context.Users.Where(u => u.GroupId == group).Skip(index * count).Take(count);
             return new PageResponse<UserDTO>(users.Select(u => u.ToDTO()), _context.Users.Count());
         }
 
@@ -61,33 +61,14 @@ namespace DTOToEntity
 
         public async Task<PageResponse<UserDTO>> GetByRole(int index, int count, string role)
         {
-            long roleId = 0;
-            if(role == "Student")
-            {
-                role = "Student";
-                roleId = 3;
-            }
-            else if(role == "Teacher")
-            {
-                role = "Teacher";
-                roleId = 2;
-            }
-            else if(role == "Admin")
-            {
-                role = "Admin";
-                roleId = 1;
-            }
-            else
-            {
-                throw new Exception("Role not found");
-            }
-            var users = _context.Users.Where(u => u.RoleId == roleId).Skip(index).Take(count);
+
+            var users = _context.Users.Where(u => u.Role.Name == role).Skip(index * count).Take(count);
             return new PageResponse<UserDTO>(users.Select(u => u.ToDTO()), _context.Users.Count());
         }
 
         public async Task<PageResponse<UserDTO>> Gets(int index, int count)
         {
-            IEnumerable<UserEntity> users = await _context.Users.Skip(index).Take(count).ToListAsync();
+            IEnumerable<UserEntity> users = await _context.Users.Skip(index * count).Take(count).ToListAsync();
             return new PageResponse<UserDTO>( users.Select(u => u.ToDTO()),_context.Users.Count());
         }
 

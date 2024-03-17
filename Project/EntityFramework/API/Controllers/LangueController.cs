@@ -1,11 +1,13 @@
 ﻿using DTO;
 using DTOToEntity;
 using Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StubbedContextLib;
 
 namespace API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]

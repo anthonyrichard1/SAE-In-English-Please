@@ -10,5 +10,7 @@ namespace DTOToEntity
     public interface IVocabularyService : IService<VocabularyDTO>
     {
         Task<PageResponse<VocabularyDTO>> GetByLangue(int index, int count, string langue);
+
+        Task<TranslateDTO> AddTranslationToVocabulary(string vocabId, long translateId);
     }
 }

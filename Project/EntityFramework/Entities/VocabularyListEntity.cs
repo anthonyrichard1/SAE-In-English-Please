@@ -17,7 +17,12 @@ namespace Entities
         public long UserId { get; set; }
         public UserEntity? User { get; set; } = null;
 
-        public ICollection<TranslateEntity> translation { get; set; } = new List<TranslateEntity>();
-        public ICollection<GroupEntity> Groups { get; set; } = new List<GroupEntity>();
+        public ICollection<TranslateEntity> translations { get; set; } = new List<TranslateEntity>();
+        public ICollection<GroupEntity> VocsGroups { get; set; } = new List<GroupEntity>();
+
+        public string toString()
+        {
+            return "Id : " + Id + " Name : " + Name + " Image : " + Image + " UserId : " + UserId;
+        }
     }
 }

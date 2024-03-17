@@ -38,6 +38,42 @@ namespace DTOToEntity
             return res.Entity.ToDTO(); ;
         }
 
+        public async Task<UserDTO> AddUserToGroup(long idUser, long idGroup)
+        {
+            var group = context.Groups.Find(idGroup);
+            if (group == null)
+            {
+                throw new Exception("Group not found");
+            }
+            var user = context.Users.Find(idUser);
+            if (user == null)
+            {
+                throw new Exception("User not found");
+            }
+            group.Users.Add(user);
+            await context.SaveChangesAsync();
+            return user.ToDTO();
+
+        }
+
+        public async Task<VocabularyListDTO> AddVocabularyListToGroup(long vocabId, long groupId)
+        {
+            var group = context.Groups.Find(groupId);
+            if (group == null)
+            {
+                throw new Exception("Group not found");
+            }
+            var vocab = context.VocabularyLists.Find(vocabId);
+            if (vocab == null)
+            {
+                throw new Exception("VocabularyList not found");
+            }
+            group.GroupVocabularyList.Add(vocab);
+            await context.SaveChangesAsync();
+            return vocab.ToDTO();
+
+        }
+
         public async Task<GroupDTO> Delete(object id)
         {
             var group = await context.Groups.FindAsync((long)id);
@@ -64,25 +100,25 @@ namespace DTOToEntity
 
         public async Task<PageResponse<GroupDTO>> GetByNum(int index, int count, int num)
         {
-            var  groups = context.Groups.Where(g => g.Num == num).Skip(index).Take(count);
+            var  groups = context.Groups.Where(g => g.Num == num).Skip(index * count).Take(count);
             return new PageResponse<GroupDTO>(groups.ToList().Select(g => g.ToDTO()), context.Groups.Count());
         }
 
         public async Task<PageResponse<GroupDTO>> GetBySector(int index, int count, string sector)
         {
-            var groups = context.Groups.Where(g => g.sector == sector).Skip(index).Take(count);
+            var groups = context.Groups.Where(g => g.sector == sector).Skip(index * count).Take(count);
             return new PageResponse<GroupDTO>(groups.ToList().Select(g => g.ToDTO()), context.Groups.Count());
         }
 
         public async Task<PageResponse<GroupDTO>> GetByYear(int index, int count, int year)
         {
-            var groups = context.Groups.Where(g => g.year == year).Skip(index).Take(count);
+            var groups = context.Groups.Where(g => g.year == year).Skip(index * count).Take(count);
             return new PageResponse<GroupDTO>(groups.ToList().Select(g => g.ToDTO()), context.Groups.Count());
         }
 
         public async Task<PageResponse<GroupDTO>> Gets(int index, int count)
         {
-            IEnumerable<GroupEntity> groups = await context.Groups.Skip(index).Take(count).ToListAsync();
+            IEnumerable<GroupEntity> groups = await context.Groups.Skip(index * count).Take(count).ToListAsync();
             return new PageResponse<GroupDTO>(groups.ToList().Select(g => g.ToDTO()), context.Groups.Count());
         }
 

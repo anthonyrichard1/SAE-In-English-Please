@@ -13,7 +13,7 @@ namespace Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string word {  get; set; }
-        public ICollection<TranslateEntity> translations { get; set; } = new List<TranslateEntity>();
+        public ICollection<TranslateEntity> Voctranslations { get; set; } = new List<TranslateEntity>();
 
         [ForeignKey(nameof(LangueName))]
         public string LangueName { get; set; }

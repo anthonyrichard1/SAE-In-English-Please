@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DTOToEntity
 {
-    public class TranslateService : IService<TranslateDTO>
+    public class TranslateService : ITranslateService
     {
         private readonly StubbedContext _context = new StubbedContext();
 
@@ -26,6 +26,23 @@ namespace DTOToEntity
             await _context.SaveChangesAsync();
             return translateEntity.ToDTO();
 
+        }
+
+        public async Task<VocabularyDTO> AddVocabToTranslate(string vocabId, long translateId)
+        {
+            var vocab = _context.Vocabularys.Find(vocabId);
+            if (vocab == null)
+            {
+                throw new Exception("Vocabulary not found");
+            }
+            var translate = _context.Translates.Find(translateId);
+            if (translate == null)
+            {
+                throw new Exception("Translate not found");
+            }
+            translate.TransVoc.Add(vocab);
+            await _context.SaveChangesAsync();
+            return vocab.ToDTO();
         }
 
         public async Task<TranslateDTO> Delete(object id)
@@ -55,7 +72,7 @@ namespace DTOToEntity
 
         public async Task<PageResponse<TranslateDTO>> Gets(int index, int count)
         {
-            var translates = await _context.Translates.Skip(index).Take(count).ToListAsync();
+            var translates = await _context.Translates.Skip(index * count).Take(count).ToListAsync();
             if(translates == null)
             {
                 throw new Exception("No translates found");

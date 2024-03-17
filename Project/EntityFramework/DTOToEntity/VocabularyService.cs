@@ -32,6 +32,23 @@ namespace DTOToEntity
            return vocabularyEntity.ToDTO();
         }
 
+        public async Task<TranslateDTO> AddTranslationToVocabulary(string vocabId, long translateId)
+        {
+            var vocabulary = _context.Vocabularys.Find(vocabId);
+            if(vocabulary == null)
+            {
+                throw new Exception("Vocabulary not found");
+            }
+            var translate = _context.Translates.Find(translateId);
+            if(translate == null)
+            {
+                throw new Exception("Translate not found");
+            }
+            vocabulary.Voctranslations.Add(translate);
+            await _context.SaveChangesAsync();
+            return translate.ToDTO();
+        }
+
         public async Task<VocabularyDTO> Delete(object id)
         {
             var vocabulary = await _context.Vocabularys.FirstOrDefaultAsync(v => v.word == (string)id);
@@ -56,14 +73,14 @@ namespace DTOToEntity
 
         public async Task<PageResponse<VocabularyDTO>> GetByLangue(int index, int count, string langue)
         {
-            var vocabularies = _context.Vocabularys.Where(v => v.LangueName == langue).Skip(index).Take(count);
+            var vocabularies = _context.Vocabularys.Where(v => v.LangueName == langue).Skip(index * count).Take(count);
             return new PageResponse<VocabularyDTO>(vocabularies.ToList().Select(v => v.ToDTO()), _context.Vocabularys.Count());
 
         }
 
         public async Task<PageResponse<VocabularyDTO>> Gets(int index, int count)
         {
-            var vocabulary = await _context.Vocabularys.Skip(index).Take(count).ToListAsync();
+            var vocabulary = await _context.Vocabularys.Skip(index * count).Take(count).ToListAsync();
             return new PageResponse<VocabularyDTO>(vocabulary.Select(v => v.ToDTO()), _context.Vocabularys.Count());
         }
 

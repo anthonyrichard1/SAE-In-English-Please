@@ -55,7 +55,7 @@ namespace DTOToEntity
 
         public async Task<PageResponse<RoleDTO>> Gets(int index, int count)
         {
-           IEnumerable<RoleEntity> roles = await _context.Roles.Skip(index).Take(count).ToListAsync();
+           IEnumerable<RoleEntity> roles = await _context.Roles.Skip(index * count).Take(count).ToListAsync();
             return new PageResponse<RoleDTO>(roles.ToList().Select(r => r.ToDTO()), _context.Roles.Count());
         }
 

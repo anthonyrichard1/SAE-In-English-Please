@@ -1,11 +1,13 @@
 ﻿using DTO;
 using DTOToEntity;
 using Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StubbedContextLib;
 
 namespace API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
@@ -86,7 +88,7 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<GroupDTO>> AddGroup([FromQuery]GroupDTO group)
+        public async Task<ActionResult<GroupDTO>> AddGroup([FromBody]GroupDTO group)
         {
             try
             {
@@ -181,6 +183,43 @@ namespace API.Controllers
             }
         }
 
+        [HttpPost("addUser")]
+        public async Task<ActionResult<UserDTO>> AddUserToGroup([FromBody]long userId, long groupId)
+        {
+            try
+            {
+                _logger.LogInformation("Adding user with id : {userId} to group with id : {groupId}", userId, groupId);
+                var user = await _service.AddUserToGroup(userId, groupId);
+                return user;
+            }
+            catch (Exception ex)
+            {
+                // Journaliser l'exception
+                _logger.LogError(ex, "Une erreur s'est produite lors de l'ajout de l'utilisateur avec l'ID {userId} au groupe avec l'ID {groupId}.", userId, groupId);
+
+                // Retourner une réponse d'erreur
+                return StatusCode(400,ex.Message);
+            }
+        }
+
+        [HttpPost("addVocabularyList")]
+        public async Task<ActionResult<VocabularyListDTO>> AddVocabularyListToGroup([FromQuery]long vocabularyListId, long groupId)
+        {
+            try
+            {
+                _logger.LogInformation("Adding vocabulary list with id : {vocabularyListId} to group with id : {groupId}", vocabularyListId, groupId);
+                var vocabularyList = await _service.AddVocabularyListToGroup(vocabularyListId, groupId);
+                return vocabularyList;
+            }
+            catch (Exception ex)
+            {
+                // Journaliser l'exception
+                _logger.LogError(ex, "Une erreur s'est produite lors de l'ajout de la liste de vocabulaire avec l'ID {vocabularyListId} au groupe avec l'ID {groupId}.", vocabularyListId, groupId);
+
+                // Retourner une réponse d'erreur
+                return StatusCode(400,ex.Message);
+            }
+        }
 
     }
 }

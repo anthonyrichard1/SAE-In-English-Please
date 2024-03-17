@@ -181,5 +181,42 @@ namespace TU
 
             }
         }
+
+        [TestMethod]
+        public async Task TestAddGroupToVocabularyList()
+        {
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+            var options = new DbContextOptionsBuilder<SAEContext>()
+                                .UseSqlite(connection)
+                                .Options;
+
+            using (var context = new StubbedContext(options))
+            {
+                context.Database.EnsureCreated();
+
+                var mockLogger = new Mock<ILogger<VocabularyListController>>();
+
+                var controller = new VocabularyListController(new VocabularyListService(context), mockLogger.Object);
+
+                var result = await controller.AddGroupToVocabularyList(1, 1);
+                Assert.IsNotNull(result.Value);
+                Assert.AreEqual("informatics", result.Value.sector);
+                Assert.AreEqual(1, result.Value.Id);
+
+                var res = await context.VocabularyLists.FirstOrDefaultAsync(v => v.Id == 1);
+                Assert.IsNotNull(res);
+                var test = res.VocsGroups.FirstOrDefault(g => g.Id == 1);
+                Assert.IsNotNull(test);
+                Assert.AreEqual("informatics", test.sector);
+                Assert.AreEqual(1, test.Id);
+                var test2 = await context.VocsGroups.FirstOrDefaultAsync(g => g.Id == 1);
+                Assert.IsNotNull(test2);
+                Assert.AreEqual("informatics", test2.sector);
+                Assert.AreEqual(1, test2.Id);
+
+
+            }
+        }
     }
 }

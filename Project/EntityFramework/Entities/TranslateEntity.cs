@@ -14,7 +14,7 @@ namespace Entities
 
         [ForeignKey(nameof(WordsId))]
         public string WordsId { get; set; }
-        public ICollection<VocabularyEntity> Words { get; set; } = new List<VocabularyEntity>();
+        public ICollection<VocabularyEntity> TransVoc { get; set; } = new List<VocabularyEntity>();
 
         [ForeignKey(nameof(VocabularyListVocId))]
         public long VocabularyListVocId { get; set; }
@@ -22,7 +22,7 @@ namespace Entities
 
         public string toString()
         {
-            return Id + "" + WordsId ;
+            return "Id : " + Id +" wordId : " + WordsId + " VocabularyListVocId : " + VocabularyListVocId ;
         }
     }
 }

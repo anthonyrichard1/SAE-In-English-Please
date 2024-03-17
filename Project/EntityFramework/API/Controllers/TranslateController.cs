@@ -1,19 +1,21 @@
 ﻿
 using DTO;
 using DTOToEntity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
     public class TranslateController : ControllerBase
     {
-        private readonly IService<TranslateDTO> _service;
+        private readonly ITranslateService _service;
         private readonly ILogger<TranslateController> _logger;
 
-        public TranslateController(IService<TranslateDTO> TranslateService, ILogger<TranslateController> logger)
+        public TranslateController(ITranslateService TranslateService, ILogger<TranslateController> logger)
         {
             _service = TranslateService;
             _logger = logger;
@@ -104,6 +106,25 @@ namespace API.Controllers
             {
                 // Journaliser l'exception
                 _logger.LogError(ex, "Une erreur s'est produite lors de l'ajout du Translate avec l'ID {id}.", Translate.Id);
+
+                // Retourner une réponse d'erreur
+                return StatusCode(400, ex.Message);
+            }
+        }
+
+        [HttpPost("AddVocab")]
+        public async Task<ActionResult<VocabularyDTO>> AddVocab([FromQuery] string vocabId, long translateId)
+        {
+            try
+            {
+            _logger.LogInformation("Adding a Vocabulary to a Translate with id : {id}", translateId);
+            var newVocab = await _service.AddVocabToTranslate(vocabId, translateId);
+            return newVocab;
+            }
+            catch (Exception ex)
+            {
+                // Journaliser l'exception
+                _logger.LogError(ex, "Une erreur s'est produite lors de l'ajout du Vocabulary au Translate avec l'ID {id}.", translateId);
 
                 // Retourner une réponse d'erreur
                 return StatusCode(400, ex.Message);

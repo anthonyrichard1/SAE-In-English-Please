@@ -11,7 +11,7 @@ namespace Entities
         public string sector { get; set; }
         public ICollection<UserEntity> Users { get; set; } = new List<UserEntity>();
 
-        public ICollection<VocabularyListEntity> VocabularyList { get; set; } = new List<VocabularyListEntity>();
+        public ICollection<VocabularyListEntity> GroupVocabularyList { get; set; } = new List<VocabularyListEntity>();
 
         public string toString()
         {

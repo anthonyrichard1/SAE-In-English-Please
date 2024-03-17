@@ -257,5 +257,66 @@ namespace TU
             }
         }
 
+        [TestMethod]
+        public async Task TestAddUserToGroup()
+        {
+
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+            var options = new DbContextOptionsBuilder<SAEContext>()
+                                .UseSqlite(connection)
+                                .Options;
+
+            using (var context = new StubbedContext(options))
+            {
+                context.Database.EnsureCreated();
+
+                var mockLogger = new Mock<ILogger<GroupController>>();
+
+                var controller = new GroupController(new GroupService(context), mockLogger.Object);
+
+                var result = await controller.AddUserToGroup(1, 1);
+                Assert.IsNotNull(result.Value);
+                Assert.AreEqual(1, result.Value.Id);
+
+
+                var test = await context.Groups.FirstOrDefaultAsync(g => g.Id == 1);
+                var testUser = await context.Users.FirstOrDefaultAsync(g => g.Id == 1);
+                Assert.IsNotNull(test);
+                Assert.IsNotNull(testUser);
+                Assert.AreEqual(test.Users.First(), testUser);
+
+            }
+        }
+
+        [TestMethod]
+        public async Task TestAddVocabListToGroup()
+        {
+            var connection = new SqliteConnection("DataSource=:memory:");
+            connection.Open();
+            var options = new DbContextOptionsBuilder<SAEContext>()
+                                .UseSqlite(connection)
+                                .Options;
+
+            using (var context = new StubbedContext(options))
+            {
+                context.Database.EnsureCreated();
+
+                var mockLogger = new Mock<ILogger<GroupController>>();
+
+                var controller = new GroupController(new GroupService(context), mockLogger.Object);
+
+                var result = await controller.AddVocabularyListToGroup(1, 1);
+                Assert.IsNotNull(result.Value);
+                Assert.AreEqual(1, result.Value.Id);
+
+                var test = await context.Groups.FirstOrDefaultAsync(g => g.Id == 1);
+                var testVocab = await context.VocabularyLists.FirstOrDefaultAsync(g => g.Id == 1);
+                Assert.IsNotNull(test);
+                Assert.IsNotNull(testVocab);
+                Assert.AreEqual(test.GroupVocabularyList.First(), testVocab);
+            }
+        }
+
     }
 }

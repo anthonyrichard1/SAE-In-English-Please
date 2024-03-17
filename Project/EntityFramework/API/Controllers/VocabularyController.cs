@@ -1,10 +1,12 @@
 ﻿
 using DTO;
 using DTOToEntity;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
@@ -129,6 +131,25 @@ namespace API.Controllers
             {
                 // Journaliser l'exception
                 _logger.LogError(ex, "Une erreur s'est produite lors de la récupération des vocabulaires par langue {langue}.",langue);
+
+                // Retourner une réponse d'erreur
+                return StatusCode(400, ex.Message);
+            }
+        }
+
+        [HttpPost("AddTranslation")]
+        public async Task<ActionResult<TranslateDTO>> AddTranslation([FromQuery] string vocId, long translationId)
+        {
+            try
+            {
+                _logger.LogInformation("Adding a translation with id : {id}", vocId);
+                var newVocabulary = await _service.AddTranslationToVocabulary(vocId, translationId);
+                return newVocabulary;
+            }
+            catch (Exception ex)
+            {
+                // Journaliser l'exception
+                _logger.LogError(ex, "Une erreur s'est produite lors de l'ajout de la traduction avec l'ID {id}.", vocId);
 
                 // Retourner une réponse d'erreur
                 return StatusCode(400, ex.Message);

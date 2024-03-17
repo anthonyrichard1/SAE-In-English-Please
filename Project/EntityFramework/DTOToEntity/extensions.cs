@@ -14,7 +14,7 @@ namespace DTOToEntity
                 year = group.Year,
                 sector = group.sector,
                 //Users = group.Users.Select(u => u.ToEntity()).ToList(),
-                //VocabularyList = group.VocabularyList.Select(v => v.ToEntity()).ToList()
+                //GroupVocabularyList = group.GroupVocabularyList.Select(v => v.ToEntity()).ToList()
 
             };
         }
@@ -27,7 +27,7 @@ namespace DTOToEntity
                 Year = group.year,
                 sector = group.sector,
                 //Users = group.Users.Select(u => u.ToDTO()).ToList(),
-                //VocabularyList = group.VocabularyList.Select(v => v.ToDTO()).ToList()
+                //GroupVocabularyList = group.GroupVocabularyList.Select(v => v.ToDTO()).ToList()
             };
         }
         public static LangueEntity ToEntity(this LangueDTO langue)
@@ -71,7 +71,7 @@ namespace DTOToEntity
             {
                 Id = translate.Id,
                 WordsId = translate.WordsId,
-                //Words = translate.Words.Select(w => w.ToEntity()).ToList(),
+                //TransVoc = translate.TransVoc.Select(w => w.ToEntity()).ToList(),
                 //VocabularyListVoc = translate.VocabularyListVoc.ToEntity(),
                 VocabularyListVocId = translate.VocabularyListVocId,
             };
@@ -82,7 +82,7 @@ namespace DTOToEntity
             {
                 Id = translate.Id,
                 WordsId = translate.WordsId,
-                //Words = translate.Words.Select(w => w.ToDTO()).ToList(),
+                //TransVoc = translate.TransVoc.Select(w => w.ToDTO()).ToList(),
                 //VocabularyListVoc = translate.VocabularyListVoc.ToDTO(),
                 VocabularyListVocId = translate.VocabularyListVocId,
             };
@@ -128,7 +128,7 @@ namespace DTOToEntity
             return new VocabularyEntity
             {
                 word = vocabulary.word,
-                //translations = vocabulary.translations.Select(t => t.ToEntity()).ToList(),
+                //Voctranslations = vocabulary.Voctranslations.Select(t => t.ToEntity()).ToList(),
                 LangueName = vocabulary.LangueName,
               
                 //Langue = vocabulary.Langue.ToEntity()
@@ -139,7 +139,7 @@ namespace DTOToEntity
             return new VocabularyDTO
             {
                 word = vocabulary.word,
-                //translations = vocabulary.translations.Select(t => t.ToDTO()).ToList(),
+                //Voctranslations = vocabulary.Voctranslations.Select(t => t.ToDTO()).ToList(),
                 LangueName = vocabulary.LangueName,
                 //Langue = vocabulary.Langue.ToDTO()
             };
@@ -152,8 +152,8 @@ namespace DTOToEntity
                 Name = vocabularyList.Name,
                 Image = vocabularyList.Image,
                 UserId = vocabularyList.UserId,
-                //translation = vocabularyList.translation.Select(t => t.ToEntity()).ToList(),
-                //Groups = vocabularyList.Groups.Select(g => g.ToEntity()).ToList()
+                //translations = vocabularyList.translations.Select(t => t.ToEntity()).ToList(),
+                //VocsGroups = vocabularyList.VocsGroups.Select(g => g.ToEntity()).ToList()
             };
         }
         public static VocabularyListDTO ToDTO(this VocabularyListEntity vocabularyList)
@@ -164,8 +164,8 @@ namespace DTOToEntity
                 Name = vocabularyList.Name,
                 Image = vocabularyList.Image,
                 UserId = vocabularyList.UserId,
-                //translation = vocabularyList.translation.Select(t => t.ToDTO()).ToList(),
-                //Groups = vocabularyList.Groups.Select(g => g.ToDTO()).ToList()
+                //translations = vocabularyList.translations.Select(t => t.ToDTO()).ToList(),
+                //VocsGroups = vocabularyList.VocsGroups.Select(g => g.ToDTO()).ToList()
             };
         }
     }
