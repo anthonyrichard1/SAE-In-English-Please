@@ -27,7 +27,7 @@ Le .sln se trouve dans le repertoir Project/EntityFramework
 
 Il est normalement précisé dans le nom de des tests à quelles parties ils appartiennent
 
-
+Pour utiliser un jeton JWT dans l'en-tête "Authorize", il suffit d'entrer simplement sa valeur, sans mettre ni guillemets ni le mot "Bearer" avant.
 
 ### PHP
 
