@@ -9,6 +9,7 @@ namespace adminBlazor.Models
         public int? Aut { get; set; }
         
         public string? ImageBase64 { get; set; }
-    }
+        public List<Translation>? Translations { get; set; }
+	}
 }
 

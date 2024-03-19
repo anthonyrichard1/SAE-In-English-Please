@@ -49,7 +49,7 @@ namespace adminBlazor.Services
                 var originalList = await _http.GetFromJsonAsync<VocabularyList[]>($"{_navigationManager.BaseUri}voc.json");
                 await _localStorage.SetItemAsync("voc", originalList);
             }
-
+            
             return (await _localStorage.GetItemAsync<VocabularyList[]>("voc")).Length;
         }
 
@@ -62,6 +62,7 @@ namespace adminBlazor.Services
             {
                 // this code add in the local storage the fake data
                 var originalData = await _http.GetFromJsonAsync<VocabularyList[]>($"{_navigationManager.BaseUri}voc.json");
+                
                 await _localStorage.SetItemAsync("voc", originalData);
             }
 

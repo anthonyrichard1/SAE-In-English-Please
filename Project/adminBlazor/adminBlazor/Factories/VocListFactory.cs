@@ -11,7 +11,7 @@ namespace adminBlazor.Factories
     {
         public static VocabularyListModel ToModel(VocabularyList voc, byte[] imageContent)
         {
-            return new VocabularyListModel
+            VocabularyListModel model = new VocabularyListModel
             {
                 Id = voc.Id,
                 Name = voc.Name,
@@ -19,11 +19,22 @@ namespace adminBlazor.Factories
                 Aut = voc.Aut,
                 ImageBase64 = string.IsNullOrWhiteSpace(voc.ImageBase64) ? Convert.ToBase64String(imageContent) : voc.ImageBase64
             };
+                model.Translations = new List<TranslationModel>();
+                foreach (var item in voc.Translations)
+                {
+                    model.Translations.Add(new TranslationModel
+                    {
+                        Id = item.Id,
+                        FirstWord = item.FirstWord,
+                        SecondWord = item.SecondWord
+                    });
+            }
+            return model;
         }
 
         public static VocabularyList Create(VocabularyListModel voc)
         {
-            return new VocabularyList
+            VocabularyList model = new VocabularyList
             {
                 Id = voc.Id,
                 Name = voc.Name,
@@ -31,6 +42,17 @@ namespace adminBlazor.Factories
                 Aut = voc.Aut,
                 ImageBase64 = voc.Image != null ? Convert.ToBase64String(voc.Image) : null
             };
+            model.Translations = new List<Translation>();
+            foreach (var item in voc.Translations)
+            {
+                model.Translations.Add(new Translation
+                {
+                    Id = item.Id,
+                    FirstWord = item.FirstWord,
+                    SecondWord = item.SecondWord
+                });
+            }
+            return model;
         }
         public static void Update(VocabularyList item, VocabularyListModel voc)
         {
@@ -42,6 +64,18 @@ namespace adminBlazor.Factories
 
             if (voc.Aut != null)
                 item.Aut = voc.Aut;
+
+            if (voc.Translations == null) return;
+            item.Translations = new List<Translation>();
+            foreach (var translation in voc.Translations)
+            {
+                item.Translations.Add(new Translation
+                {
+                    Id = translation.Id,
+                    FirstWord = translation.FirstWord,
+                    SecondWord = translation.SecondWord
+                });
+            }
         }
 
     }

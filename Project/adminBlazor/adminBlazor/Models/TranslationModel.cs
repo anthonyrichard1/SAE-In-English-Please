@@ -1,7 +1,7 @@
 ﻿using System;
 namespace adminBlazor.Models
 {
-	public class Translation
+	public class TranslationModel
 	{
 		public int Id { get; set; }
 		public string FirstWord { get; set; }

@@ -1,6 +1,7 @@
 ﻿@page "/editVoc/{Id:int}"
 @attribute [Authorize(Roles = "teacher")]
 @using adminBlazor.Models
+@using Blazorise.Extensions
 
 
 <h3>Edit</h3>
@@ -10,32 +11,41 @@
     <EditForm Model="@voc" OnValidSubmit="@HandleValidSubmit">
         <DataAnnotationsValidator />
         <ValidationSummary />
-
-<<<<<<< HEAD
+        
         <p>
-            <label for="nom">
-                Name :
-                <InputText id="nom" @bind-Value="voc.Name" />
+            <label for="name">
+                Name:
+                <InputText id="name" @bind-Value="voc.Name" />
+                <ValidationMessage For="@(() => voc.Name)" />
             </label>
+
         </p>
-=======
-    <p>
-        <label for="name">
-            Name:
-            <InputText id="name" @bind-Value="voc.Name" />
-            <ValidationMessage For="@(() => voc.Name)" />
-        </label>
-
-    </p>
-    <p>
-        <label>
-            Author
-            <InputNumber @bind-Value="voc.Aut" />
-            <ValidationMessage For="@(() => voc.Aut)" />
-        </label>
-    </p>
->>>>>>> e13ce594471ea79c152b246fc51c65544632624d
-
+        
+        <h4>Words:</h4>
+        @if (voc.Translations.IsNullOrEmpty() == false)
+        {
+            foreach (var word in voc.Translations)
+            {
+                {
+                    <div class="word-container">
+                        <label>
+                            First Word:
+                            <InputText @bind-Value="word.FirstWord"/>
+                        </label>
+                        <label>
+                            Second Word:
+                            <InputText @bind-Value="word.SecondWord"/>
+                        </label>
+                    </div>
+                    <button type="button" @onclick="() => RemoveWord(word)">Remove Word</button>
+                }
+            }
+        }
+        else
+        {
+            <p>No words</p>
+        }
+        <button type="button" @onclick="AddWord">Add Word</button>
         <button type="submit">Submit</button>
     </EditForm>
 }

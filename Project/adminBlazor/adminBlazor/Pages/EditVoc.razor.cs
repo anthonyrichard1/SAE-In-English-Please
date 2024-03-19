@@ -5,6 +5,9 @@ using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Hosting;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
 
 
 namespace adminBlazor.Pages
@@ -22,8 +25,6 @@ namespace adminBlazor.Pages
 
         [Inject]
         public IWebHostEnvironment WebHostEnvironment { get; set; }
-
-        public VocabularyList currVoc;
 
         private VocabularyListModel voc = new VocabularyListModel();
 
@@ -44,8 +45,21 @@ namespace adminBlazor.Pages
             }
         }
 
+        private void AddWord()
+        {
+            if (voc.Translations == null)
+            {
+                voc.Translations = new List<TranslationModel>();
+            }
+            voc.Translations.Add(new TranslationModel());
+        }
+        
+        private void RemoveWord(TranslationModel word)
+        {
+            voc.Translations.Remove(word);
+        }
 
-        protected async Task OnInitializedAsync()
+        protected override async Task OnInitializedAsync()
         {
             var item = await VocListService.GetById(Id);
 

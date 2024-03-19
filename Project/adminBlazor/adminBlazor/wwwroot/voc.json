@@ -2,20 +2,24 @@
   {
     "id": 1,
     "name": "Entreprise",
-    "image": "link",
+    "image": null,
     "aut": null,
-    "words" : [{
+    "translations" : [{
       "id": 1,
-      "firstWord" : "baguette",
-      "secondWord" : "pain"
-    }]
+      "firstWord" : "pain",
+      "secondWord" : "bread"
+    },
+      {"id": 1,
+        "firstWord" : "vin",
+        "secondWord" : "wine"
+      }]
   },
   {
     "id": 2,
     "name": "Animaux",
-    "image": "link",
+    "image": null,
     "aut" :  1,
-    "words": [{
+    "translations": [{
       "id": 1,
       "firstWord" : "baguette",
       "secondWord" : "pain"
