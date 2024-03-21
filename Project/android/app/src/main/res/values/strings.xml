@@ -3,4 +3,5 @@
     <string name="created_by">Created by\u0020</string>
     <string name="liste_voc">List of vocabulary :</string>
     <string name="unknown">Unknown</string>
+    <string name="voc_image_description">Image of the vocabulary list</string>
 </resources>
