@@ -1,4 +1,4 @@
-package ui.screen
+package sae.android.sae_2a.screen
 
 import android.content.res.Resources.Theme
 import androidx.compose.foundation.Image
