@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import sae.android.sae_2a.ui.theme.SAE_2ATheme
-import sae.android.sae_2a.screen.HomeScreen
+import sae.android.sae_2a.ui.screen.MyApp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Greeting("Android")
-                    HomeScreen()
+                    MyApp()
                 }
             }
         }

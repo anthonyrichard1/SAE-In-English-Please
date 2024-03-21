@@ -37,7 +37,7 @@ import androidx.compose.ui.unit.sp
 import sae.android.sae_2a.R
 
 @Composable
-fun VocabularyScreen(){
+fun VocabularyScreen(onNavigateToList: () -> Unit){
     val vocabulary = listOf(
         Vocabulary("test","Autheur", hashMapOf("Fromage" to "Cheese", "Pomme" to "Apple")),
         Vocabulary("test2","Autheur2", hashMapOf("Fromage" to "Cheese", "Pomme" to "Apple"))

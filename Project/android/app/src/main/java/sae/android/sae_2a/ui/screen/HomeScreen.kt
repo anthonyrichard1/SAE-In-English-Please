@@ -1,6 +1,5 @@
-package sae.android.sae_2a.screen
+package sae.android.sae_2a.ui.screen
 
-import android.content.res.Resources.Theme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -24,11 +23,29 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import sae.android.sae_2a.R
+import sae.android.sae_2a.game.VocabularyScreen
+import sae.android.sae_2a.ui.screen.RegisterScreen
 
-@Preview
+
 @Composable
-fun HomeScreen(){
+fun MyApp() {
+    val navController = rememberNavController()
+    NavHost(navController, startDestination = "HomeScreen") {
+        composable("HomeScreen") { HomeScreen( NavigateToRegister = { navController.navigate("RegisterScreen")} ,NavigateToLogin = { navController.navigate("VocabularyScreen") }) }
+        composable("VocabularyScreen") { VocabularyScreen(onNavigateToList = { navController.navigate("HomeScreen") }) }
+        composable("RegisterScreen") { RegisterScreen(NavigateToApp = { navController.navigate("VocabularyScreen") }) }
+
+    }
+}
+
+
+@Composable
+fun HomeScreen(NavigateToRegister: () -> Unit,NavigateToLogin: () -> Unit ){
+
 
     Surface(modifier = Modifier
             .wrapContentWidth(align = Alignment.CenterHorizontally)
@@ -38,31 +55,35 @@ fun HomeScreen(){
                 .background(color = Color.Gray)
                 .wrapContentWidth(align = Alignment.CenterHorizontally)){
             Image(
-                    painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                    painter = painterResource(id = R.drawable.logo),
                     contentDescription = "Description de l'image",
                     modifier = Modifier
-                            .size(width = 200.dp, height = 200.dp)
-                            .padding(16.dp)
+                        .wrapContentWidth(align = Alignment.CenterHorizontally)
+                        .width(800.dp)
+                        .padding(40.dp)
+                        .size(width = 200.dp, height = 200.dp)
             )
-        Text(text ="InEnglishPlease", color = Color.White, fontSize = 18.sp, fontWeight = FontWeight(1000) , modifier = Modifier
-                .padding(30.dp)
+        Text(text ="InEnglishPlease", color = Color.White, fontSize = 30.sp, fontWeight = FontWeight(1000) , modifier = Modifier
+                .padding(40.dp)
                 .wrapContentHeight(align = Alignment.Top)
                 .wrapContentWidth(align = Alignment.CenterHorizontally)
                 .align(alignment = Alignment.CenterHorizontally))
 
-            Button( onClick = { /*TODO*/ }, modifier = Modifier
+            Button( onClick = { NavigateToLogin() }, modifier = Modifier
 
-                    .padding(15.dp)
-                    .width(130.dp)
+                    .padding(30.dp)
+                    .width(150.dp)
+                    .height(80.dp)
                     .align(alignment = Alignment.CenterHorizontally)) {
-                Text(text = "Login", fontSize = 16.sp)
+                Text(text = "Login", fontSize = 20.sp)
 
             }
-            Button(onClick = { /*TODO*/ },modifier = Modifier
-                    .padding(15.dp)
-                    .width(130.dp)
+            Button(onClick = { NavigateToRegister() },modifier = Modifier
+                    .padding(30.dp)
+                    .width(150.dp)
+                    .height(80.dp)
                     .align(alignment = Alignment.CenterHorizontally)) {
-                Text(text = "Register", fontSize = 16.sp)
+                Text(text = "Register", fontSize = 20.sp)
         }
     }
     }
